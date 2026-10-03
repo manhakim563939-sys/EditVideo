@@ -404,6 +404,7 @@ A["pin"] = with_shadow(pin(), blur=6, alpha=0.3)
 A["wa"] = whatsapp_button()
 A["arrow"] = arrow_down()
 A["k_tanya"] = kicker("ADA PERTANYAAN?")
+A["steps_panel"] = with_shadow(Image.new("RGBA", (1010, 300), CREAM + (255,)), blur=8, alpha=0.3)
 A["icons"] = [with_shadow(person_icon(c), blur=5, alpha=0.3) for c in [YELLOW, (120, 180, 200), (240, 150, 140)]]
 A["swatches"] = [swatch(c) for c in [(95, 165, 172), (168, 206, 196), (212, 188, 150), (150, 108, 76),
                                      (128, 30, 46), (205, 38, 52), (118, 124, 134), (44, 60, 92)]]
@@ -767,7 +768,6 @@ def overlays(c, t):
     pop(c, A["logo"], t, 15.85, W / 2, 380, rot=0, t1=17.65, sfx="ding")
 
     # 5. no ladders, no measuring headaches (17.85 - 21.4)
-    broll(c, t, "b4", 17.85, 21.35, 300, 740, rot=-3, src0=0.0, caption="Kami yang pasangkan")
     slide(c, A["x_tangga"], t, 17.95, 770, 240, rot=2, t1=21.35, dx=300)
     slide(c, A["x_ukur"], t, 20.3, 770, 400, rot=-2, t1=21.35, dx=300)
 
@@ -777,6 +777,7 @@ def overlays(c, t):
     if 24.05 <= t <= 30.1:
         a = clamp((t - 24.05) / 0.15) * (1 - clamp((t - 29.85) / 0.25))
         cue(t, 24.05, "swoosh")
+        place(c, A["steps_panel"], W / 2, 335, alpha=a * 0.92)
         place(c, steps(t, [24.15, 26.7, 28.0]), W / 2, 330, alpha=a)
         cue(t, 26.7, "pop")
         cue(t, 28.0, "pop")
@@ -836,12 +837,59 @@ def overlays(c, t):
         place(c, A["arrow"], 150, 1290 + bob, alpha=clamp((t - 43.3) / 0.15))
 
 
+# ---------------------------------------------------------------- full-screen B-roll
+# The presenter mostly looks down at her phone here, so the voice-over runs over
+# full-frame installation footage instead: (start, end, clip dir, source offset)
+FULLSCREEN = [
+    (15.65, 17.80, "f3", 6.5),   # brand
+    (17.80, 21.48, "f4", 0.0),   # no ladders: installer at work
+    (21.48, 24.02, "f3", 9.0),   # A-Z service
+    (24.02, 26.66, "f3", 12.0),  # 1 measure
+    (26.66, 27.96, "f2", 9.0),   # 2 sew
+    (27.96, 29.97, "f4", 4.6),   # 3 install
+]
+_VIGNETTE = None
+
+
+def fullscreen(t):
+    global _VIGNETTE
+    seg = [s for s in FULLSCREEN if s[0] <= t < s[1]]
+    if not seg:
+        return None
+    t0, t1, name, src0 = seg[0]
+    cue(t, t0, "whoosh")
+    files = _broll_cache.setdefault(name, sorted(os.listdir(f"{WD}/{name}")))
+    j = int(clamp((src0 + t - t0) * FPS, 0, len(files) - 1))
+    fr = cv2.cvtColor(cv2.imread(f"{WD}/{name}/{files[j]}"), cv2.COLOR_BGR2RGB)
+    # punch-in on the cut, then slow push
+    k = t - t0
+    z = 1.0 + 0.06 * (1 - ease_out(k / 0.3)) + 0.04 * clamp(k / (t1 - t0))
+    if z > 1.001:
+        cw, ch = int(W / z), int(H / z)
+        x0, y0 = (W - cw) // 2, (H - ch) // 2
+        fr = cv2.resize(fr[y0:y0 + ch, x0:x0 + cw], (W, H), interpolation=cv2.INTER_LINEAR)
+    f = fr.astype(np.float32)
+    f = (f - 128) * 1.05 + 128 + np.array([5, 2, -3], np.float32)
+    if _VIGNETTE is None:  # darken top and bottom so cards and captions read
+        y = np.linspace(0, 1, H)[:, None]
+        v = 1 - 0.38 * np.clip((0.4 - y) / 0.4, 0, 1) - 0.32 * np.clip((y - 0.72) / 0.28, 0, 1)
+        _VIGNETTE = np.repeat(v, W, axis=1)[..., None].astype(np.float32)
+    f = f * _VIGNETTE
+    if k < 0.08:  # flash frame on the cut
+        f = f + (255 - f) * (1 - k / 0.08) * 0.6
+    return np.clip(f, 0, 255)
+
+
 # ---------------------------------------------------------------- frame
 def render(t):
     i = min(N - 1, int(t * FPS))
-    base = BG.astype(np.float32)
-    tail = clamp((t - N / FPS) / 0.5)
-    composite_person(base, i, t, alpha=1 - tail)
+    fs = fullscreen(t)
+    if fs is not None:
+        base = fs
+    else:
+        base = BG.astype(np.float32)
+        tail = clamp((t - N / FPS) / 0.5)
+        composite_person(base, i, t, alpha=1 - tail)
     base += GRAIN[int(t * FPS) % len(GRAIN)][..., None] * 0.6
     canvas = Image.fromarray(np.clip(base, 0, 255).astype(np.uint8)).convert("RGBA")
     overlays(canvas, t)
