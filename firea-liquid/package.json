@@ -1,0 +1,17 @@
+{
+  "name": "firea-liquid",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "audio": "node scripts/make-audio.mjs",
+    "studio": "remotion studio",
+    "preview": "node scripts/make-audio.mjs && remotion render FireaLiquid out/firea-liquid-preview.mp4 --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell --crf=18"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.533",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.533"
+  },
+  "devDependencies": {"typescript": "5.6.3", "@types/react": "18.3.12"}
+}

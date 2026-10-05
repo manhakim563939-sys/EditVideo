@@ -1,0 +1,34 @@
+{
+  "fps": 30,
+  "durationInFrames": 900,
+  "bpm": 100,
+  "morphLen": 24,
+  "scenes": {
+    "hook":  {"from": 0,   "to": 120},
+    "prob":  {"from": 120, "to": 270},
+    "story": {"from": 270, "to": 420},
+    "usp":   {"from": 420, "to": 570},
+    "zero":  {"from": 570, "to": 705},
+    "life":  {"from": 705, "to": 810},
+    "cta":   {"from": 810, "to": 900}
+  },
+  "cues": {
+    "hook_photo": 14, "hook_t1": 24, "hook_t2": 38, "hook_t3": 54,
+    "prob_t1": 142, "prob_t2": 176, "prob_t3": 206,
+    "story_photo": 288, "story_t1": 302, "story_t2": 326, "story_t3": 340,
+    "usp_t1": 440, "usp_t2": 464, "usp_t3": 494, "usp_t4": 518,
+    "zero_n1": 594, "zero_n2": 610, "zero_t": 640,
+    "life_photo": 722, "life_t1": 736, "life_t2": 752,
+    "cta_photo": 826, "cta_name": 838, "cta_btn": 854, "cta_tag": 870
+  },
+  "sfx": [
+    [0, "swell"],
+    ["hook_photo", "bloop"], ["hook_t1", "tick"], ["hook_t2", "tick"], ["hook_t3", "tick"],
+    ["prob_t1", "tick"], ["prob_t2", "bloop"], ["prob_t3", "tick"],
+    ["story_photo", "bloop"], ["story_t1", "tick"], ["story_t2", "tick"],
+    ["usp_t1", "tick"], ["usp_t2", "tick"], ["usp_t3", "tick"],
+    ["zero_n1", "bloop"], ["zero_n2", "bloop"], ["zero_t", "tick"],
+    ["life_photo", "bloop"], ["life_t1", "tick"], ["life_t2", "tick"],
+    ["cta_photo", "bloop"], ["cta_name", "tick"], ["cta_btn", "bloop"], ["cta_tag", "tick"]
+  ]
+}
