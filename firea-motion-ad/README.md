@@ -1,7 +1,8 @@
 # Firea Celeste Musk — Motion Ad (Awareness–Edutainment) · PREVIEW
 
 9:16 · 1080×1920 · 30fps · 30s · 100% motion, text-led (tiada VO).
-Preview: `out/firea_preview.mp4` (belum final export — tunggu approve).
+Final: `out/Firea_CelesteMusk_9x16_FINAL.mp4` (H.264 yuv420p, CRF 16, AAC 320k, faststart) — `npm run final`.
+Preview: `out/firea_preview.mp4`.
 
 ## Flow (frame @30fps, dalam `src/timeline.json`)
 | Babak | Frame | Isi |

@@ -4,7 +4,8 @@
   "scripts": {
     "audio": "node scripts/make-audio.mjs",
     "studio": "remotion studio",
-    "preview": "remotion render FireaAd out/firea_preview.mp4 --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell --crf=20"
+    "preview": "remotion render FireaAd out/firea_preview.mp4 --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell --crf=20",
+    "final": "remotion render FireaAd scratch/final_raw.mp4 --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell --crf=16 --audio-bitrate=320k && ffmpeg -y -i scratch/final_raw.mp4 -vf \"scale=in_range=full:out_range=tv,format=yuv420p\" -c:v libx264 -preset slow -crf 16 -profile:v high -c:a copy -movflags +faststart out/Firea_CelesteMusk_9x16_FINAL.mp4"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.532",
