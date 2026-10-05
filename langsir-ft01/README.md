@@ -1,5 +1,7 @@
 # Aimi Curtain — VGC-FT01 (Edit Footage · Fast Track)
 
+**FINAL:** `AimiCurtain_Final_9x16.mp4` — 1080×1920, 30fps, 47.8s, CRF 16, AAC 256k, −15.5 LUFS.
+
 `preview_v2.mp4` — preview 1080×1920, 30fps, 47.8s (44.9s rakaman asal + 2.9s end card). **Belum final export.**
 
 v2: saat 16.1–30.0 (bahagian tengok phone) ditutup sepenuhnya dengan B-roll pemasangan/hasil + testimoni WhatsApp pelanggan; suara asal kekal.
