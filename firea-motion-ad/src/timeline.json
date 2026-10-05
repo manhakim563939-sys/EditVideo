@@ -1,0 +1,33 @@
+{
+  "fps": 30,
+  "durationInFrames": 900,
+  "bpm": 120,
+  "scenes": {
+    "hook":  {"from": 0,   "to": 105},
+    "prob":  {"from": 105, "to": 285},
+    "story": {"from": 285, "to": 585},
+    "zero":  {"from": 585, "to": 705},
+    "life":  {"from": 705, "to": 795},
+    "cta":   {"from": 795, "to": 900}
+  },
+  "cues": {
+    "hook_w1": 4, "hook_w2": 28, "hook_w3": 52, "hook_w4": 66,
+    "prob_w1": 112, "prob_w2": 135, "prob_w3": 150,
+    "prob_b1": 203, "prob_b2": 218, "prob_b3": 238,
+    "story_line": 285, "story_reveal": 315, "story_name": 345,
+    "usp_in": 405, "usp1": 420, "usp2": 450, "usp3": 483, "usp4": 510,
+    "zero1": 593, "zero1_lock": 605, "zero2": 620, "zero2_lock": 632, "zero3": 655,
+    "life1": 717, "life2": 735,
+    "cta_name": 805, "cta_btn": 828, "cta_tag": 848
+  },
+  "sfx": [
+    ["hook_w1", "hit"], ["hook_w2", "click"], ["hook_w3", "click"], ["hook_w4", "pop"],
+    [105, "whoosh"], ["prob_w1", "click"], ["prob_w2", "hit"], ["prob_w3", "hit"],
+    [195, "whoosh"], ["prob_b1", "click"], ["prob_b2", "hit"], ["prob_b3", "click"],
+    [240, "riser"], ["story_line", "impact"], ["story_reveal", "whoosh"], ["story_name", "click"],
+    ["usp_in", "whoosh"], ["usp1", "pop"], ["usp2", "pop"], ["usp3", "click"], ["usp4", "click"],
+    [585, "whoosh"], ["zero1", "roll"], ["zero1_lock", "hit"], ["zero2", "roll"], ["zero2_lock", "hit"], ["zero3", "click"],
+    [705, "whoosh"], ["life1", "click"], ["life2", "click"],
+    [795, "impact"], ["cta_name", "click"], ["cta_btn", "pop"], ["cta_tag", "click"]
+  ]
+}
