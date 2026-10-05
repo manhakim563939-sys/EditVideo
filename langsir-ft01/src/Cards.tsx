@@ -173,6 +173,24 @@ const Badge: React.FC<{ c: Card; t: number }> = ({ c, t }) => {
   );
 };
 
+// Real customer feedback supplied by the client (text copied from the WhatsApp screenshot, names/numbers left out).
+const Testimonial: React.FC<{ c: Card; t: number }> = ({ c, t }) => {
+  const a = popIn(t, c.s, 0.32);
+  const b = popIn(t, c.s + 0.12);
+  return (
+    <div style={{ position: "absolute", top: 930, left: 70, right: 70, display: "flex", flexDirection: "column", alignItems: "flex-start", opacity: fadeOut(t, c.e) }}>
+      <div style={{ transform: `scale(${b}) rotate(-3deg)`, transformOrigin: "0% 100%", marginLeft: 20, marginBottom: -14, zIndex: 2 }}>
+        <Pill style={{ background: C.terracotta, color: C.white, fontSize: 40, padding: "8px 24px" }}>{c.label}</Pill>
+      </div>
+      <div style={{ position: "relative", background: C.white, borderRadius: "8px 34px 34px 34px", padding: "34px 36px 22px", boxShadow: "0 18px 50px rgba(0,0,0,0.35)", transform: `translateY(${(1 - a) * 50}px) scale(${0.9 + 0.1 * a})`, transformOrigin: "0% 0%", opacity: Math.min(1, a * 1.5) }}>
+        <div style={{ position: "absolute", left: -18, top: 0, width: 0, height: 0, borderTop: `26px solid ${C.white}`, borderLeft: "20px solid transparent" }} />
+        <div style={{ fontFamily: `${F.body}, 'Noto Color Emoji'`, fontWeight: 700, fontSize: 44, lineHeight: 1.3, color: "#1F1B1D" }}>{c.quote}</div>
+        <div style={{ marginTop: 12, fontFamily: F.body, fontWeight: 700, fontSize: 28, color: C.sage }}>{c.who}</div>
+      </div>
+    </div>
+  );
+};
+
 const Steps: React.FC<{ c: Card; t: number }> = ({ c, t }) => {
   const items = c.items as [string, number, string][];
   const a = popIn(t, c.s - 0.05);
@@ -281,6 +299,7 @@ const MAP: Record<string, React.FC<{ c: Card; t: number }>> = {
   brand: Brand,
   nochips: NoChips,
   badge: Badge,
+  testimonial: Testimonial,
   steps: Steps,
   swatches: Swatches,
   pin: Pin,

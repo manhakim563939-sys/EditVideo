@@ -1,84 +1,586 @@
 {
-  "fps": 30,
-  "footageEnd": 44.86,
-  "endCardDur": 2.9,
-  "refreshAt": 11.8,
-  "shots": [
-    { "s": 0.0, "e": 2.77, "zoom": [1.18, 1.24], "oy": 0.30 },
-    { "s": 2.77, "e": 5.58, "zoom": [1.04, 1.10], "oy": 0.30 },
-    { "s": 5.58, "e": 8.02, "zoom": [1.10, 1.06], "oy": 0.28 },
-    { "s": 8.02, "e": 11.8, "zoom": [1.0, 1.08], "oy": 0.28 },
-    { "s": 11.8, "e": 16.12, "zoom": [1.08, 1.0], "oy": 0.30 },
-    { "s": 16.12, "e": 21.43, "zoom": [1.04, 1.10], "oy": 0.25 },
-    { "s": 21.43, "e": 29.97, "zoom": [1.0, 1.08], "oy": 0.25 },
-    { "s": 29.97, "e": 34.07, "zoom": [1.10, 1.04], "oy": 0.25 },
-    { "s": 34.07, "e": 37.93, "zoom": [1.0, 1.06], "oy": 0.30 },
-    { "s": 37.93, "e": 42.68, "zoom": [1.06, 1.12], "oy": 0.30 },
-    { "s": 42.68, "e": 44.86, "zoom": [1.16, 1.22], "oy": 0.40 }
-  ],
-  "punches": [
-    { "t": 4.55, "amt": 0.08, "dur": 1.0 },
-    { "t": 7.86, "amt": 0.08, "dur": 2.2 },
-    { "t": 21.58, "amt": 0.07, "dur": 2.1 },
-    { "t": 36.04, "amt": 0.07, "dur": 1.8 }
-  ],
-  "captions": [
-    { "s": 0.17, "e": 1.58, "t": "Langsir di ruang tamu itu", "hl": ["Langsir"] },
-    { "s": 1.62, "e": 2.74, "t": "dah bertahun tak bertukar.", "hl": ["bertahun"] },
-    { "s": 2.86, "e": 4.45, "t": "Warnanya yang asal terang,", "hl": [] },
-    { "s": 4.55, "e": 5.56, "t": "dah pudar, nampak kusam.", "hl": ["pudar,", "kusam."] },
-    { "s": 5.63, "e": 7.76, "t": "Bila ada tetamu atau saudara-mara yang datang,", "hl": ["tetamu"] },
-    { "s": 7.86, "e": 10.18, "t": "mula rasa segan sebab suasana rumah", "hl": ["segan"] },
-    { "s": 10.31, "e": 11.78, "t": "nampak suram dengan langsir lama.", "hl": ["suram"] },
-    { "s": 11.87, "e": 13.5, "t": "Dah tiba masa untuk refresh", "hl": ["refresh"] },
-    { "s": 13.63, "e": 16.05, "t": "dan naikkan balik seri ruang tamu anda.", "hl": ["seri"] },
-    { "s": 16.14, "e": 17.66, "t": "Biar Aimi Curtain selesaikan.", "hl": ["Aimi", "Curtain"] },
-    { "s": 17.88, "e": 20.11, "t": "Anda tak perlu penat-penat panjat tangga atau", "hl": ["tangga"] },
-    { "s": 20.31, "e": 21.36, "t": "pening fikir ukuran.", "hl": ["ukuran."] },
-    { "s": 21.58, "e": 23.74, "t": "Kami sediakan khidmat A–Z.", "hl": ["A–Z."] },
-    { "s": 24.18, "e": 26.22, "t": "Team kami akan datang ukur di rumah anda,", "hl": ["ukur"] },
-    { "s": 26.71, "e": 28.05, "t": "kami jahitkan dengan kemas", "hl": ["jahitkan"] },
-    { "s": 28.09, "e": 29.93, "t": "dan kami buatkan pemasangan sekali.", "hl": ["pemasangan"] },
-    { "s": 30.02, "e": 32.0, "t": "Anda pilih je langsir baru", "hl": ["pilih"] },
-    { "s": 32.0, "e": 34.0, "t": "dari beratus koleksi cantik yang kami ada.", "hl": ["beratus", "koleksi"] },
-    { "s": 34.11, "e": 35.84, "t": "Jadi orang Kulim dan berdekatan,", "hl": ["Kulim"] },
-    { "s": 36.04, "e": 37.9, "t": "jom tukar wajah baru rumah anda.", "hl": ["wajah", "baru"] },
-    { "s": 37.98, "e": 40.32, "t": "Kami adalah syarikat 100% Bumiputera", "hl": ["100%", "Bumiputera"] },
-    { "s": 40.43, "e": 42.64, "t": "yang terletak di Kelang Lama Square, Kulim.", "hl": ["Kulim."] },
-    { "s": 42.74, "e": 44.86, "t": "Klik WhatsApp di bawah untuk sebarang pertanyaan.", "hl": ["WhatsApp"] }
-  ],
-  "cards": [
-    { "type": "hook", "s": 0.1, "e": 2.74, "title": "Langsir lama,", "sub": "rumah nampak suram?" },
-    { "type": "fade", "s": 2.86, "e": 5.56, "title": "Pudar & kusam" },
-    { "type": "refresh", "s": 11.8, "e": 13.55, "title": "Refresh!" },
-    { "type": "brand", "s": 16.14, "e": 17.8, "title": "Aimi Curtain", "sub": "Kedai langsir · Kulim" },
-    { "type": "nochips", "s": 17.88, "e": 21.4, "items": [["Panjat tangga", 17.95], ["Pening ukur", 20.31]] },
-    { "type": "badge", "s": 21.58, "e": 23.9, "title": "Khidmat A–Z" },
-    { "type": "steps", "s": 24.18, "e": 29.95, "items": [["Ukur", 24.25, "ruler"], ["Jahit", 26.71, "needle"], ["Pasang", 28.1, "hook"]] },
-    { "type": "swatches", "s": 30.02, "e": 34.0, "title": "Beratus koleksi" },
-    { "type": "pin", "s": 34.11, "e": 37.9, "title": "Kulim & sekitar" },
-    { "type": "bumi", "s": 37.98, "e": 42.64, "title": "100% Bumiputera", "sub": "Kelang Lama Square, Kulim" },
-    { "type": "cta", "s": 42.74, "e": 44.86, "title": "Klik WhatsApp di bawah" }
-  ],
-  "sfx": [
-    { "t": 0.1, "k": "pop", "g": 0.45 },
-    { "t": 2.86, "k": "whoosh_s", "g": 0.3 },
-    { "t": 10.8, "k": "riser", "g": 0.35, "d": 1.0 },
-    { "t": 11.8, "k": "whoosh", "g": 0.55 },
-    { "t": 11.84, "k": "impact", "g": 0.5 },
-    { "t": 11.9, "k": "shimmer", "g": 0.3 },
-    { "t": 16.14, "k": "pop", "g": 0.4 },
-    { "t": 17.95, "k": "click", "g": 0.4 },
-    { "t": 20.31, "k": "click", "g": 0.4 },
-    { "t": 21.58, "k": "impact_s", "g": 0.4 },
-    { "t": 24.25, "k": "click", "g": 0.38 },
-    { "t": 26.71, "k": "click", "g": 0.38 },
-    { "t": 28.1, "k": "click", "g": 0.38 },
-    { "t": 30.02, "k": "whoosh_s", "g": 0.3 },
-    { "t": 34.11, "k": "pop", "g": 0.4 },
-    { "t": 37.98, "k": "pop", "g": 0.4 },
-    { "t": 42.74, "k": "pop", "g": 0.45 },
-    { "t": 44.86, "k": "whoosh", "g": 0.4 },
-    { "t": 45.0, "k": "shimmer", "g": 0.3 }
-  ]
+ "fps": 30,
+ "footageEnd": 44.86,
+ "endCardDur": 2.9,
+ "refreshAt": 11.8,
+ "shots": [
+  {
+   "s": 0.0,
+   "e": 2.77,
+   "zoom": [
+    1.18,
+    1.24
+   ],
+   "oy": 0.3
+  },
+  {
+   "s": 2.77,
+   "e": 5.58,
+   "zoom": [
+    1.04,
+    1.1
+   ],
+   "oy": 0.3
+  },
+  {
+   "s": 5.58,
+   "e": 8.02,
+   "zoom": [
+    1.1,
+    1.06
+   ],
+   "oy": 0.28
+  },
+  {
+   "s": 8.02,
+   "e": 11.8,
+   "zoom": [
+    1.0,
+    1.08
+   ],
+   "oy": 0.28
+  },
+  {
+   "s": 11.8,
+   "e": 16.12,
+   "zoom": [
+    1.08,
+    1.0
+   ],
+   "oy": 0.3
+  },
+  {
+   "s": 16.12,
+   "e": 21.43,
+   "zoom": [
+    1.04,
+    1.1
+   ],
+   "oy": 0.25
+  },
+  {
+   "s": 21.43,
+   "e": 29.97,
+   "zoom": [
+    1.0,
+    1.08
+   ],
+   "oy": 0.25
+  },
+  {
+   "s": 29.97,
+   "e": 34.07,
+   "zoom": [
+    1.1,
+    1.04
+   ],
+   "oy": 0.25
+  },
+  {
+   "s": 34.07,
+   "e": 37.93,
+   "zoom": [
+    1.0,
+    1.06
+   ],
+   "oy": 0.3
+  },
+  {
+   "s": 37.93,
+   "e": 42.68,
+   "zoom": [
+    1.06,
+    1.12
+   ],
+   "oy": 0.3
+  },
+  {
+   "s": 42.68,
+   "e": 44.86,
+   "zoom": [
+    1.16,
+    1.22
+   ],
+   "oy": 0.4
+  }
+ ],
+ "punches": [
+  {
+   "t": 4.55,
+   "amt": 0.08,
+   "dur": 1.0
+  },
+  {
+   "t": 7.86,
+   "amt": 0.08,
+   "dur": 2.2
+  },
+  {
+   "t": 21.58,
+   "amt": 0.07,
+   "dur": 2.1
+  },
+  {
+   "t": 36.04,
+   "amt": 0.07,
+   "dur": 1.8
+  }
+ ],
+ "captions": [
+  {
+   "s": 0.17,
+   "e": 1.58,
+   "t": "Langsir di ruang tamu itu",
+   "hl": [
+    "Langsir"
+   ]
+  },
+  {
+   "s": 1.62,
+   "e": 2.74,
+   "t": "dah bertahun tak bertukar.",
+   "hl": [
+    "bertahun"
+   ]
+  },
+  {
+   "s": 2.86,
+   "e": 4.45,
+   "t": "Warnanya yang asal terang,",
+   "hl": []
+  },
+  {
+   "s": 4.55,
+   "e": 5.56,
+   "t": "dah pudar, nampak kusam.",
+   "hl": [
+    "pudar,",
+    "kusam."
+   ]
+  },
+  {
+   "s": 5.63,
+   "e": 7.76,
+   "t": "Bila ada tetamu atau saudara-mara yang datang,",
+   "hl": [
+    "tetamu"
+   ]
+  },
+  {
+   "s": 7.86,
+   "e": 10.18,
+   "t": "mula rasa segan sebab suasana rumah",
+   "hl": [
+    "segan"
+   ]
+  },
+  {
+   "s": 10.31,
+   "e": 11.78,
+   "t": "nampak suram dengan langsir lama.",
+   "hl": [
+    "suram"
+   ]
+  },
+  {
+   "s": 11.87,
+   "e": 13.5,
+   "t": "Dah tiba masa untuk refresh",
+   "hl": [
+    "refresh"
+   ]
+  },
+  {
+   "s": 13.63,
+   "e": 16.05,
+   "t": "dan naikkan balik seri ruang tamu anda.",
+   "hl": [
+    "seri"
+   ]
+  },
+  {
+   "s": 16.14,
+   "e": 17.66,
+   "t": "Biar Aimi Curtain selesaikan.",
+   "hl": [
+    "Aimi",
+    "Curtain"
+   ]
+  },
+  {
+   "s": 17.88,
+   "e": 20.11,
+   "t": "Anda tak perlu penat-penat panjat tangga atau",
+   "hl": [
+    "tangga"
+   ]
+  },
+  {
+   "s": 20.31,
+   "e": 21.36,
+   "t": "pening fikir ukuran.",
+   "hl": [
+    "ukuran."
+   ]
+  },
+  {
+   "s": 21.58,
+   "e": 23.74,
+   "t": "Kami sediakan khidmat A–Z.",
+   "hl": [
+    "A–Z."
+   ]
+  },
+  {
+   "s": 24.18,
+   "e": 26.22,
+   "t": "Team kami akan datang ukur di rumah anda,",
+   "hl": [
+    "ukur"
+   ]
+  },
+  {
+   "s": 26.71,
+   "e": 28.05,
+   "t": "kami jahitkan dengan kemas",
+   "hl": [
+    "jahitkan"
+   ]
+  },
+  {
+   "s": 28.09,
+   "e": 29.93,
+   "t": "dan kami buatkan pemasangan sekali.",
+   "hl": [
+    "pemasangan"
+   ]
+  },
+  {
+   "s": 30.02,
+   "e": 32.0,
+   "t": "Anda pilih je langsir baru",
+   "hl": [
+    "pilih"
+   ]
+  },
+  {
+   "s": 32.0,
+   "e": 34.0,
+   "t": "dari beratus koleksi cantik yang kami ada.",
+   "hl": [
+    "beratus",
+    "koleksi"
+   ]
+  },
+  {
+   "s": 34.11,
+   "e": 35.84,
+   "t": "Jadi orang Kulim dan berdekatan,",
+   "hl": [
+    "Kulim"
+   ]
+  },
+  {
+   "s": 36.04,
+   "e": 37.9,
+   "t": "jom tukar wajah baru rumah anda.",
+   "hl": [
+    "wajah",
+    "baru"
+   ]
+  },
+  {
+   "s": 37.98,
+   "e": 40.32,
+   "t": "Kami adalah syarikat 100% Bumiputera",
+   "hl": [
+    "100%",
+    "Bumiputera"
+   ]
+  },
+  {
+   "s": 40.43,
+   "e": 42.64,
+   "t": "yang terletak di Kelang Lama Square, Kulim.",
+   "hl": [
+    "Kulim."
+   ]
+  },
+  {
+   "s": 42.74,
+   "e": 44.86,
+   "t": "Klik WhatsApp di bawah untuk sebarang pertanyaan.",
+   "hl": [
+    "WhatsApp"
+   ]
+  }
+ ],
+ "cards": [
+  {
+   "type": "hook",
+   "s": 0.1,
+   "e": 2.74,
+   "title": "Langsir lama,",
+   "sub": "rumah nampak suram?"
+  },
+  {
+   "type": "fade",
+   "s": 2.86,
+   "e": 5.56,
+   "title": "Pudar & kusam"
+  },
+  {
+   "type": "refresh",
+   "s": 11.8,
+   "e": 13.55,
+   "title": "Refresh!"
+  },
+  {
+   "type": "brand",
+   "s": 16.14,
+   "e": 17.8,
+   "title": "Aimi Curtain",
+   "sub": "Kedai langsir · Kulim"
+  },
+  {
+   "type": "nochips",
+   "s": 17.88,
+   "e": 21.4,
+   "items": [
+    [
+     "Panjat tangga",
+     17.95
+    ],
+    [
+     "Pening ukur",
+     20.31
+    ]
+   ]
+  },
+  {
+   "type": "testimonial",
+   "s": 21.45,
+   "e": 24.05,
+   "label": "Khidmat A–Z",
+   "quote": "…terima kasih buat langsir rumah ira..dari consult smpai ke siap pasang...cantik sgt2 😍😍😍",
+   "who": "Maklum balas pelanggan (WhatsApp)"
+  },
+  {
+   "type": "steps",
+   "s": 24.18,
+   "e": 29.95,
+   "items": [
+    [
+     "Ukur",
+     24.25,
+     "ruler"
+    ],
+    [
+     "Jahit",
+     26.71,
+     "needle"
+    ],
+    [
+     "Pasang",
+     28.1,
+     "hook"
+    ]
+   ]
+  },
+  {
+   "type": "swatches",
+   "s": 30.02,
+   "e": 34.0,
+   "title": "Beratus koleksi"
+  },
+  {
+   "type": "pin",
+   "s": 34.11,
+   "e": 37.9,
+   "title": "Kulim & sekitar"
+  },
+  {
+   "type": "bumi",
+   "s": 37.98,
+   "e": 42.64,
+   "title": "100% Bumiputera",
+   "sub": "Kelang Lama Square, Kulim"
+  },
+  {
+   "type": "cta",
+   "s": 42.74,
+   "e": 44.86,
+   "title": "Klik WhatsApp di bawah"
+  }
+ ],
+ "sfx": [
+  {
+   "t": 0.1,
+   "k": "pop",
+   "g": 0.45
+  },
+  {
+   "t": 2.86,
+   "k": "whoosh_s",
+   "g": 0.3
+  },
+  {
+   "t": 10.8,
+   "k": "riser",
+   "g": 0.35,
+   "d": 1.0
+  },
+  {
+   "t": 11.8,
+   "k": "whoosh",
+   "g": 0.55
+  },
+  {
+   "t": 11.84,
+   "k": "impact",
+   "g": 0.5
+  },
+  {
+   "t": 11.9,
+   "k": "shimmer",
+   "g": 0.3
+  },
+  {
+   "t": 16.12,
+   "k": "whoosh_s",
+   "g": 0.28
+  },
+  {
+   "t": 16.14,
+   "k": "pop",
+   "g": 0.4
+  },
+  {
+   "t": 17.95,
+   "k": "click",
+   "g": 0.4
+  },
+  {
+   "t": 20.31,
+   "k": "click",
+   "g": 0.4
+  },
+  {
+   "t": 21.45,
+   "k": "pop",
+   "g": 0.4
+  },
+  {
+   "t": 24.25,
+   "k": "click",
+   "g": 0.38
+  },
+  {
+   "t": 26.71,
+   "k": "click",
+   "g": 0.38
+  },
+  {
+   "t": 28.1,
+   "k": "click",
+   "g": 0.38
+  },
+  {
+   "t": 30.02,
+   "k": "whoosh_s",
+   "g": 0.3
+  },
+  {
+   "t": 34.11,
+   "k": "pop",
+   "g": 0.4
+  },
+  {
+   "t": 37.98,
+   "k": "pop",
+   "g": 0.4
+  },
+  {
+   "t": 42.74,
+   "k": "pop",
+   "g": 0.45
+  },
+  {
+   "t": 44.86,
+   "k": "whoosh",
+   "g": 0.4
+  },
+  {
+   "t": 45.0,
+   "k": "shimmer",
+   "g": 0.3
+  }
+ ],
+ "broll": [
+  {
+   "s": 16.12,
+   "e": 17.8,
+   "img": "img/ruang-tamu.jpg",
+   "zoom": [
+    1.0,
+    1.08
+   ],
+   "oy": 0.55
+  },
+  {
+   "s": 17.8,
+   "e": 21.4,
+   "src": "broll/pasang-tangga.mp4",
+   "in": 1.4,
+   "zoom": [
+    1.04,
+    1.08
+   ],
+   "oy": 0.4
+  },
+  {
+   "s": 21.4,
+   "e": 24.1,
+   "src": "broll/pasang-tangga.mp4",
+   "in": 5.0,
+   "zoom": [
+    1.0,
+    1.06
+   ],
+   "oy": 0.4
+  },
+  {
+   "s": 24.1,
+   "e": 26.6,
+   "src": "broll/pan-ruang-tamu.mp4",
+   "in": 7.0,
+   "zoom": [
+    1.04,
+    1.0
+   ],
+   "oy": 0.4
+  },
+  {
+   "s": 26.6,
+   "e": 28.05,
+   "src": "broll/ikat-tieback.mp4",
+   "in": 0.0,
+   "zoom": [
+    1.0,
+    1.06
+   ],
+   "oy": 0.4
+  },
+  {
+   "s": 28.05,
+   "e": 29.97,
+   "src": "broll/ikat-tieback.mp4",
+   "in": 3.5,
+   "zoom": [
+    1.02,
+    1.08
+   ],
+   "oy": 0.4
+  }
+ ]
 }

@@ -1,6 +1,8 @@
 # Aimi Curtain — VGC-FT01 (Edit Footage · Fast Track)
 
-`preview_v1.mp4` — preview 1080×1920, 30fps, 47.8s (44.9s rakaman asal + 2.9s end card). **Belum final export.**
+`preview_v2.mp4` — preview 1080×1920, 30fps, 47.8s (44.9s rakaman asal + 2.9s end card). **Belum final export.**
+
+v2: saat 16.1–30.0 (bahagian tengok phone) ditutup sepenuhnya dengan B-roll pemasangan/hasil + testimoni WhatsApp pelanggan; suara asal kekal.
 
 ## Struktur
 - `src/timeline.json` — SEMUA timing: shot, punch-in, sari kata, kad grafik, SFX. Visual dan audio baca fail yang sama.
@@ -8,6 +10,7 @@
 - `src/Captions.tsx`, `src/Cards.tsx`, `src/EndCard.tsx`, `src/theme.ts` (warna & font).
 - `audio/gen_audio.py` — soundtrack + SFX procedural (numpy), ducking ikut dialog.
 - `public/footage.mp4` — salinan rakaman asal (bahan asal tidak diubah).
+- `public/broll/`, `public/img/` — salinan B-roll & foto ruang tamu. Susunan B-roll dalam `broll` di `src/timeline.json`.
 
 ## Cara edit & render
 ```bash

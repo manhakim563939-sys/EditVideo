@@ -4,6 +4,7 @@ import {
   Audio,
   Easing,
   Freeze,
+  Img,
   OffthreadVideo,
   Sequence,
   continueRender,
@@ -89,6 +90,44 @@ const Footage: React.FC = () => {
   );
 };
 
+type BRollItem = (typeof tl.broll)[number];
+
+// Full-frame cover shots: hide the phone-reading section with install / result footage.
+// The presenter's voice keeps playing from dialog.wav underneath.
+const BRollShot: React.FC<{ b: BRollItem }> = ({ b }) => {
+  const f = useCurrentFrame(); // relative to this shot's Sequence
+  const dur = b.e - b.s;
+  const p = f / FPS / dur;
+  const z = interpolate(p, [0, 1], b.zoom, { easing: ease, extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const style: React.CSSProperties = {
+    width: W,
+    height: H,
+    objectFit: "cover",
+    transform: `scale(${z})`,
+    transformOrigin: `50% ${b.oy * 100}%`,
+    filter: grade(b.s + f / FPS),
+  };
+  return (
+    <AbsoluteFill style={{ overflow: "hidden", backgroundColor: C.plum }}>
+      {"img" in b && b.img ? (
+        <Img src={staticFile(b.img)} style={style} />
+      ) : (
+        <OffthreadVideo src={staticFile(b.src as string)} startFrom={Math.round((b.in ?? 0) * FPS)} muted style={style} />
+      )}
+    </AbsoluteFill>
+  );
+};
+
+const BRoll: React.FC = () => (
+  <>
+    {tl.broll.map((b, i) => (
+      <Sequence key={i} from={Math.round(b.s * FPS)} durationInFrames={Math.round((b.e - b.s) * FPS)}>
+        <BRollShot b={b} />
+      </Sequence>
+    ))}
+  </>
+);
+
 // Two fabric panels close over the cut at refreshAt and open onto the warm grade.
 const CurtainWipe: React.FC = () => {
   const f = useCurrentFrame();
@@ -130,6 +169,7 @@ export const Main: React.FC = () => {
       <Sequence durationInFrames={END_F}>
         <Footage />
       </Sequence>
+      <BRoll />
       <Sequence from={END_F}>
         <Freeze frame={END_F - 2}>
           <AbsoluteFill style={{ filter: "blur(18px) brightness(0.55)", transform: "scale(1.08)" }}>
