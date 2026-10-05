@@ -1,0 +1,275 @@
+{
+  "fps": 30,
+  "durationInFrames": 900,
+  "bpm": 120,
+  "_note": "Cue dalam frame TEMPATAN setiap babak. Visual dan audio membaca fail yang sama.",
+  "scenes": [
+    {
+      "id": "hook",
+      "len": 120,
+      "cues": {
+        "nota": 0,
+        "l1": 8,
+        "l2": 22,
+        "l3": 40,
+        "foto": 60,
+        "close": 112
+      }
+    },
+    {
+      "id": "prob",
+      "len": 150,
+      "cues": {
+        "dlg": 4,
+        "t1": 18,
+        "t2": 52,
+        "t3": 84,
+        "close": 142
+      }
+    },
+    {
+      "id": "story",
+      "len": 135,
+      "cues": {
+        "foto": 2,
+        "panel": 30,
+        "t2": 48,
+        "close": 127
+      }
+    },
+    {
+      "id": "usp",
+      "len": 150,
+      "cues": {
+        "win": 2,
+        "c1": 30,
+        "c2": 52,
+        "c3": 74,
+        "c4": 96,
+        "close": 142
+      }
+    },
+    {
+      "id": "zero",
+      "len": 120,
+      "cues": {
+        "a": 6,
+        "b": 22,
+        "note": 52,
+        "close": 112
+      }
+    },
+    {
+      "id": "life",
+      "len": 135,
+      "cues": {
+        "icon": 2,
+        "win": 8,
+        "cap": 20,
+        "cursor": 34,
+        "grab": 54,
+        "drop": 88,
+        "close": 127
+      }
+    },
+    {
+      "id": "cta",
+      "len": 90,
+      "cues": {
+        "foto": 0,
+        "panel": 12,
+        "btn": 30,
+        "tag": 46
+      }
+    }
+  ],
+  "cursorPath": [
+    {
+      "f": 34,
+      "x": 860,
+      "y": 470
+    },
+    {
+      "f": 50,
+      "x": 205,
+      "y": 540
+    },
+    {
+      "f": 56,
+      "x": 205,
+      "y": 540
+    },
+    {
+      "f": 86,
+      "x": 640,
+      "y": 1110
+    }
+  ],
+  "sfx": [
+    [
+      "hook",
+      0,
+      "open"
+    ],
+    [
+      "hook",
+      8,
+      "type"
+    ],
+    [
+      "hook",
+      22,
+      "type"
+    ],
+    [
+      "hook",
+      40,
+      "type"
+    ],
+    [
+      "hook",
+      60,
+      "open"
+    ],
+    [
+      "hook",
+      112,
+      "close"
+    ],
+    [
+      "prob",
+      4,
+      "alert"
+    ],
+    [
+      "prob",
+      52,
+      "blip"
+    ],
+    [
+      "prob",
+      84,
+      "blip"
+    ],
+    [
+      "prob",
+      142,
+      "close"
+    ],
+    [
+      "story",
+      2,
+      "open"
+    ],
+    [
+      "story",
+      30,
+      "open"
+    ],
+    [
+      "story",
+      127,
+      "close"
+    ],
+    [
+      "usp",
+      2,
+      "open"
+    ],
+    [
+      "usp",
+      30,
+      "check"
+    ],
+    [
+      "usp",
+      52,
+      "check"
+    ],
+    [
+      "usp",
+      74,
+      "check"
+    ],
+    [
+      "usp",
+      96,
+      "check"
+    ],
+    [
+      "usp",
+      142,
+      "close"
+    ],
+    [
+      "zero",
+      6,
+      "open"
+    ],
+    [
+      "zero",
+      22,
+      "open"
+    ],
+    [
+      "zero",
+      52,
+      "open"
+    ],
+    [
+      "zero",
+      112,
+      "close"
+    ],
+    [
+      "life",
+      2,
+      "blip"
+    ],
+    [
+      "life",
+      8,
+      "open"
+    ],
+    [
+      "life",
+      20,
+      "open"
+    ],
+    [
+      "life",
+      56,
+      "click"
+    ],
+    [
+      "life",
+      58,
+      "drag"
+    ],
+    [
+      "life",
+      88,
+      "drop"
+    ],
+    [
+      "life",
+      127,
+      "close"
+    ],
+    [
+      "cta",
+      0,
+      "open"
+    ],
+    [
+      "cta",
+      12,
+      "open"
+    ],
+    [
+      "cta",
+      30,
+      "fanfare"
+    ]
+  ]
+}
