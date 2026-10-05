@@ -1,0 +1,5 @@
+.venv/
+build/
+# Client source footage/screenshots stay local (privacy + size). See README.
+assets/source/
+__pycache__/
