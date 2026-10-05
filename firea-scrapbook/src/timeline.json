@@ -1,0 +1,32 @@
+{
+  "fps": 30,
+  "durationInFrames": 900,
+  "bpm": 90,
+  "scenes": {
+    "hook":  {"from": 0,   "to": 120},
+    "prob":  {"from": 120, "to": 270},
+    "story": {"from": 270, "to": 420},
+    "evid":  {"from": 420, "to": 705},
+    "life":  {"from": 705, "to": 810},
+    "cta":   {"from": 810, "to": 900}
+  },
+  "cues": {
+    "hook_print": 0, "hook_tape": 10, "hook_h1": 18, "hook_h2": 30, "hook_h3": 42, "hook_tag": 64, "hook_arrow": 70,
+    "prob_s1": 128, "prob_drops": 142, "prob_s2": 162, "prob_note": 196,
+    "story_print": 272, "story_tape": 280, "story_strip": 300, "story_circle": 330, "story_tag": 346,
+    "evid_print": 422, "evid_tape": 430, "evid_box": 450, "evid_strip": 464, "evid_note": 500,
+    "evid_swap": 570, "evid_c1": 578, "evid_c2": 592, "evid_strip2": 606, "evid_note2": 640,
+    "life_print": 707, "life_tape": 715, "life_strip": 732, "life_tag": 760,
+    "cta_print": 812, "cta_name": 828, "cta_btn": 845, "cta_tag": 862
+  },
+  "sfx": [
+    ["hook_print", "paper"], ["hook_tape", "tape"], ["hook_h1", "tick"], ["hook_h2", "tick"], ["hook_h3", "tick"], ["hook_tag", "marker"],
+    ["prob_s1", "paper"], ["prob_drops", "marker"], ["prob_s2", "paper"], ["prob_note", "marker"],
+    ["story_print", "paper"], ["story_tape", "tape"], ["story_strip", "paper"], ["story_circle", "marker"], ["story_tag", "tick"],
+    ["evid_print", "paper"], ["evid_tape", "tape"], ["evid_box", "marker"], ["evid_strip", "paper"], ["evid_note", "marker"],
+    ["evid_swap", "slide"], ["evid_c1", "marker"], ["evid_c2", "marker"], ["evid_strip2", "paper"], ["evid_note2", "marker"],
+    ["life_print", "paper"], ["life_tape", "tape"], ["life_strip", "paper"], ["life_tag", "marker"],
+    ["cta_print", "paper"], ["cta_name", "tick"], ["cta_btn", "stamp"], ["cta_tag", "marker"],
+    [112, "slide"], [262, "slide"], [412, "slide"], [697, "slide"], [802, "slide"]
+  ]
+}
