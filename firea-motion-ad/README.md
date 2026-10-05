@@ -11,7 +11,7 @@ Preview: `out/firea_preview.mp4` (belum final export — tunggu approve).
 | Penerangan | 240–480 | 01 peluh hampir tak berbau → 02 bakteria memecahkan peluh → 03 tudung & lengan panjang = kurang aliran udara |
 | Penerangan 2 | 480–600 | Deodorant = kawal bau, Antiperspirant = kurangkan peluh → pilih yang buat kedua-duanya |
 | Contoh | 600–780 | Firea Celeste Musk + ciri dari label; 50ml mudah dibawa; sesuai kegunaan harian |
-| Takeaway | 780–900 | "Kawal peluh, kawal bau — yakin seharian." + logo + CTA |
+| Takeaway | 780–900 | "Kawal peluh, kawal bau — yakin seharian." + logo + CTA "Dapatkan Sekarang" |
 
 ## Struktur
 - `assets/original/` — salinan bahan asal (tidak diubah)

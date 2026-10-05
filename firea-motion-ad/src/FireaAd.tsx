@@ -289,8 +289,7 @@ const Takeaway: React.FC<SceneProps> = ({ f }) => {
         position: "absolute", left: 300, top: 820, width: 480, opacity: logo, transform: `scale(${0.8 + 0.2 * logo})`,
       }} />
       <div style={{ position: "absolute", top: 1180, width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 26, opacity: Math.min(1, cta * 1.5), transform: `translateY(${(1 - cta) * 40}px)` }}>
-        <div style={{ fontFamily: sans, fontWeight: 700, fontSize: 50, background: C.white, color: C.maroon, padding: "22px 52px", borderRadius: 999 }}>{CTA.line}</div>
-        <div style={{ fontFamily: sans, fontWeight: 500, fontSize: 42, color: C.white, letterSpacing: 1 }}>{CTA.url}</div>
+        <div style={{ fontFamily: sans, fontWeight: 700, fontSize: 56, background: C.white, color: C.maroon, padding: "22px 52px", borderRadius: 999 }}>{CTA.line}</div>
       </div>
     </AbsoluteFill>
   );

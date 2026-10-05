@@ -32,5 +32,5 @@ export const C = {
   white: "#FFFFFF",
 };
 
-// Teks CTA — isian sementara kerana CTA belum diberi dalam brief.
-export const CTA = { line: "Kenali Firea Celeste Musk", url: "www.firea.com" };
+// Teks CTA (disahkan klien)
+export const CTA = { line: "Dapatkan Sekarang" };
