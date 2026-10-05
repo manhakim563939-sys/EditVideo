@@ -1,0 +1,188 @@
+{
+ "fps": 30,
+ "durationInFrames": 900,
+ "bpm": 120,
+ "scenes": {
+  "hook": {
+   "from": 0,
+   "to": 120
+  },
+  "question": {
+   "from": 120,
+   "to": 240
+  },
+  "explain": {
+   "from": 240,
+   "to": 480
+  },
+  "compare": {
+   "from": 480,
+   "to": 600
+  },
+  "example": {
+   "from": 600,
+   "to": 780
+  },
+  "takeaway": {
+   "from": 780,
+   "to": 900
+  }
+ },
+ "beats": {
+  "hookWord1": 2,
+  "hookSticker1": 40,
+  "hookSticker2": 60,
+  "hookSticker3": 80,
+  "qMark": 126,
+  "qLine1": 132,
+  "qLine2": 146,
+  "qLine3": 166,
+  "riserStart": 196,
+  "step1": 244,
+  "step2": 315,
+  "bacteria": 326,
+  "step3": 400,
+  "cardA": 490,
+  "cardB": 512,
+  "plus": 545,
+  "product": 604,
+  "chip1": 620,
+  "chip2": 634,
+  "chip3": 648,
+  "chip4": 662,
+  "chip5": 676,
+  "life": 690,
+  "lifeChip": 732,
+  "takeaway": 786,
+  "endcard": 840
+ },
+ "sfx": [
+  {
+   "f": 2,
+   "type": "impact",
+   "gain": 0.55
+  },
+  {
+   "f": 40,
+   "type": "pop"
+  },
+  {
+   "f": 60,
+   "type": "pop"
+  },
+  {
+   "f": 80,
+   "type": "pop"
+  },
+  {
+   "f": 86,
+   "type": "blip",
+   "gain": 0.5
+  },
+  {
+   "f": 115,
+   "type": "whoosh"
+  },
+  {
+   "f": 126,
+   "type": "pop",
+   "gain": 0.9
+  },
+  {
+   "f": 196,
+   "type": "riser",
+   "len": 44
+  },
+  {
+   "f": 240,
+   "type": "impact"
+  },
+  {
+   "f": 246,
+   "type": "blip"
+  },
+  {
+   "f": 315,
+   "type": "click"
+  },
+  {
+   "f": 328,
+   "type": "fizz"
+  },
+  {
+   "f": 400,
+   "type": "click"
+  },
+  {
+   "f": 475,
+   "type": "whoosh"
+  },
+  {
+   "f": 490,
+   "type": "pop"
+  },
+  {
+   "f": 512,
+   "type": "pop"
+  },
+  {
+   "f": 545,
+   "type": "click"
+  },
+  {
+   "f": 595,
+   "type": "whoosh"
+  },
+  {
+   "f": 604,
+   "type": "impact"
+  },
+  {
+   "f": 620,
+   "type": "pop",
+   "gain": 0.6
+  },
+  {
+   "f": 634,
+   "type": "pop",
+   "gain": 0.6
+  },
+  {
+   "f": 648,
+   "type": "pop",
+   "gain": 0.6
+  },
+  {
+   "f": 662,
+   "type": "pop",
+   "gain": 0.6
+  },
+  {
+   "f": 676,
+   "type": "pop",
+   "gain": 0.6
+  },
+  {
+   "f": 686,
+   "type": "whoosh",
+   "gain": 0.6
+  },
+  {
+   "f": 732,
+   "type": "click"
+  },
+  {
+   "f": 775,
+   "type": "whoosh"
+  },
+  {
+   "f": 786,
+   "type": "impact",
+   "gain": 0.6
+  },
+  {
+   "f": 842,
+   "type": "sparkle"
+  }
+ ]
+}

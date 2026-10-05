@@ -1,0 +1,19 @@
+{
+  "name": "firea-motion-ad",
+  "private": true,
+  "scripts": {
+    "audio": "node scripts/make-audio.mjs",
+    "studio": "remotion studio",
+    "preview": "remotion render FireaAd out/firea_preview.mp4 --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell --crf=20"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.532",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.532"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7"
+  }
+}
