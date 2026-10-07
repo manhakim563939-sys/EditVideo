@@ -1,0 +1,793 @@
+<title>Deodoran Firea</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;700&family=Kalam:wght@400&display=swap">
+<style>
+/* Layout: satu kolum jualan gaya "form page" — seksyen gelap (bara) berselang dengan seksyen krim, highlight kuning pada kata kunci tajuk */
+:root{
+  --cream:#fbf4ec; --paper:#fffaf5; --ink:#2b1a17; --muted:#6f5a52; --line:#ead9cb;
+  --ember:#3a1215; --ember-2:#561a1c; --on-ember:#fbeee6; --on-ember-muted:#d9b9ad;
+  --flame:#e0531f; --flame-ink:#fff; --gold:#ffd23f; --gold-ink:#2b1a17;
+  --good:#1f8a4c; --bad:#cf2f2f; --bad-bg:#fdecec; --good-bg:#eaf6ee;
+  --shadow:0 10px 30px -14px rgba(58,18,21,.35);
+  --f-display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --f-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-hand:"Kalam","Comic Sans MS",cursive;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --cream:#1b1213; --paper:#251819; --ink:#f6e9e2; --muted:#c3aaa0; --line:#3d2a28;
+  --ember:#2a0c0e; --ember-2:#44151a; --on-ember:#fbeee6; --on-ember-muted:#d9b9ad;
+  --flame:#f06a35; --gold:#ffd23f; --good:#4cc47e; --bad:#ff6b6b; --bad-bg:#3a1c1c; --good-bg:#16301f;
+  --shadow:0 10px 30px -14px rgba(0,0,0,.7); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --cream:#1b1213; --paper:#251819; --ink:#f6e9e2; --muted:#c3aaa0; --line:#3d2a28;
+  --ember:#2a0c0e; --ember-2:#44151a; --on-ember:#fbeee6; --on-ember-muted:#d9b9ad;
+  --flame:#f06a35; --gold:#ffd23f; --good:#4cc47e; --bad:#ff6b6b; --bad-bg:#3a1c1c; --good-bg:#16301f;
+  --shadow:0 10px 30px -14px rgba(0,0,0,.7); color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+img{max-width:100%}
+body{margin:0;background:var(--cream);color:var(--ink);font:400 16px/1.6 var(--f-body)}
+h1,h2,h3{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0;letter-spacing:-.01em}
+h1{font-size:clamp(1.9rem,5.2vw,3rem);font-weight:800}
+h2{font-size:clamp(1.6rem,4.2vw,2.4rem);font-weight:800}
+h3{font-size:1.15rem;font-weight:600}
+p{margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:16px}
+.narrow{max-width:720px;margin:0 auto}
+section{padding-block:clamp(48px,8vw,88px)}
+.center{text-align:center}
+.stack{display:grid;gap:18px}
+.hl{background:var(--gold);color:var(--gold-ink);padding:0 .22em;border-radius:6px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.eyebrow{font-family:var(--f-hand);color:var(--flame);font-size:1.1rem}
+.dark .eyebrow{color:var(--gold)}
+.lead{color:var(--muted);font-size:1.05rem;max-width:62ch;margin-inline:auto}
+.dark{background:radial-gradient(120% 90% at 50% 0%,var(--ember-2),var(--ember) 70%);color:var(--on-ember)}
+.dark .lead{color:var(--on-ember-muted)}
+b,strong{font-weight:700}
+
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:var(--gold-ink);font:700 1.05rem var(--f-body);padding:15px 28px;border-radius:12px;border:0;cursor:pointer;text-decoration:none;box-shadow:0 6px 0 #c99a10,0 14px 24px -10px rgba(0,0,0,.4);transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn:focus-visible,button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid var(--flame);outline-offset:3px}
+.btn.alt{background:var(--flame);color:var(--flame-ink);box-shadow:0 6px 0 #9e3410,0 14px 24px -10px rgba(0,0,0,.4)}
+.micro{font-size:.82rem;color:var(--muted);margin-top:12px}
+.dark .micro{color:var(--on-ember-muted)}
+
+/* draft markers */
+.ed{border-radius:4px}
+body.draft .ed{outline:2px dashed var(--gold);outline-offset:2px;background:color-mix(in srgb,var(--gold) 18%,transparent)}
+#draftbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:60;background:var(--gold);color:var(--gold-ink);font-size:.85rem;padding:8px 16px;display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap}
+#draftbar button{font:inherit;font-weight:700;background:var(--ink);color:var(--cream);border:0;border-radius:8px;padding:4px 10px;cursor:pointer}
+
+/* HERO */
+.hero{padding-top:40px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:10px 0 22px}
+.chip{border:1px solid color-mix(in srgb,var(--gold) 45%,transparent);color:var(--on-ember);border-radius:999px;padding:6px 14px;font-size:.85rem;background:rgba(255,255,255,.05)}
+.hero-grid{display:grid;gap:36px;align-items:center;margin-top:34px;grid-template-columns:1fr}
+.phone{width:min(300px,80%);aspect-ratio:9/17;margin:0 auto;border-radius:38px;background:#111;padding:10px;box-shadow:0 30px 60px -20px rgba(0,0,0,.6);position:relative}
+.phone-in{width:100%;height:100%;border-radius:30px;overflow:hidden;background:linear-gradient(160deg,#ffb48a,#e0531f 55%,#561a1c);display:grid;place-items:center;position:relative}
+.phone-in .play{width:68px;height:68px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center}
+.phone-in .tag{position:absolute;top:18px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--gold-ink);font-size:.75rem;font-weight:700;padding:5px 12px;border-radius:999px;white-space:nowrap}
+.phone-in .cap{position:absolute;bottom:16px;left:12px;right:12px;text-align:center;color:#fff;font-size:.78rem;opacity:.9}
+.sticker{position:absolute;top:40px;left:-18px;transform:rotate(-8deg);background:var(--paper);color:var(--ink);font-family:var(--f-hand);padding:4px 12px;border-radius:8px;box-shadow:var(--shadow);font-size:.9rem}
+.quote{background:var(--paper);color:var(--ink);border-radius:16px;padding:22px 26px;max-width:620px;margin:34px auto 26px;box-shadow:var(--shadow);border:2px solid var(--gold)}
+.quote p{font-style:italic;font-size:1.15rem;font-family:Georgia,serif}
+.quote small{display:block;margin-top:8px;color:var(--flame);font-weight:700}
+
+.ticker{background:var(--ember);color:var(--on-ember);overflow:hidden;border-top:1px solid rgba(255,255,255,.08);padding-block:12px}
+.ticker-track{display:flex;gap:36px;width:max-content;animation:tick 30s linear infinite;font-size:.9rem;font-weight:500}
+.ticker-track span::before{content:"✦";color:var(--gold);margin-right:10px}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* image placeholders */
+.ph{aspect-ratio:4/3;max-width:100%;border-radius:14px;background:repeating-linear-gradient(135deg,color-mix(in srgb,var(--flame) 10%,var(--paper)) 0 14px,var(--paper) 14px 28px);display:grid;place-items:center;text-align:center;padding:16px;color:var(--muted);font-size:.82rem;border:1px dashed var(--line)}
+.ph b{display:block;color:var(--ink);font-size:.85rem;margin-bottom:4px}
+
+/* pain cards */
+.pain{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:18px;margin-top:34px}
+.pcard{background:var(--paper);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.pcard .ph{border-radius:0;border:0;border-bottom:1px solid var(--line)}
+.pcard .icon{width:46px;height:46px;border-radius:50%;background:var(--gold);display:grid;place-items:center;margin:-23px auto 0;position:relative;font-size:1.2rem;color:var(--gold-ink)}
+.pcard p{padding:12px 22px 22px;text-align:center;color:var(--muted)}
+.pcard p b{color:var(--ink)}
+.callout{font-family:var(--f-display);font-weight:800;color:var(--flame);font-size:1.25rem;margin-top:34px}
+
+/* mechanism */
+.mech{display:grid;gap:32px;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));align-items:center;margin-top:28px}
+.steps{list-style:none;padding:0;margin:0;display:grid;gap:12px;counter-reset:s}
+.steps li{display:flex;gap:14px;align-items:flex-start;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 16px;counter-increment:s}
+.steps li::before{content:counter(s);flex:0 0 30px;height:30px;border-radius:50%;background:var(--bad-bg);color:var(--bad);font-weight:700;display:grid;place-items:center}
+.skin{background:var(--ember);border-radius:24px;padding:20px;box-shadow:var(--shadow)}
+.skin canvas{width:100%;height:auto;display:block;border-radius:14px}
+.skin p{color:var(--on-ember);text-align:center;font-weight:700;margin-top:10px}
+.risk{background:var(--paper);border-radius:18px;padding:24px;box-shadow:var(--shadow);margin-top:30px}
+.risk ul{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:10px}
+.risk li{display:flex;gap:10px}
+.x::before{content:"✕";flex:0 0 22px;height:22px;border-radius:50%;background:var(--bad);color:#fff;font-size:.72rem;display:grid;place-items:center;margin-top:2px}
+.ok::before{content:"✓";flex:0 0 22px;height:22px;border-radius:50%;background:var(--good);color:#fff;font-size:.75rem;display:grid;place-items:center;margin-top:2px}
+.now{font-family:var(--f-display);font-weight:800;font-size:clamp(3rem,12vw,6rem);color:var(--flame);letter-spacing:.02em;line-height:1;margin:8px 0}
+
+/* compare */
+.vs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:0;border-radius:22px;overflow:hidden;box-shadow:var(--shadow);margin-top:30px;position:relative}
+.vs>div{padding:26px;display:grid;gap:14px;align-content:start}
+.vs .a{background:var(--bad-bg)}
+.vs .b{background:var(--good-bg)}
+.vs h3{font-size:1.6rem;font-weight:800}
+.vs .a h3 span{color:var(--bad)} .vs .b h3 span{color:var(--good)}
+.vs small{text-transform:uppercase;letter-spacing:.08em;font-weight:700;font-size:.78rem}
+.vs ul{list-style:none;padding:0;margin:0;display:grid;gap:9px;font-size:.95rem}
+.vs li{display:flex;gap:10px}
+.table-scroll{overflow-x:auto;margin-top:30px;border-radius:16px;box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;min-width:520px;background:var(--paper);font-size:.92rem}
+th,td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--line)}
+thead th{background:var(--flame);color:#fff}
+td:nth-child(2){color:var(--muted)}
+td:nth-child(3),th:nth-child(3){background:var(--ember);color:var(--on-ember);font-weight:700;text-align:center}
+thead th:nth-child(3){background:var(--gold);color:var(--gold-ink)}
+
+/* features */
+.feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:18px;margin-top:30px}
+.fcard{background:var(--paper);border:2px solid var(--line);border-radius:18px;overflow:hidden}
+.fcard header{background:var(--ember);color:var(--on-ember);padding:12px;text-align:center;font-family:var(--f-display);font-weight:600;font-size:1.15rem}
+.fcard .ph{border-radius:0;border:0}
+.fcard p{padding:16px 18px;color:var(--muted);font-size:.93rem;text-align:center}
+.fcard p b{color:var(--ink);display:block;margin-top:6px}
+.banner{background:var(--ember);color:var(--on-ember);border:2px solid var(--gold);border-radius:14px;padding:14px 20px;max-width:560px;margin:30px auto 0}
+.banner b{color:var(--gold)}
+
+.quality{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:34px;align-items:center}
+.badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.badge{border:1px dashed var(--line);background:var(--paper);border-radius:12px;padding:10px 14px;font-size:.8rem;font-weight:700;min-width:84px;text-align:center}
+
+/* spotlight */
+.spot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:34px;align-items:center}
+.bottle-card{background:linear-gradient(160deg,#fff3e6,#ffd7bd);border-radius:22px;padding:24px;position:relative;box-shadow:0 30px 60px -20px rgba(0,0,0,.6)}
+.bottle-card .ribbon{position:absolute;top:16px;right:16px;background:var(--flame);color:#fff;font-weight:700;font-size:.78rem;padding:5px 12px;border-radius:999px}
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}
+.spec{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:12px}
+.spec b{display:block;color:var(--gold)}
+.spec span{font-size:.82rem;color:var(--on-ember-muted)}
+.dark ul.checks{list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px}
+.dark ul.checks li{display:flex;gap:10px}
+
+/* routine */
+.routine{display:grid;gap:14px;max-width:640px;margin:30px auto 0}
+.rstep{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;background:var(--paper);border:1px solid var(--line);border-left:6px solid var(--flame);border-radius:14px;padding:16px 18px}
+.rstep time{font-family:var(--f-display);font-weight:800;color:var(--flame);font-size:.95rem;min-width:80px}
+.rstep p{color:var(--muted);font-size:.93rem}
+.rstep b{color:var(--ink);display:block}
+
+/* for who */
+.who{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px;margin-top:30px}
+.who .box{background:var(--paper);color:var(--ink);border-radius:18px;padding:22px}
+.who h3{margin-bottom:12px}
+.who ul{list-style:none;padding:0;margin:0;display:grid;gap:10px;font-size:.95rem}
+.who li{display:flex;gap:10px}
+
+/* pricing */
+.price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:18px;margin-top:34px;align-items:end}
+.pkg{background:var(--paper);color:var(--ink);border-radius:20px;padding:24px 20px;text-align:center;border:2px solid transparent;cursor:pointer;display:grid;gap:8px;position:relative;font:inherit;transition:transform .15s}
+.pkg:hover{transform:translateY(-3px)}
+.pkg[aria-pressed="true"]{border-color:var(--gold);box-shadow:0 0 0 4px color-mix(in srgb,var(--gold) 35%,transparent)}
+.pkg .pop{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--flame);color:#fff;font-size:.75rem;font-weight:700;padding:5px 12px;border-radius:999px;white-space:nowrap}
+.pkg .kind{text-transform:uppercase;letter-spacing:.08em;font-size:.72rem;color:var(--flame);font-weight:700}
+.pkg .qty{font-family:var(--f-display);font-weight:800;font-size:1.4rem}
+.pkg .old{text-decoration:line-through;color:var(--muted);font-size:.9rem}
+.pkg .now-p{font-family:var(--f-display);font-weight:800;font-size:2.2rem;line-height:1;font-variant-numeric:tabular-nums}
+.pkg .per{font-size:.82rem;color:var(--muted)}
+.pkg .ship{font-size:.8rem;font-weight:700;color:var(--good)}
+.pkg.featured{padding-block:34px}
+.ship-note{color:var(--on-ember-muted);font-size:.88rem;margin-top:22px}
+
+/* order */
+.order{background:var(--paper);border-radius:22px;box-shadow:var(--shadow);padding:clamp(18px,4vw,34px);max-width:640px;margin:30px auto 0;display:grid;gap:16px}
+.order h3{font-size:1.05rem;border-bottom:1px solid var(--line);padding-bottom:8px}
+.field{display:grid;gap:6px}
+.field label{font-weight:700;font-size:.88rem}
+.field label i{color:var(--bad);font-style:normal}
+.order input,.order select,.order textarea{font:inherit;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--cream);color:var(--ink);width:100%}
+.row2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:14px}
+.pay{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pay label{border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;gap:8px;align-items:center;cursor:pointer;font-size:.92rem}
+.pay input{width:auto}
+.summary{background:var(--cream);border-radius:14px;padding:16px;display:grid;gap:6px;font-variant-numeric:tabular-nums}
+.summary div{display:flex;justify-content:space-between;gap:10px}
+.summary .total{font-weight:800;font-size:1.15rem;border-top:1px solid var(--line);padding-top:8px;margin-top:4px}
+.order .btn{justify-content:center;width:100%}
+.err{color:var(--bad);font-size:.88rem}
+#done{background:var(--good-bg);border-radius:14px;padding:16px;display:grid;gap:10px}
+#done pre{white-space:pre-wrap;font:inherit;font-size:.88rem;background:var(--paper);padding:12px;border-radius:10px;margin:0;max-height:240px;overflow:auto}
+#done .rowb{display:flex;gap:10px;flex-wrap:wrap}
+#done .rowb > *{flex:1 1 180px;justify-content:center}
+
+.after{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:16px;margin-top:28px}
+.after .s{background:var(--paper);border-radius:16px;padding:20px;text-align:center;box-shadow:var(--shadow)}
+.after .s small{display:inline-block;background:var(--gold);color:var(--gold-ink);font-weight:700;font-size:.72rem;padding:3px 10px;border-radius:999px;margin-bottom:8px}
+
+.guard{background:#1d0b0c;color:var(--on-ember);border-radius:24px;padding:clamp(22px,4vw,40px);max-width:620px;margin:0 auto;text-align:center;box-shadow:var(--shadow)}
+.seal{width:84px;height:84px;margin:0 auto 12px;border-radius:50%;background:radial-gradient(circle,var(--gold) 55%,#c99a10 56%);display:grid;place-items:center;color:var(--gold-ink);font-family:var(--f-display);font-weight:800;font-size:1.3rem}
+.guard ul{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:14px;text-align:left}
+.guard li{display:grid;grid-template-columns:36px 1fr;gap:12px}
+.guard li>span{width:36px;height:36px;border-radius:50%;background:var(--gold);color:var(--gold-ink);display:grid;place-items:center;font-weight:800}
+.guard li p{color:var(--on-ember-muted);font-size:.9rem}
+.guard li b{color:var(--on-ember)}
+
+.trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:30px;align-items:center}
+
+.faq{max-width:720px;margin:28px auto 0;display:grid;gap:10px}
+.faq details{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:4px 18px}
+.faq summary{cursor:pointer;font-weight:700;padding:12px 0;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::after{content:"+";color:var(--flame);font-size:1.3rem;line-height:1}
+.faq details[open] summary::after{content:"–"}
+.faq details p{padding-bottom:14px;color:var(--muted)}
+
+.final{background:var(--paper);border-radius:24px;padding:clamp(22px,4vw,40px);max-width:640px;margin:0 auto;box-shadow:var(--shadow);text-align:center;display:grid;gap:16px}
+.final ul{list-style:none;padding:0;margin:0;display:grid;gap:10px;text-align:left}
+.final li{display:flex;gap:10px}
+.letter{max-width:640px;margin:30px auto 0;color:var(--muted);font-size:.95rem;display:grid;gap:12px}
+.sign{font-family:var(--f-hand);font-size:1.4rem;color:var(--ink)}
+footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 110px}
+
+/* floating */
+#promo{position:fixed;left:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;background:var(--paper);color:var(--ink);border-radius:14px;box-shadow:0 14px 30px -10px rgba(0,0,0,.45);overflow:hidden;max-width:300px}
+#promo .tagp{background:linear-gradient(180deg,var(--flame),#b8320f);color:#fff;font-family:var(--f-display);font-weight:800;padding:14px 12px;display:grid;place-items:center;text-align:center;font-size:.9rem;line-height:1.1}
+#promo .body{padding:10px 30px 10px 12px;font-size:.78rem;color:var(--muted)}
+#promo .body b{display:block;color:var(--ink);font-size:.95rem}
+#promo .body a{color:var(--flame);font-weight:700;text-decoration:none}
+#promo .x{position:absolute;top:6px;right:6px;border:0;background:var(--ink);color:var(--cream);width:20px;height:20px;border-radius:50%;cursor:pointer;font-size:.7rem;line-height:1}
+#pill{position:fixed;left:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:50;background:var(--flame);color:#fff;border:0;border-radius:999px;padding:8px 14px;font:700 .78rem var(--f-body);cursor:pointer}
+#wa{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:50;width:54px;height:54px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 10px 24px -8px rgba(0,0,0,.5)}
+
+@media (min-width:860px){.hero-grid{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div id="draftbar" hidden>
+  <span>Mod draf: kotak bergaris kuning ialah fakta produk yang perlu anda semak/tukar.</span>
+  <button type="button" id="draftoff">Sembunyi tanda</button>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="dark hero">
+  <div class="wrap center">
+    <p class="eyebrow">Khas untuk anda yang…</p>
+    <div class="chips">
+      <span class="chip">Bau badan cepat datang</span>
+      <span class="chip">Ketiak cepat berpeluh</span>
+      <span class="chip">Baju kuning di ketiak</span>
+      <span class="chip">Dah tukar banyak deodoran</span>
+    </div>
+    <h1>Bau Badan Masih Datang Walaupun <span class="hl">Dah Mandi &amp; Pakai Deodoran?</span></h1>
+    <p class="lead" style="margin-top:16px">Tambah satu langkah kecil setiap pagi: <b style="color:var(--on-ember)">Deodoran Firea</b>, <span class="ed">[formula / bahan utama Firea]</span>. Supaya anda boleh angkat tangan, bersalam dan berjalan dekat orang <b style="color:var(--on-ember)">tanpa rasa risau</b>.</p>
+
+    <div class="hero-grid">
+      <div class="phone">
+        <span class="sticker">Video pengguna</span>
+        <div class="phone-in">
+          <span class="tag">▶ Tekan play untuk tonton video</span>
+          <div class="play" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z" fill="#3a1215"/></svg></div>
+          <span class="cap ed">[Letak video testimoni / demo Firea di sini]</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote">
+      <p>“Kesucian itu sebahagian daripada iman.”</p>
+      <small>Hadis Riwayat Muslim</small>
+    </div>
+    <a class="btn" href="#pakej">Saya Nak Cuba Firea →</a>
+    <p class="micro">Jaminan wang dikembalikan · Free postage 3 botol ke atas · COD tersedia</p>
+  </div>
+</section>
+
+<div class="ticker" aria-label="Kelebihan pembelian">
+  <div class="ticker-track">
+    <span class="ed">[Sijil / kelulusan, cth. Notifikasi KKM]</span><span>COD Tersedia</span><span>Free Postage 3 Botol+</span><span>Jaminan Wang Dikembalikan</span><span>Penghantaran Seluruh Malaysia</span><span>Support WhatsApp</span>
+    <span class="ed">[Sijil / kelulusan, cth. Notifikasi KKM]</span><span>COD Tersedia</span><span>Free Postage 3 Botol+</span><span>Jaminan Wang Dikembalikan</span><span>Penghantaran Seluruh Malaysia</span><span>Support WhatsApp</span>
+  </div>
+</div>
+
+<!-- ============ PERNAH RASA ============ -->
+<section>
+  <div class="wrap center">
+    <p class="eyebrow">Cuba jujur dengan diri sendiri…</p>
+    <h2>Pernah Rasa <span class="hl">Macam Ni?</span></h2>
+    <p class="lead" style="margin-top:12px">Dah mandi, dah sembur, dah tukar jenama. Tapi bau tetap datang balik sebelum tengah hari.</p>
+    <div class="pain">
+      <div class="pcard"><div class="ph"><span><b>Gambar</b>Dalam LRT, berpaut pada pemegang, muka risau</span></div><div class="icon">☝</div><p>“Nak angkat tangan pun fikir dua kali. <b>Takut orang sebelah perasan.</b>”</p></div>
+      <div class="pcard"><div class="ph"><span><b>Gambar</b>Tengok kesan kuning di ketiak baju putih</span></div><div class="icon">👕</div><p>“Baju putih baru beli, <b>dah ada kesan kuning</b> di ketiak.”</p></div>
+      <div class="pcard"><div class="ph"><span><b>Gambar</b>Bau ketiak sendiri secara senyap di tandas pejabat</span></div><div class="icon">⏱</div><p>“Pagi wangi. <b>Pukul 2 petang dah kena cium ketiak</b> sendiri senyap-senyap.”</p></div>
+      <div class="pcard"><div class="ph"><span><b>Gambar</b>Meja penuh botol deodoran pelbagai jenama</span></div><div class="icon">🧴</div><p>“Dah cuba macam-macam jenama. <b>Semua sekejap je.</b>”</p></div>
+      <div class="pcard"><div class="ph"><span><b>Gambar</b>Berbual dengan kawan, peluk tubuh rapat</span></div><div class="icon">🤐</div><p>“Bila orang datang dekat, <b>saya undur sikit.</b> Tak yakin.”</p></div>
+      <div class="pcard"><div class="ph"><span><b>Gambar</b>Pasangan di rumah, seorang tutup hidung bergurau</span></div><div class="icon">💬</div><p>“Pasangan tegur bergurau. <b>Tapi dalam hati, terasa.</b>”</p></div>
+    </div>
+    <p class="callout">Kalau anda rasa salah satu atau semua di atas, anda berada di tempat yang betul.</p>
+  </div>
+</section>
+
+<!-- ============ MEKANISME ============ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="mech">
+      <div class="stack">
+        <h2>Peluh Tak Berbau. <span class="hl">Bakteria Yang Buat Ia Berbau.</span></h2>
+        <p class="lead" style="margin:0">Ini yang berlaku di bawah ketiak setiap hari, tanpa anda sedar:</p>
+        <ol class="steps">
+          <li><span>Kelenjar peluh di ketiak <b>keluarkan peluh</b> bila panas, stres atau bergerak.</span></li>
+          <li><span>Ketiak yang <b>lembap, panas dan tertutup</b> jadi tempat bakteria membiak.</span></li>
+          <li><span>Bakteria <b>pecahkan peluh</b> dan menghasilkan sebatian yang berbau.</span></li>
+          <li><span>Deodoran biasa <b>tutup bau</b> dengan wangian, tapi bila wangian hilang, bau datang balik.</span></li>
+        </ol>
+      </div>
+      <div class="skin">
+        <canvas id="bact" width="560" height="420" aria-label="Animasi bakteria membiak di permukaan kulit"></canvas>
+        <p>Bakteria makin banyak, bau makin kuat</p>
+      </div>
+    </div>
+
+    <div class="risk narrow">
+      <h3>Kalau dibiarkan, <span style="color:var(--flame)">bau badan</span> boleh membawa kepada:</h3>
+      <ul>
+        <li class="x">Hilang yakin diri di tempat kerja dan majlis</li>
+        <li class="x">Elak bersalam, berpeluk atau duduk rapat dengan orang</li>
+        <li class="x">Baju cepat rosak, kesan kuning tak hilang</li>
+        <li class="x">Orang sekeliling perasan, tapi segan nak tegur</li>
+        <li class="x">Asyik bawa baju spare dan sembur berkali-kali sehari</li>
+      </ul>
+    </div>
+
+    <div class="center" style="margin-top:44px">
+      <h3>Masa terbaik untuk ubah rutin adalah</h3>
+      <p class="now">SEKARANG</p>
+      <p class="lead">sebelum ia jadi tabiat yang orang lain ingat tentang diri anda.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BANDINGKAN ============ -->
+<section style="padding-top:0">
+  <div class="wrap center">
+    <p class="eyebrow">Ramai yang cuba petua sendiri. Bagus!</p>
+    <h3 style="font-size:1.3rem">Tapi bandingkan dua cara ini…</h3>
+    <div class="vs" style="text-align:left">
+      <div class="a">
+        <small>Cuba</small><h3><span>SENDIRI</span></h3>
+        <p style="color:var(--muted)">Cuba-cuba, tukar-tukar, tak menentu…</p>
+        <div class="ph"><span><b>Gambar</b>Rak bilik air penuh petua: limau, tawas, bedak, 4–5 botol deodoran</span></div>
+        <ul>
+          <li class="x">Limau &amp; tawas: pedih, kulit jadi gelap</li>
+          <li class="x">Bedak: comot, melekat di baju hitam</li>
+          <li class="x">Deodoran murah: wangi sekejap je</li>
+          <li class="x">Beli banyak jenama, duit habis</li>
+          <li class="x">Tiada jaminan apa-apa</li>
+        </ul>
+      </div>
+      <div class="b">
+        <small>Mula dengan</small><h3><span>FIREA</span></h3>
+        <p style="color:var(--muted)">Pakai, keluar rumah, teruskan hari anda.</p>
+        <div class="ph"><span><b>Gambar</b>Wanita/lelaki senyum, angkat tangan yakin, pegang botol Firea</span></div>
+        <ul>
+          <li class="ok"><span class="ed">[Kelebihan utama 1, cth. kawal bau sepanjang hari]</span></li>
+          <li class="ok"><span class="ed">[Kelebihan 2, cth. tak lekit, cepat kering]</span></li>
+          <li class="ok"><span class="ed">[Kelebihan 3, cth. tak tinggal kesan pada baju]</span></li>
+          <li class="ok">Serendah <span class="ed" data-cfg="perBottleMin">RM33</span> sebotol</li>
+          <li class="ok">Jaminan wang dikembalikan</li>
+        </ul>
+        <a class="btn alt" href="#pakej" style="justify-content:center">Saya Nak Cara Ni</a>
+      </div>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th></th><th>Cuba sendiri</th><th>Firea</th></tr></thead>
+        <tbody>
+          <tr><td>Kos</td><td>Beli banyak jenama</td><td>Serendah <span data-cfg="perBottleMin">RM33</span> sebotol</td></tr>
+          <tr><td>Tahan</td><td>Beberapa jam</td><td><span class="ed">[Tempoh tahan]</span></td></tr>
+          <tr><td>Rasa di kulit</td><td>Pedih / lekit / comot</td><td><span class="ed">[Tekstur]</span></td></tr>
+          <tr><td>Kesan pada baju</td><td>Kuning / putih</td><td><span class="ed">[Kesan baju]</span></td></tr>
+          <tr><td>Keselamatan</td><td>Tak pasti</td><td><span class="ed">[Notifikasi KKM / Halal]</span></td></tr>
+          <tr><td>Jaminan</td><td>Tiada</td><td>Wang dikembalikan 100%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BAHAN ============ -->
+<section style="padding-top:0">
+  <div class="wrap center">
+    <p class="eyebrow">Bukan sekadar wangi</p>
+    <h2>Formula Firea, <span class="hl">Dibuat Untuk Ketiak</span> Orang Malaysia</h2>
+    <p class="lead" style="margin-top:12px">Cuaca panas lembap sepanjang tahun. Firea dibuat untuk rutin harian kita: <span class="ed">[cerita ringkas asal-usul formula]</span>.</p>
+    <div class="feat">
+      <article class="fcard"><header class="ed">[Bahan 1]</header><div class="ph"><span><b>Gambar</b>Bahan 1 atas latar bersih</span></div><p><span class="ed">[Apa fungsi bahan ini]</span><b class="ed">[Kenapa ia penting]</b></p></article>
+      <article class="fcard"><header class="ed">[Bahan 2]</header><div class="ph"><span><b>Gambar</b>Bahan 2 atas latar bersih</span></div><p><span class="ed">[Apa fungsi bahan ini]</span><b class="ed">[Kenapa ia penting]</b></p></article>
+      <article class="fcard"><header class="ed">[Bahan 3]</header><div class="ph"><span><b>Gambar</b>Bahan 3 atas latar bersih</span></div><p><span class="ed">[Apa fungsi bahan ini]</span><b class="ed">[Kenapa ia penting]</b></p></article>
+    </div>
+    <div class="banner">Ini bukan sekadar pewangi badan. <b>Ini rutin kebersihan</b> yang anda boleh pakai setiap hari.</div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap quality">
+    <div class="stack">
+      <p class="eyebrow">Bukan kami yang cakap</p>
+      <h2>Bahan Terpilih, <span class="hl">Kualiti Dijaga</span> &amp; Senang Dipakai</h2>
+      <p style="color:var(--muted)">Setiap botol melalui proses yang dikawal dari bahan mentah hingga pembungkusan.</p>
+      <ul class="checks" style="list-style:none;padding:0;margin:0;display:grid;gap:8px">
+        <li class="ok" style="display:flex;gap:10px"><span class="ed">[Proses kualiti 1]</span></li>
+        <li class="ok" style="display:flex;gap:10px"><span class="ed">[Proses kualiti 2]</span></li>
+        <li class="ok" style="display:flex;gap:10px"><span class="ed">[Proses kualiti 3]</span></li>
+      </ul>
+      <div class="badges">
+        <span class="badge ed">[Logo KKM]</span><span class="badge ed">[Logo Halal]</span><span class="badge ed">[Logo GMP]</span><span class="badge">Buatan Malaysia</span>
+      </div>
+    </div>
+    <div class="ph" style="aspect-ratio:5/4"><span><b>Gambar</b>Botol Firea + kotak + bahan-bahan, gaya studio</span></div>
+  </div>
+</section>
+
+<!-- ============ SPOTLIGHT ============ -->
+<section class="dark">
+  <div class="wrap spot">
+    <div class="bottle-card">
+      <span class="ribbon">✦ Formula Baharu</span>
+      <svg viewBox="0 0 300 300" width="100%" role="img" aria-label="Ilustrasi botol Deodoran Firea">
+        <ellipse cx="150" cy="282" rx="80" ry="10" fill="#561a1c" opacity=".25"/>
+        <rect x="104" y="40" width="92" height="62" rx="18" fill="#3a1215"/>
+        <rect x="96" y="92" width="108" height="190" rx="30" fill="#e0531f"/>
+        <rect x="96" y="92" width="22" height="190" rx="11" fill="#fff" opacity=".18"/>
+        <rect x="114" y="150" width="72" height="82" rx="10" fill="#fff8f0"/>
+        <text x="150" y="186" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="22" fill="#3a1215">FIREA</text>
+        <text x="150" y="206" text-anchor="middle" font-family="Figtree, sans-serif" font-size="10" fill="#6f5a52">DEODORAN</text>
+        <path d="M150 112c10 10 12 20 4 28 0-8-4-12-8-14 2 8-6 12-6 6-8-8 2-16 10-20z" fill="#ffd23f"/>
+      </svg>
+      <p style="text-align:center;color:#3a1215;font-size:.8rem;margin-top:6px">Ganti dengan gambar produk sebenar</p>
+    </div>
+    <div class="stack">
+      <p class="eyebrow">Kenali Deodoran Firea</p>
+      <h2>Satu Botol. <span class="hl">Yakin Sepanjang Hari.</span></h2>
+      <p style="color:var(--on-ember-muted)"><span class="ed">[Penerangan ringkas produk: jenis (roll-on/spray/stick), untuk siapa, apa bezanya]</span></p>
+      <div class="specs">
+        <div class="spec"><b class="ed">[50ml]</b><span>setiap botol</span></div>
+        <div class="spec"><b class="ed">[Roll-on]</b><span>jenis</span></div>
+        <div class="spec"><b class="ed">[Tanpa alkohol?]</b><span>formula</span></div>
+        <div class="spec"><b class="ed">[Wangian]</b><span>bau</span></div>
+      </div>
+      <p><b>Apa yang anda dapat:</b></p>
+      <ul class="checks">
+        <li class="ok">Deodoran Firea <span class="ed">[saiz]</span></li>
+        <li class="ok">Panduan cara pakai yang betul</li>
+        <li class="ok">Free postage untuk pakej 3 botol ke atas</li>
+        <li class="ok">Support WhatsApp terus dengan team Firea</li>
+        <li class="ok">Jaminan wang dikembalikan</li>
+      </ul>
+      <div><a class="btn" href="#pakej">Saya Nak Firea →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RUTIN ============ -->
+<section>
+  <div class="wrap center">
+    <p class="eyebrow">Setiap badan berbeza, tapi rutinnya mudah</p>
+    <h2>Sehari Bersama Firea, <span class="hl">Bila Pakai Konsisten</span></h2>
+    <div class="routine" style="text-align:left">
+      <div class="rstep"><time>7:00 pagi</time><p><b>Lepas mandi, keringkan ketiak</b>Sapu Firea pada kulit yang kering. Tunggu sekejap sebelum pakai baju.</p></div>
+      <div class="rstep"><time>10:00 pagi</time><p><b>Meeting, bersalam, angkat tangan</b>Tak perlu fikir pasal ketiak. Fokus pada kerja.</p></div>
+      <div class="rstep"><time>1:00 ptg</time><p><b>Panas tengah hari, solat Zohor</b>Lepas wuduk dan berjalan di bawah matahari, masih rasa segar.</p></div>
+      <div class="rstep"><time>6:00 ptg</time><p><b>Balik rumah, peluk anak</b>Dekat dengan keluarga tanpa rasa segan.</p></div>
+    </div>
+    <p class="micro">Keputusan berbeza mengikut individu.</p>
+  </div>
+</section>
+
+<!-- ============ UNTUK SIAPA ============ -->
+<section class="dark">
+  <div class="wrap center">
+    <p class="eyebrow">Supaya anda beli dengan tenang</p>
+    <h2>Deodoran Firea <span class="hl">Untuk Siapa?</span></h2>
+    <div class="who" style="text-align:left">
+      <div class="box"><h3 style="color:var(--good)">Sesuai untuk anda jika…</h3>
+        <ul>
+          <li class="ok">Kerja di luar, banyak bergerak atau mudah berpeluh</li>
+          <li class="ok">Dah cuba banyak deodoran tapi tak tahan lama</li>
+          <li class="ok">Nak yakin bila bersalam, mesyuarat dan berjumpa orang</li>
+          <li class="ok">Selalu dapat kesan kuning pada baju</li>
+        </ul>
+      </div>
+      <div class="box"><h3 style="color:var(--bad)">BUKAN untuk anda jika…</h3>
+        <ul>
+          <li class="x">Anda cari ubat untuk masalah kulit atau jangkitan (sila jumpa doktor)</li>
+          <li class="x">Anda alah kepada mana-mana bahan dalam Firea</li>
+          <li class="x">Anda tak bersedia pakai setiap hari</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONI ============ -->
+<section>
+  <div class="wrap center">
+    <p class="eyebrow">Apa kata pengguna</p>
+    <h2>Mereka Dah Rasa <span class="hl">Bezanya</span></h2>
+    <p class="lead" style="margin-top:12px">Letak screenshot testimoni sebenar pelanggan anda di sini.</p>
+    <div class="pain">
+      <div class="ph ed" style="aspect-ratio:3/4"><span><b>Testimoni 1</b>Screenshot WhatsApp / komen sebenar</span></div>
+      <div class="ph ed" style="aspect-ratio:3/4"><span><b>Testimoni 2</b>Screenshot WhatsApp / komen sebenar</span></div>
+      <div class="ph ed" style="aspect-ratio:3/4"><span><b>Testimoni 3</b>Screenshot WhatsApp / komen sebenar</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAKEJ ============ -->
+<section class="dark" id="pakej">
+  <div class="wrap center">
+    <p class="eyebrow">Ramai pilih Pakej Popular untuk stok sebulan</p>
+    <h2>Mula Ikut Bajet. <span class="hl">Teruskan Ikut Keselesaan.</span></h2>
+    <p class="lead" style="margin-top:12px">Pilih pakej, kemudian isi borang di bawah.</p>
+    <div class="price-grid" id="pkgs"></div>
+    <p class="ship-note" id="shipnote"></p>
+    <div style="margin-top:22px"><a class="btn" href="#order">Isi borang order di bawah ↓</a></div>
+  </div>
+</section>
+
+<!-- ============ ORDER FORM ============ -->
+<section id="order">
+  <div class="wrap">
+    <div class="center"><h2>Borang <span class="hl">Order</span></h2></div>
+    <form class="order" id="orderForm" novalidate>
+      <h3>Butiran anda</h3>
+      <div class="field"><label for="f-name">Nama penerima <i>*</i></label><input id="f-name" name="name" autocomplete="name" placeholder="cth. Nur Aisyah binti Ahmad" required></div>
+      <div class="field"><label for="f-phone">No. telefon (WhatsApp) <i>*</i></label><input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="cth. 012 345 6789" required></div>
+      <div class="field"><label for="f-email">E-mel (untuk update penghantaran)</label><input id="f-email" name="email" type="email" autocomplete="email" placeholder="nama@email.com"></div>
+      <h3>Alamat penghantaran</h3>
+      <div class="field"><label for="f-addr">Alamat <i>*</i></label><textarea id="f-addr" name="addr" rows="2" autocomplete="street-address" placeholder="No. rumah, jalan, taman" required></textarea></div>
+      <div class="row2">
+        <div class="field"><label for="f-post">Poskod <i>*</i></label><input id="f-post" name="post" inputmode="numeric" autocomplete="postal-code" maxlength="5" placeholder="cth. 43000" required></div>
+        <div class="field"><label for="f-city">Bandar <i>*</i></label><input id="f-city" name="city" autocomplete="address-level2" required></div>
+      </div>
+      <div class="field"><label for="f-state">Negeri <i>*</i></label>
+        <select id="f-state" name="state" required>
+          <option value="">Pilih negeri</option>
+          <option>Johor</option><option>Kedah</option><option>Kelantan</option><option>Melaka</option><option>Negeri Sembilan</option><option>Pahang</option><option>Perak</option><option>Perlis</option><option>Pulau Pinang</option><option>Selangor</option><option>Terengganu</option><option>WP Kuala Lumpur</option><option>WP Putrajaya</option><option>Sabah</option><option>Sarawak</option><option>WP Labuan</option>
+        </select>
+      </div>
+      <h3>Pakej &amp; bayaran</h3>
+      <div class="field"><label for="f-pkg">Pakej</label><select id="f-pkg" name="pkg"></select></div>
+      <div class="pay" role="radiogroup" aria-label="Cara bayaran">
+        <label><input type="radio" name="pay" id="pay-online" value="Online Banking" checked> Online / FPX</label>
+        <label><input type="radio" name="pay" id="pay-cod" value="COD"> COD</label>
+      </div>
+      <div class="summary" aria-live="polite">
+        <div><span id="s-item">Pakej</span><span id="s-sub">RM0</span></div>
+        <div><span>Penghantaran</span><span id="s-ship">RM0</span></div>
+        <div class="total"><span>Jumlah</span><span id="s-total">RM0</span></div>
+      </div>
+      <p class="err" id="err" hidden></p>
+      <button class="btn" type="submit">Hantar Order Saya →</button>
+      <div id="done" hidden>
+        <b>Order anda dah siap. Hantar mesej ini ke WhatsApp kami untuk sahkan:</b>
+        <pre id="msg"></pre>
+        <div class="rowb">
+          <a class="btn" id="walink" href="#" target="_blank" rel="noopener">Buka WhatsApp</a>
+          <button class="btn alt" type="button" id="copy">Salin mesej</button>
+        </div>
+        <p class="micro" id="wanum"></p>
+      </div>
+      <p class="micro center">Maklumat anda hanya digunakan untuk penghantaran.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ============ SELEPAS ORDER ============ -->
+<section style="padding-top:0">
+  <div class="wrap center">
+    <p class="eyebrow">Lepas tekan hantar</p>
+    <h2>Apa Berlaku <span class="hl">Selepas Order?</span></h2>
+    <div class="after">
+      <div class="s"><small>Langkah 1</small><p><b>Order disahkan</b><br>Team kami WhatsApp anda untuk sahkan alamat.</p></div>
+      <div class="s"><small>Langkah 2</small><p><b>Barang dipos</b><br>Dihantar dalam <span class="ed">[1–2 hari bekerja]</span>, nombor tracking diberi.</p></div>
+      <div class="s"><small>Langkah 3</small><p><b>Sampai &amp; mula pakai</b><br>Ikut panduan cara pakai. Ada soalan? WhatsApp kami.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="guard">
+      <div class="seal">100%</div>
+      <h2 style="font-size:1.6rem">Jaminan Wang Dikembalikan 100%</h2>
+      <p style="color:var(--on-ember-muted);margin-top:8px">Kami berniaga cari rezeki halal. Kalau tak berkenan, kami pulangkan duit.</p>
+      <ul>
+        <li><span>1</span><p><b>Botol pecah / rosak</b> semasa sampai: kami ganti baru atau pulangkan duit.</p></li>
+        <li><span>2</span><p><b>Barang tak sama</b> dengan yang dipesan: kami tukar tanpa caj.</p></li>
+        <li><span>3</span><p><b>Tak rasa bezanya</b> selepas <span class="ed">[X hari]</span> pakai: <span class="ed">[syarat pemulangan]</span>.</p></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap trust">
+    <div class="stack">
+      <p class="eyebrow">Order dengan tenang</p>
+      <h2>Barang Sampai Kemas, Selamat &amp; <span class="hl">Team Mudah Dihubungi</span></h2>
+      <p style="color:var(--muted)">Firea dijual terus oleh team kami melalui page ini, <span class="ed">[Shopee / TikTok Shop rasmi]</span> dan agen berdaftar. Elakkan beli dari sumber yang tak dikenali.</p>
+    </div>
+    <div class="ph" style="aspect-ratio:5/4"><span><b>Gambar</b>Pelanggan buka parcel Firea, senyum</span></div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section style="padding-top:0">
+  <div class="wrap center">
+    <p class="eyebrow">FAQ</p>
+    <h2>Soalan <span class="hl">Lazim</span></h2>
+    <div class="faq" style="text-align:left">
+      <details><summary>Firea sesuai untuk lelaki atau perempuan?</summary><p><span class="ed">[Jawapan]</span></p></details>
+      <details><summary>Berapa lama satu botol boleh guna?</summary><p>Bergantung pada kekerapan pakai. <span class="ed">[Anggaran, cth. 1–2 bulan]</span>.</p></details>
+      <details><summary>Boleh pakai lepas cukur ketiak?</summary><p>Tunggu kulit pulih dan elak sapu pada kulit yang luka atau merah. Kalau kulit anda sensitif, cuba sedikit dahulu pada kawasan kecil.</p></details>
+      <details><summary>Ada kesan pada baju?</summary><p><span class="ed">[Jawapan]</span></p></details>
+      <details><summary>Berapa lama barang sampai?</summary><p><span class="ed">[cth. Semenanjung 2–4 hari bekerja, Sabah/Sarawak 4–7 hari bekerja]</span>.</p></details>
+      <details><summary>Ada COD?</summary><p>Ada. Pilih COD dalam borang order.</p></details>
+      <details><summary>Macam mana kalau saya tak berpuas hati?</summary><p>Hubungi kami di WhatsApp. Semua order dilindungi jaminan wang dikembalikan, ikut syarat di atas.</p></details>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="final">
+      <p class="eyebrow">Dah ramai mula dengan perubahan kecil</p>
+      <h2>Sekarang <span class="hl">giliran anda.</span></h2>
+      <ul>
+        <li class="ok">Anda boleh teruskan petua lama yang tak tahan.</li>
+        <li class="ok">Atau cuba Firea, dengan jaminan wang dikembalikan.</li>
+        <li class="ok">Cuba ikhtiarkan hari ini.</li>
+      </ul>
+      <div><a class="btn alt" href="#pakej">Order Firea Sekarang →</a></div>
+      <p class="micro" style="margin-top:0">Free postage 3 botol ke atas · COD tersedia · Jaminan wang dikembalikan</p>
+    </div>
+    <div class="letter">
+      <p><b>P.S.</b> Risau tak sesuai? Anda dilindungi <b>Jaminan Wang Dikembalikan 100%</b>. Botol pecah, produk tak sampai, atau tak rasa bezanya, WhatsApp kami.</p>
+      <p>Semoga Allah permudahkan ikhtiar anda.</p>
+      <p class="sign">Team Firea</p>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">© <span id="yr"></span> Firea. Hak cipta terpelihara. Keputusan penggunaan berbeza mengikut individu.</footer>
+
+<!-- floating -->
+<div id="promo" role="complementary" aria-label="Promosi">
+  <div class="tagp">FREE<br>POSTAGE</div>
+  <div class="body"><span style="font-family:var(--f-hand);color:var(--flame)">Tip jimat untuk anda!</span><b>Postage Percuma</b>Ambil 3 botol ke atas, postage percuma seluruh Malaysia.<br><a href="#pakej">Lihat pakej →</a></div>
+  <button class="x" type="button" id="promoX" aria-label="Tutup promosi">✕</button>
+</div>
+<button id="pill" type="button" hidden>🚚 FREE POSTAGE</button>
+<a id="wa" href="#" target="_blank" rel="noopener" aria-label="WhatsApp kami"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm5.4 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.5-.6-2.6-1.1-4.3-3.8-4.4-4-.1-.2-1-1.4-1-2.6s.6-1.8.9-2.1c.2-.2.5-.3.6-.3h.5c.2 0 .4 0 .6.4l.8 2c.1.2.1.3 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.1.1.6-.1 1.2z"/></svg></a>
+
+<script>
+/* ===== EDIT DI SINI: harga, nombor WhatsApp, postage ===== */
+const CONFIG = {
+  draft: true,                    // tukar ke false bila semua [ ... ] dah diisi
+  whatsapp: "60123456789",        // nombor WhatsApp anda, format 60xxxxxxxxx
+  shipping: { "Semenanjung": 8, "Sabah / Sarawak / Labuan": 15 },
+  freeShipFrom: 3,                // free postage bila beli >= 3 botol
+  packages: [
+    { id: "p1", kind: "Pakej Cuba",     qty: 1, price: 39, old: 45 },
+    { id: "p3", kind: "Pakej Popular",  qty: 3, price: 99, old: 135, featured: true },
+    { id: "p6", kind: "Pakej Keluarga", qty: 6, price: 189, old: 270 }
+  ]
+};
+/* ========================================================= */
+
+const $ = s => document.querySelector(s);
+const rm = n => "RM" + (Number.isInteger(n) ? n : n.toFixed(2));
+document.getElementById("yr").textContent = new Date().getFullYear();
+
+if (CONFIG.draft) { document.body.classList.add("draft"); $("#draftbar").hidden = false; }
+$("#draftoff").addEventListener("click", () => { document.body.classList.toggle("draft"); $("#draftoff").textContent = document.body.classList.contains("draft") ? "Sembunyi tanda" : "Tunjuk tanda"; });
+
+const minPer = Math.min(...CONFIG.packages.map(p => p.price / p.qty));
+document.querySelectorAll('[data-cfg="perBottleMin"]').forEach(el => el.textContent = rm(Math.round(minPer * 100) / 100));
+const waUrl = t => "https://wa.me/" + CONFIG.whatsapp + (t ? "?text=" + encodeURIComponent(t) : "");
+$("#wa").href = waUrl("Hai Firea, saya nak tanya pasal deodoran.");
+$("#shipnote").textContent = "Postage: " + Object.entries(CONFIG.shipping).map(([k, v]) => k + " " + rm(v)).join(" · ") + ". Free postage untuk " + CONFIG.freeShipFrom + " botol ke atas.";
+
+let selected = (CONFIG.packages.find(p => p.featured) || CONFIG.packages[0]).id;
+const grid = $("#pkgs"), sel = $("#f-pkg");
+CONFIG.packages.forEach(p => {
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "pkg" + (p.featured ? " featured" : ""); b.dataset.id = p.id;
+  b.innerHTML = (p.featured ? '<span class="pop">🔥 Paling Popular</span>' : "") +
+    `<span class="kind">${p.kind}</span><span class="qty">${p.qty} Botol</span>` +
+    (p.old ? `<span class="old">${rm(p.old)}</span>` : "") +
+    `<span class="now-p">${rm(p.price)}</span><span class="per">${rm(Math.round(p.price / p.qty * 100) / 100)} sebotol</span>` +
+    (p.qty >= CONFIG.freeShipFrom ? '<span class="ship">✓ Free postage</span>' : '<span class="per">+ postage</span>');
+  b.addEventListener("click", () => { pick(p.id); $("#order").scrollIntoView({ behavior: "smooth" }); });
+  grid.appendChild(b);
+  const o = document.createElement("option"); o.value = p.id; o.textContent = `${p.kind}: ${p.qty} botol, ${rm(p.price)}`; sel.appendChild(o);
+});
+function region() { const s = $("#f-state").value; return /Sabah|Sarawak|Labuan/.test(s) ? "Sabah / Sarawak / Labuan" : "Semenanjung"; }
+function calc() {
+  const p = CONFIG.packages.find(x => x.id === selected);
+  const ship = p.qty >= CONFIG.freeShipFrom ? 0 : CONFIG.shipping[region()];
+  return { p, ship, total: p.price + ship };
+}
+function render() {
+  grid.querySelectorAll(".pkg").forEach(b => b.setAttribute("aria-pressed", b.dataset.id === selected));
+  sel.value = selected;
+  const { p, ship, total } = calc();
+  $("#s-item").textContent = `${p.kind} (${p.qty} botol)`;
+  $("#s-sub").textContent = rm(p.price);
+  $("#s-ship").textContent = ship ? rm(ship) + " (" + region() + ")" : "PERCUMA";
+  $("#s-total").textContent = rm(total);
+}
+function pick(id) { selected = id; render(); }
+sel.addEventListener("change", e => pick(e.target.value));
+$("#f-state").addEventListener("change", render);
+render();
+
+$("#orderForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const f = e.target, err = $("#err");
+  const need = [["f-name", "nama"], ["f-phone", "nombor telefon"], ["f-addr", "alamat"], ["f-post", "poskod"], ["f-city", "bandar"], ["f-state", "negeri"]];
+  const missing = need.filter(([id]) => !document.getElementById(id).value.trim());
+  if (missing.length) { err.textContent = "Sila isi " + missing.map(m => m[1]).join(", ") + "."; err.hidden = false; document.getElementById(missing[0][0]).focus(); return; }
+  if (!/^\d{5}$/.test($("#f-post").value.trim())) { err.textContent = "Poskod mesti 5 digit, cth. 43000."; err.hidden = false; $("#f-post").focus(); return; }
+  err.hidden = true;
+  const { p, ship, total } = calc();
+  const v = id => document.getElementById(id).value.trim();
+  const msg = [
+    "*ORDER DEODORAN FIREA*",
+    `Pakej: ${p.kind} (${p.qty} botol) ${rm(p.price)}`,
+    `Postage: ${ship ? rm(ship) : "PERCUMA"}`,
+    `Jumlah: *${rm(total)}*`,
+    `Bayaran: ${f.pay.value}`, "",
+    `Nama: ${v("f-name")}`, `Tel: ${v("f-phone")}`, v("f-email") ? `E-mel: ${v("f-email")}` : "",
+    `Alamat: ${v("f-addr")}, ${v("f-post")} ${v("f-city")}, ${v("f-state")}`
+  ].filter((l, i, a) => l !== "" || a[i - 1] !== "").join("\n");
+  $("#msg").textContent = msg;
+  $("#walink").href = waUrl(msg);
+  $("#wanum").textContent = "Kalau WhatsApp tak terbuka, salin mesej dan hantar ke +" + CONFIG.whatsapp + ".";
+  $("#done").hidden = false;
+  $("#done").scrollIntoView({ behavior: "smooth", block: "center" });
+});
+$("#copy").addEventListener("click", () => {
+  const t = $("#msg").textContent;
+  const sel = () => { const r = document.createRange(); r.selectNodeContents($("#msg")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); };
+  if (navigator.clipboard) navigator.clipboard.writeText(t).then(() => $("#copy").textContent = "Disalin ✓", sel); else sel();
+});
+
+$("#promoX").addEventListener("click", () => { $("#promo").hidden = true; $("#pill").hidden = false; });
+$("#pill").addEventListener("click", () => { $("#promo").hidden = false; $("#pill").hidden = true; });
+
+/* bacteria animation */
+(function () {
+  const c = $("#bact"), x = c.getContext("2d"), W = c.width, H = c.height;
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const drops = Array.from({ length: 14 }, () => ({ x: Math.random() * W, y: 120 + Math.random() * 120, r: 6 + Math.random() * 8 }));
+  let bac = Array.from({ length: 10 }, () => ({ x: Math.random() * W, y: 150 + Math.random() * 90, a: Math.random() * 6 }));
+  let t = 0;
+  function frame() {
+    t++;
+    x.fillStyle = "#f3c9b0"; x.fillRect(0, 0, W, H);
+    x.fillStyle = "#e9b394"; x.beginPath(); x.moveTo(0, 260);
+    for (let i = 0; i <= W; i += 20) x.lineTo(i, 260 + Math.sin(i / 40 + t / 60) * 6); x.lineTo(W, H); x.lineTo(0, H); x.fill();
+    drops.forEach(d => { x.fillStyle = "rgba(120,190,255,.55)"; x.beginPath(); x.arc(d.x, d.y, d.r, 0, 7); x.fill(); });
+    if (!still && t % 25 === 0 && bac.length < 90) { const b = bac[Math.floor(Math.random() * bac.length)]; bac.push({ x: b.x + (Math.random() - .5) * 30, y: b.y + (Math.random() - .5) * 30, a: Math.random() * 6 }); }
+    if (bac.length >= 90 && t % 400 === 0) bac = bac.slice(0, 10);
+    bac.forEach(b => { b.a += .03; x.save(); x.translate(b.x + Math.sin(b.a) * 2, b.y); x.rotate(b.a); x.fillStyle = "#6c9a3a"; x.beginPath(); x.ellipse(0, 0, 9, 4.5, 0, 0, 7); x.fill(); x.restore(); });
+    const n = bac.length / 90;
+    for (let i = 0; i < Math.floor(n * 8); i++) { x.strokeStyle = `rgba(120,140,40,${.25 + n * .3})`; x.lineWidth = 3; x.beginPath(); const sx = 60 + i * 60; for (let k = 0; k < 6; k++) x.lineTo(sx + Math.sin(k + t / 20 + i) * 10, 120 - k * 18); x.stroke(); }
+    x.fillStyle = "#3a1215"; x.font = "700 18px Figtree, sans-serif"; x.fillText("Bakteria: " + bac.length, 16, 30);
+    if (!still) requestAnimationFrame(frame);
+  }
+  if (still) { bac = bac.concat(Array.from({ length: 50 }, () => ({ x: Math.random() * W, y: 140 + Math.random() * 110, a: Math.random() * 6 }))); }
+  frame();
+})();
+</script>
