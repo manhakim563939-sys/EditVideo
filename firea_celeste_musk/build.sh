@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 # Build the preview: assets -> audio stems -> picture -> mix + mux.
-# Usage: ./build.sh [python] [a|b|vox]   (python must have numpy, opencv-python-headless, pillow)
+# Usage: ./build.sh [python] [a|b|vox|glam]   (python must have numpy, opencv-python-headless, pillow)
 #   a = Clean Soft-Pink (output/preview.mp4)   b = Fresh Kinetic (output/preview_v2_kinetic.mp4)
+#   glam = Glam Beauty (output/preview_v4_glam.mp4)
 #   vox = Vox Explainer (output/preview_v3_vox.mp4; also needs rembg + onnxruntime for masks)
 set -euo pipefail
 cd "$(dirname "$0")"
 PY=${1:-python3}
 STYLE=${2:-a}
 if [ "$STYLE" = b ]; then SUF=_b; B=build_b; OUTF=output/preview_v2_kinetic.mp4;
+elif [ "$STYLE" = glam ]; then SUF=_glam; B=build_glam; OUTF=output/preview_v4_glam.mp4;
 elif [ "$STYLE" = vox ]; then SUF=_vox; B=build_vox; OUTF=output/preview_v3_vox.mp4; else SUF=; B=build; OUTF=output/preview.mp4; fi
 mkdir -p $B output
 $PY scripts/prep_assets.py .

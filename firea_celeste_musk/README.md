@@ -49,3 +49,14 @@ Gaya explainer ala Vox, ikut `vox_render.py` dalam repo ini.
 - **Framing** bertukar setiap babak (potongan keras skala/kedudukan) — tiada zoom digital pada muka.
 - **Audio:** marimba 92 BPM + rim click; SFX mesin taip, kertas, cop, marker (`scripts/make_audio_vox.py`).
 - Build: `./build.sh <python> vox` (perlu `rembg onnxruntime`; model dimuat turun dari GitHub release rembg ke `~/.u2net`).
+
+---
+
+# Versi 4 — "Glam Beauty" (`output/preview_v4_glam.mp4`)
+Elegan & feminin, overlay animasi + font premium. Dialog sama, tak dipotong.
+- **Font:** Cormorant Garamond SemiBold/Italic (tajuk), Great Vibes (skrip: "di luar?", "tegur?", "takpe", "jangan", "Firea"), Montserrat (sari kata, label).
+- **Overlay animasi:** kad kaca frosted (blur latar sebenar) dengan teks reveal huruf demi huruf; bokeh pink terapung + sparkle berkelip; light leak pink/peach yang sapu pada setiap babak (0, 6.5, 12.2, 17.13, 27.1s); bingkai garis rose-gold yang "dilukis" sekeliling muka (hook) & botol di tangan (produk); letupan sparkle pada potongan produk, end card & CTA.
+- **Grade:** soft-glow (bloom) + ton pink hangat; jadi pudar/sejuk pada "tak selesa"; push-in perlahan (tiada jump cut).
+- **Brand:** "Firea" skrip rose-gold bercahaya + C E L E S T E  M U S K; chip kaca "Kawal peluh" / "Hilang terus bau badan"; end card kaca + botol bercahaya + 0% Alkohol / 0% Paraben + butang CTA rose-gold dengan kilauan.
+- **Audio:** R&B chill 80 BPM (Bbmaj9–Am7–Gm9–Fmaj9), snap + kick lembut, sub bass selepas produk; SFX shimmer, ting kaca, whoosh lembut (`scripts/make_audio_glam.py`).
+- Fail: `scripts/cues_glam.py`, `render_video_glam.py`, `make_audio_glam.py`; build: `./build.sh <python> glam`.
