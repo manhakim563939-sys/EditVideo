@@ -839,8 +839,22 @@ $("#pill").addEventListener("click", () => { $("#promo").hidden = false; $("#pil
     $("#vo-play").toggleAttribute("hidden", on); $("#vo-pause").toggleAttribute("hidden", !on);
     btn.setAttribute("aria-label", on ? "Jeda pesanan suara" : "Main pesanan suara");
   }
-  btn.addEventListener("click", () => {
-    if (a.paused) { a.play().catch(() => {}); box.classList.add("played"); } else a.pause();
+  // autoplay: cuba main terus; kalau browser sekat, main pada sentuhan/klik pertama di mana-mana
+  let userPaused = false, started = false;
+  const tryStart = e => {
+    if (started || userPaused) return;
+    if (e && e.target && e.target.closest && e.target.closest("#vo")) return; // butang sendiri urus
+    a.play().then(() => { started = true; box.classList.add("played"); unhook(); }).catch(() => {});
+  };
+  const evs = ["pointerdown", "touchend", "click", "keydown", "scroll"];
+  const unhook = () => evs.forEach(ev => removeEventListener(ev, tryStart, true));
+  evs.forEach(ev => addEventListener(ev, tryStart, { capture: true, passive: true }));
+  if (a.readyState >= 1) tryStart(); else a.addEventListener("loadedmetadata", tryStart, { once: true });
+
+  btn.addEventListener("click", e => {
+    e.stopPropagation();
+    if (a.paused) { userPaused = false; started = true; unhook(); a.play().catch(() => {}); box.classList.add("played"); }
+    else { userPaused = true; a.pause(); }
   });
   ["play", "pause"].forEach(ev => a.addEventListener(ev, sync));
   a.addEventListener("timeupdate", () => { time.textContent = fmt(a.duration - a.currentTime); });
