@@ -240,11 +240,60 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
 #promo .x{position:absolute;top:6px;right:6px;border:0;background:var(--ink);color:var(--blush);width:20px;height:20px;border-radius:50%;cursor:pointer;font-size:.7rem;line-height:1}
 #pill{position:fixed;left:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:50;background:var(--rose);color:#fff;border:0;border-radius:999px;padding:8px 14px;font:700 .78rem var(--f-body);cursor:pointer}
 #wa{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:50;width:54px;height:54px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 10px 24px -8px rgba(0,0,0,.5)}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* ===== MOTION ===== */
+#progress{position:fixed;top:0;left:0;height:4px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--petal),var(--rose));z-index:70}
+.hero{position:relative;overflow:hidden}
+.hero .wrap{position:relative;z-index:1}
+.floaties i{position:absolute;bottom:-40px;font-style:normal;color:var(--petal);opacity:0;animation:floatUp 9s linear infinite;font-size:1.2rem}
+.floaties i:nth-child(1){left:6%;animation-delay:0s}
+.floaties i:nth-child(2){left:16%;animation-delay:3.5s;font-size:.9rem;color:#f2c96b}
+.floaties i:nth-child(3){left:27%;animation-delay:6s;font-size:1.6rem}
+.floaties i:nth-child(4){left:40%;animation-delay:1.8s;color:#f2c96b}
+.floaties i:nth-child(5){left:55%;animation-delay:4.6s}
+.floaties i:nth-child(6){left:66%;animation-delay:.8s;font-size:.9rem;color:#f2c96b}
+.floaties i:nth-child(7){left:76%;animation-delay:7s;font-size:1.5rem}
+.floaties i:nth-child(8){left:86%;animation-delay:2.6s;color:#f2c96b}
+.floaties i:nth-child(9){left:93%;animation-delay:5.4s}
+.floaties i:nth-child(10){left:48%;animation-delay:8s;font-size:.8rem;color:#f2c96b}
+@keyframes floatUp{0%{transform:translateY(0) rotate(0);opacity:0}10%{opacity:.8}90%{opacity:.5}100%{transform:translateY(-110vh) rotate(40deg);opacity:0}}
+.phone{animation:bob 5s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.sticker{animation:wiggle 3.2s ease-in-out infinite}
+@keyframes wiggle{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(-3deg) scale(1.05)}}
+.phone-in img{animation:kenburns 14s ease-in-out infinite alternate}
+@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.12) translateY(-2%)}}
+.bob{animation:bob 6s ease-in-out infinite}
+.btn{position:relative;overflow:hidden}
+.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);transform:translateX(-120%);animation:shine 3.6s ease-in-out infinite}
+@keyframes shine{0%,55%{transform:translateX(-120%)}85%,100%{transform:translateX(120%)}}
+.pkg.featured{animation:glow 2.4s ease-in-out infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(255,201,218,.0)}50%{box-shadow:0 0 0 10px rgba(255,201,218,.35)}}
+.pcard .icon{animation:bob 4s ease-in-out infinite}
+.pcard:nth-child(2n) .icon{animation-delay:-2s}
+.photo img{will-change:transform}
+.photo.par img{transform:translateY(var(--py,0)) scale(1.14)}
+
+/* scroll reveal: only elements below the first screen start hidden (class added by script) */
+.rv{transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1),clip-path 1s cubic-bezier(.2,.8,.2,1);transition-delay:var(--d,0s)}
+.rv.pre{opacity:0}
+.rv.pre[data-a="up"]{transform:translateY(40px)}
+.rv.pre[data-a="left"]{transform:translateX(-60px)}
+.rv.pre[data-a="right"]{transform:translateX(60px)}
+.rv.pre[data-a="zoom"]{transform:scale(.85)}
+.rv.pre[data-a="pop"]{transform:scale(.7) rotate(-3deg)}
+.rv.pre[data-a="clip"]{opacity:1;clip-path:inset(14% 14% 14% 14% round 20px)}
+.rv[data-a="clip"]{clip-path:inset(0 0 0 0 round 20px)}
+.hl{background:linear-gradient(var(--petal),var(--petal)) no-repeat 0 0/100% 100%;transition:background-size .9s cubic-bezier(.2,.8,.2,1) .35s}
+.pre .hl{background-size:0% 100%}
+.now.rv.in{animation:pulseNow 2s ease-in-out .9s infinite}
+@keyframes pulseNow{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.floaties{display:none}}
 </style>
 
 <!-- ============ HERO ============ -->
+<div id="progress" aria-hidden="true"></div>
 <section class="dark hero">
+  <div class="floaties" aria-hidden="true"><i>♥</i><i>✦</i><i>♥</i><i>✧</i><i>♥</i><i>✦</i><i>♥</i><i>✧</i><i>♥</i><i>✦</i></div>
   <div class="wrap center">
     <p class="eyebrow">Khas untuk wanita bertudung yang…</p>
     <div class="chips">
@@ -264,11 +313,7 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
       </div>
     </div>
 
-    <div class="quote">
-      <p>“Kesucian itu sebahagian daripada iman.”</p>
-      <small>Hadis Riwayat Muslim</small>
-    </div>
-    <a class="btn" href="#pakej">Saya Nak Cuba Firea →</a>
+    <div style="margin-top:34px"><a class="btn" href="#pakej">Saya Nak Cuba Firea →</a></div>
     <p class="micro">Bernotifikasi KKM · Free postage 2 botol (Semenanjung) · COD tersedia</p>
   </div>
 </section>
@@ -431,7 +476,7 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
 <!-- ============ SPOTLIGHT ============ -->
 <section class="dark">
   <div class="wrap two">
-    <div class="photo tall"><img src="img/produk-pink.jpg" alt="Botol Firea Celeste Musk Deodorant Roll-on 50ml dengan tulisan Ketiak Berpeluh, Dah Tak Risau Lagi" width="614" height="1100" loading="lazy"></div>
+    <div class="photo tall bob"><img src="img/produk-pink.jpg" alt="Botol Firea Celeste Musk Deodorant Roll-on 50ml dengan tulisan Ketiak Berpeluh, Dah Tak Risau Lagi" width="614" height="1100" loading="lazy"></div>
     <div class="stack">
       <p class="eyebrow">Kenali produk kami</p>
       <h2>Firea Celeste Musk. <span class="hl">Yakin Dalam Setiap Sentuhan.</span></h2>
@@ -765,6 +810,70 @@ $("#copy").addEventListener("click", () => {
 
 $("#promoX").addEventListener("click", () => { $("#promo").hidden = true; $("#pill").hidden = false; });
 $("#pill").addEventListener("click", () => { $("#promo").hidden = false; $("#pill").hidden = true; });
+
+
+/* ===== scroll motion ===== */
+(function () {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const bar = $("#progress");
+  const pick = [
+    ["section:not(.hero) h2, section:not(.hero) .eyebrow, .callout, .lead:not(.hero .lead), .micro:not(.hero .micro)", "up"],
+    [".pcard, .fcard, .after .s, .spec, .badge", "pop"],
+    [".steps li, .rstep, .plain li, .faq details", "left"],
+    [".vs > .a", "left"], [".vs > .b", "right"],
+    [".photo, .skin", "clip"],
+    [".story, .risk, .guard, .final, .table-scroll, .banner, .who .box, .order, .letter", "up"],
+    [".pkg", "zoom"], [".now", "zoom"]
+  ];
+  const els = new Set();
+  pick.forEach(([sel, a]) => document.querySelectorAll(sel).forEach(el => {
+    if (el.closest(".hero") || el.closest("#promo") || els.has(el)) return;
+    el.classList.add("rv"); el.dataset.a = a; els.add(el);
+  }));
+  // stagger siblings
+  els.forEach(el => {
+    const sibs = [...el.parentElement.children].filter(c => els.has(c));
+    const i = sibs.indexOf(el);
+    if (sibs.length > 1) el.style.setProperty("--d", Math.min(i, 6) * 0.09 + "s");
+  });
+  if (!("IntersectionObserver" in window)) return;
+  const io = new IntersectionObserver(entries => entries.forEach(en => {
+    if (!en.isIntersecting) return;
+    const el = en.target;
+    el.classList.remove("pre"); el.classList.add("in"); io.unobserve(el);
+    const n = el.querySelector && el.querySelector(".now-p");
+    if (n) countUp(n);
+  }), { threshold: 0.15, rootMargin: "0px 0px -6% 0px" });
+  const vh = innerHeight;
+  els.forEach(el => {
+    if (el.getBoundingClientRect().top > vh) el.classList.add("pre"); else el.classList.add("in");
+    io.observe(el);
+  });
+  function countUp(el) {
+    const target = parseFloat(el.textContent.replace(/[^\d.]/g, "")); if (!target) return;
+    const t0 = performance.now(), dur = 900;
+    (function step(t) { const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+      el.textContent = "RM" + Math.round(target * e); if (k < 1) requestAnimationFrame(step); else el.textContent = "RM" + target; })(t0);
+  }
+  // parallax photos + progress bar
+  const photos = [...document.querySelectorAll(".photo")];
+  photos.forEach(p => p.classList.add("par"));
+  let ticking = false;
+  function onScroll() {
+    ticking = false;
+    const h = document.documentElement, max = h.scrollHeight - innerHeight;
+    bar.style.transform = "scaleX(" + (max > 0 ? scrollY / max : 0) + ")";
+    photos.forEach(p => {
+      const r = p.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;
+      const off = (r.top + r.height / 2 - innerHeight / 2) / innerHeight;
+      p.style.setProperty("--py", (off * -40).toFixed(1) + "px");
+    });
+  }
+  addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  addEventListener("resize", onScroll);
+  onScroll();
+})();
 
 /* bacteria animation */
 (function () {
