@@ -26,3 +26,15 @@ Tujuan: footage selfie dalam kereta rasa jujur & dekat; overlay ikut warna label
 - `./build.sh /path/to/python` (perlu numpy, opencv-python-headless, pillow + ffmpeg).
 - `scripts/transcribe.py` — transkripsi tempatan (sherpa-onnx Whisper turbo), hanya rujukan.
 - Bahan asal: `source/footage.mp4`, `source/product_photo.jpg` (salinan; fail asal tak diubah).
+
+---
+
+# Versi 2 — "Fresh Kinetic" (`output/preview_v2_kinetic.mp4`)
+Lebih laju & bertenaga untuk wanita aktif. Dialog sama, tak dipotong.
+- **Sari kata kinetik:** HURUF BESAR, 1–3 perkataan, pop + condong sedikit; keyword pink (Poppins ExtraBold, outline gelap).
+- **Jump-zoom** setiap frasa (1.0–1.24×), shake pada "BAU BADAN" & "TAK SELESA" (+ glitch RGB).
+- **Ikon dilukis dengan kod:** matahari (aktiviti luar), titik peluh, garis bau berombak, tanda larangan, ✓, sparkle "hapuskan" peluh & bau selepas Firea.
+- **Whip-pan** merentas potongan 17.13s → botol hero di atas (muka kekal nampak) → jadi badge penjuru → end card pink + CTA kuning.
+- Bar progress pink di atas.
+- **Audio:** pop 118 BPM — snap → kick ringan → gelap/filter → four-on-the-floor + clap selepas produk; SFX ikut `scripts/cues_b.py`.
+- Fail: `scripts/cues_b.py`, `render_video_b.py`, `make_audio_b.py`; build: `./build.sh <python> b`.
