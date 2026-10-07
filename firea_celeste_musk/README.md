@@ -38,3 +38,14 @@ Lebih laju & bertenaga untuk wanita aktif. Dialog sama, tak dipotong.
 - Bar progress pink di atas.
 - **Audio:** pop 118 BPM — snap → kick ringan → gelap/filter → four-on-the-floor + clap selepas produk; SFX ikut `scripts/cues_b.py`.
 - Fail: `scripts/cues_b.py`, `render_video_b.py`, `make_audio_b.py`; build: `./build.sh <python> b`.
+
+---
+
+# Versi 3 — "Vox Explainer" (`output/preview_v3_vox.mp4`)
+Gaya explainer ala Vox, ikut `vox_render.py` dalam repo ini.
+- **Subjek dipotong** (rembg `u2net_human_seg`; selepas 17.13s digabung dengan `isnet-general-use` supaya botol di tangan kekal) dan diletak sebagai sticker bergaris putih di atas kertas krim + grid + grain. Kerusi/tiang kereta dibuang dengan kod (`remove_car_seat`).
+- **Tipografi:** Special Elite (label mesin taip), Playfair Display Bold (tajuk + highlight marker), Anton (cop getah, callout), Permanent Marker (tulisan tangan), Inter (sari kata jalur putih + highlight kuning).
+- **Diagram setiap babak:** doodle matahari → ikon kawan + belon "?!" + cop **BAU BADAN** → jadual *Peluh vs Bau badan* (Takpe ✓ / Jangan! ✗) → diagram orang menjauh → sapuan kertas → botol + callout berpanah (*Kawal peluh — Antiperspirant*, *Hilang bau badan — Odour & Wetness Protection*, dari label) → checklist *Sesuai untuk* → end card + 0% Alkohol / 0% Paraben + cop **MEMANG POWER**.
+- **Framing** bertukar setiap babak (potongan keras skala/kedudukan) — tiada zoom digital pada muka.
+- **Audio:** marimba 92 BPM + rim click; SFX mesin taip, kertas, cop, marker (`scripts/make_audio_vox.py`).
+- Build: `./build.sh <python> vox` (perlu `rembg onnxruntime`; model dimuat turun dari GitHub release rembg ke `~/.u2net`).
