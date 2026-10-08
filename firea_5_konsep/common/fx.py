@@ -32,7 +32,7 @@ SKY = (168, 210, 238)
 SKIN = (238, 199, 176)
 
 FONTS = dict(black="MontBlack", xb="MontXB", sb="MontSB", med="MontMed", serif="PlayfairBI", hand="Caveat",
-             brico="Bricolage")
+             brico="Bricolage", pixel="VT323")
 MAXW = W - 2 * 96  # text safe width
 
 

@@ -62,3 +62,13 @@ Gabungan semua bahan dalam montaj foto penuh skrin yang dipotong ikut beat (120 
 | 8–16s | USP | 4 USP dalam split-screen |
 | 16–24s | Testimoni | 3 petikan pelanggan sebenar, di atas latar produk (bukan wajah orang) |
 | 24–30s | Penutup | Kolaj 4 foto, logo, slogan |
+
+## Siri gaya R1–R3
+
+| # | Folder | Gaya |
+|---|---|---|
+| R1 | `r1_retro_desktop/` | Desktop retro / Y2K: boot "hari yang panjang" → pop-up amaran bertimbun → carian → "memasang Firea" dengan checklist label → semua amaran ditutup → "STATUS: YAKIN" |
+| R2 | `r2_grwm_story/` | GRWM gaya Instagram Story: bar progress, kotak teks dan sticker, 4 langkah rutin pagi, recap checklist dengan botol ori |
+| R3 | `r3_luxe_macro/` | Luxe macro (wine gelap + emas): kamera "macro" bergerak atas label botol ori (logo → Odour & Wetness Protection/Quick dry/Non sticky → 0% Alcohol/Paraben → ikon Long Lasting/Gentle/Daily Use), satu ayat pelanggan, penutup jenama |
+
+Font tambahan: VT323 (Google Fonts, OFL), untuk R1.
