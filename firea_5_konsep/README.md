@@ -49,3 +49,16 @@ Modul `common/testi.py` mengandungi:
 - highlight
 - bubble chat
 - end card gambar botol ori
+
+## M1: Montaj Hype Editorial (`m1_montaj_hype/`, 30s)
+
+Gabungan semua bahan dalam montaj foto penuh skrin yang dipotong ikut beat (120 BPM), dengan tipografi gergasi, flash dan punch-in:
+
+| Masa | Babak | Isi |
+|---|---|---|
+| 0–4s | Hook | PANAS. / BERPELUH. / LENGAN PANJANG. / SEHARIAN. |
+| 4–6s | Peralihan | "Tapi tetap kena YAKIN." (gambar 9) |
+| 6–8s | Produk | Botol ori (gambar 13), "KEKAL YAKIN." |
+| 8–16s | USP | 4 USP dalam split-screen |
+| 16–24s | Testimoni | 3 petikan pelanggan sebenar, di atas latar produk (bukan wajah orang) |
+| 24–30s | Penutup | Kolaj 4 foto, logo, slogan |
