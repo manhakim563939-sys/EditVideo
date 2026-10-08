@@ -32,3 +32,20 @@ python3 -m venv .venv && .venv/bin/pip install pycairo numpy pillow scipy
 .venv/bin/python common/build.py v1_angkat_tangan            # -> v1_angkat_tangan/output/...
 .venv/bin/python common/build.py v1_angkat_tangan --still 5 12  # frame semakan
 ```
+
+## Siri testimoni (T1–T3)
+
+Ayat pelanggan sebenar daripada poster 11 & 12. Petikan dikekalkan seperti asal; nama dan wajah disamarkan (Pelanggan A / Pelanggan B).
+Botol yang ditunjuk ialah botol ori Celeste Musk (gambar 13). Setiap video ada nota "Pengalaman individu mungkin berbeza".
+
+| # | Folder | Gaya | Sumber |
+|---|---|---|---|
+| T1 | `t1_chat_testimoni/` (31s) | Chat bergerak: typing, bubble, highlight frasa penting | Pelanggan A (poster 11) |
+| T2 | `t2_quote_testimoni/` (30s) | Kad petikan besar: "Rugi kalau tak cuba." | Pelanggan B (poster 12) |
+| T3 | `t3_dulu_sekarang/` (30s) | Kad DULU → SEKARANG daripada ayat kedua-dua pelanggan | Poster 11 & 12 |
+
+Modul `common/testi.py` mengandungi:
+- teks berbalut + emoji warna
+- highlight
+- bubble chat
+- end card gambar botol ori
