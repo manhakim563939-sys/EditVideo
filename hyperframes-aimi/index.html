@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="ms" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Montserrat"; src: url("assets/fonts/montserrat.woff2") format("woff2"); font-weight: 100 900; font-display: block; }
+      @font-face { font-family: "Bebas Neue"; src: url("assets/fonts/bebas.woff2") format("woff2"); font-display: block; }
+      @font-face { font-family: "Caveat"; src: url("assets/fonts/caveat.woff2") format("woff2"); font-weight: 700; font-display: block; }
+      @font-face { font-family: "Cinzel"; src: url("assets/fonts/cinzel.woff2") format("woff2"); font-weight: 700; font-display: block; }
+
+      :root {
+        --green: #1f3b30;
+        --green2: #2f5a48;
+        --gold: #d4ae5a;
+        --gold2: #f3d98b;
+        --ink: #17201c;
+        --paper: #f3ecdf;
+        --red: #c8443a;
+        --wa: #25d366;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: Montserrat, Inter, sans-serif; color: #fff; }
+      .layer { position: absolute; inset: 0; }
+
+      #cam { position: absolute; inset: 0; overflow: hidden; transform-origin: 50% 40%; }
+      #vid { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+      /* captions */
+      #caps { position: absolute; left: 0; right: 0; top: 1330px; height: 260px; z-index: 50; }
+      .cap { position: absolute; left: 50px; right: 50px; top: 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px 34px; opacity: 0; visibility: hidden; }
+      .cap .w { display: inline-block; font-weight: 900; font-size: 80px; line-height: 1.08; text-transform: uppercase; color: #fff;
+        -webkit-text-stroke: 11px var(--ink); paint-order: stroke fill; text-shadow: 0 10px 0 rgba(0,0,0,.35); }
+      .cap .w.hl, .cap .w.hl2 { margin: 0 8px; }
+      .cap .w.hl { color: var(--gold2); }
+      .cap .w.hl2 { color: #9fe3b8; }
+
+      #progress { position: absolute; left: 0; top: 0; height: 12px; width: 1080px; background: var(--gold); transform-origin: 0 50%; z-index: 60; }
+
+      .pill { position: absolute; display: inline-flex; align-items: center; gap: 12px; padding: 14px 30px; border-radius: 999px; font-weight: 800; font-size: 40px; color: var(--ink); background: #fff; box-shadow: 0 10px 26px rgba(0,0,0,.3); white-space: nowrap; }
+      .tape { position: absolute; padding: 16px 40px 10px; font-family: "Bebas Neue"; font-size: 84px; line-height: 1; color: var(--ink); background: var(--gold2); box-shadow: 0 8px 0 rgba(0,0,0,.18); white-space: nowrap; }
+      .note { position: absolute; font-family: Caveat, cursive; font-weight: 700; color: var(--ink); }
+      .stamp { position: absolute; font-family: "Bebas Neue"; color: var(--red); border: 10px solid var(--red); border-radius: 16px; padding: 12px 30px 2px; line-height: .95; background: rgba(255,255,255,.6); white-space: nowrap; }
+
+      /* hook */
+      #hook { z-index: 40; }
+      #hook .pill { left: 50%; top: 80px; transform: translateX(-50%); }
+      #hook-title { position: absolute; left: 0; right: 0; top: 150px; text-align: center; font-family: "Bebas Neue"; font-size: 118px; line-height: .95; color: #fff; -webkit-text-stroke: 10px var(--ink); paint-order: stroke fill; text-shadow: 0 12px 0 var(--gold); }
+
+      /* vox */
+      .vox { z-index: 20; background: var(--paper); overflow: hidden; }
+      .vox .grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(23,32,28,.07) 2px, transparent 2px), linear-gradient(90deg, rgba(23,32,28,.07) 2px, transparent 2px); background-size: 80px 80px; }
+      .vox .grain { position: absolute; inset: 0; opacity: .3; mix-blend-mode: multiply; }
+      .vox .vign { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, transparent 55%, rgba(120,95,50,.25) 100%); }
+      .stk { position: absolute; inset: 0; transform-origin: 50% 100%; }
+      .stk video { position: absolute; inset: 0; width: 100%; height: 100%; filter: drop-shadow(10px 14px 0 rgba(23,32,28,.25)); }
+      .icon { position: absolute; }
+
+      /* vox A: faded curtain + guests */
+      #curtain { left: 30px; top: 120px; width: 330px; height: 520px; }
+      #curtain .old { opacity: 0; }
+      #pudar { left: 330px; top: 170px; font-size: 64px; transform: rotate(-4deg); }
+      #kusam { left: 330px; top: 300px; font-size: 64px; transform: rotate(3deg); }
+      #guests { left: 760px; top: 140px; width: 280px; }
+      #segan { left: 700px; top: 470px; background: #fff; border-radius: 30px; padding: 16px 26px; font-weight: 800; font-size: 40px; color: var(--ink); box-shadow: 0 8px 0 rgba(0,0,0,.12); }
+
+      /* refresh */
+      #refresh { z-index: 40; }
+      #refresh .t { position: absolute; left: 0; right: 0; top: 150px; text-align: center; font-family: "Bebas Neue"; font-size: 190px; color: var(--gold2); -webkit-text-stroke: 12px var(--ink); paint-order: stroke fill; text-shadow: 0 14px 0 var(--green); }
+      .spark { position: absolute; font-size: 80px; }
+
+      /* brand reveal */
+      #brand { z-index: 30; background: radial-gradient(circle at 50% 42%, #3d6b57 0%, var(--green) 55%, #0c1a14 100%); overflow: hidden; }
+      #shine { position: absolute; left: 50%; top: 42%; width: 2600px; height: 2600px; margin: -1300px 0 0 -1300px; border-radius: 50%;
+        background: repeating-conic-gradient(rgba(212,174,90,.14) 0deg 6deg, rgba(212,174,90,0) 6deg 16deg); }
+      #brand-logo { position: absolute; left: 50%; top: 340px; width: 760px; margin-left: -380px; filter: drop-shadow(0 18px 24px rgba(0,0,0,.45)); }
+      #brand-sub { position: absolute; left: 0; right: 0; top: 1000px; text-align: center; font-family: Caveat; font-weight: 700; font-size: 84px; color: var(--gold2); }
+
+      /* vox B: no ladder / measure + A-Z steps */
+      #ladder { left: 50px; top: 130px; width: 260px; }
+      #measure { left: 760px; top: 170px; width: 280px; }
+      .xx { position: absolute; font-family: "Bebas Neue"; font-size: 260px; color: var(--red); line-height: 1; }
+      #x1 { left: 110px; top: 160px; } #x2 { left: 830px; top: 160px; }
+      #az { left: 50%; top: 90px; transform: translateX(-50%) rotate(-2deg); font-size: 110px; }
+      .step { position: absolute; width: 470px; height: 200px; background: #fff; border: 5px solid var(--ink); border-radius: 26px; box-shadow: 0 10px 0 rgba(23,32,28,.18); display: flex; align-items: center; gap: 20px; padding: 0 26px; }
+      .step .n { width: 86px; height: 86px; border-radius: 50%; background: var(--green); color: var(--gold2); font-family: "Bebas Neue"; font-size: 66px; display: grid; place-items: center; flex: none; }
+      .step .t { font-family: "Bebas Neue"; font-size: 70px; color: var(--ink); line-height: .95; }
+      .step .t small { display: block; font-family: Montserrat; font-weight: 700; font-size: 26px; color: #5b6660; letter-spacing: 0; }
+      .step .e { font-size: 64px; margin-left: auto; }
+      #s1 { left: 50px; top: 250px; } #s2 { left: 560px; top: 250px; }
+      #s3 { left: 50px; top: 480px; } #s4 { left: 560px; top: 480px; }
+
+      /* koleksi b-roll */
+      #koleksi { z-index: 30; background: var(--paper); overflow: hidden; }
+      #koleksi .title { position: absolute; left: 0; right: 0; top: 110px; text-align: center; font-family: "Bebas Neue"; font-size: 150px; line-height: .9; color: var(--ink); }
+      #koleksi .title b { color: var(--green2); font-weight: 400; }
+      .sw { position: absolute; width: 230px; height: 520px; border-radius: 10px 10px 4px 4px; box-shadow: 0 16px 24px rgba(0,0,0,.2);
+        background-image: repeating-linear-gradient(90deg, rgba(255,255,255,.18) 0 18px, rgba(0,0,0,.14) 18px 40px, rgba(255,255,255,0) 40px 56px); }
+      .sw::before { content: ""; position: absolute; left: -10px; right: -10px; top: -22px; height: 22px; border-radius: 11px; background: #8a6d2f; }
+
+      /* overlays on footage */
+      #loc1 { z-index: 40; }
+      #loc1 .pill { left: 50%; top: 110px; transform: translateX(-50%); font-size: 44px; }
+      #tukar { z-index: 40; }
+      #tukar .tape { left: 50%; top: 100px; transform: translateX(-50%) rotate(-2deg); font-size: 104px; }
+      #bumi { z-index: 40; }
+      #badge { position: absolute; right: 50px; top: 120px; width: 300px; height: 300px; border-radius: 50%; background: var(--green); border: 10px solid var(--gold); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; box-shadow: 0 16px 30px rgba(0,0,0,.35); }
+      #badge .big { font-family: "Bebas Neue"; font-size: 120px; color: var(--gold2); line-height: .85; }
+      #badge .sm { font-family: "Bebas Neue"; font-size: 58px; color: #fff; line-height: 1; }
+
+      /* shop b-roll */
+      #shop { z-index: 30; background: var(--green); overflow: hidden; }
+      #shop-img { position: absolute; left: 50%; top: 260px; width: 1650px; height: 1040px; margin-left: -825px; }
+      #shop .pin { position: absolute; left: 60px; right: 60px; top: 1060px; background: #fff; border-radius: 30px; padding: 30px 36px; color: var(--ink); box-shadow: 0 20px 40px rgba(0,0,0,.35); display: flex; align-items: center; gap: 24px; }
+      #shop .pin .ic { font-size: 90px; }
+      #shop .pin .a { font-family: "Bebas Neue"; font-size: 76px; line-height: .95; }
+      #shop .pin .b { font-weight: 700; font-size: 32px; color: #5b6660; }
+      #shop .kick { position: absolute; left: 0; right: 0; top: 110px; text-align: center; font-family: Cinzel; font-size: 64px; color: var(--gold2); letter-spacing: .08em; }
+
+      /* WhatsApp CTA */
+      #cta { z-index: 45; }
+      #card { position: absolute; left: 50px; right: 50px; top: 1540px; height: 250px; border-radius: 36px; background: var(--green); border: 6px solid var(--gold); box-shadow: 0 24px 50px rgba(0,0,0,.4); display: flex; align-items: center; gap: 26px; padding: 0 30px; }
+      #card img { width: 190px; flex: none; }
+      #card .name { font-family: Cinzel; font-size: 54px; color: var(--gold2); line-height: 1.1; }
+      .wa { display: inline-flex; align-items: center; gap: 14px; margin-top: 12px; padding: 16px 32px; border-radius: 999px; background: var(--wa); color: #fff; font-weight: 900; font-size: 40px; box-shadow: 0 8px 0 #128c4a; white-space: nowrap; }
+      .wa svg { width: 46px; height: 46px; }
+
+      /* end card */
+      #endc { z-index: 65; background: radial-gradient(circle at 50% 38%, #3d6b57 0%, var(--green) 55%, #0c1a14 100%); }
+      #endc img { position: absolute; left: 50%; top: 260px; width: 700px; margin-left: -350px; }
+      #endc .svc { position: absolute; left: 60px; right: 60px; top: 1000px; text-align: center; font-weight: 700; font-size: 46px; line-height: 1.5; color: #fff; }
+      #endc .svc b { color: var(--gold2); }
+      #endc .loc { position: absolute; left: 0; right: 0; top: 1200px; text-align: center; font-weight: 800; font-size: 40px; color: var(--gold2); }
+      #endc .wa { position: absolute; left: 50%; top: 1330px; transform: translateX(-50%); margin: 0; font-size: 56px; padding: 26px 50px; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="46.6" data-width="1080" data-height="1920">
+      <div id="cam">
+        <video id="vid" class="clip" src="assets/media/main.mp4" data-start="0" data-duration="44.88" data-track-index="0" data-has-audio="true" playsinline></video>
+      </div>
+
+      <!-- HOOK 0–4.45 -->
+      <div id="hook" class="layer clip" data-start="0" data-duration="4.45" data-track-index="2">
+        <div class="pill">🏠 Untuk pemilik rumah</div>
+        <div id="hook-title">LANGSIR<br />DAH KUSAM?</div>
+      </div>
+
+      <!-- VOX A 4.45–10.15 -->
+      <div id="voxA" class="layer vox clip" data-start="4.45" data-duration="5.7" data-track-index="1">
+        <div class="grid"></div>
+        <svg class="grain" width="1080" height="1920"><filter id="gn"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="3" /><feColorMatrix values="0 0 0 0 .45  0 0 0 0 .4  0 0 0 0 .3  0 0 0 .55 0" /></filter><rect width="1080" height="1920" filter="url(#gn)" /></svg>
+        <div class="vign"></div>
+        <div id="stkA" class="stk"><video id="va" class="clip" src="assets/media/voxA.webm" muted data-start="4.45" data-duration="5.7" data-track-index="3"></video></div>
+        <svg id="curtain" class="icon" viewBox="0 0 330 520">
+          <rect x="0" y="0" width="330" height="22" rx="11" fill="#8a6d2f" />
+          <g class="new">
+            <path d="M14 22 Q40 270 20 515 L150 515 Q130 270 150 22 Z" fill="#3c6fa8" stroke="#17201c" stroke-width="6" />
+            <path d="M180 22 Q200 270 180 515 L312 515 Q290 270 316 22 Z" fill="#3c6fa8" stroke="#17201c" stroke-width="6" />
+            <path d="M50 30 Q70 270 55 510 M100 30 Q115 270 105 510 M220 30 Q235 270 225 510 M270 30 Q285 270 275 510" stroke="rgba(255,255,255,.35)" stroke-width="8" fill="none" />
+          </g>
+          <g class="old">
+            <path d="M14 22 Q40 270 20 515 L150 515 Q130 270 150 22 Z" fill="#a9a59a" stroke="#17201c" stroke-width="6" />
+            <path d="M180 22 Q200 270 180 515 L312 515 Q290 270 316 22 Z" fill="#a9a59a" stroke="#17201c" stroke-width="6" />
+            <circle cx="70" cy="180" r="16" fill="#8f8a7d" /><circle cx="250" cy="330" r="20" fill="#8f8a7d" /><circle cx="110" cy="420" r="12" fill="#8f8a7d" />
+            <path d="M50 30 Q70 270 55 510 M100 30 Q115 270 105 510 M220 30 Q235 270 225 510 M270 30 Q285 270 275 510" stroke="rgba(0,0,0,.12)" stroke-width="8" fill="none" />
+          </g>
+        </svg>
+        <div id="pudar" class="note">← pudar</div>
+        <div id="kusam" class="note">← kusam</div>
+        <svg id="guests" class="icon" viewBox="0 0 280 300">
+          <circle cx="80" cy="70" r="46" fill="#17201c" /><rect x="18" y="128" width="124" height="160" rx="56" fill="#17201c" />
+          <circle cx="205" cy="80" r="42" fill="#2f5a48" /><rect x="148" y="134" width="114" height="154" rx="52" fill="#2f5a48" />
+        </svg>
+        <div id="segan" class="note">😳 segan...</div>
+      </div>
+
+      <!-- REFRESH 12.4–15.6 -->
+      <div id="refresh" class="layer clip" data-start="12.4" data-duration="3.2" data-track-index="2">
+        <div class="t">REFRESH!</div>
+        <div class="spark" id="sk1" style="left:110px;top:140px">✨</div>
+        <div class="spark" id="sk2" style="left:900px;top:300px">✨</div>
+      </div>
+
+      <!-- BRAND 15.6–17.75 -->
+      <div id="brand" class="layer clip" data-start="15.6" data-duration="2.15" data-track-index="1">
+        <div id="shine"></div>
+        <img id="brand-logo" src="assets/media/logo.png" alt="Aimi Curtain" />
+        <div id="brand-sub">biar kami selesaikan ✓</div>
+      </div>
+
+      <!-- VOX B 17.75–31.1 -->
+      <div id="voxB" class="layer vox clip" data-start="17.75" data-duration="13.35" data-track-index="1">
+        <div class="grid"></div>
+        <svg class="grain" width="1080" height="1920"><filter id="gn2"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="8" /><feColorMatrix values="0 0 0 0 .45  0 0 0 0 .4  0 0 0 0 .3  0 0 0 .55 0" /></filter><rect width="1080" height="1920" filter="url(#gn2)" /></svg>
+        <div class="vign"></div>
+        <div id="stkB" class="stk"><video id="vb" class="clip" src="assets/media/voxB.webm" muted data-start="17.75" data-duration="13.35" data-track-index="3"></video></div>
+        <svg id="ladder" class="icon" viewBox="0 0 260 420"><g stroke="#17201c" stroke-width="16" stroke-linecap="round"><line x1="60" y1="20" x2="30" y2="400" /><line x1="200" y1="20" x2="230" y2="400" /><line x1="56" y1="90" x2="204" y2="90" /><line x1="50" y1="170" x2="210" y2="170" /><line x1="44" y1="250" x2="216" y2="250" /><line x1="38" y1="330" x2="222" y2="330" /></g></svg>
+        <div id="x1" class="xx">✕</div>
+        <svg id="measure" class="icon" viewBox="0 0 280 300"><rect x="10" y="40" width="190" height="190" rx="40" fill="#f2c230" stroke="#17201c" stroke-width="10" /><circle cx="105" cy="135" r="40" fill="#fff" stroke="#17201c" stroke-width="8" /><rect x="190" y="180" width="85" height="40" fill="#fff" stroke="#17201c" stroke-width="8" /><text x="105" y="290" font-family="Bebas Neue" font-size="70" fill="#c8443a" text-anchor="middle">???</text></svg>
+        <div id="x2" class="xx">✕</div>
+        <div id="az" class="tape">KHIDMAT A – Z</div>
+        <div id="s1" class="step"><div class="n">1</div><div class="t">UKUR<small>datang ke rumah</small></div><div class="e">📏</div></div>
+        <div id="s2" class="step"><div class="n">2</div><div class="t">JAHIT<small>kemas &amp; rapi</small></div><div class="e">🧵</div></div>
+        <div id="s3" class="step"><div class="n">3</div><div class="t">PASANG<small>siap dipasang</small></div><div class="e">🔧</div></div>
+        <div id="s4" class="step"><div class="n">4</div><div class="t">PILIH<small>beratus koleksi</small></div><div class="e">🎨</div></div>
+      </div>
+
+      <!-- KOLEKSI b-roll 31.1–33.75 -->
+      <div id="koleksi" class="layer clip" data-start="31.1" data-duration="2.65" data-track-index="1">
+        <div class="title">BERATUS<br /><b>KOLEKSI CANTIK</b></div>
+        <div class="sw" id="w1" style="left:40px;top:560px;background-color:#3c6fa8"></div>
+        <div class="sw" id="w2" style="left:290px;top:600px;background-color:#c9a24a"></div>
+        <div class="sw" id="w3" style="left:540px;top:560px;background-color:#b23a48"></div>
+        <div class="sw" id="w4" style="left:790px;top:600px;background-color:#6fa58a"></div>
+        <div class="sw" id="w5" style="left:160px;top:900px;background-color:#e8dcc8"></div>
+        <div class="sw" id="w6" style="left:420px;top:940px;background-color:#5b4a7a"></div>
+        <div class="sw" id="w7" style="left:680px;top:900px;background-color:#d98c6a"></div>
+      </div>
+
+      <!-- footage overlays -->
+      <div id="loc1" class="layer clip" data-start="33.75" data-duration="2.15" data-track-index="2"><div class="pill">📍 Kulim &amp; kawasan berdekatan</div></div>
+      <div id="tukar" class="layer clip" data-start="35.95" data-duration="1.4" data-track-index="2"><div class="tape">JOM TUKAR WAJAH BARU!</div></div>
+      <div id="bumi" class="layer clip" data-start="37.35" data-duration="2.95" data-track-index="2">
+        <div id="badge"><div class="big">100%</div><div class="sm">BUMIPUTERA</div></div>
+      </div>
+
+      <!-- SHOP b-roll 40.3–42.3 -->
+      <div id="shop" class="layer clip" data-start="40.3" data-duration="2.0" data-track-index="1">
+        <div class="kick">KUNJUNGI KAMI</div>
+        <img id="shop-img" src="assets/media/shop_sign.jpg" alt="Kedai Aimi Home Decor" />
+        <div class="pin"><div class="ic">📍</div><div><div class="a">KELANG LAMA SQUARE, KULIM</div><div class="b">Kedai langsir &amp; hiasan dalaman</div></div></div>
+      </div>
+
+      <!-- CTA 42.3–44.9 -->
+      <div id="cta" class="layer clip" data-start="42.3" data-duration="2.6" data-track-index="2">
+        <div id="card">
+          <img src="assets/media/logo.png" alt="" />
+          <div>
+            <div class="name">Aimi Curtain</div>
+            <div class="wa"><svg viewBox="0 0 32 32"><path fill="#fff" d="M16 3C9 3 3.3 8.6 3.3 15.6c0 2.4.7 4.7 1.9 6.6L3 29l7-2.2c1.8 1 3.9 1.5 6 1.5 7 0 12.7-5.6 12.7-12.6S23 3 16 3zm0 23c-1.9 0-3.8-.5-5.4-1.5l-.4-.2-4.1 1.3 1.3-4-.3-.4c-1.1-1.7-1.7-3.6-1.7-5.6C5.4 9.8 10.2 5.1 16 5.1s10.6 4.7 10.6 10.5S21.8 26 16 26zm5.8-7.8c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1a8.6 8.6 0 0 1-4.3-3.7c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4s-1.2 1.1-1.2 2.7 1.2 3.1 1.3 3.3 2.3 3.5 5.6 4.9c2.1.9 2.9 1 4 .8.6-.1 1.9-.8 2.2-1.5s.3-1.4.2-1.5-.3-.2-.6-.3z" /></svg>Klik WhatsApp 👇</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- END CARD 44.9–46.6 -->
+      <div id="endc" class="layer clip" data-start="44.9" data-duration="1.7" data-track-index="1">
+        <img src="assets/media/logo.png" alt="Aimi Curtain" />
+        <div class="svc"><b>Jahit Langsir</b> · Pemasangan Railing · Rod · Blind · Wallpaper Korea</div>
+        <div class="loc">📍 Kelang Lama Square, Kulim</div>
+        <div class="wa"><svg viewBox="0 0 32 32"><path fill="#fff" d="M16 3C9 3 3.3 8.6 3.3 15.6c0 2.4.7 4.7 1.9 6.6L3 29l7-2.2c1.8 1 3.9 1.5 6 1.5 7 0 12.7-5.6 12.7-12.6S23 3 16 3zm0 23c-1.9 0-3.8-.5-5.4-1.5l-.4-.2-4.1 1.3 1.3-4-.3-.4c-1.1-1.7-1.7-3.6-1.7-5.6C5.4 9.8 10.2 5.1 16 5.1s10.6 4.7 10.6 10.5S21.8 26 16 26zm5.8-7.8c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1a8.6 8.6 0 0 1-4.3-3.7c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4s-1.2 1.1-1.2 2.7 1.2 3.1 1.3 3.3 2.3 3.5 5.6 4.9c2.1.9 2.9 1 4 .8.6-.1 1.9-.8 2.2-1.5s.3-1.4.2-1.5-.3-.2-.6-.3z" /></svg>Klik WhatsApp</div>
+      </div>
+
+      <div id="progress"></div>
+      <div id="caps"></div>
+
+      <!-- SFX -->
+      <audio id="sfx1" class="clip" src="assets/media/pop.wav" data-start="0.1" data-duration="0.15" data-volume="0.4" data-track-index="5"></audio>
+      <audio id="sfx2" class="clip" src="assets/media/whoosh.wav" data-start="4.3" data-duration="0.5" data-volume="0.4" data-track-index="5"></audio>
+      <audio id="sfx3" class="clip" src="assets/media/pop.wav" data-start="5.4" data-duration="0.15" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx4" class="clip" src="assets/media/pop.wav" data-start="7.8" data-duration="0.15" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx5" class="clip" src="assets/media/whoosh.wav" data-start="10.0" data-duration="0.5" data-volume="0.4" data-track-index="5"></audio>
+      <audio id="sfx6" class="clip" src="assets/media/ding.wav" data-start="12.45" data-duration="0.9" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx7" class="clip" src="assets/media/whoosh.wav" data-start="15.45" data-duration="0.5" data-volume="0.4" data-track-index="5"></audio>
+      <audio id="sfx8" class="clip" src="assets/media/ding.wav" data-start="15.75" data-duration="0.9" data-volume="0.35" data-track-index="7"></audio>
+      <audio id="sfx9" class="clip" src="assets/media/whoosh.wav" data-start="17.6" data-duration="0.5" data-volume="0.4" data-track-index="5"></audio>
+      <audio id="sfx10" class="clip" src="assets/media/boom.wav" data-start="18.6" data-duration="0.4" data-volume="0.5" data-track-index="6"></audio>
+      <audio id="sfx11" class="clip" src="assets/media/boom.wav" data-start="20.6" data-duration="0.4" data-volume="0.5" data-track-index="7"></audio>
+      <audio id="sfx12" class="clip" src="assets/media/pop.wav" data-start="22.8" data-duration="0.15" data-volume="0.4" data-track-index="6"></audio>
+      <audio id="sfx13" class="clip" src="assets/media/pop.wav" data-start="24.4" data-duration="0.15" data-volume="0.35" data-track-index="7"></audio>
+      <audio id="sfx14" class="clip" src="assets/media/pop.wav" data-start="26.5" data-duration="0.15" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx15" class="clip" src="assets/media/pop.wav" data-start="28.1" data-duration="0.15" data-volume="0.35" data-track-index="7"></audio>
+      <audio id="sfx16" class="clip" src="assets/media/pop.wav" data-start="29.8" data-duration="0.15" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx17" class="clip" src="assets/media/whoosh.wav" data-start="30.95" data-duration="0.5" data-volume="0.4" data-track-index="5"></audio>
+      <audio id="sfx18" class="clip" src="assets/media/whoosh.wav" data-start="33.6" data-duration="0.5" data-volume="0.4" data-track-index="5"></audio>
+      <audio id="sfx19" class="clip" src="assets/media/pop.wav" data-start="36.0" data-duration="0.15" data-volume="0.4" data-track-index="6"></audio>
+      <audio id="sfx20" class="clip" src="assets/media/boom.wav" data-start="38.6" data-duration="0.4" data-volume="0.5" data-track-index="7"></audio>
+      <audio id="sfx21" class="clip" src="assets/media/whoosh.wav" data-start="40.15" data-duration="0.5" data-volume="0.4" data-track-index="5"></audio>
+      <audio id="sfx22" class="clip" src="assets/media/pop.wav" data-start="42.45" data-duration="0.15" data-volume="0.4" data-track-index="6"></audio>
+      <audio id="sfx23" class="clip" src="assets/media/ding.wav" data-start="44.95" data-duration="0.9" data-volume="0.35" data-track-index="7"></audio>
+    </div>
+
+    <script>
+      // Captions: [start, end, text]. *word* = gold highlight, ^word^ = mint highlight.
+      const CAPTIONS = [
+        [0.15, 1.4, "Langsir kat ruang tamu"],
+        [1.4, 2.5, "dah *bertahun* tak bertukar"],
+        [2.5, 4.45, "Warna asal yang terang"],
+        [4.45, 5.38, "dah *pudar*, nampak *kusam*"],
+        [5.4, 6.6, "Bila ada tetamu"],
+        [6.6, 7.8, "atau saudara-mara datang"],
+        [7.8, 9.0, "mula rasa *segan*"],
+        [9.0, 10.15, "sebab suasana rumah"],
+        [10.15, 11.5, "nampak *suram*"],
+        [11.5, 12.4, "dengan langsir lama"],
+        [12.4, 13.5, "Dah tiba masa untuk *refresh*"],
+        [13.5, 14.5, "dan naikkan balik"],
+        [14.5, 15.6, "*seri* ruang tamu anda"],
+        [15.7, 17.7, "Biar ^Aimi^ ^Curtain^ selesaikan"],
+        [17.8, 19.0, "Tak perlu penat-penat"],
+        [19.0, 20.15, "*panjat* *tangga*"],
+        [20.15, 21.4, "atau pening fikir *ukuran*"],
+        [21.45, 22.8, "Kami sediakan khidmat"],
+        [22.8, 23.8, "*A* *sampai* *Z*"],
+        [24.2, 25.3, "Team kami akan datang"],
+        [25.3, 26.3, "*ukur* di rumah anda"],
+        [26.4, 27.9, "Kami *jahitkan* dengan kemas"],
+        [27.95, 29.6, "dan buatkan *pemasangan* sekali"],
+        [29.65, 31.1, "Anda pilih je langsir baru"],
+        [31.1, 32.6, "dari *beratus* koleksi"],
+        [32.65, 33.7, "cantik yang kami ada"],
+        [33.75, 35.9, "Jadi orang ^Kulim^ dan berdekatan"],
+        [36.0, 37.3, "jom tukar *wajah* *baru* rumah anda"],
+        [37.35, 38.6, "Kami adalah syarikat"],
+        [38.6, 40.3, "*100%* *Bumiputera*"],
+        [40.3, 42.25, "di Kelang Lama Square, ^Kulim^"],
+        [42.3, 44.85, "Klik ^WhatsApp^ di bawah"],
+      ];
+
+      const caps = document.getElementById("caps");
+      const tl = gsap.timeline({ paused: true });
+
+      CAPTIONS.forEach(([s, e, text], i) => {
+        const el = document.createElement("div");
+        el.className = "cap";
+        el.id = "cap" + i;
+        text.split(" ").forEach((raw) => {
+          const w = document.createElement("span");
+          w.className = "w";
+          if (/^\*.*\*[,.]*$/.test(raw)) w.classList.add("hl");
+          if (/^\^.*\^[,.]*$/.test(raw)) w.classList.add("hl2");
+          w.textContent = raw.replace(/[*^]/g, "");
+          el.appendChild(w);
+        });
+        caps.appendChild(el);
+        const words = el.querySelectorAll(".w");
+        const step = Math.min(0.12, (e - s) / (words.length + 1));
+        tl.set(el, { autoAlpha: 1 }, s);
+        tl.fromTo(el, { scale: 0.82 }, { scale: 1, duration: 0.22, ease: "back.out(3)" }, s);
+        words.forEach((w, k) => {
+          tl.fromTo(w, { y: 34, opacity: 0, rotation: k % 2 ? 3 : -3 }, { y: 0, opacity: 1, rotation: 0, duration: 0.16, ease: "power2.out" }, s + k * step);
+        });
+        tl.set(el, { autoAlpha: 0 }, e);
+      });
+
+      tl.fromTo("#progress", { scaleX: 0 }, { scaleX: 1, duration: 46.6, ease: "none" }, 0);
+
+      // ---------- camera ----------
+      tl.fromTo("#cam", { scale: 1.15 }, { scale: 1.0, duration: 4.3, ease: "power2.out" }, 0);
+      tl.set("#cam", { scale: 1.0 }, 10.15);
+      tl.to("#cam", { scale: 1.2, duration: 0.15, ease: "power3.out" }, 10.16);
+      tl.to("#cam", { scale: 1.05, duration: 0.85, ease: "power2.out" }, 11.5);
+      tl.to("#cam", { scale: 1.15, duration: 0.15, ease: "power3.out" }, 12.4);
+      tl.to("#cam", { scale: 1.0, duration: 2.6, ease: "sine.inOut" }, 12.6);
+      tl.set("#cam", { scale: 1.12 }, 33.75);
+      tl.to("#cam", { scale: 1.0, duration: 2.0, ease: "power2.out" }, 33.76);
+      tl.to("#cam", { scale: 1.12, duration: 0.15, ease: "power3.out" }, 35.95);
+      tl.to("#cam", { scale: 1.04, duration: 1.2, ease: "power2.out" }, 37.35);
+      tl.set("#cam", { scale: 1.0 }, 42.3);
+      tl.to("#cam", { scale: 1.08, duration: 2.5, ease: "sine.inOut" }, 42.31);
+
+      // ---------- hook ----------
+      tl.from("#hook .pill", { y: -120, opacity: 0, duration: 0.4, ease: "back.out(2)" }, 0.05);
+      tl.from("#hook-title", { scale: 2.2, opacity: 0, rotation: -6, duration: 0.35, ease: "power4.out" }, 0.15);
+      tl.to("#hook-title", { rotation: 2, duration: 0.6, yoyo: true, repeat: 3, ease: "sine.inOut" }, 0.6);
+      tl.to("#hook", { y: -500, duration: 0.3, ease: "power3.in" }, 4.15);
+
+      // ---------- VOX A ----------
+      tl.from("#voxA", { xPercent: 100, duration: 0.35, ease: "power3.out" }, 4.45);
+      tl.fromTo("#stkA", { scale: 0.76, y: 120, rotation: -1.5 }, { scale: 0.8, y: 80, rotation: 1, duration: 5.7, ease: "sine.inOut" }, 4.45);
+      tl.from("#curtain", { y: -600, duration: 0.45, ease: "back.out(1.5)" }, 4.6);
+      tl.to("#curtain .old", { opacity: 1, duration: 0.6 }, 4.9);
+      tl.from("#pudar", { x: 60, opacity: 0, duration: 0.3 }, 4.95);
+      tl.from("#kusam", { x: 60, opacity: 0, duration: 0.3 }, 5.2);
+      tl.from("#guests", { scale: 0, duration: 0.35, ease: "back.out(2.5)" }, 5.45);
+      tl.from("#segan", { scale: 0, rotation: -15, duration: 0.3, ease: "back.out(3)" }, 7.85);
+      tl.to("#segan", { rotation: 5, duration: 0.2, yoyo: true, repeat: 5 }, 8.2);
+      tl.to("#voxA", { xPercent: -100, duration: 0.3, ease: "power3.in" }, 9.85);
+
+      // ---------- refresh ----------
+      tl.from("#refresh .t", { scale: 3, opacity: 0, rotation: -10, duration: 0.3, ease: "power4.in" }, 12.4);
+      tl.to("#refresh .t", { scale: 1.06, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" }, 12.8);
+      ["#sk1", "#sk2"].forEach((id, k) => {
+        tl.fromTo(id, { scale: 0, rotation: 0 }, { scale: 1.3, rotation: 90, duration: 0.4, yoyo: true, repeat: 3, ease: "sine.inOut" }, 12.6 + k * 0.3);
+      });
+      tl.to("#refresh", { y: -500, duration: 0.3, ease: "power3.in" }, 15.25);
+
+      // ---------- brand ----------
+      tl.fromTo("#brand", { clipPath: "circle(0% at 50% 45%)" }, { clipPath: "circle(150% at 50% 45%)", duration: 0.4, ease: "power3.inOut" }, 15.6);
+      tl.fromTo("#shine", { rotation: 0 }, { rotation: 25, duration: 2.15, ease: "none" }, 15.6);
+      tl.from("#brand-logo", { scale: 0.5, opacity: 0, rotation: -8, duration: 0.5, ease: "back.out(1.8)" }, 15.75);
+      tl.from("#brand-sub", { y: 40, opacity: 0, duration: 0.35 }, 16.4);
+
+      // ---------- VOX B ----------
+      tl.from("#voxB", { xPercent: 100, duration: 0.35, ease: "power3.out" }, 17.75);
+      tl.fromTo("#stkB", { scale: 0.74, y: 140, rotation: 1.5 }, { scale: 0.8, y: 80, rotation: -1, duration: 13.3, ease: "sine.inOut" }, 17.75);
+      tl.from("#ladder", { y: 500, rotation: -15, duration: 0.4, ease: "back.out(1.8)" }, 18.0);
+      tl.from("#x1", { scale: 3, opacity: 0, duration: 0.2, ease: "power4.in" }, 18.6);
+      tl.from("#measure", { y: 500, rotation: 15, duration: 0.4, ease: "back.out(1.8)" }, 20.1);
+      tl.from("#x2", { scale: 3, opacity: 0, duration: 0.2, ease: "power4.in" }, 20.6);
+      tl.to(["#ladder", "#x1", "#measure", "#x2"], { opacity: 0, y: -60, duration: 0.25 }, 21.45);
+      tl.from("#az", { y: -300, duration: 0.4, ease: "back.out(1.8)" }, 22.8);
+      [["#s1", 24.3], ["#s2", 26.4], ["#s3", 27.95], ["#s4", 29.65]].forEach(([id, t], k) => {
+        tl.from(id, { scale: 0, rotation: k % 2 ? 8 : -8, duration: 0.35, ease: "back.out(2.4)" }, t);
+      });
+      tl.to("#voxB", { xPercent: -100, duration: 0.3, ease: "power3.in" }, 30.8);
+
+      // ---------- koleksi ----------
+      tl.from("#koleksi", { yPercent: 100, duration: 0.3, ease: "power3.out" }, 31.1);
+      tl.from("#koleksi .title", { scale: 1.6, opacity: 0, duration: 0.3, ease: "power3.out" }, 31.2);
+      ["#w1", "#w2", "#w3", "#w4", "#w5", "#w6", "#w7"].forEach((id, k) => {
+        tl.from(id, { y: -900, rotation: k % 2 ? 10 : -10, duration: 0.45, ease: "back.out(1.4)" }, 31.3 + k * 0.12);
+        tl.to(id, { rotation: k % 2 ? 2 : -2, duration: 0.5, yoyo: true, repeat: 1, ease: "sine.inOut" }, 32.3 + k * 0.05);
+      });
+      tl.to("#koleksi", { yPercent: -100, duration: 0.3, ease: "power3.in" }, 33.45);
+
+      // ---------- overlays ----------
+      tl.from("#loc1 .pill", { y: -150, opacity: 0, duration: 0.4, ease: "back.out(2)" }, 33.85);
+      tl.from("#tukar .tape", { scale: 2.5, opacity: 0, duration: 0.25, ease: "power4.in" }, 35.95);
+      tl.from("#badge", { scale: 0, rotation: -180, duration: 0.5, ease: "back.out(1.8)" }, 37.4);
+      tl.to("#badge", { scale: 1.1, duration: 0.15, yoyo: true, repeat: 1 }, 38.6);
+
+      // ---------- shop ----------
+      tl.from("#shop", { opacity: 0, duration: 0.25 }, 40.3);
+      tl.fromTo("#shop-img", { scale: 1.0, x: 120 }, { scale: 1.12, x: -120, duration: 2.0, ease: "none" }, 40.3);
+      tl.from("#shop .kick", { y: -60, opacity: 0, duration: 0.3 }, 40.4);
+      tl.from("#shop .pin", { y: 400, duration: 0.4, ease: "back.out(1.6)" }, 40.5);
+
+      // ---------- CTA ----------
+      tl.from("#card", { y: 500, duration: 0.45, ease: "back.out(1.5)" }, 42.3);
+      tl.fromTo("#card .wa", { scale: 1 }, { scale: 1.08, duration: 0.3, yoyo: true, repeat: 5, ease: "sine.inOut" }, 42.9);
+
+      // ---------- end card ----------
+      tl.from("#endc", { opacity: 0, duration: 0.3 }, 44.9);
+      tl.from("#endc img", { scale: 0.6, opacity: 0, duration: 0.45, ease: "back.out(2)" }, 44.95);
+      tl.from("#endc .svc", { y: 40, opacity: 0, duration: 0.3 }, 45.2);
+      tl.from("#endc .loc", { y: 40, opacity: 0, duration: 0.3 }, 45.35);
+      tl.from("#endc .wa", { scale: 0, duration: 0.35, ease: "back.out(3)" }, 45.5);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

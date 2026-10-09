@@ -37,3 +37,11 @@ gabungan talking-head + gaya Vox: sari kata kinetik, B-roll senarai dadah, babak
 "sticker" (latar dibuang, `assets/media/voxA.webm` / `voxB.webm` dengan alpha), carta duit menurun,
 kalendar 2 tahun, cop "ISU BESAR!", babak produk, kad CTA "Dapatkan sekarang", end card dan penafian.
 Render: `npm run hf2:render`.
+
+### `output/aimi_curtain_hyperframes_edit.mp4` — promosi Aimi Curtain (HyperFrames, ~46s)
+
+Klip VID-20260925-WA0007 (penuh, 45s) diedit dalam `hyperframes-aimi/index.html` dengan gabungan
+talking-head + gaya Vox: hook "Langsir dah kusam?", babak kertas dengan langsir pudar & tetamu segan,
+"REFRESH!", pendedahan logo, tangga & pita ukur dipangkah, kad khidmat A–Z (ukur, jahit, pasang, pilih),
+B-roll koleksi langsir, lencana 100% Bumiputera, gambar papan tanda kedai (Kelang Lama Square, Kulim),
+kad CTA "Klik WhatsApp" dan end card. Warna ikut logo (hijau gelap & emas). Render: `npm run hf3:render`.

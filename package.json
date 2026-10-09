@@ -9,7 +9,9 @@
     "hf:doctor": "hyperframes doctor",
     "hf:browser": "hyperframes browser ensure",
     "hf2:dev": "cd hyperframes-bidara && hyperframes preview",
-    "hf2:render": "cd hyperframes-bidara && hyperframes render"
+    "hf2:render": "cd hyperframes-bidara && hyperframes render",
+    "hf3:dev": "cd hyperframes-aimi && hyperframes preview",
+    "hf3:render": "cd hyperframes-aimi && hyperframes render"
   },
   "devDependencies": {
     "gsap": "^3.14.2",
