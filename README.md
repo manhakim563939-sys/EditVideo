@@ -29,3 +29,11 @@ video diterbalikkan supaya label botol boleh dibaca, sari kata kinetik ikut tran
 B-roll grafik (kawan tegur bau badan, peluh/panas, orang sebelah lari, hero produk, grid USP),
 zoom punch-in, picture-in-picture untuk sasaran pelanggan, kad CTA dan kesan bunyi.
 Ubah teks sari kata dalam array `CAPTIONS` dalam `hyperframes/index.html`, kemudian `npm run hf:render`.
+
+### `output/bidara_hyperframes_edit.mp4` — iklan Jus Bidara Hitam (HyperFrames, ~40s)
+
+Klip VID-20260928-WA0017 (63s) dipotong jadi 39s dan diedit dalam `hyperframes-bidara/index.html`,
+gabungan talking-head + gaya Vox: sari kata kinetik, B-roll senarai dadah, babak latar kertas dengan subjek
+"sticker" (latar dibuang, `assets/media/voxA.webm` / `voxB.webm` dengan alpha), carta duit menurun,
+kalendar 2 tahun, cop "ISU BESAR!", babak produk, kad CTA "Dapatkan sekarang", end card dan penafian.
+Render: `npm run hf2:render`.
