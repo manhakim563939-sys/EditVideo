@@ -42,6 +42,7 @@ Render: `npm run hf2:render`.
 
 Klip VID-20260925-WA0007 (penuh, 45s) diedit dalam `hyperframes-aimi/index.html` dengan gabungan
 talking-head + gaya Vox: hook "Langsir dah kusam?", babak kertas dengan langsir pudar & tetamu segan,
-"REFRESH!", pendedahan logo, tangga & pita ukur dipangkah, kad khidmat A–Z (ukur, jahit, pasang, pilih),
-B-roll koleksi langsir, lencana 100% Bumiputera, gambar papan tanda kedai (Kelang Lama Square, Kulim),
+"REFRESH!", pendedahan logo, grafik skrin penuh semasa dia baca fon (16–31s: tangga & pita ukur dipangkah,
+khidmat A–Z, langkah 1-2-3-4 ukur/jahit/pasang/pilih),
+B-roll koleksi langsir (subjek Vox dipotong guna BiRefNet + pelancaran antara bingkai), lencana 100% Bumiputera, gambar papan tanda kedai (Kelang Lama Square, Kulim),
 kad CTA "Klik WhatsApp" dan end card. Warna ikut logo (hijau gelap & emas). Render: `npm run hf3:render`.

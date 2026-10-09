@@ -78,19 +78,33 @@
       #brand-logo { position: absolute; left: 50%; top: 340px; width: 760px; margin-left: -380px; filter: drop-shadow(0 18px 24px rgba(0,0,0,.45)); }
       #brand-sub { position: absolute; left: 0; right: 0; top: 1000px; text-align: center; font-family: Caveat; font-weight: 700; font-size: 84px; color: var(--gold2); }
 
-      /* vox B: no ladder / measure + A-Z steps */
-      #ladder { left: 50px; top: 130px; width: 260px; }
-      #measure { left: 760px; top: 170px; width: 280px; }
-      .xx { position: absolute; font-family: "Bebas Neue"; font-size: 260px; color: var(--red); line-height: 1; }
-      #x1 { left: 110px; top: 160px; } #x2 { left: 830px; top: 160px; }
-      #az { left: 50%; top: 90px; transform: translateX(-50%) rotate(-2deg); font-size: 110px; }
-      .step { position: absolute; width: 470px; height: 200px; background: #fff; border: 5px solid var(--ink); border-radius: 26px; box-shadow: 0 10px 0 rgba(23,32,28,.18); display: flex; align-items: center; gap: 20px; padding: 0 26px; }
-      .step .n { width: 86px; height: 86px; border-radius: 50%; background: var(--green); color: var(--gold2); font-family: "Bebas Neue"; font-size: 66px; display: grid; place-items: center; flex: none; }
-      .step .t { font-family: "Bebas Neue"; font-size: 70px; color: var(--ink); line-height: .95; }
-      .step .t small { display: block; font-family: Montserrat; font-weight: 700; font-size: 26px; color: #5b6660; letter-spacing: 0; }
-      .step .e { font-size: 64px; margin-left: auto; }
-      #s1 { left: 50px; top: 250px; } #s2 { left: 560px; top: 250px; }
-      #s3 { left: 50px; top: 480px; } #s4 { left: 560px; top: 480px; }
+      /* full overlays 17.75–31.1 */
+      .full { z-index: 30; overflow: hidden; }
+      #susah { background: var(--paper); }
+      #susah .tape { left: 50%; top: 110px; transform: translateX(-50%) rotate(-2deg); font-size: 100px; }
+      .bigcard { position: absolute; left: 70px; right: 70px; height: 440px; background: #fff; border: 6px solid var(--ink); border-radius: 36px; box-shadow: 0 14px 0 rgba(23,32,28,.18); display: flex; align-items: center; gap: 40px; padding: 0 50px; }
+      .bigcard svg { width: 280px; height: 340px; flex: none; }
+      .bigcard .lbl { font-family: "Bebas Neue"; font-size: 120px; line-height: .9; color: var(--ink); }
+      .bigcard .lbl small { display: block; font-family: Montserrat; font-weight: 700; font-size: 38px; color: #5b6660; margin-top: 10px; }
+      #c1 { top: 300px; } #c2 { top: 800px; }
+      .bigx { position: absolute; left: 80px; top: 50%; margin-top: -170px; font-family: "Bebas Neue"; font-size: 340px; line-height: 1; color: var(--red); }
+
+      #azs { background: radial-gradient(circle at 50% 42%, #3d6b57 0%, var(--green) 55%, #0c1a14 100%); }
+      #azs .kick { position: absolute; left: 0; right: 0; top: 170px; text-align: center; font-family: "Bebas Neue"; font-size: 110px; color: #fff; }
+      #azs .L { position: absolute; top: 380px; font-family: Cinzel; font-weight: 700; font-size: 520px; line-height: 1; color: var(--gold2); text-shadow: 0 16px 0 rgba(0,0,0,.35); }
+      #LA { left: 70px; } #LZ { right: 70px; }
+      #azline { position: absolute; left: 400px; width: 280px; top: 640px; height: 14px; border-radius: 7px; background: var(--gold); transform-origin: 0 50%; }
+      #azs .sub { position: absolute; left: 0; right: 0; top: 1000px; text-align: center; font-family: Caveat; font-weight: 700; font-size: 84px; color: var(--gold2); }
+
+      #steps { background: var(--paper); }
+      #steps .tape { left: 50%; top: 90px; transform: translateX(-50%) rotate(-2deg); font-size: 96px; }
+      #path { position: absolute; left: 152px; top: 330px; width: 12px; height: 900px; background: repeating-linear-gradient(180deg, var(--gold) 0 24px, transparent 24px 40px); transform-origin: 50% 0; }
+      .row { position: absolute; left: 70px; right: 70px; height: 220px; background: #fff; border: 6px solid var(--ink); border-radius: 34px; box-shadow: 0 12px 0 rgba(23,32,28,.18); display: flex; align-items: center; gap: 30px; padding: 0 36px; }
+      .row .n { width: 112px; height: 112px; border-radius: 50%; background: var(--green); border: 6px solid var(--gold); color: var(--gold2); font-family: "Bebas Neue"; font-size: 84px; display: grid; place-items: center; flex: none; }
+      .row .t { font-family: "Bebas Neue"; font-size: 104px; line-height: .9; color: var(--ink); }
+      .row .t small { display: block; font-family: Montserrat; font-weight: 700; font-size: 34px; color: #5b6660; margin-top: 6px; }
+      .row .e { margin-left: auto; font-size: 120px; }
+      #r1 { top: 270px; } #r2 { top: 520px; } #r3 { top: 770px; } #r4 { top: 1020px; }
 
       /* koleksi b-roll */
       #koleksi { z-index: 30; background: var(--paper); overflow: hidden; }
@@ -191,21 +205,40 @@
         <div id="brand-sub">biar kami selesaikan ✓</div>
       </div>
 
-      <!-- VOX B 17.75–31.1 -->
-      <div id="voxB" class="layer vox clip" data-start="17.75" data-duration="13.35" data-track-index="1">
-        <div class="grid"></div>
-        <svg class="grain" width="1080" height="1920"><filter id="gn2"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="8" /><feColorMatrix values="0 0 0 0 .45  0 0 0 0 .4  0 0 0 0 .3  0 0 0 .55 0" /></filter><rect width="1080" height="1920" filter="url(#gn2)" /></svg>
-        <div class="vign"></div>
-        <div id="stkB" class="stk"><video id="vb" class="clip" src="assets/media/voxB.webm" muted data-start="17.75" data-duration="13.35" data-track-index="3"></video></div>
-        <svg id="ladder" class="icon" viewBox="0 0 260 420"><g stroke="#17201c" stroke-width="16" stroke-linecap="round"><line x1="60" y1="20" x2="30" y2="400" /><line x1="200" y1="20" x2="230" y2="400" /><line x1="56" y1="90" x2="204" y2="90" /><line x1="50" y1="170" x2="210" y2="170" /><line x1="44" y1="250" x2="216" y2="250" /><line x1="38" y1="330" x2="222" y2="330" /></g></svg>
-        <div id="x1" class="xx">✕</div>
-        <svg id="measure" class="icon" viewBox="0 0 280 300"><rect x="10" y="40" width="190" height="190" rx="40" fill="#f2c230" stroke="#17201c" stroke-width="10" /><circle cx="105" cy="135" r="40" fill="#fff" stroke="#17201c" stroke-width="8" /><rect x="190" y="180" width="85" height="40" fill="#fff" stroke="#17201c" stroke-width="8" /><text x="105" y="290" font-family="Bebas Neue" font-size="70" fill="#c8443a" text-anchor="middle">???</text></svg>
-        <div id="x2" class="xx">✕</div>
-        <div id="az" class="tape">KHIDMAT A – Z</div>
-        <div id="s1" class="step"><div class="n">1</div><div class="t">UKUR<small>datang ke rumah</small></div><div class="e">📏</div></div>
-        <div id="s2" class="step"><div class="n">2</div><div class="t">JAHIT<small>kemas &amp; rapi</small></div><div class="e">🧵</div></div>
-        <div id="s3" class="step"><div class="n">3</div><div class="t">PASANG<small>siap dipasang</small></div><div class="e">🔧</div></div>
-        <div id="s4" class="step"><div class="n">4</div><div class="t">PILIH<small>beratus koleksi</small></div><div class="e">🎨</div></div>
+      <!-- FULL OVERLAY: tak perlu susah 17.75–21.45 -->
+      <div id="susah" class="layer full clip" data-start="17.75" data-duration="3.7" data-track-index="1">
+        <div class="grid" style="position:absolute;inset:0;background-image:linear-gradient(rgba(23,32,28,.07) 2px,transparent 2px),linear-gradient(90deg,rgba(23,32,28,.07) 2px,transparent 2px);background-size:80px 80px"></div>
+        <div class="tape">TAK PERLU SUSAH-SUSAH</div>
+        <div id="c1" class="bigcard">
+          <svg viewBox="0 0 260 420"><g stroke="#17201c" stroke-width="16" stroke-linecap="round"><line x1="60" y1="20" x2="30" y2="400" /><line x1="200" y1="20" x2="230" y2="400" /><line x1="56" y1="90" x2="204" y2="90" /><line x1="50" y1="170" x2="210" y2="170" /><line x1="44" y1="250" x2="216" y2="250" /><line x1="38" y1="330" x2="222" y2="330" /></g></svg>
+          <div class="lbl">PANJAT<br />TANGGA<small>penat-penat</small></div>
+          <div id="bx1" class="bigx">✕</div>
+        </div>
+        <div id="c2" class="bigcard">
+          <svg viewBox="0 0 280 300"><rect x="10" y="40" width="190" height="190" rx="40" fill="#f2c230" stroke="#17201c" stroke-width="10" /><circle cx="105" cy="135" r="40" fill="#fff" stroke="#17201c" stroke-width="8" /><rect x="190" y="180" width="85" height="40" fill="#fff" stroke="#17201c" stroke-width="8" /><text x="105" y="290" font-family="Bebas Neue" font-size="70" fill="#c8443a" text-anchor="middle">???</text></svg>
+          <div class="lbl">PENING<br />UKUR<small>fikir ukuran</small></div>
+          <div id="bx2" class="bigx">✕</div>
+        </div>
+      </div>
+
+      <!-- FULL OVERLAY: khidmat A-Z 21.45–24.2 -->
+      <div id="azs" class="layer full clip" data-start="21.45" data-duration="2.75" data-track-index="1">
+        <div class="kick">KAMI SEDIAKAN KHIDMAT</div>
+        <div id="LA" class="L">A</div>
+        <div id="azline"></div>
+        <div id="LZ" class="L">Z</div>
+        <div class="sub">semua kami uruskan ✓</div>
+      </div>
+
+      <!-- FULL OVERLAY: langkah 24.2–31.1 -->
+      <div id="steps" class="layer full clip" data-start="24.2" data-duration="6.9" data-track-index="1">
+        <div class="grid" style="position:absolute;inset:0;background-image:linear-gradient(rgba(23,32,28,.07) 2px,transparent 2px),linear-gradient(90deg,rgba(23,32,28,.07) 2px,transparent 2px);background-size:80px 80px"></div>
+        <div class="tape">SEMUDAH 1-2-3-4</div>
+        <div id="path"></div>
+        <div id="r1" class="row"><div class="n">1</div><div class="t">UKUR<small>team datang ke rumah</small></div><div class="e">📏</div></div>
+        <div id="r2" class="row"><div class="n">2</div><div class="t">JAHIT<small>kemas &amp; rapi</small></div><div class="e">🧵</div></div>
+        <div id="r3" class="row"><div class="n">3</div><div class="t">PASANG<small>siap dipasang sekali</small></div><div class="e">🔧</div></div>
+        <div id="r4" class="row"><div class="n">4</div><div class="t">PILIH<small>beratus koleksi cantik</small></div><div class="e">🎨</div></div>
       </div>
 
       <!-- KOLEKSI b-roll 31.1–33.75 -->
@@ -266,19 +299,21 @@
       <audio id="sfx7" class="clip" src="assets/media/whoosh.wav" data-start="15.45" data-duration="0.5" data-volume="0.4" data-track-index="5"></audio>
       <audio id="sfx8" class="clip" src="assets/media/ding.wav" data-start="15.75" data-duration="0.9" data-volume="0.35" data-track-index="7"></audio>
       <audio id="sfx9" class="clip" src="assets/media/whoosh.wav" data-start="17.6" data-duration="0.5" data-volume="0.4" data-track-index="5"></audio>
-      <audio id="sfx10" class="clip" src="assets/media/boom.wav" data-start="18.6" data-duration="0.4" data-volume="0.5" data-track-index="6"></audio>
-      <audio id="sfx11" class="clip" src="assets/media/boom.wav" data-start="20.6" data-duration="0.4" data-volume="0.5" data-track-index="7"></audio>
+      <audio id="sfx10" class="clip" src="assets/media/boom.wav" data-start="19.0" data-duration="0.4" data-volume="0.5" data-track-index="6"></audio>
+      <audio id="sfx11" class="clip" src="assets/media/boom.wav" data-start="20.7" data-duration="0.4" data-volume="0.5" data-track-index="7"></audio>
       <audio id="sfx12" class="clip" src="assets/media/pop.wav" data-start="22.8" data-duration="0.15" data-volume="0.4" data-track-index="6"></audio>
-      <audio id="sfx13" class="clip" src="assets/media/pop.wav" data-start="24.4" data-duration="0.15" data-volume="0.35" data-track-index="7"></audio>
-      <audio id="sfx14" class="clip" src="assets/media/pop.wav" data-start="26.5" data-duration="0.15" data-volume="0.35" data-track-index="6"></audio>
-      <audio id="sfx15" class="clip" src="assets/media/pop.wav" data-start="28.1" data-duration="0.15" data-volume="0.35" data-track-index="7"></audio>
-      <audio id="sfx16" class="clip" src="assets/media/pop.wav" data-start="29.8" data-duration="0.15" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx13" class="clip" src="assets/media/pop.wav" data-start="24.45" data-duration="0.15" data-volume="0.35" data-track-index="7"></audio>
+      <audio id="sfx14" class="clip" src="assets/media/pop.wav" data-start="26.45" data-duration="0.15" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx15" class="clip" src="assets/media/pop.wav" data-start="28.0" data-duration="0.15" data-volume="0.35" data-track-index="7"></audio>
+      <audio id="sfx16" class="clip" src="assets/media/pop.wav" data-start="29.55" data-duration="0.15" data-volume="0.35" data-track-index="6"></audio>
       <audio id="sfx17" class="clip" src="assets/media/whoosh.wav" data-start="30.95" data-duration="0.5" data-volume="0.4" data-track-index="5"></audio>
       <audio id="sfx18" class="clip" src="assets/media/whoosh.wav" data-start="33.6" data-duration="0.5" data-volume="0.4" data-track-index="5"></audio>
       <audio id="sfx19" class="clip" src="assets/media/pop.wav" data-start="36.0" data-duration="0.15" data-volume="0.4" data-track-index="6"></audio>
       <audio id="sfx20" class="clip" src="assets/media/boom.wav" data-start="38.6" data-duration="0.4" data-volume="0.5" data-track-index="7"></audio>
       <audio id="sfx21" class="clip" src="assets/media/whoosh.wav" data-start="40.15" data-duration="0.5" data-volume="0.4" data-track-index="5"></audio>
       <audio id="sfx22" class="clip" src="assets/media/pop.wav" data-start="42.45" data-duration="0.15" data-volume="0.4" data-track-index="6"></audio>
+      <audio id="sfx24" class="clip" src="assets/media/whoosh.wav" data-start="21.3" data-duration="0.5" data-volume="0.4" data-track-index="8"></audio>
+      <audio id="sfx25" class="clip" src="assets/media/whoosh.wav" data-start="24.05" data-duration="0.5" data-volume="0.4" data-track-index="8"></audio>
       <audio id="sfx23" class="clip" src="assets/media/ding.wav" data-start="44.95" data-duration="0.9" data-volume="0.35" data-track-index="7"></audio>
     </div>
 
@@ -394,18 +429,29 @@
       tl.from("#brand-sub", { y: 40, opacity: 0, duration: 0.35 }, 16.4);
 
       // ---------- VOX B ----------
-      tl.from("#voxB", { xPercent: 100, duration: 0.35, ease: "power3.out" }, 17.75);
-      tl.fromTo("#stkB", { scale: 0.74, y: 140, rotation: 1.5 }, { scale: 0.8, y: 80, rotation: -1, duration: 13.3, ease: "sine.inOut" }, 17.75);
-      tl.from("#ladder", { y: 500, rotation: -15, duration: 0.4, ease: "back.out(1.8)" }, 18.0);
-      tl.from("#x1", { scale: 3, opacity: 0, duration: 0.2, ease: "power4.in" }, 18.6);
-      tl.from("#measure", { y: 500, rotation: 15, duration: 0.4, ease: "back.out(1.8)" }, 20.1);
-      tl.from("#x2", { scale: 3, opacity: 0, duration: 0.2, ease: "power4.in" }, 20.6);
-      tl.to(["#ladder", "#x1", "#measure", "#x2"], { opacity: 0, y: -60, duration: 0.25 }, 21.45);
-      tl.from("#az", { y: -300, duration: 0.4, ease: "back.out(1.8)" }, 22.8);
-      [["#s1", 24.3], ["#s2", 26.4], ["#s3", 27.95], ["#s4", 29.65]].forEach(([id, t], k) => {
-        tl.from(id, { scale: 0, rotation: k % 2 ? 8 : -8, duration: 0.35, ease: "back.out(2.4)" }, t);
+      tl.from("#susah", { xPercent: 100, duration: 0.35, ease: "power3.out" }, 17.75);
+      tl.from("#susah .tape", { y: -300, duration: 0.4, ease: "back.out(1.8)" }, 17.9);
+      tl.from("#c1", { x: -1100, rotation: -6, duration: 0.45, ease: "back.out(1.5)" }, 18.1);
+      tl.from("#bx1", { scale: 3, opacity: 0, rotation: 20, duration: 0.2, ease: "power4.in" }, 19.0);
+      tl.from("#c2", { x: 1100, rotation: 6, duration: 0.45, ease: "back.out(1.5)" }, 20.0);
+      tl.from("#bx2", { scale: 3, opacity: 0, rotation: -20, duration: 0.2, ease: "power4.in" }, 20.7);
+
+      tl.fromTo("#azs", { clipPath: "circle(0% at 50% 45%)" }, { clipPath: "circle(150% at 50% 45%)", duration: 0.4, ease: "power3.inOut" }, 21.45);
+      tl.from("#azs .kick", { y: -80, opacity: 0, duration: 0.35, ease: "back.out(2)" }, 21.6);
+      tl.from("#LA", { x: -600, rotation: -20, duration: 0.35, ease: "back.out(1.8)" }, 22.8);
+      tl.fromTo("#azline", { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power2.out" }, 23.0);
+      tl.from("#LZ", { x: 600, rotation: 20, duration: 0.35, ease: "back.out(1.8)" }, 23.25);
+      tl.from("#azs .sub", { y: 40, opacity: 0, duration: 0.3 }, 23.5);
+
+      tl.from("#steps", { yPercent: 100, duration: 0.35, ease: "power3.out" }, 24.2);
+      tl.from("#steps .tape", { y: -300, duration: 0.4, ease: "back.out(1.8)" }, 24.3);
+      tl.fromTo("#path", { scaleY: 0 }, { scaleY: 1, duration: 5.4, ease: "none" }, 24.4);
+      [["#r1", 24.4], ["#r2", 26.4], ["#r3", 27.95], ["#r4", 29.5]].forEach(([id, t], k, arr) => {
+        tl.from(id, { x: k % 2 ? 1100 : -1100, duration: 0.4, ease: "back.out(1.5)" }, t);
+        tl.fromTo(id + " .e", { scale: 0, rotation: -40 }, { scale: 1, rotation: 0, duration: 0.35, ease: "back.out(3)" }, t + 0.25);
+        if (k > 0) tl.to(arr[k - 1][0], { opacity: 0.5, scale: 0.96, duration: 0.25 }, t);
       });
-      tl.to("#voxB", { xPercent: -100, duration: 0.3, ease: "power3.in" }, 30.8);
+      tl.to("#steps", { yPercent: -100, duration: 0.3, ease: "power3.in" }, 30.8);
 
       // ---------- koleksi ----------
       tl.from("#koleksi", { yPercent: 100, duration: 0.3, ease: "power3.out" }, 31.1);
