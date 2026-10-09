@@ -21,3 +21,11 @@ npm run hf:render        # render ke MP4
 - Edit `hyperframes/index.html` — setiap elemen guna `data-start` / `data-duration` / `data-track-index`, animasi guna GSAP timeline (`window.__timelines["main"]`).
 - GSAP disimpan dalam `hyperframes/vendor/gsap.min.js` supaya render jalan tanpa CDN.
 - Panduan untuk AI: `hyperframes/CLAUDE.md`.
+
+### `output/firea_hyperframes_edit.mp4` — iklan Firea Deodorant (HyperFrames)
+
+Klip talking-head (VID_20261007_105537_911) diedit semula dalam `hyperframes/index.html`:
+video diterbalikkan supaya label botol boleh dibaca, sari kata kinetik ikut transkrip (Whisper turbo, BM),
+B-roll grafik (kawan tegur bau badan, peluh/panas, orang sebelah lari, hero produk, grid USP),
+zoom punch-in, picture-in-picture untuk sasaran pelanggan, kad CTA dan kesan bunyi.
+Ubah teks sari kata dalam array `CAPTIONS` dalam `hyperframes/index.html`, kemudian `npm run hf:render`.

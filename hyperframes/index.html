@@ -1,53 +1,458 @@
 <!doctype html>
-<html lang="en" data-resolution="portrait">
+<html lang="ms" data-resolution="portrait">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1080, height=1920" />
     <script src="vendor/gsap.min.js"></script>
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+      @font-face { font-family: "Montserrat"; src: url("assets/fonts/montserrat.woff2") format("woff2"); font-weight: 100 900; font-display: block; }
+      @font-face { font-family: "Pacifico"; src: url("assets/fonts/pacifico.woff2") format("woff2"); font-display: block; }
+      @font-face { font-family: "Bebas Neue"; src: url("assets/fonts/bebas.woff2") format("woff2"); font-display: block; }
+
+      :root {
+        --pink: #ff3d8b;
+        --pink-soft: #ffd6e5;
+        --rose: #c2185b;
+        --cream: #fff6ef;
+        --ink: #1b1220;
+        --mint: #3ddc97;
       }
-      html,
-      body {
-        margin: 0;
-        width: 1080px;
-        height: 1920px;
-        overflow: hidden;
-        background: #0a0a0a;
-      }
-      #root {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
-      }
-      #title {
-        color: #f4f4f5;
-        font-size: 72px;
-        font-weight: 600;
-        letter-spacing: -0.03em;
-      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: Montserrat, Inter, sans-serif; color: #fff; }
+      .layer { position: absolute; inset: 0; }
+
+      /* ---------- base footage ---------- */
+      #stage-bg { background: radial-gradient(circle at 50% 30%, #ffe4ee 0%, #ffb3cd 55%, #f06292 100%); }
+      #cam { position: absolute; inset: 0; overflow: hidden; transform-origin: 50% 50%; border-radius: 0; }
+      #vid { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
+
+      /* ---------- captions ---------- */
+      #caps { position: absolute; left: 0; right: 0; top: 1300px; height: 260px; z-index: 50; pointer-events: none; }
+      .cap { position: absolute; left: 60px; right: 60px; top: 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px 38px; opacity: 0; visibility: hidden; }
+      .cap .w { display: inline-block; font-weight: 900; font-size: 86px; line-height: 1.08; letter-spacing: -0.01em; text-transform: uppercase; color: #fff;
+        -webkit-text-stroke: 11px var(--ink); paint-order: stroke fill; text-shadow: 0 10px 0 rgba(27,18,32,.35); }
+      .cap .w.hl, .cap .w.hl2 { margin: 0 10px; }
+      .cap .w.hl { color: var(--pink); }
+      .cap .w.hl2 { color: #ffe14d; }
+
+      /* ---------- progress bar ---------- */
+      #progress { position: absolute; left: 0; top: 0; height: 12px; width: 1080px; background: var(--pink); transform-origin: 0 50%; z-index: 60; box-shadow: 0 0 18px rgba(255,61,139,.8); }
+
+      /* ---------- hook ---------- */
+      #hook { z-index: 40; }
+      .pill { position: absolute; display: inline-flex; align-items: center; gap: 14px; padding: 16px 30px; border-radius: 999px; font-weight: 800; font-size: 40px; color: var(--ink); background: #fff; box-shadow: 0 10px 30px rgba(0,0,0,.25); white-space: nowrap; }
+      #hook .pill { left: 50%; top: 90px; transform: translateX(-50%); }
+      #hook-title { position: absolute; left: 0; right: 0; top: 175px; text-align: center; font-family: "Bebas Neue", sans-serif; font-size: 150px; line-height: .95; color: #fff; -webkit-text-stroke: 10px var(--ink); paint-order: stroke fill; text-shadow: 0 12px 0 var(--pink); }
+
+      /* ---------- generic b-roll ---------- */
+      .broll { z-index: 30; overflow: hidden; }
+      .kicker { position: absolute; left: 0; right: 0; text-align: center; font-family: "Bebas Neue", sans-serif; letter-spacing: .02em; }
+
+      /* B1: friend chat */
+      #b1 { background: var(--pink-soft); }
+      #b1 .dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(194,24,91,.18) 3px, transparent 3.5px); background-size: 46px 46px; }
+      .chat { position: absolute; left: 90px; right: 90px; top: 260px; }
+      .chat .who { display: flex; align-items: center; gap: 18px; font-weight: 800; font-size: 38px; color: var(--rose); margin-bottom: 18px; }
+      .chat .ava { width: 84px; height: 84px; border-radius: 50%; background: #fff; display: grid; place-items: center; font-size: 50px; box-shadow: 0 6px 16px rgba(0,0,0,.12); }
+      .bubble { display: inline-block; background: #fff; color: var(--ink); border-radius: 44px 44px 44px 10px; padding: 34px 44px; font-weight: 700; font-size: 58px; box-shadow: 0 14px 30px rgba(194,24,91,.18); }
+      .bubble .typed { display: inline-block; overflow: hidden; white-space: nowrap; vertical-align: bottom; }
+      #b1-mask { position: absolute; left: 0; right: 0; top: 960px; text-align: center; font-size: 240px; filter: drop-shadow(0 12px 0 rgba(194,24,91,.25)); }
+      #b1-stamp { position: absolute; left: 0; right: 0; top: 760px; text-align: center; font-family: "Bebas Neue"; font-size: 230px; line-height: .9; color: #fff; -webkit-text-stroke: 14px var(--ink); paint-order: stroke fill; text-shadow: 0 14px 0 #7bc96f; }
+      .stink { position: absolute; width: 120px; height: 220px; }
+      .stink path { fill: none; stroke: #6cc04a; stroke-width: 14; stroke-linecap: round; }
+
+      /* sweat overlay */
+      #sweat { z-index: 35; }
+      .drop { position: absolute; width: 70px; height: 96px; background: linear-gradient(160deg, #e9fbff, #5ec8ff 70%); border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%; box-shadow: inset -6px -8px 0 rgba(0,90,160,.25), 0 6px 14px rgba(0,0,0,.2); }
+      .drop::before { content: ""; position: absolute; left: 50%; top: -22px; transform: translateX(-50%); border-left: 18px solid transparent; border-right: 18px solid transparent; border-bottom: 30px solid #c9f1ff; }
+      #sun { position: absolute; right: 60px; top: 70px; width: 230px; height: 230px; }
+      #temp { right: 70px; top: 320px; background: #ffe14d; }
+
+      /* emoji sticker */
+      .sticker { position: absolute; font-size: 200px; z-index: 36; filter: drop-shadow(0 10px 0 rgba(0,0,0,.25)); }
+      .xmark { position: absolute; z-index: 36; font-family: "Bebas Neue"; font-size: 120px; padding: 6px 34px 0; color: #fff; background: #e53935; border: 8px solid #fff; border-radius: 18px; box-shadow: 0 12px 26px rgba(0,0,0,.3); }
+
+      /* B2: neighbour walks away */
+      #b2 { background: var(--cream); }
+      #b2 .grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(27,18,32,.06) 2px, transparent 2px), linear-gradient(90deg, rgba(27,18,32,.06) 2px, transparent 2px); background-size: 72px 72px; }
+      #b2 .kicker { top: 170px; font-size: 128px; color: var(--ink); line-height: .95; }
+      #b2 .kicker span { color: var(--pink); }
+      .fig { position: absolute; bottom: 700px; width: 300px; height: 520px; }
+      #figA { left: 110px; }
+      #figB { left: 640px; }
+      .speed { position: absolute; height: 12px; border-radius: 6px; background: var(--ink); opacity: .7; }
+      #dist { position: absolute; left: 330px; width: 420px; top: 1170px; height: 0; border-top: 10px dashed var(--rose); transform-origin: 0 50%; }
+      #dist-label { position: absolute; left: 0; right: 0; top: 1190px; text-align: center; font-weight: 900; font-size: 54px; color: var(--rose); }
+
+      /* flash */
+      #flash { background: #fff; z-index: 70; opacity: 0; }
+
+      /* B3: product hero */
+      #b3 { background: radial-gradient(circle at 50% 42%, #fff0f6 0%, #ffb6cf 38%, #ff5c97 72%, #b0124f 100%); }
+      #rays { position: absolute; left: 50%; top: 42%; width: 2600px; height: 2600px; margin: -1300px 0 0 -1300px;
+        background: repeating-conic-gradient(rgba(255,255,255,.22) 0deg 7deg, rgba(255,255,255,0) 7deg 18deg); border-radius: 50%; }
+      #b3-brand { position: absolute; left: 0; right: 0; top: 120px; text-align: center; font-family: Pacifico, cursive; font-size: 190px; color: #fff; text-shadow: 0 8px 0 var(--rose), 0 20px 40px rgba(176,18,79,.5); }
+      #b3-sub { position: absolute; left: 0; right: 0; top: 380px; text-align: center; font-weight: 800; font-size: 40px; letter-spacing: .35em; color: #fff; text-transform: uppercase; }
+      #bottle { position: absolute; left: 50%; top: 470px; width: 560px; margin-left: -280px; filter: drop-shadow(0 40px 40px rgba(110,0,40,.45)); }
+      .chip { position: absolute; padding: 20px 34px; border-radius: 26px; background: #fff; color: var(--ink); font-weight: 900; font-size: 46px; box-shadow: 0 16px 34px rgba(110,0,40,.3); white-space: nowrap; }
+      .chip b { color: var(--pink); }
+      #chip1 { left: 50px; top: 640px; }
+      #chip2 { right: 50px; top: 1060px; }
+      .spark { position: absolute; font-size: 70px; }
+
+      /* target layout (picture-in-picture) */
+      #target { z-index: 34; }
+      #target .head { position: absolute; left: 0; right: 0; top: 1075px; text-align: center; font-family: "Bebas Neue"; font-size: 96px; color: var(--ink); }
+      .tpill { position: absolute; left: 50%; transform: translateX(-50%); font-size: 50px; padding: 22px 40px; }
+      #tp1 { top: 1180px; } #tp2 { top: 1285px; } #tp3 { top: 1390px; }
+
+      /* B4: USP grid */
+      #b4 { background: linear-gradient(180deg, #fff 0%, #ffe3ee 100%); }
+      #b4 .kicker { top: 170px; font-size: 140px; color: var(--ink); }
+      #b4 .kicker span { color: var(--pink); }
+      .tile { position: absolute; width: 440px; height: 380px; border-radius: 44px; background: #fff; box-shadow: 0 18px 40px rgba(194,24,91,.18); border: 6px solid var(--pink-soft); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; text-align: center; }
+      .tile .ic { font-size: 120px; line-height: 1; }
+      .tile .t { font-weight: 900; font-size: 50px; color: var(--ink); line-height: 1.05; }
+      .tile .t b { color: var(--pink); }
+      #t1 { left: 70px; top: 380px; } #t2 { left: 570px; top: 380px; }
+      #t3 { left: 70px; top: 800px; } #t4 { left: 570px; top: 800px; }
+
+      /* CTA */
+      #cta { z-index: 45; }
+      #card { position: absolute; left: 50px; right: 50px; top: 1560px; height: 300px; border-radius: 40px; background: #fff; box-shadow: 0 24px 50px rgba(0,0,0,.35); display: flex; align-items: center; gap: 26px; padding: 0 34px; color: var(--ink); }
+      #card .thumb { width: 200px; height: 250px; border-radius: 28px; background: radial-gradient(circle at 50% 40%, #fff 0%, var(--pink-soft) 80%); display: grid; place-items: center; overflow: hidden; flex: none; }
+      #card .thumb img { width: 190px; }
+      #card .name { font-family: Pacifico; font-size: 64px; color: var(--rose); line-height: 1.1; }
+      #card .usp { font-weight: 700; font-size: 30px; color: #6b5a66; margin: 6px 0 16px; }
+      #card .btn { display: inline-block; padding: 16px 30px; border-radius: 999px; background: var(--pink); color: #fff; font-weight: 900; font-size: 34px; }
+      #power { position: absolute; left: 0; right: 0; top: 150px; text-align: center; font-family: "Bebas Neue"; font-size: 200px; line-height: .9; color: #ffe14d; -webkit-text-stroke: 14px var(--ink); paint-order: stroke fill; text-shadow: 0 14px 0 var(--pink); }
     </style>
   </head>
   <body>
-    <div
-      id="root"
-      data-composition-id="main"
-      data-start="0"
-      data-duration="10"
-      data-width="1080"
-      data-height="1920"
-    >
-      <h1 id="title" class="clip" data-start="0" data-duration="10" data-track-index="0">EditVideo × HyperFrames</h1>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="29.88" data-width="1080" data-height="1920">
+      <!-- base -->
+      <div id="stage-bg" class="layer"></div>
+      <div id="cam">
+        <video id="vid" class="clip" src="assets/media/source.mp4" data-start="0" data-duration="29.88" data-track-index="0" data-has-audio="true" playsinline></video>
+      </div>
+
+      <!-- HOOK 0–2.7 -->
+      <div id="hook" class="layer clip" data-start="0" data-duration="2.7" data-track-index="2">
+        <div class="pill">🧕 Khas wanita bertudung</div>
+        <div id="hook-title">KUAT BERPELUH?</div>
+      </div>
+
+      <!-- B-ROLL 1: kawan tegur 2.7–6.4 -->
+      <div id="b1" class="layer broll clip" data-start="2.7" data-duration="3.7" data-track-index="1">
+        <div class="dots"></div>
+        <div class="chat">
+          <div class="who"><div class="ava">👭</div>Kawan sebelah</div>
+          <div class="bubble"><span class="typed" id="b1-typed">Weh... bau apa ni? 😷</span></div>
+        </div>
+        <svg class="stink" id="st1" style="left:250px;top:930px" viewBox="0 0 120 220"><path d="M60 210 C 10 170, 110 140, 60 100 S 10 30, 60 10" /></svg>
+        <svg class="stink" id="st2" style="left:710px;top:930px" viewBox="0 0 120 220"><path d="M60 210 C 10 170, 110 140, 60 100 S 10 30, 60 10" /></svg>
+        <svg class="stink" id="st3" style="left:860px;top:1040px" viewBox="0 0 120 220"><path d="M60 210 C 10 170, 110 140, 60 100 S 10 30, 60 10" /></svg>
+        <div id="b1-mask">😷</div>
+        <div id="b1-stamp">BAU BADAN?!</div>
+      </div>
+
+      <!-- SWEAT overlay 6.4–9.2 -->
+      <div id="sweat" class="layer clip" data-start="6.4" data-duration="2.8" data-track-index="2">
+        <svg id="sun" viewBox="0 0 200 200">
+          <g id="sun-rays" stroke="#ffb300" stroke-width="14" stroke-linecap="round">
+            <line x1="100" y1="8" x2="100" y2="36" /><line x1="100" y1="164" x2="100" y2="192" />
+            <line x1="8" y1="100" x2="36" y2="100" /><line x1="164" y1="100" x2="192" y2="100" />
+            <line x1="35" y1="35" x2="55" y2="55" /><line x1="145" y1="145" x2="165" y2="165" />
+            <line x1="35" y1="165" x2="55" y2="145" /><line x1="145" y1="55" x2="165" y2="35" />
+          </g>
+          <circle cx="100" cy="100" r="48" fill="#ffd54f" stroke="#ffb300" stroke-width="8" />
+        </svg>
+        <div id="temp" class="pill">🌡️ 34°C</div>
+        <div class="drop" style="left:90px;top:520px"></div>
+        <div class="drop" style="left:230px;top:330px"></div>
+        <div class="drop" style="left:820px;top:640px"></div>
+        <div class="drop" style="left:940px;top:450px"></div>
+        <div class="drop" style="left:150px;top:860px"></div>
+        <div class="drop" style="left:880px;top:900px"></div>
+      </div>
+
+      <!-- stickers on footage -->
+      <div id="x1" class="xmark clip" style="left:640px;top:330px" data-start="9.3" data-duration="1.3" data-track-index="3">✕ BAU BADAN</div>
+      <div id="emo1" class="sticker clip" style="left:70px;top:300px" data-start="12.35" data-duration="1.5" data-track-index="3">😣</div>
+
+      <!-- B-ROLL 2: orang sebelah lari 13.85–17.4 -->
+      <div id="b2" class="layer broll clip" data-start="13.85" data-duration="3.55" data-track-index="1">
+        <div class="grid"></div>
+        <div class="kicker">ORANG SEBELAH<br /><span>PUN LARI</span> 😅</div>
+        <svg id="figA" class="fig" viewBox="0 0 300 520">
+          <path d="M150 40 C 70 40, 40 110, 50 190 L 30 300 L 270 300 L 250 190 C 260 110, 230 40, 150 40 Z" fill="#f4c6b8" />
+          <ellipse cx="150" cy="150" rx="62" ry="72" fill="#ffe0cf" />
+          <path d="M150 52 C 85 52, 70 120, 82 190 C 95 130, 205 130, 218 190 C 230 120, 215 52, 150 52 Z" fill="#e8b4a4" />
+          <rect x="40" y="300" width="220" height="210" rx="70" fill="#fff" stroke="#1b1220" stroke-width="10" />
+          <rect x="40" y="370" width="220" height="40" fill="#1b1220" /><rect x="40" y="450" width="220" height="40" fill="#1b1220" />
+          <circle cx="128" cy="150" r="7" fill="#1b1220" /><circle cx="172" cy="150" r="7" fill="#1b1220" />
+          <path d="M130 190 Q150 178 170 190" stroke="#1b1220" stroke-width="7" fill="none" stroke-linecap="round" />
+        </svg>
+        <svg class="stink" id="st4" style="left:60px;top:780px" viewBox="0 0 120 220"><path d="M60 210 C 10 170, 110 140, 60 100 S 10 30, 60 10" /></svg>
+        <svg class="stink" id="st5" style="left:300px;top:740px" viewBox="0 0 120 220"><path d="M60 210 C 10 170, 110 140, 60 100 S 10 30, 60 10" /></svg>
+        <svg id="figB" class="fig" viewBox="0 0 300 520">
+          <circle cx="150" cy="150" r="78" fill="#c9b8c4" />
+          <rect x="50" y="250" width="200" height="260" rx="80" fill="#8e7a89" />
+          <circle cx="122" cy="140" r="7" fill="#1b1220" /><circle cx="170" cy="140" r="7" fill="#1b1220" />
+          <path d="M125 190 Q150 172 175 190" stroke="#1b1220" stroke-width="7" fill="none" stroke-linecap="round" transform="rotate(180 150 184)" />
+        </svg>
+        <div class="speed" id="sp1" style="left:560px;top:1000px;width:90px"></div>
+        <div class="speed" id="sp2" style="left:540px;top:1060px;width:130px"></div>
+        <div class="speed" id="sp3" style="left:570px;top:1120px;width:70px"></div>
+        <div id="dist"></div>
+        <div id="dist-label">JAUHHH... 🙅‍♀️</div>
+      </div>
+
+      <!-- B-ROLL 3: product hero 18.95–22.1 -->
+      <div id="b3" class="layer broll clip" data-start="18.95" data-duration="3.15" data-track-index="1">
+        <div id="rays"></div>
+        <div id="b3-brand">Firea</div>
+        <div id="b3-sub">Celeste Musk · Deodorant</div>
+        <img id="bottle" src="assets/media/bottle.png" alt="Firea deodorant" />
+        <div id="chip1" class="chip">💧 <b>KAWAL</b> PELUH</div>
+        <div id="chip2" class="chip">🌸 HILANG <b>BAU BADAN</b></div>
+        <div class="spark" id="sk1" style="left:250px;top:520px">✨</div>
+        <div class="spark" id="sk2" style="left:760px;top:760px">✨</div>
+        <div class="spark" id="sk3" style="left:300px;top:1180px">✨</div>
+      </div>
+
+      <!-- TARGET (picture-in-picture) 22.1–25.0 -->
+      <div id="target" class="layer clip" data-start="22.1" data-duration="2.9" data-track-index="2">
+        <div class="head">KHAS UNTUK KORANG 👇</div>
+        <div id="tp1" class="pill tpill">🧕 Wanita bertudung</div>
+        <div id="tp2" class="pill tpill">🏃‍♀️ Aktif seharian</div>
+        <div id="tp3" class="pill tpill">👚 Selalu berlengan panjang</div>
+      </div>
+
+      <!-- B-ROLL 4: USP grid 25.0–27.2 -->
+      <div id="b4" class="layer broll clip" data-start="25.0" data-duration="2.2" data-track-index="1">
+        <div class="kicker">KENAPA <span>FIREA?</span></div>
+        <div id="t1" class="tile"><div class="ic">💧</div><div class="t">TAHAN<br /><b>PELUH</b></div></div>
+        <div id="t2" class="tile"><div class="ic">🌸</div><div class="t">TAHAN<br /><b>BAU</b></div></div>
+        <div id="t3" class="tile"><div class="ic">🧪</div><div class="t"><b>0%</b><br />PARABEN</div></div>
+        <div id="t4" class="tile"><div class="ic">🍃</div><div class="t"><b>0%</b><br />ALKOHOL</div></div>
+      </div>
+
+      <!-- CTA 27.2–29.88 -->
+      <div id="cta" class="layer clip" data-start="27.2" data-duration="2.68" data-track-index="2">
+        <div id="power">MEMANG<br />POWER!</div>
+        <div id="card">
+          <div class="thumb"><img src="assets/media/bottle.png" alt="" /></div>
+          <div>
+            <div class="name">Firea</div>
+            <div class="usp">Tahan peluh &amp; bau · 0% paraben &amp; alkohol</div>
+            <div class="btn">DAPATKAN SEKARANG 👇</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="flash" class="layer"></div>
+      <div id="progress"></div>
+      <div id="caps"></div>
+
+      <!-- SFX -->
+      <audio id="sfx1" class="clip" src="assets/media/pop.wav" data-start="0.15" data-duration="0.15" data-volume="0.5" data-track-index="5"></audio>
+      <audio id="sfx2" class="clip" src="assets/media/whoosh.wav" data-start="2.55" data-duration="0.5" data-volume="0.55" data-track-index="5"></audio>
+      <audio id="sfx3" class="clip" src="assets/media/boom.wav" data-start="4.85" data-duration="0.4" data-volume="0.7" data-track-index="6"></audio>
+      <audio id="sfx4" class="clip" src="assets/media/whoosh.wav" data-start="6.2" data-duration="0.5" data-volume="0.45" data-track-index="5"></audio>
+      <audio id="sfx5" class="clip" src="assets/media/pop.wav" data-start="9.3" data-duration="0.15" data-volume="0.5" data-track-index="6"></audio>
+      <audio id="sfx6" class="clip" src="assets/media/pop.wav" data-start="12.35" data-duration="0.15" data-volume="0.5" data-track-index="6"></audio>
+      <audio id="sfx7" class="clip" src="assets/media/whoosh.wav" data-start="13.7" data-duration="0.5" data-volume="0.5" data-track-index="5"></audio>
+      <audio id="sfx8" class="clip" src="assets/media/whoosh.wav" data-start="17.25" data-duration="0.5" data-volume="0.55" data-track-index="5"></audio>
+      <audio id="sfx9" class="clip" src="assets/media/ding.wav" data-start="18.95" data-duration="0.9" data-volume="0.4" data-track-index="6"></audio>
+      <audio id="sfx10" class="clip" src="assets/media/pop.wav" data-start="19.2" data-duration="0.15" data-volume="0.5" data-track-index="7"></audio>
+      <audio id="sfx11" class="clip" src="assets/media/pop.wav" data-start="21.1" data-duration="0.15" data-volume="0.5" data-track-index="7"></audio>
+      <audio id="sfx12" class="clip" src="assets/media/whoosh.wav" data-start="22.0" data-duration="0.5" data-volume="0.45" data-track-index="5"></audio>
+      <audio id="sfx13" class="clip" src="assets/media/whoosh.wav" data-start="24.9" data-duration="0.5" data-volume="0.5" data-track-index="5"></audio>
+      <audio id="sfx14" class="clip" src="assets/media/pop.wav" data-start="25.25" data-duration="0.15" data-volume="0.45" data-track-index="6"></audio>
+      <audio id="sfx15" class="clip" src="assets/media/pop.wav" data-start="25.6" data-duration="0.15" data-volume="0.45" data-track-index="7"></audio>
+      <audio id="sfx16" class="clip" src="assets/media/pop.wav" data-start="25.95" data-duration="0.15" data-volume="0.45" data-track-index="6"></audio>
+      <audio id="sfx17" class="clip" src="assets/media/pop.wav" data-start="26.3" data-duration="0.15" data-volume="0.45" data-track-index="7"></audio>
+      <audio id="sfx18" class="clip" src="assets/media/whoosh.wav" data-start="27.05" data-duration="0.5" data-volume="0.45" data-track-index="5"></audio>
+      <audio id="sfx19" class="clip" src="assets/media/boom.wav" data-start="28.5" data-duration="0.4" data-volume="0.7" data-track-index="6"></audio>
     </div>
+
     <script>
+      // Captions: [start, end, text]. *word* = pink highlight, ^word^ = yellow highlight.
+      const CAPTIONS = [
+        [0.12, 1.4, "Suka buat ^aktiviti^"],
+        [1.4, 2.65, "dekat luar"],
+        [2.7, 3.75, "Tapi takut"],
+        [3.75, 4.8, "kawan tegur"],
+        [4.8, 6.35, "*bau* *badan*"],
+        [7.16, 7.9, "*Peluh* banyak"],
+        [7.9, 8.4, "takpe"],
+        [8.4, 9.3, "Tapi jangan"],
+        [9.3, 10.1, "*bau* *badan*"],
+        [10.1, 10.6, "saja"],
+        [10.6, 11.7, "Memang akan buat"],
+        [11.7, 12.35, "kita rasa"],
+        [12.35, 13.8, "*tak* *selesa*"],
+        [13.87, 14.9, "Orang sebelah pun"],
+        [14.9, 15.6, "memang tak akan"],
+        [15.6, 16.2, "mahu ^dekat^"],
+        [16.2, 16.8, "dengan kita"],
+        [17.66, 18.95, "^Firea^ punya *power*"],
+        [18.95, 20.29, "*kawal* *peluh*"],
+        [20.29, 21.1, "hilang terus"],
+        [21.1, 22.05, "*bau* *badan*"],
+        [22.1, 22.7, "So korang"],
+        [22.7, 23.6, "yang mana jenis"],
+        [23.6, 24.95, "kuat ^berpeluh^ tu"],
+        [25.1, 27.2, "takut badan *berbau*"],
+        [27.2, 27.9, "korang pakai je"],
+        [27.9, 28.5, "^Firea^ ni"],
+      ];
+
+      const caps = document.getElementById("caps");
       const tl = gsap.timeline({ paused: true });
-      tl.fromTo("#title", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.6 }, 0);
+
+      CAPTIONS.forEach(([s, e, text], i) => {
+        const el = document.createElement("div");
+        el.className = "cap";
+        el.id = "cap" + i;
+        text.split(" ").forEach((raw) => {
+          const w = document.createElement("span");
+          w.className = "w";
+          if (/^\*.*\*$/.test(raw)) w.classList.add("hl");
+          if (/^\^.*\^$/.test(raw)) w.classList.add("hl2");
+          w.textContent = raw.replace(/[*^]/g, "");
+          el.appendChild(w);
+        });
+        caps.appendChild(el);
+        const words = el.querySelectorAll(".w");
+        const step = Math.min(0.12, (e - s) / (words.length + 1));
+        tl.set(el, { autoAlpha: 1 }, s);
+        tl.fromTo(el, { scale: 0.82 }, { scale: 1, duration: 0.22, ease: "back.out(3)" }, s);
+        words.forEach((w, k) => {
+          tl.fromTo(w, { y: 34, opacity: 0, rotation: k % 2 ? 3 : -3 }, { y: 0, opacity: 1, rotation: 0, duration: 0.16, ease: "power2.out" }, s + k * step);
+        });
+        if (el.querySelector(".hl, .hl2")) {
+          tl.fromTo(el.querySelectorAll(".hl, .hl2"), { scale: 1 }, { scale: 1.06, duration: 0.12, yoyo: true, repeat: 1, ease: "power1.inOut" }, s + 0.18);
+        }
+        tl.set(el, { autoAlpha: 0 }, e);
+      });
+
+      // progress bar
+      tl.fromTo("#progress", { scaleX: 0 }, { scaleX: 1, duration: 29.88, ease: "none" }, 0);
+
+      // ---------- camera moves on footage ----------
+      tl.fromTo("#cam", { scale: 1.12 }, { scale: 1.0, duration: 2.6, ease: "power2.out" }, 0);
+      tl.to("#cam", { scale: 1.08, duration: 2.0, ease: "none" }, 6.4);
+      tl.to("#cam", { scale: 1.22, duration: 0.18, ease: "power3.out" }, 9.3);
+      tl.to("#cam", { scale: 1.06, duration: 0.3, ease: "power2.out" }, 10.6);
+      tl.to("#cam", { scale: 1.3, duration: 0.15, ease: "power3.out" }, 12.35);
+      tl.to("#cam", { x: 14, duration: 0.05, yoyo: true, repeat: 5, ease: "none" }, 12.4);
+      tl.set("#cam", { x: 0, scale: 1 }, 13.85);
+      // product punch-in (bottle is on the right after the mirror flip)
+      tl.set("#cam", { transformOrigin: "80% 62%" }, 17.4);
+      tl.to("#cam", { scale: 1.45, duration: 1.3, ease: "power2.inOut" }, 17.5);
+      // picture-in-picture for the target segment
+      tl.set("#cam", { transformOrigin: "50% 0%", scale: 1, borderRadius: 0 }, 22.1);
+      tl.to("#cam", { scale: 0.5, y: 90, borderRadius: 60, duration: 0.45, ease: "power3.inOut" }, 22.1);
+      tl.to("#cam", { scale: 1, y: 0, borderRadius: 0, duration: 0.01 }, 25.0);
+      tl.set("#cam", { transformOrigin: "50% 40%" }, 27.2);
+      tl.set("#cam", { scale: 1.15 }, 27.2);
+      tl.to("#cam", { scale: 1.02, duration: 0.6, ease: "power2.out" }, 27.21);
+      tl.to("#cam", { scale: 1.12, duration: 0.15, ease: "power3.out" }, 28.5);
+
+      // ---------- hook ----------
+      tl.from("#hook .pill", { y: -120, opacity: 0, duration: 0.4, ease: "back.out(2)" }, 0.05);
+      tl.from("#hook-title", { scale: 2.2, opacity: 0, rotation: -6, duration: 0.35, ease: "power4.out" }, 0.15);
+      tl.to("#hook-title", { rotation: 2, duration: 0.6, yoyo: true, repeat: 2, ease: "sine.inOut" }, 0.6);
+      tl.to("#hook", { y: -420, duration: 0.3, ease: "power3.in" }, 2.4);
+
+      // ---------- B1 ----------
+      tl.from("#b1", { yPercent: 100, duration: 0.35, ease: "power3.out" }, 2.7);
+      tl.from(".chat .who", { x: -80, opacity: 0, duration: 0.3 }, 2.95);
+      tl.from(".chat .bubble", { scale: 0.4, opacity: 0, transformOrigin: "0% 100%", duration: 0.35, ease: "back.out(2.5)" }, 3.1);
+      tl.fromTo("#b1-typed", { width: 0 }, { width: "auto", duration: 1.1, ease: "steps(20)" }, 3.3);
+      tl.from("#b1-mask", { scale: 0, rotation: -30, duration: 0.35, ease: "back.out(3)" }, 3.75);
+      tl.to("#b1-mask", { rotation: 10, duration: 0.18, yoyo: true, repeat: 5, ease: "sine.inOut" }, 4.1);
+      tl.from("#b1-stamp", { scale: 3, opacity: 0, rotation: 10, duration: 0.25, ease: "power4.in" }, 4.8);
+      tl.to("#b1-stamp", { rotation: -4, duration: 0.08, yoyo: true, repeat: 5 }, 5.05);
+      ["#st1", "#st2", "#st3"].forEach((id, k) => {
+        tl.fromTo(id, { y: 60, opacity: 0 }, { y: -40, opacity: 1, duration: 0.6, ease: "sine.out" }, 4.85 + k * 0.12);
+        tl.to(id, { x: k % 2 ? 18 : -18, duration: 0.25, yoyo: true, repeat: 3, ease: "sine.inOut" }, 5.4 + k * 0.1);
+      });
+      tl.to("#b1", { yPercent: -100, duration: 0.3, ease: "power3.in" }, 6.1);
+
+      // ---------- sweat ----------
+      tl.from("#sun", { scale: 0, rotation: -90, duration: 0.45, ease: "back.out(2)" }, 6.45);
+      tl.to("#sun-rays", { rotation: 90, transformOrigin: "100px 100px", duration: 2.6, ease: "none" }, 6.45);
+      tl.from("#temp", { x: 300, duration: 0.35, ease: "back.out(2)" }, 6.7);
+      gsap.utils.toArray("#sweat .drop").forEach((d, k) => {
+        tl.fromTo(d, { y: -260, opacity: 0, scale: 0.6 }, { y: 260, opacity: 1, scale: 1, duration: 1.2, ease: "power2.in" }, 6.5 + k * 0.18);
+        tl.to(d, { opacity: 0, duration: 0.3 }, 7.5 + k * 0.18);
+      });
+      tl.to("#sweat", { opacity: 0, duration: 0.25 }, 8.9);
+
+      // ---------- stickers ----------
+      tl.from("#x1", { scale: 2.5, opacity: 0, rotation: 15, duration: 0.2, ease: "power4.in" }, 9.3);
+      tl.to("#x1", { rotation: -6, duration: 0.2 }, 9.5);
+      tl.from("#emo1", { scale: 0, rotation: -40, duration: 0.3, ease: "back.out(3)" }, 12.35);
+      tl.to("#emo1", { rotation: 12, duration: 0.15, yoyo: true, repeat: 5 }, 12.7);
+
+      // ---------- B2 ----------
+      tl.from("#b2", { xPercent: 100, duration: 0.35, ease: "power3.out" }, 13.85);
+      tl.from("#b2 .kicker", { y: -60, opacity: 0, duration: 0.35, ease: "back.out(2)" }, 14.1);
+      tl.from("#figA", { y: 80, opacity: 0, duration: 0.35, ease: "back.out(2)" }, 14.1);
+      tl.from("#figB", { y: 80, opacity: 0, duration: 0.35, ease: "back.out(2)" }, 14.25);
+      tl.fromTo(["#st4", "#st5"], { y: 50, opacity: 0 }, { y: -30, opacity: 1, duration: 0.5, stagger: 0.15 }, 14.6);
+      tl.to("#figB", { x: 260, rotation: 12, duration: 1.0, ease: "power2.in" }, 15.1);
+      tl.fromTo(["#sp1", "#sp2", "#sp3"], { scaleX: 0, transformOrigin: "100% 50%" }, { scaleX: 1, duration: 0.25, stagger: 0.06 }, 15.5);
+      tl.to(["#sp1", "#sp2", "#sp3"], { x: 200, opacity: 0, duration: 0.6 }, 15.8);
+      tl.fromTo("#dist", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power2.out" }, 15.6);
+      tl.from("#dist-label", { scale: 0, duration: 0.3, ease: "back.out(3)" }, 15.9);
+      tl.to("#b2", { xPercent: -100, duration: 0.3, ease: "power3.in" }, 17.1);
+
+      // flash into product moment
+      tl.fromTo("#flash", { opacity: 0 }, { opacity: 0.9, duration: 0.12 }, 17.35);
+      tl.to("#flash", { opacity: 0, duration: 0.3 }, 17.48);
+
+      // ---------- B3 product hero ----------
+      tl.fromTo("#b3", { clipPath: "circle(0% at 80% 60%)" }, { clipPath: "circle(150% at 80% 60%)", duration: 0.45, ease: "power3.inOut" }, 18.95);
+      tl.fromTo("#rays", { rotation: 0 }, { rotation: 40, duration: 3.15, ease: "none" }, 18.95);
+      tl.from("#bottle", { y: 700, rotation: -35, scale: 0.6, duration: 0.6, ease: "back.out(1.6)" }, 19.05);
+      tl.to("#bottle", { y: -24, rotation: 4, duration: 1.2, yoyo: true, repeat: 1, ease: "sine.inOut" }, 19.7);
+      tl.from("#b3-brand", { y: -80, opacity: 0, scale: 0.6, duration: 0.45, ease: "back.out(2)" }, 19.15);
+      tl.from("#b3-sub", { opacity: 0, y: 30, duration: 0.5, ease: "power2.out" }, 19.4);
+      tl.from("#chip1", { x: -500, rotation: -10, duration: 0.4, ease: "back.out(2)" }, 19.2);
+      tl.from("#chip2", { x: 1000, rotation: 10, duration: 0.4, ease: "back.out(2)" }, 21.1);
+      ["#sk1", "#sk2", "#sk3"].forEach((id, k) => {
+        tl.fromTo(id, { scale: 0, rotation: 0 }, { scale: 1.2, rotation: 90, duration: 0.4, yoyo: true, repeat: 3, ease: "sine.inOut" }, 19.3 + k * 0.35);
+      });
+
+      // ---------- target (PiP) ----------
+      tl.from("#target .head", { y: 60, opacity: 0, duration: 0.35, ease: "back.out(2)" }, 22.4);
+      ["#tp1", "#tp2", "#tp3"].forEach((id, k) => {
+        tl.from(id, { x: k % 2 ? 700 : -700, duration: 0.4, ease: "back.out(1.8)" }, 22.6 + k * 0.45);
+      });
+      tl.to("#target", { opacity: 0, duration: 0.2 }, 24.8);
+      tl.set("#caps", { y: 230 }, 22.1);
+      tl.set("#caps", { y: 0 }, 25.0);
+
+      // ---------- B4 USP grid ----------
+      tl.from("#b4", { yPercent: 100, duration: 0.35, ease: "power3.out" }, 25.0);
+      tl.from("#b4 .kicker", { scale: 1.8, opacity: 0, duration: 0.3, ease: "power3.out" }, 25.1);
+      ["#t1", "#t2", "#t3", "#t4"].forEach((id, k) => {
+        tl.from(id, { scale: 0, rotation: k % 2 ? 8 : -8, duration: 0.35, ease: "back.out(2.4)" }, 25.25 + k * 0.35);
+      });
+      tl.to("#b4", { yPercent: -100, duration: 0.3, ease: "power3.in" }, 26.95);
+
+      // ---------- CTA ----------
+      tl.from("#card", { y: 500, duration: 0.5, ease: "back.out(1.5)" }, 27.9);
+      tl.fromTo("#card .btn", { scale: 1 }, { scale: 1.08, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" }, 28.4);
+      tl.from("#power", { scale: 3, opacity: 0, rotation: -12, duration: 0.25, ease: "power4.in" }, 28.5);
+      tl.to("#power", { rotation: -4, duration: 0.6, ease: "elastic.out(1, 0.4)" }, 28.75);
+
+      window.__timelines = window.__timelines || {};
       window.__timelines["main"] = tl;
       tl.seek(0);
     </script>
