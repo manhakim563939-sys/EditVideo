@@ -217,6 +217,9 @@ strong{font-weight:700}
 .summary .tot{border-top:1px dashed rgba(255,255,255,.25);margin-top:6px;padding-top:9px;font-weight:700;font-size:17px}
 .summary .tot b{color:var(--gold-hi)}
 .err{color:var(--danger);font-size:13.5px;font-weight:600;margin-top:10px;display:none}
+[hidden]{display:none!important}
+.wa-fallback{font-size:14px;text-align:center;margin-top:12px;color:var(--text)}
+.wa-fallback a{color:var(--wa);font-weight:700}
 .note{font-size:12.5px;color:var(--muted);text-align:center;margin-top:12px}
 
 /* faq */
@@ -521,6 +524,7 @@ footer b{color:#d8cdb6}
 
         <button type="submit" class="btn wa">Hantar pesanan via WhatsApp<small>Kami akan sahkan pesanan anda</small></button>
         <div class="err" id="err"></div>
+        <p class="wa-fallback" id="waFallback" hidden>WhatsApp tak terbuka? <a id="waLink" href="https://wa.me/60179637611" target="_blank" rel="noopener">Tekan sini</a> atau mesej terus <b>017-963 7611</b>.</p>
         <p class="note">🔒 Maklumat anda hanya digunakan untuk penghantaran.</p>
       </form>
     </div>
@@ -580,6 +584,8 @@ const POS_SABAH_SARAWAK = 18;   // RM, semua pakej
 const form = document.getElementById("orderForm");
 const summary = document.getElementById("summary");
 const err = document.getElementById("err");
+const waLink = document.getElementById("waLink");
+const waFallback = document.getElementById("waFallback");
 document.getElementById("yr").textContent = new Date().getFullYear();
 
 function val(name){ const el = form.elements[name]; return (el && el.value || "").trim(); }
@@ -638,7 +644,10 @@ form.addEventListener("submit", e => {
 *Nama:* ${nama}
 *Telefon:* ${tel}
 *Alamat:* ${alamat}, ${poskod} ${negeri}`;
-  window.location.href = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(msg);
+  const url = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(msg);
+  waLink.href = url;
+  waFallback.hidden = false;
+  waLink.click();
 });
 </script>
 </body>
