@@ -46,3 +46,11 @@ Terbaik", panduan 3 langkah berbingkai, ruangan Gaya Hidup, infografik KENAL →
 
 - `majalah_render.py <workdir>` — renderer majalah (perlu `fb/` pose + close-up).
 - `majalah_audio.py out.wav vo.mp3` — muzik dikongsi + bunyi selak kertas/klik kamera + VO.
+
+`output/berita_iklan_tak_jalan.mp4` — "Kenapa Iklan Anda Tak Jalan" (46s, VO `assets/vo_berita.mp3`).
+Konsep baharu **BERITA TERGEMPAR**: studio berita "BISNES 24", MAN sebagai pembaca berita (separuh badan hitam putih di
+belakang meja, pose bertukar), skrin video di belakang (laporan lapangan, fail siasatan SULIT, rakaman CCTV scroll,
+3 jenis hook, ujian A/B), lencana LIVE + jam, lower third, ticker berjalan dan stinger jalur merah-biru.
+
+- `berita_render.py <workdir>` — renderer studio berita (perlu `fb/` pose, `refs/`).
+- `berita_audio.py out.wav vo.mp3` — muzik dikongsi + sting berita + SFX + VO.
