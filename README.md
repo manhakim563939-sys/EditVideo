@@ -30,3 +30,11 @@ hujan hati, komen tenggelam lalu jadi content, kotak komen sedang menaip, transi
 
 - `komen_render.py <workdir>` — renderer konsep app (guna semula helper `kolaj_render.py`).
 - `komen_audio.py out.wav vo.mp3` — muzik dikongsi + SFX ping/menaip/swipe + VO.
+
+`output/testimoni_versus.mp4` — episod #09 "Testimoni Video Lagi Kuat Dari Iklan" (43s, VO `assets/vo_testimoni.mp3`).
+Konsep baharu **"VERSUS"** ala game pertarungan: arena lampu sorot, gambar full body hitam putih (12 pose),
+close-up muka sebagai potret pemain & kad combo, bar nyawa IKLAN vs TESTIMONI, ROUND 1 / FIGHT! / MISS! / HIT!,
+COMBO x3, 3 SOALAN SAKTI, FINAL ROUND, K.O.! dengan kilatan & gegaran skrin, kad CTA + review ★★★★★.
+
+- `versus_render.py <workdir>` — renderer (perlu `fb/<pose>.jpg` + `_mask.png`, `fb/cu_*.jpg`).
+- `versus_audio.py out.wav vo.mp3` — muzik dikongsi + SFX tumbukan/swish/riser + VO.
