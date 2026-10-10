@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="ms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Jus Bidara Hitam — Nota Dari Anak (Reels)</title>
+    <script src="assets/gsap.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Gochi+Hand&family=Playfair+Display:ital,wght@1,800&family=Poppins:wght@500;600;700;800&display=block"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #14120e;
+        --gold: #e3a92f;
+        --gold-hi: #f4c65a;
+        --gold-deep: #b07a16;
+        --cream: #faf3e2;
+        --paper: #fdf8ea;
+        --pen: #24358a;
+        --leaf: #4e8a2a;
+        --red: #c8322a;
+        --wa: #1fae55;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--ink); font-family: Poppins, sans-serif; color: #fff; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; }
+      .scene { position: absolute; inset: 0; overflow: hidden; }
+      .center { position: absolute; left: 70px; right: 70px; text-align: center; }
+      .loud { font-family: Anton, sans-serif; text-transform: uppercase; line-height: 1.04; letter-spacing: .5px; }
+      .script { font-family: "Playfair Display", serif; font-style: italic; font-weight: 800; }
+      .bgimg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      .shade { position: absolute; inset: 0; }
+
+      /* kertas nota */
+      .paper {
+        position: absolute; inset: 0; background-color: var(--paper);
+        background-image:
+          linear-gradient(90deg, transparent 138px, rgba(200,50,42,.55) 138px, rgba(200,50,42,.55) 142px, transparent 142px),
+          repeating-linear-gradient(180deg, transparent 0, transparent 95px, rgba(36,53,138,.18) 95px, rgba(36,53,138,.18) 97px);
+        background-position: 0 0, 0 30px;
+      }
+      .hand { font-family: "Gochi Hand", cursive; color: var(--pen); }
+      .note { position: absolute; left: 170px; right: 70px; font-size: 84px; line-height: 96px; }
+      .ch { display: inline-block; white-space: pre; }
+      .tear { position: absolute; left: 0; right: 0; height: 40px; background: var(--ink); }
+
+      #brandbar { position: absolute; left: 0; right: 0; top: 0; height: 72px; z-index: 50; background: var(--ink); border-bottom: 3px solid var(--gold); display: flex; align-items: center; justify-content: center; gap: 18px; font-weight: 700; font-size: 26px; letter-spacing: 3px; color: var(--gold-hi); text-transform: uppercase; }
+      #brandbar i { font-style: normal; color: var(--gold-deep); }
+      #progress { position: absolute; left: 0; bottom: 0; height: 10px; width: 1080px; background: var(--gold); transform-origin: left center; z-index: 51; }
+
+      /* S1 nota */
+      #s1 .label { top: 250px; font-size: 36px; font-weight: 600; color: #6b6253; font-style: italic; }
+      #n1 { top: 478px; }
+      #s1 .sign { position: absolute; right: 110px; top: 990px; font-size: 64px; }
+      #s1 .heart { position: absolute; left: 230px; top: 1130px; font-size: 140px; color: var(--red); }
+      #s1 .crayon { position: absolute; left: 420px; top: 1150px; width: 460px; height: 260px; }
+
+      /* S2 dia tak faham */
+      #s2 .bgimg { filter: grayscale(.7) brightness(.55); object-position: center top; }
+      #s2 .shade { background: linear-gradient(180deg, rgba(20,18,14,.15) 0%, rgba(20,18,14,.3) 22%, rgba(20,18,14,.96) 40%, rgba(20,18,14,.98) 100%); }
+      #s2 .h { top: 1000px; font-size: 96px; color: #fff; }
+      #s2 .lines { position: absolute; left: 90px; right: 90px; top: 1150px; }
+      #s2 .ln { font-size: 52px; font-weight: 700; color: #f0e6cf; padding: 16px 0 16px 34px; border-left: 8px solid var(--red); margin-bottom: 18px; background: rgba(255,255,255,.05); }
+
+      /* S3 slam */
+      #s3 { background: var(--ink); }
+      #s3 .w { position: absolute; left: 0; right: 0; top: 760px; text-align: center; font-size: 190px; color: #fff; }
+      #s3 .w.red { color: var(--red); }
+      #s3 .after { top: 1180px; font-size: 64px; color: var(--gold-hi); }
+
+      /* S4 tapi */
+      #s4 .shade { background: linear-gradient(180deg, rgba(20,18,14,.85) 0%, rgba(20,18,14,.2) 30%, rgba(20,18,14,.2) 60%, rgba(20,18,14,.95) 82%); }
+      #s4 .t1 { top: 170px; font-size: 64px; }
+      #s4 .t2 { top: 1600px; font-size: 140px; color: var(--gold-hi); }
+
+      /* S5 perjalanan */
+      #s5 { background: radial-gradient(ellipse at 50% 0%, #3a3124, var(--ink) 70%); }
+      #s5 .h { top: 150px; font-size: 88px; }
+      #s5 .h .gold { color: var(--gold-hi); }
+      #s5 .sub { top: 260px; font-size: 34px; color: #d9cfba; font-weight: 600; }
+      #s5 .rail { position: absolute; left: 118px; top: 380px; width: 8px; height: 1020px; background: linear-gradient(180deg, var(--gold), var(--leaf)); border-radius: 4px; transform-origin: top center; }
+      #s5 .node { position: absolute; left: 92px; width: 60px; height: 60px; border-radius: 50%; background: var(--gold); border: 6px solid var(--ink); box-shadow: 0 0 0 4px var(--gold); }
+      #s5 .stop { position: absolute; left: 190px; right: 50px; background: #fff; color: var(--ink); border-radius: 22px; overflow: hidden; box-shadow: 0 16px 30px rgba(0,0,0,.35); }
+      #s5 .pill { display: inline-block; margin: 12px 0 8px 18px; background: var(--ink); color: var(--gold-hi); font-family: Anton, sans-serif; font-size: 44px; padding: 4px 22px; border-radius: 12px; letter-spacing: 1px; }
+      #s5 .stop img { width: 100%; display: block; }
+      #s5 .stop .cap { padding: 8px 20px 12px; font-weight: 800; font-size: 30px; }
+      #k1 { top: 340px; } #k2 { top: 670px; } #k3 { top: 1000px; } #k4 { top: 1330px; }
+      #m1 { top: 360px; } #m2 { top: 690px; } #m3 { top: 1020px; } #m4 { top: 1350px; }
+
+      /* S6 produk */
+      #s6 .shade { background: linear-gradient(180deg, rgba(20,18,14,.95) 0%, rgba(20,18,14,.3) 28%, rgba(20,18,14,.25) 62%, rgba(20,18,14,.97) 80%); }
+      #s6 .tag { top: 150px; font-size: 32px; letter-spacing: 6px; color: var(--gold-hi); font-weight: 700; text-transform: uppercase; }
+      #s6 .brand { top: 200px; font-size: 112px; color: var(--gold-hi); white-space: nowrap; }
+      #s6 .motto { position: absolute; left: 160px; right: 160px; top: 360px; text-align: center; font-size: 32px; color: var(--gold-hi); border-top: 3px solid var(--gold); border-bottom: 3px solid var(--gold); padding: 10px 0; font-weight: 600; }
+      #s6 .how { position: absolute; left: 80px; right: 80px; top: 1560px; background: rgba(255,255,255,.08); border: 3px solid var(--gold); border-radius: 26px; padding: 26px 30px; display: flex; gap: 26px; align-items: center; }
+      #s6 .how .n { font-family: Anton, sans-serif; font-size: 120px; color: var(--gold-hi); line-height: 1; }
+      #s6 .how .t { font-size: 38px; font-weight: 700; line-height: 1.3; }
+      #s6 .how .t small { display: block; font-size: 30px; color: #d9cfba; font-weight: 600; }
+
+      /* S7 tawaran */
+      #s7 { background: radial-gradient(ellipse at 50% 0%, #3a3124, var(--ink) 75%); }
+      #s7 .h { top: 200px; font-size: 104px; }
+      #s7 .h .gold { color: var(--gold-hi); }
+      #s7 .price { position: absolute; left: 110px; right: 110px; top: 400px; background: #fff; color: var(--ink); border-radius: 36px; padding: 40px; text-align: center; }
+      #s7 .price .was { font-size: 56px; color: #9a8f7c; text-decoration: line-through; font-weight: 600; }
+      #s7 .price .now { font-family: Anton, sans-serif; font-size: 230px; color: var(--red); line-height: 1; }
+      #s7 .price .per { font-size: 44px; font-weight: 700; }
+      #s7 .best { position: absolute; left: 110px; right: 110px; top: 920px; background: linear-gradient(180deg, var(--gold-hi), var(--gold)); color: var(--ink); border-radius: 32px; padding: 34px; text-align: center; }
+      #s7 .best .rib { font-size: 32px; font-weight: 800; letter-spacing: 3px; }
+      #s7 .best .t { font-family: Anton, sans-serif; font-size: 110px; line-height: 1.05; }
+      #s7 .best .s { font-size: 38px; font-weight: 800; }
+      #s7 .ticks { position: absolute; left: 110px; right: 110px; top: 1300px; display: grid; gap: 18px; }
+      #s7 .tick { border: 3px solid rgba(244,198,90,.6); border-radius: 20px; padding: 18px; font-size: 40px; font-weight: 700; color: var(--gold-hi); text-align: center; }
+
+      /* S8 nota balasan + CTA */
+      #n2 { top: 286px; }
+      #n3 { top: 670px; color: var(--leaf); }
+      #s8 .heart2 { position: absolute; right: 120px; top: 830px; font-size: 130px; color: var(--red); }
+      #s8 .cta { position: absolute; left: 0; right: 0; top: 1080px; bottom: 0; background: var(--ink); padding-top: 70px; }
+      #s8 .cta .l1 { position: relative; text-align: center; font-size: 100px; }
+      #s8 .cta .l2 { position: relative; text-align: center; font-size: 66px; color: var(--gold-hi); margin-top: 10px; }
+      #s8 .btn { margin: 50px 110px 0; background: linear-gradient(180deg, #34c86b, var(--wa)); border-radius: 28px; padding: 30px 20px; text-align: center; font-weight: 800; font-size: 52px; box-shadow: 0 10px 0 #127a3a, 0 20px 40px rgba(0,0,0,.4); }
+      #s8 .btn small { display: block; font-size: 32px; font-weight: 700; }
+      #s8 .fine { position: relative; text-align: center; margin: 40px 90px 0; font-size: 24px; color: #d9cfba; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="42" data-width="1080" data-height="1920">
+
+      <!-- S1: nota anak (0–6) -->
+      <div id="s1" class="scene clip" data-start="0" data-duration="6" data-track-index="1">
+        <div class="paper"></div>
+        <div class="center label">Nota yang terselit dalam beg kerja ayah…</div>
+        <div id="n1" class="note hand type">Ayah…
+bila ayah nak berhenti
+minum air hijau tu?</div>
+        <div class="sign hand">— anak ayah</div>
+        <div class="heart">♥</div>
+        <svg class="crayon" viewBox="0 0 460 260" aria-hidden="true">
+          <g fill="none" stroke="#24358a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="90" cy="70" r="34" /><path d="M90 104 L90 190 M90 130 L50 165 M90 130 L130 165 M90 190 L60 245 M90 190 L120 245" />
+            <circle cx="250" cy="110" r="26" /><path d="M250 136 L250 205 M250 160 L222 185 M250 160 L278 185 M250 205 L228 250 M250 205 L272 250" />
+            <path d="M130 165 L222 185" stroke="#c8322a" />
+            <path d="M360 60 l18 36 40 6 -29 28 7 40 -36 -19 -36 19 7 -40 -29 -28 40 -6z" stroke="#e3a92f" />
+          </g>
+        </svg>
+      </div>
+
+      <!-- S2: dia tak faham (6–11.5) -->
+      <div id="s2" class="scene clip" data-start="6" data-duration="5.5" data-track-index="1">
+        <img class="bgimg" src="assets/kisah-keluarga.jpg" alt="" />
+        <div class="shade"></div>
+        <div class="center loud h">Dia tak faham…</div>
+        <div class="lines">
+          <div class="ln">kenapa ayah selalu marah</div>
+          <div class="ln">kenapa duit selalu tak cukup</div>
+          <div class="ln">kenapa ayah tak boleh pergi jauh</div>
+        </div>
+      </div>
+
+      <!-- S3: slam simptom (11.5–16) -->
+      <div id="s3" class="scene clip" data-start="11.5" data-duration="4.5" data-track-index="1">
+        <div class="w loud" id="w1">Badan sakit</div>
+        <div class="w loud" id="w2">Menguap</div>
+        <div class="w loud" id="w3">Gelisah</div>
+        <div class="w loud red" id="w4">Tak tidur</div>
+        <div class="center script after">…jadi kau minum lagi.</div>
+      </div>
+
+      <!-- S4: tapi ramai dah bebas (16–19.5) -->
+      <div id="s4" class="scene clip" data-start="16" data-duration="3.5" data-track-index="1">
+        <img class="bgimg" src="assets/poster-koyak.jpg" alt="" />
+        <div class="shade"></div>
+        <div class="center script t1">Tapi ramai dah lalu jalan ni…</div>
+        <div class="center loud t2">dan bebas.</div>
+      </div>
+
+      <!-- S5: perjalanan (19.5–27.5) -->
+      <div id="s5" class="scene clip" data-start="19.5" data-duration="8" data-track-index="1">
+        <div class="center loud h">Perjalanan <span class="gold">mereka</span></div>
+        <div class="center sub">Komen sebenar pembeli Jus Bidara Hitam</div>
+        <div class="rail"></div>
+        <div class="node" id="m1"></div><div class="node" id="m2"></div><div class="node" id="m3"></div><div class="node" id="m4"></div>
+        <div class="stop" id="k1"><span class="pill">HARI KE-3</span><img src="assets/testi-wakden.jpg" alt="" /><div class="cap">“dh 3 hari… dh stop cek tom”</div></div>
+        <div class="stop" id="k2"><span class="pill">HARI KE-7</span><img src="assets/testi-kioami.jpg" alt="" /><div class="cap">“hari ni ke-7 sy tinggalkan ciktom”</div></div>
+        <div class="stop" id="k3"><span class="pill">3 MINGGU</span><img src="assets/testi-rashid.jpg" alt="" /><div class="cap">“separuh botol… 3 minggu tak sentuh”</div></div>
+        <div class="stop" id="k4"><span class="pill">2 BULAN</span><img src="assets/testi-wanpaq.jpg" alt="" /><div class="cap">“14 tahun minum… dah dekat 2 bulan”</div></div>
+      </div>
+
+      <!-- S6: produk (27.5–32.5) -->
+      <div id="s6" class="scene clip" data-start="27.5" data-duration="5" data-track-index="1">
+        <img class="bgimg" src="assets/poster-mangga.jpg" alt="" />
+        <div class="shade"></div>
+        <div class="center tag">Ikhtiar mereka</div>
+        <div class="center script brand">Jus Bidara Hitam</div>
+        <div class="motto">Ikhtiar Penyembuhan Rohani &amp; Jasmani</div>
+        <div class="how">
+          <div class="n">4</div>
+          <div class="t">penutup + segelas air<small>Pagi &amp; malam selepas makan, dan bila datang rasa ketagihan</small></div>
+        </div>
+      </div>
+
+      <!-- S7: tawaran (32.5–37) -->
+      <div id="s7" class="scene clip" data-start="32.5" data-duration="4.5" data-track-index="1">
+        <div class="center loud h">Mula <span class="gold">hari ini</span></div>
+        <div class="price">
+          <div class="was">RM35</div>
+          <div class="now">RM24</div>
+          <div class="per">sebotol (300ml)</div>
+        </div>
+        <div class="best">
+          <div class="rib">★ PALING BERBALOI ★</div>
+          <div class="t">3 BOTOL RM60</div>
+          <div class="s">+ POS PERCUMA SEMENANJUNG</div>
+        </div>
+        <div class="ticks">
+          <div class="tick">✔ COD seluruh Malaysia</div>
+          <div class="tick">✔ Ada KKM · Rosak? Ganti baru</div>
+        </div>
+      </div>
+
+      <!-- S8: nota balasan + CTA (37–42) -->
+      <div id="s8" class="scene clip" data-start="37" data-duration="5" data-track-index="1">
+        <div class="paper"></div>
+        <div id="n2" class="note hand">Ayah…
+bila ayah nak berhenti?</div>
+        <div id="n3" class="note hand type">Terima kasih sebab
+berhenti, ayah.</div>
+        <div class="heart2">♥</div>
+        <div class="cta">
+          <div class="loud l1">Buat untuk dia.</div>
+          <div class="script l2">Mula hari ini.</div>
+          <div class="btn">TEMPAH SEKARANG<small>WhatsApp 017-963 7611 · COD ada</small></div>
+          <div class="fine">Produk tradisional, bukan pengganti rawatan perubatan. Keputusan berbeza mengikut individu.</div>
+        </div>
+      </div>
+
+      <div id="brandbar" class="clip" data-start="0" data-duration="42" data-track-index="2">Jus Bidara Hitam <i>◆</i> Mbah Lanang</div>
+      <div id="progress" class="clip" data-start="0" data-duration="42" data-track-index="3"></div>
+    </div>
+
+    <script>
+      // pecahkan teks nota kepada huruf untuk animasi "tulis tangan"
+      document.querySelectorAll(".type").forEach((el) => {
+        const lines = el.textContent.split("\n");
+        el.innerHTML = lines
+          .map((ln) => ln.split("").map((c) => '<span class="ch">' + (c === " " ? " " : c) + "</span>").join(""))
+          .join("<br>");
+      });
+
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+      tl.fromTo("#progress", { scaleX: 0 }, { scaleX: 1, duration: 42, ease: "none" }, 0);
+
+      // S1 0–6
+      tl.from("#s1 .label", { opacity: 0, y: -20, duration: 0.5 }, 0.1);
+      tl.from("#n1 .ch", { opacity: 0, y: 6, duration: 0.05, stagger: 0.06, ease: "none" }, 0.5);
+      tl.from("#s1 .sign", { opacity: 0, x: 40, duration: 0.5, ease: E }, 3.6);
+      tl.from("#s1 .heart", { scale: 0, rotation: -30, duration: 0.5, ease: "back.out(2.5)" }, 4.0);
+      tl.from("#s1 .crayon", { opacity: 0, y: 30, duration: 0.6, ease: E }, 4.2);
+      tl.to("#s1 .heart", { scale: 1.12, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" }, 4.6);
+      tl.to("#s1", { scale: 1.06, duration: 6, ease: "none" }, 0);
+      tl.to("#s1", { opacity: 0, duration: 0.3 }, 5.7);
+
+      // S2 6–11.5
+      tl.fromTo("#s2 .bgimg", { scale: 1.15 }, { scale: 1, duration: 5.5, ease: "none" }, 6);
+      tl.from("#s2 .h", { y: 60, opacity: 0, duration: 0.5, ease: E }, 6.2);
+      tl.from("#s2 .ln", { x: -400, opacity: 0, duration: 0.5, stagger: 1.2, ease: E }, 7.0);
+      tl.to("#s2", { opacity: 0, duration: 0.3 }, 11.2);
+
+      // S3 11.5–16 (kata-kata menghentak)
+      ["#w1", "#w2", "#w3", "#w4"].forEach((id, i) => {
+        const t = 11.6 + i * 0.75;
+        tl.fromTo(id, { scale: 2.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.22, ease: "power4.out" }, t);
+        if (i < 3) tl.to(id, { opacity: 0, duration: 0.1 }, t + 0.65);
+      });
+      tl.to("#w4", { y: -120, duration: 0.4, ease: E }, 14.6);
+      tl.from("#s3 .after", { opacity: 0, y: 30, duration: 0.5, ease: E }, 14.7);
+      tl.to("#s3", { opacity: 0, duration: 0.25 }, 15.75);
+
+      // S4 16–19.5
+      tl.fromTo("#s4 .bgimg", { scale: 1.2 }, { scale: 1, duration: 3.5, ease: "none" }, 16);
+      tl.from("#s4 .t1", { opacity: 0, y: -30, duration: 0.5, ease: E }, 16.2);
+      tl.from("#s4 .t2", { opacity: 0, scale: 1.8, duration: 0.45, ease: "power4.out" }, 17.4);
+      tl.to("#s4", { opacity: 0, duration: 0.3 }, 19.2);
+
+      // S5 19.5–27.5 garis masa perjalanan
+      tl.from("#s5 .h", { y: -60, opacity: 0, duration: 0.5, ease: E }, 19.6);
+      tl.from("#s5 .sub", { opacity: 0, duration: 0.4 }, 19.9);
+      tl.from("#s5 .rail", { scaleY: 0, duration: 5.6, ease: "none" }, 20.2);
+      [20.3, 21.7, 23.1, 24.5].forEach((t, i) => {
+        tl.from("#m" + (i + 1), { scale: 0, duration: 0.35, ease: "back.out(3)" }, t);
+        tl.from("#k" + (i + 1), { x: 900, opacity: 0, duration: 0.55, ease: "back.out(1.3)" }, t + 0.1);
+        tl.to("#m" + (i + 1), { backgroundColor: "#4e8a2a", boxShadow: "0 0 0 4px #4e8a2a, 0 0 30px #4e8a2a", duration: 0.3 }, t + 0.6);
+      });
+      tl.to("#k4", { scale: 1.04, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" }, 25.6);
+      tl.to("#s5", { opacity: 0, duration: 0.3 }, 27.2);
+
+      // S6 27.5–32.5
+      tl.fromTo("#s6 .bgimg", { scale: 1.15 }, { scale: 1, duration: 5, ease: "none" }, 27.5);
+      tl.from("#s6 .tag", { opacity: 0, y: -20, duration: 0.4 }, 27.6);
+      tl.from("#s6 .brand", { opacity: 0, scale: 0.7, duration: 0.5, ease: "back.out(1.6)" }, 27.8);
+      tl.from("#s6 .motto", { opacity: 0, scaleX: 0.3, duration: 0.45, ease: E }, 28.3);
+      tl.from("#s6 .how", { y: 300, opacity: 0, duration: 0.55, ease: "back.out(1.4)" }, 29.4);
+      tl.from("#s6 .how .n", { scale: 2.5, duration: 0.4, ease: "power4.out" }, 29.8);
+      tl.to("#s6", { opacity: 0, duration: 0.3 }, 32.2);
+
+      // S7 32.5–37
+      tl.from("#s7 .h", { y: -60, opacity: 0, duration: 0.45, ease: E }, 32.6);
+      tl.from("#s7 .price", { scale: 0.5, opacity: 0, duration: 0.5, ease: "back.out(1.8)" }, 32.9);
+      tl.fromTo("#s7 .price .now", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2.5)" }, 33.3);
+      tl.from("#s7 .best", { y: 300, opacity: 0, duration: 0.55, ease: "back.out(1.5)" }, 34.0);
+      tl.to("#s7 .best", { scale: 1.04, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" }, 34.7);
+      tl.from("#s7 .tick", { scale: 0, opacity: 0, duration: 0.3, stagger: 0.25, ease: "back.out(2.5)" }, 35.2);
+      tl.to("#s7", { opacity: 0, duration: 0.3 }, 36.7);
+
+      // S8 37–42 nota balasan
+      tl.from("#n2", { opacity: 0, duration: 0.4 }, 37.0);
+      tl.to("#n2", { opacity: 0.35, duration: 0.4 }, 37.6);
+      tl.from("#n3 .ch", { opacity: 0, y: 6, duration: 0.05, stagger: 0.045, ease: "none" }, 37.7);
+      tl.from("#s8 .heart2", { scale: 0, rotation: 30, duration: 0.5, ease: "back.out(2.5)" }, 39.0);
+      tl.from("#s8 .cta", { y: 900, duration: 0.6, ease: E }, 39.3);
+      tl.from("#s8 .btn", { scale: 0.3, opacity: 0, duration: 0.45, ease: "back.out(2)" }, 39.9);
+      tl.to("#s8 .btn", { scale: 1.06, duration: 0.35, yoyo: true, repeat: 3, ease: "sine.inOut" }, 40.4);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
