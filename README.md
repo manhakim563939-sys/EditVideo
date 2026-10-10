@@ -22,3 +22,11 @@ loteri vs tabung syiling, kalendar ✓, ikon pelanggan bertambah, carta pertumbu
 
 - `konsisten_render.py <workdir>` — guna semula enjin `kolaj_render.py`, babak disusun terus ikut masa VO (perlu `expr/9.jpg` + mask).
 - `konsisten_audio.py out.wav vo.mp3` — muzik dikongsi (`kolaj_audio.make_music`) + SFX + VO.
+
+`output/komen_idea_video.mp4` — episod #03 "Komen Pelanggan = Idea Video Percuma" (37s, VO `assets/vo_komen.mp3`).
+Konsep baharu **"BALAS KOMEN"**: UI app mod gelap dengan bokeh, sticker hitam putih bergaris neon,
+gelembung komen gaya TikTok yang mencurah, cop "+1 VIDEO", grid profil yang terisi, sticker "Membalas komen",
+hujan hati, komen tenggelam lalu jadi content, kotak komen sedang menaip, transisi swipe-up dan glitch RGB.
+
+- `komen_render.py <workdir>` — renderer konsep app (guna semula helper `kolaj_render.py`).
+- `komen_audio.py out.wav vo.mp3` — muzik dikongsi + SFX ping/menaip/swipe + VO.
