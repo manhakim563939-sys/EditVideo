@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="ms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1350" />
+    <title>Jus Bidara Hitam — Hari Pertama Berhenti</title>
+    <script src="assets/gsap.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@700;800&family=Playfair+Display:ital,wght@1,800&family=Poppins:wght@500;600;700;800&display=block"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #14120e;
+        --char: #1d1a15;
+        --gold: #e3a92f;
+        --gold-hi: #f4c65a;
+        --gold-deep: #b07a16;
+        --cream: #faf3e2;
+        --red: #d23b2f;
+        --red-dim: #5a1d18;
+        --leaf: #4e8a2a;
+        --wa: #1fae55;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1350px; overflow: hidden; background: var(--ink); font-family: Poppins, sans-serif; color: #fff; }
+      #root { position: relative; width: 1080px; height: 1350px; overflow: hidden; }
+      .scene { position: absolute; inset: 0; overflow: hidden; }
+      .center { position: absolute; left: 70px; right: 70px; text-align: center; }
+      .loud { font-family: Anton, sans-serif; text-transform: uppercase; line-height: 1.04; letter-spacing: .5px; }
+      .script { font-family: "Playfair Display", serif; font-style: italic; font-weight: 800; }
+      .mono { font-family: "JetBrains Mono", monospace; font-weight: 800; }
+
+      #brandbar { position: absolute; left: 0; right: 0; top: 0; height: 64px; z-index: 50; background: var(--ink); border-bottom: 3px solid var(--gold); display: flex; align-items: center; justify-content: center; gap: 18px; font-weight: 700; font-size: 24px; letter-spacing: 3px; color: var(--gold-hi); text-transform: uppercase; }
+      #brandbar i { font-style: normal; color: var(--gold-deep); }
+      #progress { position: absolute; left: 0; bottom: 0; height: 8px; width: 1080px; background: var(--gold); transform-origin: left center; z-index: 51; }
+
+      /* latar merah berdenyut untuk bahagian "seksa" */
+      #redglow { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, rgba(210,59,47,.55), rgba(210,59,47,0) 65%); opacity: 0; z-index: 0; }
+
+      /* S1 hook */
+      #s1 .tag { top: 170px; }
+      #s1 .tag span { background: var(--red); font-weight: 800; font-size: 34px; padding: 10px 26px; border-radius: 8px; letter-spacing: 2px; }
+      #s1 .h { top: 290px; font-size: 150px; }
+      #s1 .h .r { color: var(--red); }
+      #s1 .h .l { display: block; }
+      #s1 .sub { top: 780px; font-size: 48px; font-weight: 600; color: #efe6d2; line-height: 1.35; }
+
+      /* S2 jam sehari */
+      #s2 .clock { position: absolute; left: 340px; top: 110px; width: 400px; height: 400px; }
+      #s2 .time { top: 535px; font-size: 92px; color: var(--gold-hi); letter-spacing: 2px; }
+      #s2 .card { position: absolute; left: 80px; right: 80px; top: 690px; min-height: 270px; background: var(--char); border-left: 12px solid var(--red); border-radius: 24px; padding: 34px 40px; }
+      #s2 .card .ic { font-size: 70px; line-height: 1; margin-bottom: 14px; }
+      #s2 .card .t { font-size: 50px; font-weight: 700; line-height: 1.3; }
+      #s2 .meter { position: absolute; left: 80px; right: 80px; top: 1095px; }
+      #s2 .meter .lbl { display: flex; justify-content: space-between; font-size: 30px; font-weight: 800; letter-spacing: 2px; color: #e8dfcb; margin-bottom: 12px; text-transform: uppercase; }
+      #s2 .meter .lbl b { color: var(--red); font-family: "JetBrains Mono", monospace; }
+      #s2 .meter .bar { height: 44px; border-radius: 22px; background: #2c2620; overflow: hidden; border: 3px solid #3b332a; }
+      #s2 .meter .fill { height: 100%; width: 100%; background: linear-gradient(90deg, #e3a92f, #e0672a 55%, #d23b2f); transform-origin: left center; transform: scaleX(0); }
+
+      /* S3 3 pagi */
+      #s3 .time { top: 200px; font-size: 140px; color: var(--red); }
+      #s3 .q1 { top: 430px; font-size: 64px; font-weight: 700; color: #efe6d2; }
+      #s3 .kalah { top: 560px; font-size: 200px; color: #fff; }
+      #s3 .q2 { top: 880px; font-size: 62px; color: var(--gold-hi); line-height: 1.25; }
+
+      /* S4 pelan hari pertama */
+      #s4 { background: radial-gradient(ellipse at 50% 20%, #3a3124, var(--ink) 70%); }
+      #s4 .tag { top: 100px; font-size: 30px; letter-spacing: 5px; font-weight: 800; color: var(--gold-hi); }
+      #s4 .h { top: 150px; font-size: 96px; }
+      #s4 .h .g { color: var(--gold-hi); }
+      #s4 .bottle { position: absolute; left: 70px; top: 340px; width: 300px; border-radius: 24px; box-shadow: 0 0 0 5px var(--gold), 0 24px 60px rgba(0,0,0,.6); }
+      #s4 .brand { position: absolute; left: 70px; top: 1070px; width: 300px; text-align: center; font-size: 44px; color: var(--gold-hi); line-height: 1.1; }
+      #s4 .plan { position: absolute; left: 410px; right: 60px; top: 340px; display: flex; flex-direction: column; gap: 22px; }
+      #s4 .step { background: var(--cream); color: var(--ink); border-radius: 22px; padding: 24px 26px; border-left: 12px solid var(--gold); }
+      #s4 .step.hot { border-left-color: var(--red); background: #fff3e6; }
+      #s4 .step .w { font-family: Anton, sans-serif; font-size: 44px; text-transform: uppercase; line-height: 1.05; }
+      #s4 .step .d { font-size: 30px; font-weight: 700; color: #5f574a; margin-top: 6px; }
+      #s4 .dose { position: absolute; left: 410px; right: 60px; top: 1060px; text-align: center; background: var(--gold); color: var(--ink); border-radius: 18px; padding: 16px; font-weight: 800; font-size: 32px; }
+
+      /* S5 testimoni */
+      #s5 { background: var(--cream); color: var(--ink); }
+      #s5 .h { top: 110px; font-size: 80px; }
+      #s5 .h .r { color: var(--red); }
+      #s5 .sub { top: 280px; font-size: 30px; font-weight: 600; color: #5f574a; }
+      #s5 .card { position: absolute; left: 60px; right: 60px; border: 5px solid var(--gold); border-radius: 26px; overflow: hidden; background: #000; box-shadow: 0 20px 40px rgba(0,0,0,.18); }
+      #s5 .card img { width: 100%; display: block; }
+      #s5 .card .cap { background: var(--ink); color: var(--gold-hi); font-weight: 800; font-size: 32px; padding: 12px 22px; }
+      #t1 { top: 380px; } #t2 { top: 720px; }
+      #s5 .hl { position: absolute; left: 60px; right: 60px; top: 1050px; text-align: center; font-size: 44px; font-weight: 800; }
+
+      /* S6 tawaran */
+      #s6 { background: radial-gradient(ellipse at 50% 0%, #3a3124, var(--ink) 75%); }
+      #s6 .h { top: 110px; font-size: 92px; }
+      #s6 .h .g { color: var(--gold-hi); }
+      #s6 .price { position: absolute; left: 90px; right: 90px; top: 260px; background: #fff; color: var(--ink); border-radius: 34px; padding: 30px 40px; text-align: center; }
+      #s6 .price .was { font-size: 50px; color: #9a8f7c; text-decoration: line-through; font-weight: 600; }
+      #s6 .price .now { font-family: Anton, sans-serif; font-size: 190px; color: var(--red); line-height: 1; }
+      #s6 .price .per { font-size: 40px; font-weight: 700; }
+      #s6 .best { position: absolute; left: 90px; right: 90px; top: 680px; background: linear-gradient(180deg, var(--gold-hi), var(--gold)); color: var(--ink); border-radius: 30px; padding: 28px; text-align: center; }
+      #s6 .best .rib { font-size: 30px; font-weight: 800; letter-spacing: 3px; }
+      #s6 .best .t { font-family: Anton, sans-serif; font-size: 96px; line-height: 1.05; }
+      #s6 .best .s { font-size: 34px; font-weight: 800; }
+      #s6 .ticks { position: absolute; left: 90px; right: 90px; top: 1030px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      #s6 .tick { border: 3px solid rgba(244,198,90,.6); border-radius: 18px; padding: 16px 10px; font-size: 30px; font-weight: 700; color: var(--gold-hi); text-align: center; }
+
+      /* S7 CTA */
+      #s7 .q1 { top: 200px; font-size: 96px; }
+      #s7 .q2 { top: 420px; font-size: 78px; color: var(--gold-hi); line-height: 1.2; }
+      #s7 .btn { position: absolute; left: 120px; right: 120px; top: 760px; background: linear-gradient(180deg, #34c86b, var(--wa)); border-radius: 26px; padding: 28px 20px; text-align: center; font-weight: 800; font-size: 50px; box-shadow: 0 10px 0 #127a3a, 0 20px 40px rgba(0,0,0,.4); }
+      #s7 .btn small { display: block; font-size: 32px; font-weight: 700; }
+      #s7 .mini { position: absolute; left: 485px; top: 960px; width: 110px; border-radius: 18px; box-shadow: 0 0 0 4px var(--gold); }
+      #s7 .fine { top: 1265px; font-size: 22px; color: #e8dfcb; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="45" data-width="1080" data-height="1350">
+      <div id="redglow" class="clip" data-start="0" data-duration="24" data-track-index="0"></div>
+
+      <!-- S1 hook (0–4) -->
+      <div id="s1" class="scene clip" data-start="0" data-duration="4" data-track-index="1">
+        <div class="center tag"><span>HARI PERTAMA BERHENTI KETUM</span></div>
+        <div class="center loud h"><span class="l">Kenapa</span><span class="l r">ramai kalah</span><span class="l">di sini?</span></div>
+        <div class="center sub">Ini yang ramai lalui,<br />jam demi jam…</div>
+      </div>
+
+      <!-- S2 jam sehari (4–20) -->
+      <div id="s2" class="scene clip" data-start="4" data-duration="16" data-track-index="1">
+        <svg class="clock" viewBox="0 0 400 400" aria-hidden="true">
+          <circle cx="200" cy="200" r="186" fill="#1d1a15" stroke="#e3a92f" stroke-width="10" />
+          <g stroke="#e8dfcb" stroke-width="8" stroke-linecap="round">
+            <line x1="200" y1="34" x2="200" y2="62" /><line x1="366" y1="200" x2="338" y2="200" />
+            <line x1="200" y1="366" x2="200" y2="338" /><line x1="34" y1="200" x2="62" y2="200" />
+          </g>
+          <g stroke="#6b6253" stroke-width="5" stroke-linecap="round">
+            <line x1="283" y1="56" x2="276" y2="68" /><line x1="344" y1="117" x2="332" y2="124" />
+            <line x1="344" y1="283" x2="332" y2="276" /><line x1="283" y1="344" x2="276" y2="332" />
+            <line x1="117" y1="344" x2="124" y2="332" /><line x1="56" y1="283" x2="68" y2="276" />
+            <line x1="56" y1="117" x2="68" y2="124" /><line x1="117" y1="56" x2="124" y2="68" />
+          </g>
+          <g id="hourHand"><line x1="200" y1="200" x2="200" y2="105" stroke="#f4c65a" stroke-width="16" stroke-linecap="round" /></g>
+          <g id="minHand"><line x1="200" y1="200" x2="200" y2="62" stroke="#ffffff" stroke-width="9" stroke-linecap="round" /></g>
+          <circle cx="200" cy="200" r="14" fill="#d23b2f" />
+        </svg>
+        <div class="center mono time tlab" id="tl0">7:00 PAGI</div>
+        <div class="center mono time tlab" id="tl1">11:00 PAGI</div>
+        <div class="center mono time tlab" id="tl2">3:00 PETANG</div>
+        <div class="center mono time tlab" id="tl3">11:00 MALAM</div>
+        <div class="card" id="cd0"><div class="ic">😩</div><div class="t">Bangun, badan lemau.<br />Tak larat nak pergi kerja.</div></div>
+        <div class="card" id="cd1"><div class="ic">🥱</div><div class="t">Menguap tak henti.<br />Hidung berair, mata berair.</div></div>
+        <div class="card" id="cd2"><div class="ic">🦴</div><div class="t">Sendi ngilu.<br />Badan sakit-sakit, panas baran.</div></div>
+        <div class="card" id="cd3"><div class="ic">🌙</div><div class="t">Mata celik. Gelisah.<br />Tak boleh tidur langsung.</div></div>
+        <div class="meter">
+          <div class="lbl"><span>Tahap seksa</span><b id="pct">0%</b></div>
+          <div class="bar"><div class="fill" id="fill"></div></div>
+        </div>
+      </div>
+
+      <!-- S3 3 pagi (20–24.5) -->
+      <div id="s3" class="scene clip" data-start="20" data-duration="4.5" data-track-index="1">
+        <div class="center mono time">3:00 PAGI</div>
+        <div class="center q1">Ramai yang akhirnya…</div>
+        <div class="center loud kalah">kalah.</div>
+        <div class="center script q2">Bukan sebab lemah.<br />Sebab tak ada ikhtiar.</div>
+      </div>
+
+      <!-- S4 pelan hari pertama (24.5–32) -->
+      <div id="s4" class="scene clip" data-start="24.5" data-duration="7.5" data-track-index="1">
+        <div class="center tag">AMALAN TURUN-TEMURUN</div>
+        <div class="center loud h">Pelan <span class="g">hari pertama</span></div>
+        <img class="bottle" src="assets/produk-botol.jpg" alt="Jus Bidara Hitam 300ml" />
+        <div class="brand script">Jus Bidara<br />Hitam</div>
+        <div class="plan">
+          <div class="step"><div class="w">🌅 Pagi</div><div class="d">selepas makan</div></div>
+          <div class="step hot"><div class="w">⚡ Bila datang rasa ketagih / sakit badan</div><div class="d">terus amalkan</div></div>
+          <div class="step"><div class="w">🌙 Malam</div><div class="d">selepas makan</div></div>
+        </div>
+        <div class="dose">4 penutup + segelas air kosong</div>
+      </div>
+
+      <!-- S5 testimoni (32–37.5) -->
+      <div id="s5" class="scene clip" data-start="32" data-duration="5.5" data-track-index="1">
+        <div class="center loud h">Yang dah <span class="r">lalui</span></div>
+        <div class="center sub">Komen sebenar pembeli · keputusan berbeza mengikut individu</div>
+        <div class="card" id="t1"><img src="assets/testi-kail.jpg" alt="" /><div class="cap">★★★★★ kail</div></div>
+        <div class="card" id="t2"><img src="assets/testi-wakden.jpg" alt="" /><div class="cap">★★★★★ Wak den tongkang</div></div>
+        <div class="hl">Ikhtiar mereka: Jus Bidara Hitam</div>
+      </div>
+
+      <!-- S6 tawaran (37.5–41.5) -->
+      <div id="s6" class="scene clip" data-start="37.5" data-duration="4" data-track-index="1">
+        <div class="center loud h">Mula <span class="g">hari ini</span></div>
+        <div class="price"><div class="was">RM35</div><div class="now">RM24</div><div class="per">sebotol (300ml)</div></div>
+        <div class="best"><div class="rib">★ PALING BERBALOI ★</div><div class="t">3 BOTOL RM60</div><div class="s">+ POS PERCUMA SEMENANJUNG</div></div>
+        <div class="ticks"><div class="tick">✔ COD seluruh Malaysia</div><div class="tick">✔ Rosak? Ganti baru</div></div>
+      </div>
+
+      <!-- S7 CTA (41.5–45) -->
+      <div id="s7" class="scene clip" data-start="41.5" data-duration="3.5" data-track-index="1">
+        <div class="center loud q1">Hari pertama<br />memang berat.</div>
+        <div class="center script q2">Jangan lalui<br />seorang diri.</div>
+        <div class="btn">TEMPAH SEKARANG<small>WhatsApp 017-963 7611 · COD ada</small></div>
+        <img class="mini" src="assets/produk-botol.jpg" alt="" />
+        <div class="center fine">Produk tradisional, bukan pengganti rawatan perubatan. Keputusan berbeza mengikut individu.</div>
+      </div>
+
+      <div id="brandbar" class="clip" data-start="0" data-duration="45" data-track-index="2">Jus Bidara Hitam <i>◆</i> Mbah Lanang</div>
+      <div id="progress" class="clip" data-start="0" data-duration="45" data-track-index="3"></div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+      tl.fromTo("#progress", { scaleX: 0 }, { scaleX: 1, duration: 45, ease: "none" }, 0);
+
+      // ---- S1 ----
+      tl.from("#s1 .tag span", { y: -60, opacity: 0, duration: 0.4, ease: "back.out(2)" }, 0.05);
+      tl.from("#s1 .h .l", { scale: 2.3, opacity: 0, duration: 0.4, stagger: 0.35, ease: "power4.out" }, 0.3);
+      tl.from("#s1 .sub", { y: 30, opacity: 0, duration: 0.45, ease: E }, 2.2);
+      tl.to("#s1", { opacity: 0, duration: 0.25 }, 3.75);
+
+      // ---- S2: jam bergerak sepanjang hari ----
+      // setiap jam = 30° jarum jam; jarum minit pusing 360° setiap jam
+      const stops = [
+        { t: 4.0, h: 7, pct: 25 }, { t: 8.0, h: 11, pct: 50 }, { t: 12.0, h: 15, pct: 75 }, { t: 16.0, h: 23, pct: 96 }
+      ];
+      tl.set("#hourHand", { rotation: 7 * 30, svgOrigin: "200 200" }, 0);
+      tl.set("#minHand", { rotation: 0, svgOrigin: "200 200" }, 0);
+      tl.set([".tlab", "#s2 .card"], { opacity: 0 }, 0);
+      tl.from("#s2 .clock", { scale: 0.5, opacity: 0, duration: 0.5, ease: "back.out(1.6)" }, 4.0);
+      tl.from("#s2 .meter", { opacity: 0, y: 40, duration: 0.4, ease: E }, 4.3);
+      const meter = { v: 0 };
+      stops.forEach((s, i) => {
+        if (i > 0) {
+          const hrs = s.h - stops[i - 1].h;
+          tl.to("#hourHand", { rotation: s.h * 30, duration: 0.9, ease: "power2.inOut" }, s.t - 0.9);
+          tl.to("#minHand", { rotation: "+=" + hrs * 360, duration: 0.9, ease: "power2.inOut" }, s.t - 0.9);
+          tl.to("#cd" + (i - 1), { x: -1100, opacity: 0, duration: 0.3, ease: "power2.in" }, s.t - 0.35);
+          tl.to("#tl" + (i - 1), { opacity: 0, duration: 0.15 }, s.t - 0.15);
+        }
+        tl.fromTo("#tl" + i, { scale: 1.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "power4.out", immediateRender: false }, s.t);
+        tl.fromTo("#cd" + i, { x: 1100, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "back.out(1.3)", immediateRender: false }, s.t + 0.1);
+        tl.to("#fill", { scaleX: s.pct / 100, duration: 0.8, ease: "power2.out" }, s.t + 0.3);
+        tl.to(meter, { v: s.pct, duration: 0.8, ease: "power2.out", onUpdate: () => { document.getElementById("pct").textContent = Math.round(meter.v) + "%"; } }, s.t + 0.3);
+        tl.to("#redglow", { opacity: 0.25 + i * 0.22, duration: 0.8 }, s.t + 0.3);
+      });
+      tl.to("#cd3 .ic", { rotation: 14, duration: 0.12, yoyo: true, repeat: 5 }, 16.6);
+      tl.to("#s2 .meter .bar", { x: 6, duration: 0.05, yoyo: true, repeat: 9 }, 17.2);
+      tl.to("#s2", { opacity: 0, duration: 0.25 }, 19.75);
+
+      // ---- S3 ----
+      tl.from("#s3 .time", { scale: 1.6, opacity: 0, duration: 0.35, ease: "power4.out" }, 20.05);
+      tl.to("#redglow", { opacity: 1, duration: 0.25, yoyo: true, repeat: 3 }, 20.1);
+      tl.from("#s3 .q1", { opacity: 0, y: 30, duration: 0.4, ease: E }, 20.6);
+      tl.from("#s3 .kalah", { scale: 2.6, opacity: 0, duration: 0.35, ease: "power4.out" }, 21.6);
+      tl.from("#s3 .q2", { opacity: 0, y: 30, duration: 0.5, ease: E }, 22.5);
+      tl.to("#redglow", { opacity: 0, duration: 0.6 }, 23.3);
+      tl.to("#s3", { opacity: 0, duration: 0.25 }, 24.25);
+
+      // ---- S4 ----
+      tl.from("#s4 .tag", { opacity: 0, y: -20, duration: 0.4 }, 24.55);
+      tl.from("#s4 .h", { opacity: 0, scale: 0.7, duration: 0.5, ease: "back.out(1.6)" }, 24.7);
+      tl.from("#s4 .bottle", { x: -500, rotation: -8, duration: 0.7, ease: "back.out(1.3)" }, 25.1);
+      tl.from("#s4 .brand", { opacity: 0, duration: 0.4 }, 25.6);
+      tl.from("#s4 .step", { x: 700, opacity: 0, duration: 0.5, stagger: 1.2, ease: "back.out(1.3)" }, 26.0);
+      tl.to("#s4 .step.hot", { scale: 1.05, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" }, 27.8);
+      tl.from("#s4 .dose", { y: 80, opacity: 0, duration: 0.45, ease: "back.out(2)" }, 29.6);
+      tl.to("#s4", { opacity: 0, duration: 0.25 }, 31.75);
+
+      // ---- S5 ----
+      tl.from("#s5 .h", { y: -60, opacity: 0, duration: 0.45, ease: E }, 32.1);
+      tl.from("#s5 .sub", { opacity: 0, duration: 0.4 }, 32.4);
+      tl.from("#t1", { x: -1100, rotation: -3, duration: 0.55, ease: "back.out(1.2)" }, 32.7);
+      tl.from("#t2", { x: 1100, rotation: 3, duration: 0.55, ease: "back.out(1.2)" }, 34.4);
+      tl.from("#s5 .hl", { opacity: 0, y: 30, duration: 0.45, ease: E }, 35.9);
+      tl.to("#s5", { opacity: 0, duration: 0.25 }, 37.25);
+
+      // ---- S6 ----
+      tl.from("#s6 .h", { y: -60, opacity: 0, duration: 0.4, ease: E }, 37.55);
+      tl.from("#s6 .price", { scale: 0.5, opacity: 0, duration: 0.45, ease: "back.out(1.8)" }, 37.7);
+      tl.fromTo("#s6 .price .now", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2.5)" }, 38.0);
+      tl.from("#s6 .best", { y: 300, opacity: 0, duration: 0.5, ease: "back.out(1.5)" }, 38.9);
+      tl.from("#s6 .tick", { scale: 0, opacity: 0, duration: 0.3, stagger: 0.3, ease: "back.out(2.5)" }, 40.0);
+      tl.to("#s6", { opacity: 0, duration: 0.25 }, 41.25);
+
+      // ---- S7 ----
+      tl.from("#s7 .q1", { opacity: 0, y: 40, duration: 0.45, ease: E }, 41.6);
+      tl.from("#s7 .q2", { opacity: 0, y: 30, duration: 0.45, ease: E }, 42.3);
+      tl.from("#s7 .btn", { scale: 0.3, opacity: 0, duration: 0.4, ease: "back.out(2)" }, 42.9);
+      tl.to("#s7 .btn", { scale: 1.06, duration: 0.3, yoyo: true, repeat: 2, ease: "sine.inOut" }, 43.35);
+      tl.from("#s7 .mini", { y: 200, opacity: 0, duration: 0.45, ease: E }, 43.1);
+      tl.from("#s7 .fine", { opacity: 0, duration: 0.4 }, 43.2);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
