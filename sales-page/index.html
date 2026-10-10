@@ -208,6 +208,7 @@ strong{font-weight:700}
 .form .opt{display:flex;margin:0;align-items:center;gap:10px;border:1.5px solid #d8ccb1;border-radius:10px;padding:11px 12px;cursor:pointer;font-size:15px;background:#fffdf8}
 .form .opt input{width:auto;padding:0;accent-color:var(--gold-deep)}
 .opt:has(input:checked){border-color:var(--gold-deep);background:#fff6df}
+.opt small{color:var(--muted);font-size:12.5px}
 .opt .r{margin-left:auto;font-weight:800;color:var(--danger)}
 .opt .tagmini{font-size:11px;font-weight:700;background:var(--danger);color:#fff;padding:2px 7px;border-radius:999px}
 .summary{background:var(--ink);color:#fff;border-radius:12px;padding:14px 16px;margin:18px 0 16px;font-size:14.5px}
@@ -444,7 +445,7 @@ footer b{color:#d8cdb6}
         <div class="bottles">1 botol (300ml)</div>
         <div class="price"><s>RM35</s><b>RM24</b></div>
         <span class="save">Jimat RM11</span>
-        <ul><li>Sesuai untuk mula cuba</li><li>COD ada</li></ul>
+        <ul><li>Sesuai untuk mula cuba</li><li>+ RM8 pos (Semenanjung)</li><li>COD ada</li></ul>
         <a href="#tempah" class="pick" data-choose="1">Pilih Pakej Ini</a>
       </div>
 
@@ -453,7 +454,7 @@ footer b{color:#d8cdb6}
         <div class="bottles">2 botol (600ml)</div>
         <div class="price"><s>RM70</s><b>RM45</b></div>
         <span class="save">Jimat RM25</span>
-        <ul><li>Untuk yang dah lama minum</li><li>COD ada</li></ul>
+        <ul><li>Untuk yang dah lama minum</li><li>+ RM8 pos (Semenanjung)</li><li>COD ada</li></ul>
         <a href="#tempah" class="pick" data-choose="2">Pilih Pakej Ini</a>
       </div>
 
@@ -483,8 +484,8 @@ footer b{color:#d8cdb6}
       <form class="form" id="orderForm" novalidate>
         <label>Pilih pakej</label>
         <div class="opts">
-          <label class="opt"><input type="radio" name="pkg" value="1"> 1 Botol <span class="r">RM24</span></label>
-          <label class="opt"><input type="radio" name="pkg" value="2"> 2 Botol <span class="r">RM45</span></label>
+          <label class="opt"><input type="radio" name="pkg" value="1"> 1 Botol <small>+ RM8 pos</small><span class="r">RM24</span></label>
+          <label class="opt"><input type="radio" name="pkg" value="2"> 2 Botol <small>+ RM8 pos</small><span class="r">RM45</span></label>
           <label class="opt"><input type="radio" name="pkg" value="3" checked> 3 Botol <span class="tagmini">FREE POS</span><span class="r">RM60</span></label>
         </div>
 
@@ -551,8 +552,6 @@ footer b{color:#d8cdb6}
 
   <footer>
     <p><b>Jus Bidara Hitam · Mbah Lanang</b></p>
-    <!-- TODO: isi nama syarikat & no. pendaftaran SSM / no. KKM -->
-    <p>[NAMA SYARIKAT] · No. SSM: [XXXXXXXX] · No. KKM: [XXXXXXXX]</p>
     <p>Produk ini adalah produk tradisional dan bukan pengganti rawatan perubatan. Keputusan berbeza mengikut individu. Testimoni adalah pengalaman peribadi pengguna.</p>
     <p>Laman ini bukan sebahagian daripada laman web Facebook atau Meta Platforms, Inc. dan tidak disokong oleh Facebook dalam apa jua cara.</p>
     <p style="margin:0">© <span id="yr">2026</span> Jus Bidara Hitam. Hak cipta terpelihara.</p>
@@ -568,11 +567,11 @@ footer b{color:#d8cdb6}
 
 <script>
 /* ====== TETAPAN — tukar di sini ====== */
-const WA_NUMBER = "60XXXXXXXXX";   // No. WhatsApp penerima pesanan, format 60123456789 (tanpa + atau -)
+const WA_NUMBER = "60179637611";   // No. WhatsApp penerima pesanan, format 60123456789 (tanpa + atau -)
 const PAKEJ = {
-  1:{nama:"Pakej Cuba - 1 Botol", harga:24, pos:"Kos pos akan dimaklumkan"},
-  2:{nama:"Pakej Usaha - 2 Botol", harga:45, pos:"Kos pos akan dimaklumkan"},
-  3:{nama:"Pakej Bebas - 3 Botol", harga:60, pos:"PERCUMA (Semenanjung)"}
+  1:{nama:"Pakej Cuba - 1 Botol", harga:24, pos:8},   // pos Semenanjung (RM)
+  2:{nama:"Pakej Usaha - 2 Botol", harga:45, pos:8},
+  3:{nama:"Pakej Bebas - 3 Botol", harga:60, pos:0}
 };
 const SABAH_SARAWAK = ["Sabah","Sarawak","W.P. Labuan"];
 /* ===================================== */
@@ -584,16 +583,21 @@ document.getElementById("yr").textContent = new Date().getFullYear();
 
 function val(name){ const el = form.elements[name]; return (el && el.value || "").trim(); }
 function selectedPkg(){ return (form.querySelector('input[name="pkg"]:checked')||{}).value || "3"; }
+function isEastMY(){ return SABAH_SARAWAK.includes(val("negeri")); }
 function posText(id){
-  if (SABAH_SARAWAK.includes(val("negeri"))) return "Kos pos Sabah/Sarawak akan dimaklumkan";
-  return PAKEJ[id].pos;
+  if (isEastMY()) return "Kos pos Sabah/Sarawak akan dimaklumkan";
+  return PAKEJ[id].pos ? "RM" + PAKEJ[id].pos : "PERCUMA (Semenanjung)";
+}
+function totalText(id){
+  const p = PAKEJ[id];
+  return isEastMY() ? "RM" + p.harga + " + pos" : "RM" + (p.harga + p.pos);
 }
 function renderSummary(){
   const id = selectedPkg(), p = PAKEJ[id];
   summary.innerHTML =
     `<div><span>${p.nama}</span><span>RM${p.harga}</span></div>` +
     `<div><span>Penghantaran</span><span>${posText(id)}</span></div>` +
-    `<div class="tot"><span>Jumlah produk</span><b>RM${p.harga}</b></div>`;
+    `<div class="tot"><span>Jumlah</span><b>${totalText(id)}</b></div>`;
 }
 form.addEventListener("change", renderSummary);
 renderSummary();
@@ -628,6 +632,7 @@ form.addEventListener("submit", e => {
 *Pakej:* ${p.nama}
 *Harga:* RM${p.harga}
 *Penghantaran:* ${posText(id)}
+*Jumlah:* ${totalText(id)}
 *Bayaran:* ${bayar}
 
 *Nama:* ${nama}
