@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="ms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Jus Bidara Hitam — Dah Cuba Macam-Macam Cara (Gaya Vox)</title>
+    <script src="assets/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Permanent+Marker&family=Poppins:wght@600;700;800&display=block" rel="stylesheet" />
+    <style>
+      :root { --paper: #efe5cf; --ink: #201b15; --red: #d8352a; --marker: #ffd84a; --note: #ffe680; --gold: #e3a92f; --leaf: #4e8a2a; --wa: #1fae55; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--paper); font-family: Poppins, sans-serif; color: var(--ink); }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: var(--paper); }
+      #grain { position: absolute; inset: 0; width: 1080px; height: 1920px; opacity: .55; mix-blend-mode: multiply; }
+      #vign { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 55%, rgba(60,40,10,.22) 100%); }
+      .scene { position: absolute; inset: 0; }
+      .center { position: absolute; left: 50px; right: 50px; text-align: center; }
+      .loud { font-family: Anton, sans-serif; text-transform: uppercase; line-height: 1.04; letter-spacing: .5px; }
+      .hand { font-family: "Permanent Marker", cursive; }
+      .hl { background: linear-gradient(transparent 12%, var(--marker) 12%, var(--marker) 88%, transparent 88%); padding: 0 10px; }
+      .hlr { background: linear-gradient(transparent 12%, var(--red) 12%, var(--red) 88%, transparent 88%); color: #fff; padding: 0 12px; }
+      .stk { position: absolute; background: #fff; padding: 12px; border-radius: 6px; box-shadow: 0 14px 26px rgba(40,25,5,.28), 0 2px 4px rgba(40,25,5,.2); }
+      .stk img { display: block; width: 100%; border-radius: 2px; }
+      .stk .who { font-weight: 800; font-size: 26px; padding: 8px 4px 0; }
+      .stk .who b { color: #8a5a00; letter-spacing: 2px; margin-right: 8px; }
+      .tape { position: absolute; width: 150px; height: 42px; background: rgba(255,236,150,.75); top: -20px; left: 50%; margin-left: -75px; transform: rotate(-4deg); }
+      .note { position: absolute; background: var(--note); padding: 18px 22px; box-shadow: 0 10px 20px rgba(40,25,5,.25); font-family: "Permanent Marker", cursive; font-size: 40px; line-height: 1.15; }
+      .note small { display: block; font-family: Poppins, sans-serif; font-weight: 700; font-size: 26px; margin-top: 6px; }
+      .stamp { position: absolute; border: 10px solid var(--red); color: var(--red); font-family: Anton, sans-serif; line-height: 1; padding: 4px 22px; background: rgba(239,229,207,.85); }
+
+      #brandbar { position: absolute; left: 0; right: 0; top: 0; height: 72px; z-index: 50; background: var(--ink); display: flex; align-items: center; justify-content: center; gap: 18px; font-weight: 700; font-size: 26px; letter-spacing: 3px; color: #f4c65a; text-transform: uppercase; }
+      #brandbar i { font-style: normal; color: #b07a16; }
+      #progress { position: absolute; left: 0; bottom: 0; height: 10px; width: 1080px; background: var(--red); transform-origin: left center; z-index: 51; }
+
+      #caps { position: absolute; left: 50px; right: 50px; top: 1490px; height: 260px; z-index: 40; }
+      .cp { position: absolute; left: 0; right: 0; top: 0; display: flex; justify-content: center; }
+      .cp .box { background: #fff; padding: 20px 28px; border-radius: 10px; box-shadow: 0 12px 24px rgba(40,25,5,.25); transform: rotate(-1deg); text-align: center; max-width: 980px; font-weight: 800; font-size: 52px; line-height: 1.3; }
+      .cp .w { display: inline-block; padding: 0 6px; border-radius: 6px; }
+      .cp .w.key { color: var(--red); }
+
+      /* S0 */
+      #s0 .h { top: 330px; font-size: 92px; }
+      #s0 .gagal { left: 60px; top: 760px; font-size: 104px; transform: rotate(-6deg); white-space: nowrap; }
+      #s0 .qm { position: absolute; font-size: 120px; color: var(--red); }
+
+      /* S1 4 cara gagal */
+      #s1 .h { top: 110px; font-size: 76px; }
+      .try { position: absolute; left: 70px; right: 70px; height: 250px; background: #fffaf0; border-radius: 10px; box-shadow: 0 12px 24px rgba(40,25,5,.22); padding: 26px 34px; }
+      .try .n { font-family: Anton, sans-serif; font-size: 66px; text-transform: uppercase; line-height: 1.05; }
+      .try .r { font-family: "Permanent Marker", cursive; font-size: 44px; color: var(--red); margin-top: 10px; }
+      .try svg { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+      .try .stamp { right: 30px; top: 50px; font-size: 64px; transform: rotate(10deg); }
+      #t1 { top: 240px; transform: rotate(-1.5deg); } #t2 { top: 545px; transform: rotate(1.2deg); }
+      #t3 { top: 850px; transform: rotate(-1deg); } #t4 { top: 1155px; transform: rotate(1.5deg); }
+
+      /* S2 bukan semangat */
+      #s2 .h { top: 150px; font-size: 120px; }
+      .pain { position: absolute; width: 300px; height: 300px; border-radius: 50%; background: #fff; box-shadow: 0 14px 26px rgba(40,25,5,.28); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border: 8px solid var(--red); }
+      .pain b { font-size: 96px; line-height: 1; }
+      .pain span { font-weight: 800; font-size: 32px; line-height: 1.1; margin-top: 8px; }
+      #pa1 { left: 70px; top: 470px; transform: rotate(-6deg); } #pa2 { left: 400px; top: 430px; transform: rotate(4deg); }
+      #pa3 { left: 720px; top: 480px; transform: rotate(-3deg); } #pa4 { left: 390px; top: 760px; transform: rotate(5deg); }
+      #s2 .kb { top: 1090px; font-size: 70px; }
+      #kailS { left: 600px; top: 1230px; width: 440px; transform: rotate(4deg); }
+
+      /* S3 zul */
+      #s3 .lbl { position: absolute; left: 70px; top: 200px; font-size: 64px; color: var(--red); transform: rotate(-3deg); }
+      #zulW { position: absolute; left: 0; top: 0; width: 1080px; height: 1450px; transform-origin: 540px 700px; }
+      #zulS { left: 50px; top: 520px; width: 980px; transform: rotate(-1.5deg); }
+      #s3 .ring { position: absolute; left: 20px; top: 470px; width: 1040px; height: 380px; }
+      #s3 .arrow { position: absolute; left: 600px; top: 270px; width: 240px; height: 230px; }
+      #s3 .ann { position: absolute; left: 120px; top: 930px; font-size: 64px; transform: rotate(-2deg); }
+
+      /* S4 produk */
+      #s4 .h { top: 120px; font-size: 80px; }
+      #botS { left: 90px; top: 320px; width: 400px; transform: rotate(-4deg); }
+      #s4 .brand { position: absolute; left: 540px; top: 360px; font-size: 100px; line-height: 1; transform: rotate(2deg); }
+      #whenN { left: 540px; top: 720px; width: 480px; transform: rotate(2deg); }
+      #s4 .dose { position: absolute; left: 540px; top: 1080px; width: 480px; background: var(--ink); color: #fff; font-weight: 800; font-size: 36px; padding: 18px; text-align: center; border-radius: 10px; transform: rotate(-1deg); }
+
+      /* S5 dinding pengalaman */
+      #s5 .h { top: 110px; font-size: 76px; z-index: 6; }
+      #wall { position: absolute; left: 0; top: 0; width: 1080px; height: 1450px; transform-origin: 540px 800px; }
+      .pill { position: absolute; z-index: 8; background: var(--red); color: #fff; font-family: Anton, sans-serif; font-size: 52px; padding: 6px 24px; border-radius: 10px; transform: rotate(-6deg); box-shadow: 0 8px 16px rgba(40,25,5,.3); }
+      #count { position: absolute; left: 800px; top: 1170px; z-index: 9; background: var(--ink); color: #fff; border-radius: 50%; width: 240px; height: 240px; display: flex; flex-direction: column; align-items: center; justify-content: center; transform: rotate(10deg); box-shadow: 0 14px 26px rgba(40,25,5,.3); }
+      #count b { font-family: Anton, sans-serif; font-weight: 400; font-size: 110px; line-height: .9; color: #f4c65a; }
+      #count span { font-weight: 800; font-size: 26px; text-align: center; line-height: 1.1; }
+      #disc { position: absolute; left: 60px; top: 1430px; font-size: 24px; font-weight: 700; color: #5f574a; z-index: 9; }
+
+      /* S6 tawaran */
+      #s6 .h { top: 120px; font-size: 92px; }
+      #tagP { position: absolute; left: 140px; top: 290px; width: 800px; background: #fff; padding: 40px 30px 46px; text-align: center; box-shadow: 0 16px 30px rgba(40,25,5,.3); transform: rotate(-2deg); }
+      #tagP .was { position: relative; display: inline-block; font-size: 80px; font-weight: 800; color: #8a7f6c; }
+      #tagP .strike { position: absolute; left: -10px; top: 40%; width: 120%; height: 40px; }
+      #tagP .now { font-family: Anton, sans-serif; font-size: 260px; color: var(--red); line-height: 1; }
+      #tagP .per { font-size: 44px; font-weight: 800; }
+      #bestN { left: 120px; top: 900px; width: 560px; transform: rotate(-3deg); font-size: 64px; }
+      #codS { left: 730px; top: 930px; font-size: 90px; transform: rotate(8deg); border-color: var(--leaf); color: var(--leaf); }
+      #wanS { left: 140px; top: 1230px; width: 800px; transform: rotate(-1.5deg); }
+
+      /* S7 CTA */
+      #s7 .q1 { top: 150px; font-size: 84px; }
+      #s7 .q2 { position: absolute; left: 0; right: 0; top: 400px; text-align: center; font-size: 58px; color: var(--red); transform: rotate(-2deg); }
+      #card { position: absolute; left: 60px; right: 60px; top: 560px; background: #fff; border-radius: 30px; box-shadow: 0 24px 50px rgba(40,25,5,.3); padding: 34px; display: flex; gap: 30px; align-items: center; }
+      #card .pb { width: 300px; flex: 0 0 300px; border-radius: 16px; box-shadow: 0 0 0 5px var(--gold); }
+      #card .info { flex: 1; min-width: 0; }
+      #card .nm { font-family: Anton, sans-serif; font-size: 64px; line-height: 1; text-transform: uppercase; }
+      #card .pr { font-size: 40px; font-weight: 800; margin-top: 14px; }
+      #card .pr b { font-family: Anton, sans-serif; font-weight: 400; color: var(--red); font-size: 80px; }
+      #card .sub { font-size: 30px; font-weight: 700; color: #5f574a; margin-top: 8px; }
+      #card .stars { margin-top: 16px; font-size: 30px; font-weight: 800; }
+      #card .stars b { color: #a86c00; letter-spacing: 3px; }
+      #btn { position: absolute; left: 60px; right: 60px; top: 1170px; background: linear-gradient(180deg, #34c86b, var(--wa)); border-radius: 26px; padding: 28px 20px; text-align: center; font-weight: 800; font-size: 54px; color: #fff; box-shadow: 0 10px 0 #127a3a, 0 20px 40px rgba(0,0,0,.3); }
+      #btn small { display: block; font-size: 34px; }
+      #fine { position: absolute; left: 60px; right: 60px; top: 1790px; text-align: center; font-size: 24px; font-weight: 600; color: #5f574a; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="57.13" data-width="1080" data-height="1920">
+      <svg id="grain" class="clip" data-start="0" data-duration="57.13" data-track-index="0" aria-hidden="true">
+        <filter id="paperNoise"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" seed="11" /><feColorMatrix type="matrix" values="0 0 0 0 0.45  0 0 0 0 0.36  0 0 0 0 0.22  0 0 0 0.35 0" /></filter>
+        <rect width="1080" height="1920" filter="url(#paperNoise)" />
+      </svg>
+      <div id="vign" class="clip" data-start="0" data-duration="57.13" data-track-index="0"></div>
+
+      <div id="s0" class="scene clip" data-start="0.0" data-duration="4.91" data-track-index="1">
+        <div class="center loud h">Ramai dah cuba<br /><span class="hl">macam-macam cara</span><br />berhenti ketum…</div>
+        <div class="stamp loud gagal" data-layout-allow-overlap>Kenapa masih gagal?</div>
+        <div class="hand qm" style="left:860px;top:1040px;transform:rotate(14deg)">?</div>
+        <div class="hand qm" style="left:120px;top:1060px;transform:rotate(-12deg)">?</div>
+      </div>
+
+      <div id="s1" class="scene clip" data-start="4.91" data-duration="12.14" data-track-index="1">
+        <div class="center loud h">Cara yang <span class="hl">ramai dah cuba:</span></div>
+        <div class="try" id="t1"><div class="n">Berhenti mengejut</div><div class="r">3 hari, badan sakit teruk</div><svg viewBox="0 0 940 250" preserveAspectRatio="none" aria-hidden="true"><path class="x" d="M40 30 L900 220 M900 30 L40 220" fill="none" stroke="#d8352a" stroke-width="12" stroke-linecap="round" /></svg><div class="stamp" data-layout-allow-overlap>GAGAL</div></div>
+        <div class="try" id="t2"><div class="n">Kurangkan sikit-sikit</div><div class="r">lama-lama naik balik</div><svg viewBox="0 0 940 250" preserveAspectRatio="none" aria-hidden="true"><path class="x" d="M40 30 L900 220 M900 30 L40 220" fill="none" stroke="#d8352a" stroke-width="12" stroke-linecap="round" /></svg><div class="stamp" data-layout-allow-overlap>GAGAL</div></div>
+        <div class="try" id="t3"><div class="n">Tahan dengan semangat</div><div class="r">malam tak tidur, kalah</div><svg viewBox="0 0 940 250" preserveAspectRatio="none" aria-hidden="true"><path class="x" d="M40 30 L900 220 M900 30 L40 220" fill="none" stroke="#d8352a" stroke-width="12" stroke-linecap="round" /></svg><div class="stamp" data-layout-allow-overlap>GAGAL</div></div>
+        <div class="try" id="t4"><div class="n">Macam-macam produk</div><div class="r">duit habis, tak jadi</div><svg viewBox="0 0 940 250" preserveAspectRatio="none" aria-hidden="true"><path class="x" d="M40 30 L900 220 M900 30 L40 220" fill="none" stroke="#d8352a" stroke-width="12" stroke-linecap="round" /></svg><div class="stamp" data-layout-allow-overlap>GAGAL</div></div>
+      </div>
+
+      <div id="s2" class="scene clip" data-start="17.05" data-duration="7.35" data-track-index="1">
+        <div class="center loud h">Masalahnya<br /><span class="hlr">bukan semangat.</span></div>
+        <div class="pain" id="pa1"><b>🦴</b><span>Badan<br />sakit</span></div>
+        <div class="pain" id="pa2"><b>🥱</b><span>Menguap</span></div>
+        <div class="pain" id="pa3"><b>😰</b><span>Gelisah</span></div>
+        <div class="pain" id="pa4"><b>🌙</b><span>Tak boleh<br />tidur</span></div>
+        <div class="center loud kb">Fasa <span class="hlr">kain buruk</span> tu<br />yang buat kalah</div>
+        <div class="stk" id="kailS"><div class="tape"></div><img src="assets/testi-kail.jpg" alt="" /><div class="who"><b>★★★★★</b>kail</div></div>
+      </div>
+
+      <div id="s3" class="scene clip" data-start="24.4" data-duration="4.65" data-track-index="1">
+        <div class="hand lbl">Kata pembeli ni:</div>
+        <svg class="arrow" viewBox="0 0 240 230" aria-hidden="true"><path id="arrP" d="M10 20 C 120 10, 190 70, 200 190 M 165 160 L 202 200 L 230 155" fill="none" stroke="#d8352a" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        <div id="zulW">
+          <div class="stk" id="zulS"><div class="tape"></div><img src="assets/testi-zul.jpg" alt="" /><div class="who"><b>★★★★★</b>zul mohamad</div></div>
+          <svg class="ring" viewBox="0 0 1040 380" aria-hidden="true"><path id="ringP" d="M530 14 C 880 12, 1030 80, 1025 190 C 1020 310, 820 368, 520 366 C 220 364, 16 310, 16 190 C 16 80, 200 16, 550 18" fill="none" stroke="#d8352a" stroke-width="9" stroke-linecap="round" /></svg>
+        </div>
+        <div class="hand ann">Dah cuba <span class="hl">macam-macam</span>… yang ni berkesan.</div>
+      </div>
+
+      <div id="s4" class="scene clip" data-start="29.05" data-duration="7.35" data-track-index="1">
+        <div class="center loud h">Ikhtiar <span class="hl">yang dia pilih</span></div>
+        <div class="stk" id="botS"><div class="tape"></div><img src="assets/produk-botol.jpg" alt="Jus Bidara Hitam 300ml" /></div>
+        <div class="loud brand">Jus<br />Bidara<br />Hitam</div>
+        <div class="note" id="whenN">Bila datang rasa sakit badan / ketagih<small>juga pagi &amp; malam selepas makan</small></div>
+        <div class="dose">4 penutup + segelas air</div>
+      </div>
+
+      <div id="s5" class="scene clip" data-start="36.4" data-duration="7.53" data-track-index="1">
+        <div id="wall"></div>
+        <div class="center loud h"><span class="hl">Pengalaman</span> pembeli</div>
+        <div id="count"><b>9</b><span>komen<br />sebenar</span></div>
+        <div id="disc">Komen sebenar pembeli · keputusan berbeza mengikut individu</div>
+      </div>
+
+      <div id="s6" class="scene clip" data-start="43.93" data-duration="5.8" data-track-index="1">
+        <div class="center loud h">Mula <span class="hl">hari ini</span></div>
+        <div id="tagP">
+          <div class="was">RM35<svg class="strike" viewBox="0 0 200 40" preserveAspectRatio="none" aria-hidden="true"><path id="strikeP" d="M4 26 C 60 10, 120 30, 196 12" fill="none" stroke="#d8352a" stroke-width="9" stroke-linecap="round" /></svg></div>
+          <div class="now">RM24</div>
+          <div class="per">sebotol (300ml)</div>
+        </div>
+        <div class="note" id="bestN">3 botol RM60<small>+ pos percuma Semenanjung</small></div>
+        <div class="stamp" id="codS">COD</div>
+        <div class="stk" id="wanS"><div class="tape"></div><img src="assets/testi-wanpaq.jpg" alt="" /><div class="who"><b>★★★★★</b>Wan paq</div></div>
+      </div>
+
+      <div id="s7" class="scene clip" data-start="49.73" data-duration="7.4" data-track-index="1">
+        <div class="center loud q1">Kalau cara lain<br /><span class="hlr">tak jadi…</span></div>
+        <div class="hand q2">cuba ikhtiar ni.</div>
+        <div id="card">
+          <img class="pb" src="assets/produk-botol.jpg" alt="Jus Bidara Hitam" />
+          <div class="info">
+            <div class="nm">Jus Bidara Hitam</div>
+            <div class="pr"><b>RM24</b> sebotol</div>
+            <div class="sub">3 botol RM60 · pos percuma Semenanjung · COD</div>
+            <div class="stars"><b>★★★★★</b> 9 komen sebenar pembeli</div>
+          </div>
+        </div>
+        <div id="btn">TEMPAH SEKARANG<small>WhatsApp 017-963 7611</small></div>
+        <div id="fine">Produk tradisional, bukan pengganti rawatan perubatan. Keputusan berbeza mengikut individu.</div>
+      </div>
+
+      <div id="caps" class="clip" data-start="0" data-duration="57.13" data-track-index="4"></div>
+      <div id="brandbar" class="clip" data-start="0" data-duration="57.13" data-track-index="2">Jus Bidara Hitam <i>◆</i> Mbah Lanang</div>
+      <div id="progress" class="clip" data-start="0" data-duration="57.13" data-track-index="3"></div>
+      <!--AUDIO-->
+    </div>
+
+    <script>
+      const PHR = [[0.0, 2.69, "Ramai dah cuba *macam-macam *cara berhenti ketum."], [3.09, 4.63, "Tapi kenapa masih *gagal?"], [5.03, 5.83, "Berhenti mengejut…"], [6.23, 7.38, "badan *sakit *teruk."], [7.78, 8.58, "Kurangkan sikit-sikit…"], [8.98, 9.78, "*naik *balik."], [10.18, 11.34, "Tahan dengan semangat…"], [11.74, 13.28, "malam tak tidur, *kalah."], [13.68, 14.83, "Cuba macam-macam produk…"], [15.23, 16.77, "duit habis, *tak *jadi."], [17.17, 18.32, "Masalahnya *bukan *semangat."], [18.72, 21.03, "Badan sakit, menguap, gelisah, tak tidur…"], [21.43, 24.12, "fasa *kain *buruk tu yang buat kalah."], [24.52, 25.68, "Kata pembeli ni:"], [26.08, 28.77, "Dah macam-macam cuba produk… yang ni *berkesan."], [29.17, 30.71, "Ikhtiarnya: *Jus *Bidara *Hitam."], [31.11, 34.18, "Amalkan bila datang rasa sakit badan atau ketagih."], [34.58, 36.12, "Empat penutup, segelas air."], [36.52, 37.68, "Pengalaman pembeli lain:"], [38.08, 41.15, "Hari ketiga. Hari ketujuh. Tiga minggu. Dua bulan."], [44.05, 45.98, "Dua puluh empat ringgit sebotol."], [46.38, 49.45, "Tiga botol enam puluh, pos percuma. COD ada."], [49.85, 52.93, "Kalau cara lain tak jadi… cuba ikhtiar ni."], [53.33, 54.13, "*Tempah *sekarang."]].map(([a, b, txt]) => ({ a, b, txt }));
+      const T = 57.13;
+      const P = (i) => PHR[i].a;          // masa mula frasa i
+      const PE = (i) => PHR[i].b;         // masa tamat frasa i
+      // masa perkataan ke-k dalam frasa i (anggaran ikut panjang huruf)
+      const W = (i, k) => {
+        const ws = PHR[i].txt.split(" ");
+        const tot = ws.reduce((s, w) => s + w.length + 1, 0);
+        let acc = 0; for (let j = 0; j < k; j++) acc += ws[j].length + 1;
+        return PHR[i].a + (PHR[i].b - PHR[i].a) * acc / tot;
+      };
+
+      // sari kata
+      const caps = document.getElementById("caps");
+      PHR.forEach((p, i) => {
+        const d = document.createElement("div"); d.className = "cp"; d.id = "cp" + i;
+        const box = document.createElement("div"); box.className = "box";
+        p.words = [];
+        p.txt.split(" ").forEach((w, j) => {
+          const key = w.startsWith("*");
+          const s = document.createElement("span"); s.className = "w" + (key ? " key" : "");
+          s.textContent = key ? w.slice(1) : w; s.id = "cp" + i + "w" + j;
+          box.appendChild(s); box.appendChild(document.createTextNode(" ")); p.words.push(s.textContent);
+        });
+        d.appendChild(box); caps.appendChild(d);
+      });
+
+      // dinding testimoni dengan cop masa
+      const WALL = [["wakden", "Wak den tongkang", "HARI KE-3"], ["kioami", "kioami", "HARI KE-7"], ["rashid", "Rashid", "3 MINGGU"], ["wanpaq", "Wan paq", "2 BULAN"],
+                    ["hazwan", "Hazwan Rauf", ""], ["kail", "kail", ""], ["shahnemo", "Shah Nemo", ""], ["popi", "popi3459", ""], ["zul", "zul mohamad", ""]];
+      const wall = document.getElementById("wall");
+      WALL.forEach(([f, name, pill], i) => {
+        const d = document.createElement("div"); d.className = "stk wst"; d.id = "ws" + i;
+        const x = i % 2 ? 410 : 30, y = 250 + i * 122;
+        d.style.left = x + "px"; d.style.top = y + "px"; d.style.width = "640px";
+        d.style.transform = "rotate(" + (i % 2 ? 2.5 : -2.5) + "deg)";
+        d.innerHTML = '<div class="tape"></div><img src="assets/testi-' + f + '.jpg" alt=""><div class="who"><b>★★★★★</b>' + name + "</div>";
+        wall.appendChild(d);
+        if (pill) {
+          const p = document.createElement("div"); p.className = "pill"; p.id = "pl" + i; p.textContent = pill;
+          p.style.left = (x + 430) + "px"; p.style.top = (y - 34) + "px"; p.setAttribute("data-layout-allow-overlap", "");
+          wall.appendChild(p);
+        }
+      });
+
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+      tl.fromTo("#progress", { scaleX: 0 }, { scaleX: 1, duration: T, ease: "none" }, 0);
+
+      // sari kata bergerak (perkataan disorot ikut suara)
+      tl.set(".cp", { opacity: 0 }, 0);
+      PHR.forEach((p, i) => {
+        const next = PHR[i + 1];
+        const end = next ? Math.min(next.a, p.b + 1.2) : T;
+        tl.fromTo("#cp" + i, { opacity: 0, y: 30, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.18, ease: "back.out(2)", immediateRender: false }, p.a);
+        p.words.forEach((w, j) => tl.to("#cp" + i + "w" + j, { backgroundColor: "#ffd84a", duration: 0.06 }, W(i, j)));
+        tl.to("#cp" + i, { opacity: 0, duration: 0.12 }, end - 0.12);
+      });
+      const out = (sel, i) => tl.to(sel, { opacity: 0, duration: 0.12 }, P(i) - 0.14);
+
+      // S0
+      tl.from("#s0 .h", { y: -60, opacity: 0, duration: 0.4, ease: E }, 0.05);
+      tl.fromTo("#s0 .gagal", { opacity: 0, scale: 2.6 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power4.in", immediateRender: false }, W(1, 3));
+      tl.set("#s0 .gagal", { opacity: 0 }, 0);
+      tl.to("#s0", { x: 9, duration: 0.05, yoyo: true, repeat: 5 }, W(1, 3) + 0.25);
+      tl.from("#s0 .qm", { scale: 0, rotation: 60, duration: 0.3, stagger: 0.15, ease: "back.out(3)" }, W(1, 3) + 0.2);
+      tl.to("#s0", { scale: 1.06, transformOrigin: "50% 40%", duration: P(2), ease: "none" }, 0);
+      out("#s0", 2);
+
+      // S1 4 cara gagal: kad masuk pada "Ada yang…", dipangkah pada akibat
+      tl.from("#s1 .h", { y: -60, opacity: 0, duration: 0.35, ease: E }, P(2));
+      tl.set(".try", { opacity: 0 }, 0);
+      tl.set(".try .x", { strokeDasharray: 1900, strokeDashoffset: 1900 }, 0);
+      tl.set(".try .stamp", { opacity: 0 }, 0);
+      [2, 4, 6, 8].forEach((pi, k) => {
+        const id = "#t" + (k + 1);
+        tl.fromTo(id, { opacity: 0, x: k % 2 ? 900 : -900 }, { opacity: 1, x: 0, duration: 0.4, ease: "back.out(1.3)", immediateRender: false }, P(pi));
+        tl.to(id, { scale: 1.05, duration: 0.25, yoyo: true, repeat: 1, ease: "sine.inOut" }, P(pi) + 0.4);
+        tl.to(id + " .x", { strokeDashoffset: 0, duration: 0.45, ease: "none" }, PE(pi + 1) - 0.3);
+        tl.fromTo(id + " .stamp", { opacity: 0, scale: 2.5 }, { opacity: 1, scale: 1, duration: 0.2, ease: "power4.in", immediateRender: false }, PE(pi + 1) + 0.1);
+        tl.to("#s1", { x: 7, duration: 0.05, yoyo: true, repeat: 3 }, PE(pi + 1) + 0.3);
+      });
+      tl.to("#s1", { scale: 1.04, transformOrigin: "50% 50%", duration: P(10) - P(2), ease: "none" }, P(2));
+      out("#s1", 10);
+
+      // S2 bukan semangat
+      tl.from("#s2 .h", { scale: 2.2, opacity: 0, duration: 0.35, ease: "power4.out" }, P(10));
+      [0, 2, 3, 4].forEach((wk, k) => {
+        tl.fromTo("#pa" + (k + 1), { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.5)", immediateRender: false }, W(11, wk));
+      });
+      tl.set(".pain", { opacity: 0 }, 0);
+      tl.from("#s2 .kb", { opacity: 0, y: 40, duration: 0.4, ease: E }, P(12));
+      tl.from("#kailS", { opacity: 0, y: 500, rotation: 14, duration: 0.45, ease: "back.out(1.4)" }, PE(12) - 0.2);
+      tl.to("#s2", { scale: 1.05, transformOrigin: "50% 45%", duration: P(13) - P(10), ease: "none" }, P(10));
+      out("#s2", 13);
+
+      // S3 testimoni zul dibesarkan
+      tl.from("#s3 .lbl", { opacity: 0, x: -60, duration: 0.35 }, P(13));
+      tl.fromTo("#arrP", { strokeDasharray: 520, strokeDashoffset: 520 }, { strokeDashoffset: 0, duration: 0.4, ease: "none" }, P(13) + 0.3);
+      tl.from("#zulS", { opacity: 0, y: 600, rotation: 10, scale: 1.3, duration: 0.5, ease: "back.out(1.3)" }, P(13) + 0.6);
+      tl.fromTo("#ringP", { strokeDasharray: 2700, strokeDashoffset: 2700 }, { strokeDashoffset: 0, duration: 0.7, ease: "none" }, P(14));
+      tl.fromTo("#zulW", { scale: 1 }, { scale: 1.05, duration: PE(14) - P(14) + 0.6, ease: "power1.inOut", immediateRender: false }, P(14));
+      tl.from("#s3 .ann", { opacity: 0, y: 40, duration: 0.4, ease: E }, W(14, 6));
+      out("#s3", 15);
+
+      // S4 produk
+      tl.from("#s4 .h", { y: -60, opacity: 0, duration: 0.35, ease: E }, P(15));
+      tl.from("#botS", { opacity: 0, y: 900, rotation: -20, duration: 0.55, ease: "back.out(1.3)" }, W(15, 1));
+      tl.from("#s4 .brand", { opacity: 0, x: 200, duration: 0.4, ease: E }, W(15, 1) + 0.1);
+      tl.from("#whenN", { opacity: 0, scale: 0.4, rotation: 12, duration: 0.4, ease: "back.out(2)" }, P(16));
+      tl.to("#whenN", { scale: 1.05, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" }, P(16) + 0.6);
+      tl.from("#s4 .dose", { opacity: 0, y: 60, duration: 0.35, ease: "back.out(2)" }, P(17));
+      tl.to("#s4", { scale: 1.04, transformOrigin: "50% 50%", duration: P(18) - P(15), ease: "none" }, P(15));
+      out("#s4", 18);
+
+      // S5 dinding pengalaman (lebih lama: ada jeda 2.5s)
+      tl.from("#s5 .h", { y: -60, opacity: 0, duration: 0.35, ease: E }, P(18));
+      tl.set(".wst, .pill", { opacity: 0 }, 0);
+      const s5len = P(20) - P(18) - 1.2;
+      WALL.forEach((_, i) => {
+        const t = P(18) + 0.2 + i * Math.min(0.55, s5len / 9);
+        tl.fromTo("#ws" + i, { opacity: 0, scale: 1.6, y: -60 }, { opacity: 1, scale: 1, y: 0, duration: 0.22, ease: "power3.in", immediateRender: false }, t);
+        tl.to("#wall", { x: (i % 2 ? 6 : -6), duration: 0.05, yoyo: true, repeat: 1 }, t + 0.22);
+      });
+      [0, 2, 4, 6].forEach((wk, k) => {
+        tl.fromTo("#pl" + k, { opacity: 0, scale: 2.5 }, { opacity: 1, scale: 1, duration: 0.2, ease: "power4.in", immediateRender: false }, Math.max(W(19, wk), P(18) + 0.2 + k * 0.55 + 0.3));
+      });
+      tl.fromTo("#wall", { scale: 1.12 }, { scale: 0.96, duration: P(20) - P(18), ease: "none", immediateRender: false }, P(18));
+      tl.from("#count", { scale: 0, rotation: -60, duration: 0.4, ease: "back.out(2.5)" }, PE(19) + 0.3);
+      tl.from("#disc", { opacity: 0, duration: 0.3 }, PE(19) + 0.4);
+      out("#s5", 20);
+
+      // S6 tawaran
+      tl.from("#s6 .h", { y: -60, opacity: 0, duration: 0.35, ease: E }, P(20));
+      tl.from("#tagP", { opacity: 0, y: -700, rotation: 10, duration: 0.45, ease: "back.out(1.3)" }, P(20));
+      tl.fromTo("#strikeP", { strokeDasharray: 260, strokeDashoffset: 260 }, { strokeDashoffset: 0, duration: 0.3, ease: "none" }, P(20) + 0.4);
+      tl.fromTo("#tagP .now", { scale: 0.3, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(2.5)" }, P(20) + 0.5);
+      tl.from("#bestN", { scale: 0.3, opacity: 0, rotation: -20, duration: 0.4, ease: "back.out(2)" }, P(21));
+      tl.fromTo("#codS", { scale: 2.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.25, ease: "power4.in" }, W(21, 7));
+      tl.from("#wanS", { opacity: 0, y: 600, rotation: 8, duration: 0.45, ease: "back.out(1.4)" }, W(21, 4));
+      tl.to("#s6", { scale: 1.04, transformOrigin: "50% 40%", duration: P(22) - P(20), ease: "none" }, P(20));
+      out("#s6", 22);
+
+      // S7 kad CTA
+      tl.from("#s7 .q1", { opacity: 0, y: 40, duration: 0.4, ease: E }, P(22));
+      tl.from("#s7 .q2", { opacity: 0, scale: 0.6, duration: 0.35, ease: "back.out(2)" }, W(22, 5));
+      tl.from("#card", { opacity: 0, y: 900, rotation: 4, duration: 0.55, ease: "back.out(1.2)" }, PE(22) - 0.3);
+      tl.from("#btn", { scale: 0.3, opacity: 0, duration: 0.4, ease: "back.out(2)" }, P(23));
+      tl.to("#btn", { scale: 1.06, duration: 0.35, yoyo: true, repeat: 5, ease: "sine.inOut" }, P(23) + 0.45);
+      tl.from("#fine", { opacity: 0, duration: 0.4 }, P(23) + 0.3);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
