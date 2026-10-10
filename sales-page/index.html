@@ -445,7 +445,7 @@ footer b{color:#d8cdb6}
         <div class="bottles">1 botol (300ml)</div>
         <div class="price"><s>RM35</s><b>RM24</b></div>
         <span class="save">Jimat RM11</span>
-        <ul><li>Sesuai untuk mula cuba</li><li>+ RM8 pos (Semenanjung)</li><li>COD ada</li></ul>
+        <ul><li>Sesuai untuk mula cuba</li><li>+ RM8 pos Semenanjung / RM18 Sabah &amp; Sarawak</li><li>COD ada</li></ul>
         <a href="#tempah" class="pick" data-choose="1">Pilih Pakej Ini</a>
       </div>
 
@@ -454,7 +454,7 @@ footer b{color:#d8cdb6}
         <div class="bottles">2 botol (600ml)</div>
         <div class="price"><s>RM70</s><b>RM45</b></div>
         <span class="save">Jimat RM25</span>
-        <ul><li>Untuk yang dah lama minum</li><li>+ RM8 pos (Semenanjung)</li><li>COD ada</li></ul>
+        <ul><li>Untuk yang dah lama minum</li><li>+ RM8 pos Semenanjung / RM18 Sabah &amp; Sarawak</li><li>COD ada</li></ul>
         <a href="#tempah" class="pick" data-choose="2">Pilih Pakej Ini</a>
       </div>
 
@@ -464,7 +464,7 @@ footer b{color:#d8cdb6}
         <div class="bottles">3 botol (900ml)</div>
         <div class="price"><s>RM105</s><b>RM60</b></div>
         <span class="save">Jimat RM45 + Pos Percuma</span>
-        <ul><li>RM20 sebotol sahaja</li><li><strong>PERCUMA POS</strong> Semenanjung</li><li>Stok cukup, tak putus di tengah jalan</li><li>COD ada</li></ul>
+        <ul><li>RM20 sebotol sahaja</li><li><strong>PERCUMA POS</strong> Semenanjung (Sabah/Sarawak RM18)</li><li>Stok cukup, tak putus di tengah jalan</li><li>COD ada</li></ul>
         <a href="#tempah" class="pick" data-choose="3">Pilih Pakej Ini</a>
       </div>
 
@@ -574,6 +574,7 @@ const PAKEJ = {
   3:{nama:"Pakej Bebas - 3 Botol", harga:60, pos:0}
 };
 const SABAH_SARAWAK = ["Sabah","Sarawak","W.P. Labuan"];
+const POS_SABAH_SARAWAK = 18;   // RM, semua pakej
 /* ===================================== */
 
 const form = document.getElementById("orderForm");
@@ -584,14 +585,13 @@ document.getElementById("yr").textContent = new Date().getFullYear();
 function val(name){ const el = form.elements[name]; return (el && el.value || "").trim(); }
 function selectedPkg(){ return (form.querySelector('input[name="pkg"]:checked')||{}).value || "3"; }
 function isEastMY(){ return SABAH_SARAWAK.includes(val("negeri")); }
+function posRM(id){ return isEastMY() ? POS_SABAH_SARAWAK : PAKEJ[id].pos; }
 function posText(id){
-  if (isEastMY()) return "Kos pos Sabah/Sarawak akan dimaklumkan";
-  return PAKEJ[id].pos ? "RM" + PAKEJ[id].pos : "PERCUMA (Semenanjung)";
+  const rm = posRM(id);
+  if (isEastMY()) return "RM" + rm + " (Sabah/Sarawak)";
+  return rm ? "RM" + rm : "PERCUMA (Semenanjung)";
 }
-function totalText(id){
-  const p = PAKEJ[id];
-  return isEastMY() ? "RM" + p.harga + " + pos" : "RM" + (p.harga + p.pos);
-}
+function totalText(id){ return "RM" + (PAKEJ[id].harga + posRM(id)); }
 function renderSummary(){
   const id = selectedPkg(), p = PAKEJ[id];
   summary.innerHTML =
