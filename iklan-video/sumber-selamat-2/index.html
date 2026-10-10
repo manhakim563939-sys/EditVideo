@@ -130,10 +130,10 @@
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="45.5" data-width="1080" data-height="1920">
+    <div id="root" data-composition-id="main" data-start="0" data-duration="44.5" data-width="1080" data-height="1920">
 
       <!-- S1: nota anak (0–6) -->
-      <div id="s1" class="scene clip" data-start="0" data-duration="4.05" data-track-index="1">
+      <div id="s1" class="scene clip" data-start="0" data-duration="4.1" data-track-index="1">
         <div class="paper"></div>
         <div class="center label">Nota yang terselit dalam beg kerja ayah…</div>
         <div id="n1" class="note hand type">Ayah…
@@ -152,7 +152,7 @@ jalan jauh sama-sama?</div>
       </div>
 
       <!-- S2: dia tak faham (6–11.5) -->
-      <div id="s2" class="scene clip" data-start="4.05" data-duration="6.9" data-track-index="1">
+      <div id="s2" class="scene clip" data-start="4.1" data-duration="6.85" data-track-index="1">
         <img class="bgimg" src="assets/kisah-keluarga.jpg" alt="" />
         <div class="shade"></div>
         <div class="center loud h">Dia tak faham…</div>
@@ -164,7 +164,7 @@ jalan jauh sama-sama?</div>
       </div>
 
       <!-- S3: slam simptom (11.5–16) -->
-      <div id="s3" class="scene clip" data-start="10.95" data-duration="5.85" data-track-index="1">
+      <div id="s3" class="scene clip" data-start="10.95" data-duration="6.55" data-track-index="1">
         <div class="w loud" id="w1">Badan sakit</div>
         <div class="w loud" id="w2">Menguap</div>
         <div class="w loud" id="w3">Gelisah</div>
@@ -173,7 +173,7 @@ jalan jauh sama-sama?</div>
       </div>
 
       <!-- S4: tapi ramai dah bebas (16–19.5) -->
-      <div id="s4" class="scene clip" data-start="16.8" data-duration="3.4" data-track-index="1">
+      <div id="s4" class="scene clip" data-start="17.5" data-duration="3.8" data-track-index="1">
         <div class="bgimg s4bg"></div>
         <div class="fam"><img src="assets/keluarga-tingkap.jpg" alt="" /></div>
         <div class="shade"></div>
@@ -182,7 +182,7 @@ jalan jauh sama-sama?</div>
       </div>
 
       <!-- S5: perjalanan (19.5–27.5) -->
-      <div id="s5" class="scene clip" data-start="20.2" data-duration="8.55" data-track-index="1">
+      <div id="s5" class="scene clip" data-start="21.3" data-duration="6.65" data-track-index="1">
         <div class="center loud h">Perjalanan <span class="gold">mereka</span></div>
         <div class="center sub">Komen sebenar · keputusan berbeza</div>
         <div class="rail"></div>
@@ -194,7 +194,7 @@ jalan jauh sama-sama?</div>
       </div>
 
       <!-- S6: produk (27.5–32.5) -->
-      <div id="s6" class="scene clip" data-start="28.75" data-duration="4.75" data-track-index="1">
+      <div id="s6" class="scene clip" data-start="27.95" data-duration="4.5" data-track-index="1">
         <img class="bgimg" src="assets/poster-mangga.jpg" alt="" />
         <div class="shade"></div>
         <div class="center tag">Ikhtiar mereka</div>
@@ -207,7 +207,7 @@ jalan jauh sama-sama?</div>
       </div>
 
       <!-- S7: tawaran (32.5–37) -->
-      <div id="s7" class="scene clip" data-start="33.5" data-duration="5.35" data-track-index="1">
+      <div id="s7" class="scene clip" data-start="32.45" data-duration="5.5" data-track-index="1">
         <div class="center loud h">Mula <span class="gold">hari ini</span></div>
         <div class="price">
           <div class="was">RM35</div>
@@ -226,7 +226,7 @@ jalan jauh sama-sama?</div>
       </div>
 
       <!-- S8: nota balasan + CTA (37–42) -->
-      <div id="s8" class="scene clip" data-start="38.85" data-duration="6.65" data-track-index="1">
+      <div id="s8" class="scene clip" data-start="37.95" data-duration="6.55" data-track-index="1">
         <div class="paper"></div>
         <div id="n2" class="note hand">Ayah… bila kita boleh
 pergi jalan jauh?</div>
@@ -242,8 +242,9 @@ berhenti, ayah.</div>
         </div>
       </div>
 
-      <div id="brandbar" class="clip" data-start="0" data-duration="45.5" data-track-index="2">Jus Bidara Hitam <i>◆</i> Mbah Lanang</div>
-      <div id="progress" class="clip" data-start="0" data-duration="45.5" data-track-index="3"></div>
+      <div id="brandbar" class="clip" data-start="0" data-duration="44.5" data-track-index="2">Jus Bidara Hitam <i>◆</i> Mbah Lanang</div>
+      <div id="progress" class="clip" data-start="0" data-duration="44.5" data-track-index="3"></div>
+      <audio id="vo" src="assets/vo.mp3" data-start="0" data-duration="43.47" data-track-index="4" data-volume="1"></audio>
     </div>
 
     <script>
@@ -258,82 +259,82 @@ berhenti, ayah.</div>
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
       const E = "power3.out";
-      // Masa disegerakkan dengan VO (assets/vo.mp3, 44.51s)
-      tl.fromTo("#progress", { scaleX: 0 }, { scaleX: 1, duration: 45.5, ease: "none" }, 0);
+      // Masa disegerakkan dengan VO selamat (assets/vo.mp3, 43.47s)
+      tl.fromTo("#progress", { scaleX: 0 }, { scaleX: 1, duration: 44.5, ease: "none" }, 0);
 
-      // S1 0–4.05  "Ayah… bila ayah nak berhenti… minum air hijau tu?"
+      // S1 0–4.1 "Ayah… bila kita boleh pergi jalan jauh… sama-sama?"
       tl.from("#s1 .label", { opacity: 0, y: -20, duration: 0.4 }, 0.0);
-      tl.from("#n1 .ch", { opacity: 0, y: 6, duration: 0.05, stagger: 0.062, ease: "none" }, 0.05);
-      tl.from("#s1 .sign", { opacity: 0, x: 40, duration: 0.4, ease: E }, 2.95);
-      tl.from("#s1 .heart", { scale: 0, rotation: -30, duration: 0.4, ease: "back.out(2.5)" }, 3.1);
-      tl.from("#s1 .crayon", { opacity: 0, y: 30, duration: 0.5, ease: E }, 3.2);
-      tl.to("#s1", { scale: 1.05, duration: 4.05, ease: "none" }, 0);
-      tl.to("#s1", { opacity: 0, duration: 0.2 }, 3.85);
+      tl.from("#n1 .ch", { opacity: 0, y: 6, duration: 0.05, stagger: 0.07, ease: "none" }, 0.05);
+      tl.from("#s1 .sign", { opacity: 0, x: 40, duration: 0.35, ease: E }, 3.35);
+      tl.from("#s1 .heart", { scale: 0, rotation: -30, duration: 0.35, ease: "back.out(2.5)" }, 3.45);
+      tl.from("#s1 .crayon", { opacity: 0, y: 30, duration: 0.4, ease: E }, 3.5);
+      tl.to("#s1", { scale: 1.05, duration: 4.1, ease: "none" }, 0);
+      tl.to("#s1", { opacity: 0, duration: 0.15 }, 3.95);
 
-      // S2 4.05–10.95  "Dia tak faham… kenapa ayah selalu marah. Kenapa duit… Kenapa ayah tak boleh pergi jauh."
-      tl.fromTo("#s2 .bgimg", { scale: 1.15 }, { scale: 1, duration: 6.9, ease: "none" }, 4.05);
-      tl.from("#s2 .h", { y: 60, opacity: 0, duration: 0.45, ease: E }, 4.15);
-      [5.45, 7.1, 9.05].forEach((t, i) => {
+      // S2 4.1–10.95 "Dia tak faham… kenapa ayah selalu marah. Kenapa duit… Kenapa ayah tak boleh pergi jauh."
+      tl.fromTo("#s2 .bgimg", { scale: 1.15 }, { scale: 1, duration: 6.85, ease: "none" }, 4.1);
+      tl.from("#s2 .h", { y: 60, opacity: 0, duration: 0.4, ease: E }, 4.2);
+      [5.5, 7.2, 9.05].forEach((t, i) => {
         tl.from("#s2 .ln:nth-child(" + (i + 1) + ")", { x: -400, opacity: 0, duration: 0.45, ease: E }, t);
       });
       tl.to("#s2", { opacity: 0, duration: 0.2 }, 10.75);
 
-      // S3 10.95–16.8  "Badan sakit. Menguap. Gelisah. Tak tidur… jadi kau minum lagi."
-      [11.08, 12.28, 13.15, 14.04].forEach((t, i) => {
-        const id = "#w" + (i + 1);
-        tl.fromTo(id, { scale: 2.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.22, ease: "power4.out" }, t);
-        if (i < 3) tl.to(id, { opacity: 0, duration: 0.1 }, [12.18, 13.05, 13.94][i]);
+      // S3 10.95–17.5 "Badan sakit. Menguap. Gelisah. Tak tidur… dan akhirnya, kembali minum."
+      [11.15, 12.36, 13.21, 14.26].forEach((t, i) => {
+        tl.fromTo("#w" + (i + 1), { scale: 2.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.22, ease: "power4.out" }, t);
       });
-      tl.to("#w4", { y: -120, duration: 0.4, ease: E }, 14.85);
-      tl.from("#s3 .after", { opacity: 0, y: 30, duration: 0.45, ease: E }, 15.0);
-      tl.to("#s3", { opacity: 0, duration: 0.2 }, 16.6);
+      tl.to("#w1", { opacity: 0, duration: 0.1 }, 12.26);
+      tl.to("#w2", { opacity: 0, duration: 0.1 }, 13.11);
+      tl.to("#w3", { opacity: 0, duration: 0.1 }, 14.16);
+      tl.to("#w4", { y: -120, duration: 0.4, ease: E }, 15.15);
+      tl.from("#s3 .after", { opacity: 0, y: 30, duration: 0.45, ease: E }, 15.25);
+      tl.to("#s3", { opacity: 0, duration: 0.2 }, 17.3);
 
-      // S4 16.8–20.2  "Tapi ramai dah lalu jalan ni… dan bebas."
-      tl.fromTo("#s4 .bgimg", { scale: 1.2 }, { scale: 1, duration: 3.4, ease: "none" }, 16.8);
-      tl.from("#s4 .t1", { opacity: 0, y: -30, duration: 0.45, ease: E }, 16.9);
-      tl.from("#s4 .fam", { y: 300, opacity: 0, rotation: 4, duration: 0.6, ease: E }, 17.2);
-      tl.from("#s4 .t2", { opacity: 0, scale: 1.8, duration: 0.4, ease: "power4.out" }, 19.15);
-      tl.to("#s4", { opacity: 0, duration: 0.2 }, 20.0);
+      // S4 17.5–21.3 "Tapi ramai dah lalu jalan ni… dan berjaya berubah."
+      tl.from("#s4 .t1", { opacity: 0, y: -30, duration: 0.45, ease: E }, 17.6);
+      tl.from("#s4 .fam", { y: 300, opacity: 0, rotation: 4, duration: 0.6, ease: E }, 17.9);
+      tl.from("#s4 .t2", { opacity: 0, scale: 1.8, duration: 0.4, ease: "power4.out" }, 19.85);
+      tl.to("#s4", { opacity: 0, duration: 0.2 }, 21.1);
 
-      // S5 20.2–28.75  "Hari ketiga… Hari ketujuh… Tiga minggu… Empat belas tahun minum… dua bulan dah bebas."
-      tl.from("#s5 .h", { y: -60, opacity: 0, duration: 0.4, ease: E }, 20.2);
-      tl.from("#s5 .sub", { opacity: 0, duration: 0.4 }, 20.35);
-      tl.from("#s5 .rail", { scaleY: 0, duration: 6.0, ease: "none" }, 20.3);
-      [20.35, 22.05, 24.05, 25.5].forEach((t, i) => {
+      // S5 21.3–27.95 "Hari ketiga. Hari ketujuh. Tiga minggu. Dua bulan. Ini perkongsian sebenar pembeli kami."
+      tl.from("#s5 .h", { y: -60, opacity: 0, duration: 0.35, ease: E }, 21.3);
+      tl.from("#s5 .sub", { opacity: 0, duration: 0.4 }, 21.45);
+      tl.from("#s5 .rail", { scaleY: 0, duration: 3.6, ease: "none" }, 21.4);
+      [21.44, 22.49, 23.56, 24.51].forEach((t, i) => {
         tl.from("#m" + (i + 1), { scale: 0, duration: 0.3, ease: "back.out(3)" }, t);
-        tl.from("#k" + (i + 1), { x: 900, opacity: 0, duration: 0.5, ease: "back.out(1.3)" }, t + 0.05);
-        tl.to("#m" + (i + 1), { backgroundColor: "#4e8a2a", boxShadow: "0 0 0 4px #4e8a2a, 0 0 30px #4e8a2a", duration: 0.3 }, t + 0.55);
+        tl.from("#k" + (i + 1), { x: 900, opacity: 0, duration: 0.45, ease: "back.out(1.3)" }, t + 0.05);
+        tl.to("#m" + (i + 1), { backgroundColor: "#4e8a2a", boxShadow: "0 0 0 4px #4e8a2a, 0 0 30px #4e8a2a", duration: 0.3 }, t + 0.5);
       });
-      tl.to("#k4", { scale: 1.04, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" }, 27.2);
-      tl.to("#s5", { opacity: 0, duration: 0.2 }, 28.55);
+      tl.to("#s5 .stop", { scale: 1.03, duration: 0.3, yoyo: true, repeat: 1, stagger: 0.15, ease: "sine.inOut" }, 25.75);
+      tl.to("#s5", { opacity: 0, duration: 0.2 }, 27.75);
 
-      // S6 28.75–33.5  "Ikhtiar mereka… Jus Bidara Hitam. Empat penutup, pagi dan malam."
-      tl.fromTo("#s6 .bgimg", { scale: 1.15 }, { scale: 1, duration: 4.75, ease: "none" }, 28.75);
-      tl.from("#s6 .tag", { opacity: 0, y: -20, duration: 0.4 }, 28.85);
-      tl.from("#s6 .brand", { opacity: 0, scale: 0.7, duration: 0.5, ease: "back.out(1.6)" }, 30.05);
-      tl.from("#s6 .motto", { opacity: 0, scaleX: 0.3, duration: 0.4, ease: E }, 30.6);
-      tl.from("#s6 .how", { y: 300, opacity: 0, duration: 0.5, ease: "back.out(1.4)" }, 31.45);
-      tl.from("#s6 .how .n", { scale: 2.5, duration: 0.4, ease: "power4.out" }, 31.6);
-      tl.to("#s6", { opacity: 0, duration: 0.2 }, 33.3);
+      // S6 27.95–32.45 "Ikhtiar mereka… Jus Bidara Hitam. Empat penutup, pagi dan malam."
+      tl.fromTo("#s6 .bgimg", { scale: 1.15 }, { scale: 1, duration: 4.5, ease: "none" }, 27.95);
+      tl.from("#s6 .tag", { opacity: 0, y: -20, duration: 0.4 }, 28.05);
+      tl.from("#s6 .brand", { opacity: 0, scale: 0.7, duration: 0.5, ease: "back.out(1.6)" }, 29.25);
+      tl.from("#s6 .motto", { opacity: 0, scaleX: 0.3, duration: 0.4, ease: E }, 29.7);
+      tl.from("#s6 .how", { y: 300, opacity: 0, duration: 0.5, ease: "back.out(1.4)" }, 30.6);
+      tl.from("#s6 .how .n", { scale: 2.5, duration: 0.4, ease: "power4.out" }, 30.7);
+      tl.to("#s6", { opacity: 0, duration: 0.2 }, 32.25);
 
-      // S7 33.5–38.85  "Dua puluh empat ringgit sebotol. Tiga botol enam puluh ringgit, pos percuma. COD ada."
-      tl.from("#s7 .h", { y: -60, opacity: 0, duration: 0.4, ease: E }, 33.5);
-      tl.from("#s7 .price", { scale: 0.5, opacity: 0, duration: 0.4, ease: "back.out(1.8)" }, 33.5);
-      tl.fromTo("#s7 .price .now", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2.5)" }, 33.65);
-      tl.from("#s7 .best", { y: 300, opacity: 0, duration: 0.5, ease: "back.out(1.5)" }, 35.1);
-      tl.to("#s7 .best", { scale: 1.04, duration: 0.3, yoyo: true, repeat: 1, ease: "sine.inOut" }, 36.8);
-      tl.from("#s7 .tick", { scale: 0, opacity: 0, duration: 0.3, stagger: 0.9, ease: "back.out(2.5)" }, 36.85);
-      tl.to("#s7", { opacity: 0, duration: 0.2 }, 38.65);
+      // S7 32.45–37.95 "Dua puluh empat ringgit sebotol. Tiga botol enam puluh ringgit, pos percuma. COD ada."
+      tl.from("#s7 .h", { y: -60, opacity: 0, duration: 0.35, ease: E }, 32.45);
+      tl.from("#s7 .price", { scale: 0.5, opacity: 0, duration: 0.35, ease: "back.out(1.8)" }, 32.45);
+      tl.fromTo("#s7 .price .now", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2.5)" }, 32.6);
+      tl.from("#s7 .best", { y: 300, opacity: 0, duration: 0.5, ease: "back.out(1.5)" }, 34.25);
+      tl.to("#s7 .best", { scale: 1.04, duration: 0.3, yoyo: true, repeat: 1, ease: "sine.inOut" }, 35.95);
+      tl.from("#s7 .tick", { scale: 0, opacity: 0, duration: 0.3, stagger: 0.9, ease: "back.out(2.5)" }, 36.0);
+      tl.to("#s7", { opacity: 0, duration: 0.2 }, 37.75);
 
-      // S8 38.85–45.5  "Satu hari nanti, biar dia tulis… 'Terima kasih sebab berhenti, ayah.' Tempah sekarang."
-      tl.from("#n2", { opacity: 0, duration: 0.4 }, 38.85);
-      tl.to("#n2", { opacity: 0.35, duration: 0.4 }, 39.6);
-      tl.from("#s8 .someday", { opacity: 0, y: 20, duration: 0.5, ease: E }, 39.0);
-      tl.from("#n3 .ch", { opacity: 0, y: 6, duration: 0.05, stagger: 0.048, ease: "none" }, 41.42);
-      tl.from("#s8 .heart2", { scale: 0, rotation: 30, duration: 0.45, ease: "back.out(2.5)" }, 43.0);
-      tl.from("#s8 .cta", { y: 900, duration: 0.5, ease: E }, 43.1);
-      tl.from("#s8 .btn", { scale: 0.3, opacity: 0, duration: 0.4, ease: "back.out(2)" }, 43.5);
-      tl.to("#s8 .btn", { scale: 1.06, duration: 0.35, yoyo: true, repeat: 3, ease: "sine.inOut" }, 43.95);
+      // S8 37.95–44.5 "Satu hari nanti, biar dia tulis… 'Terima kasih sebab berhenti, ayah.' Tempah sekarang."
+      tl.from("#n2", { opacity: 0, duration: 0.4 }, 37.95);
+      tl.to("#n2", { opacity: 0.35, duration: 0.4 }, 38.6);
+      tl.from("#s8 .someday", { opacity: 0, y: 20, duration: 0.5, ease: E }, 38.05);
+      tl.from("#n3 .ch", { opacity: 0, y: 6, duration: 0.05, stagger: 0.047, ease: "none" }, 40.45);
+      tl.from("#s8 .heart2", { scale: 0, rotation: 30, duration: 0.4, ease: "back.out(2.5)" }, 42.1);
+      tl.from("#s8 .cta", { y: 900, duration: 0.45, ease: E }, 42.15);
+      tl.from("#s8 .btn", { scale: 0.3, opacity: 0, duration: 0.35, ease: "back.out(2)" }, 42.5);
+      tl.to("#s8 .btn", { scale: 1.06, duration: 0.35, yoyo: true, repeat: 1, ease: "sine.inOut" }, 42.95);
 
       window.__timelines["main"] = tl;
       tl.seek(0);
