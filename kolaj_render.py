@@ -19,10 +19,12 @@ import cv2
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
+from kolaj_timing import OUT_DUR, to_design
+
 WD = sys.argv[1]
 W, H, FPS = 1080, 1920, 30
-DUR = 40.0
-N = int(DUR * FPS)
+DUR = 40.0  # design timeline; frames are remapped onto the VO (kolaj_timing)
+N = int(OUT_DUR * FPS)
 
 CREAM = (242, 235, 221)
 INK = (24, 22, 20)
@@ -752,11 +754,15 @@ CAPS = [
 ]
 
 
-def cap_words(s, e, text):
-    """Word reveal times proportional to word length, finishing at 70% of the line."""
+# when the VO finishes each caption line (output time, from the ElevenLabs take)
+VO_END = [1.5, 4.35, 7.25, 8.43, 10.1, 12.3, 14.47, 17.78, 18.93, 21.62, 25.59, 27.65, 28.68, 32.7, 34.58, 37.5]
+
+
+def cap_words(s, e, text, vo_end):
+    """Word reveal times proportional to word length, spread over the spoken phrase."""
     words = text.split()
     L = [len(w_) + 2 for w_ in words]
-    span = (e - s) * 0.7
+    span = min(e, to_design(vo_end)) - s
     acc, times = 0, []
     for l in L:
         times.append(s + span * acc / sum(L))
@@ -764,7 +770,7 @@ def cap_words(s, e, text):
     return words, times
 
 
-CAP_DATA = [(s, e, *cap_words(s, e, txt)) for s, e, txt in CAPS]
+CAP_DATA = [(s, e, *cap_words(s, e, txt, ve)) for (s, e, txt), ve in zip(CAPS, VO_END)]
 
 
 def is_key(w_):
@@ -820,7 +826,7 @@ def draw_caption(canvas, t, y_center=1600):
 
 # ---------------------------------------------------------------- camera (zoom punches)
 CUTS = [5.0, 11.0, 16.0, 24.4, 30.0, 35.0]
-PUNCHES = [2.6, 8.0, 13.55, 21.1, 27.3, 34.0, 37.1]
+PUNCHES = [2.6, 8.0, 13.55, 21.1, 28.8, 34.0, 37.1]
 FOCUS = [(0.0, (540, 900)), (5.0, (540, 700)), (11.0, (540, 900)), (16.0, (540, 900)), (24.4, (540, 900)),
          (30.0, (540, 800)), (35.0, (540, 900))]
 
@@ -922,8 +928,8 @@ def world(t):
         pop(c, A["k_platform"], t, 24.9, 540, 360, rot=1)
         if t >= 25.8:
             place(c, reach_chart(ease_out((t - 25.9) / 1.7)), 390, 760, rot=-2, alpha=clamp((t - 25.8) / 0.2))
-        if t >= 27.3:
-            kk = clamp((t - 27.3) / 0.14)
+        if t >= 28.8:  # lands on "percuma"
+            kk = clamp((t - 28.8) / 0.14)
             place(c, A["percuma"], 470, 1110, scale=1.9 - 0.9 * ease_out(kk), rot=-8, alpha=kk)
     elif s0 == 30.0:  # results
         pop(c, A["h_hasil"], t, 30.25, 540, 230, rot=-2)
@@ -998,7 +1004,7 @@ def draw_wipe(c, t):
 
 # ---------------------------------------------------------------- frame
 def frame(i):
-    t = i / FPS
+    t = to_design(i / FPS)
     wl = world(t)
     arr = apply_camera(np.asarray(wl.convert("RGB")), t).astype(np.float32)
     arr += GRAIN[i % len(GRAIN)][..., None] * 0.6

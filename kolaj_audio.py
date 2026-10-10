@@ -1,14 +1,19 @@
 """Synthesised soundtrack for kolaj_render.py: upbeat bed (112 BPM) + SFX synced to the edit.
 
-Usage: python3 kolaj_audio.py out.wav
+Usage: python3 kolaj_audio.py out.wav [voiceover.mp3]
+SFX cues are written in design time and mapped onto the VO via kolaj_timing.
+With a VO, it is mixed in and the music ducks under the voice.
 """
+import subprocess
 import sys
 import wave
 
 import numpy as np
 
+from kolaj_timing import OUT_DUR, to_out
+
 SR = 44100
-DUR = 40.0
+DUR = OUT_DUR
 N = int(SR * DUR)
 rng = np.random.default_rng(1)
 
@@ -137,7 +142,30 @@ def sfx_riser(d=0.9):
 
 
 # ---------------------------------------------------------------- arrangement
-def main(path):
+def load_vo(path):
+    raw = subprocess.run(["ffmpeg", "-v", "error", "-i", path, "-f", "s16le", "-ac", "1", "-ar", str(SR), "-"],
+                         check=True, capture_output=True).stdout
+    vo = np.frombuffer(raw, np.int16).astype(np.float64) / 32768
+    out = np.zeros(N)
+    out[:min(N, len(vo))] = vo[:N]
+    return out
+
+
+def voice_duck(vo, depth=0.6):
+    """Music gain curve: dips while the voice is talking (fast attack, slow release)."""
+    hop = 441
+    env = np.sqrt(np.convolve(vo ** 2, np.ones(hop) / hop, "same"))
+    talk = (env > 0.02).astype(np.float64)
+    g = np.empty_like(talk)
+    acc = 0.0
+    att, rel = 1 - np.exp(-1 / (0.03 * SR)), 1 - np.exp(-1 / (0.35 * SR))
+    for i, v in enumerate(talk):
+        acc += (v - acc) * (att if v > acc else rel)
+        g[i] = acc
+    return 1 - depth * g
+
+
+def main(path, vo_path=None):
     music = np.zeros(N)
     duck = np.ones(N)
     bpm = 112
@@ -176,30 +204,38 @@ def main(path):
                 add(music, pluck(n), t0 + k * beat / 2, 0.18)
     music *= duck
     # break before the CTA drop
-    i0, i1 = int(34.7 * SR), int(35.0 * SR)
+    i0, i1 = int(to_out(34.7) * SR), int(to_out(35.0) * SR)
     music[i0:i1] *= np.linspace(1, 0.2, i1 - i0)
     # final chord tail
-    add(music, pad([69, 72, 76, 81], 1.6), 38.4, 0.6)
+    add(music, pad([69, 72, 76, 81], 1.6), DUR - 1.6, 0.6)
 
     sfx = np.zeros(N)
+
+    def cue(sig, t_design, gain):
+        add(sfx, sig, to_out(t_design), gain)
+
     for c in [5.0, 11.0, 16.0, 24.4, 30.0, 35.0]:
-        add(sfx, sfx_whoosh(0.5), c - 0.25, 0.5)
+        cue(sfx_whoosh(0.5), c - 0.25, 0.5)
     for p in [0.25, 0.7, 2.6, 5.1, 5.3, 5.6, 7.95, 11.2, 13.8, 16.2, 18.45, 19.75, 21.1, 22.5, 24.5, 24.65, 25.15,
               25.65, 24.9, 30.25, 30.4, 31.9, 32.85, 33.95, 35.3, 37.1, 37.7, 38.4, 11.5, 16.1, 35.4, 36.1, 22.6, 0.05, 5.45, 16.5, 16.75, 30.7, 31.0, 35.0]:
-        add(sfx, sfx_pop(), p, 0.45)
-    for s in [13.55, 27.3]:
-        add(sfx, sfx_stamp(), s, 0.8)
+        cue(sfx_pop(), p, 0.45)
+    for s in [13.55, 28.8]:
+        cue(sfx_stamp(), s, 0.8)
     for k in range(18):  # counter ticks 0 -> 82%
-        add(sfx, sfx_tick(), 5.4 + 2.3 * (1 - (1 - k / 18) ** (1 / 3)), 0.6)
-    add(sfx, sfx_riser(0.8), 4.2, 0.8)
-    add(sfx, sfx_ding(), 7.95, 0.7)
-    add(sfx, sfx_ding(), 33.95, 0.8)
-    add(sfx, sfx_click(), 38.7, 0.9)
-    add(sfx, sfx_ding(), 38.75, 0.6)
+        cue(sfx_tick(), 5.4 + 2.3 * (1 - (1 - k / 18) ** (1 / 3)), 0.6)
+    cue(sfx_riser(0.8), 4.2, 0.8)
+    cue(sfx_ding(), 7.95, 0.7)
+    cue(sfx_ding(), 33.95, 0.8)
+    cue(sfx_click(), 38.7, 0.9)
+    cue(sfx_ding(), 38.75, 0.6)
     for k in range(10):  # feed scroll flicks
-        add(sfx, sfx_click(), 11.1 + k * 0.2, 0.15)
+        cue(sfx_click(), 11.1 + k * 0.2, 0.15)
 
-    mix = music * 0.42 + sfx * 0.6
+    if vo_path:
+        vo = load_vo(vo_path)
+        mix = vo * 1.0 + music * 0.30 * voice_duck(vo) + sfx * 0.40
+    else:
+        mix = music * 0.42 + sfx * 0.6
     mix /= max(1.0, np.abs(mix).max() / 0.95)
     fade = np.ones(N)
     L = int(0.4 * SR)
@@ -214,4 +250,4 @@ def main(path):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    main(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else None)
