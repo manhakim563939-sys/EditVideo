@@ -165,22 +165,21 @@ def voice_duck(vo, depth=0.6):
     return 1 - depth * g
 
 
-def main(path, vo_path=None):
-    music = np.zeros(N)
-    duck = np.ones(N)
+def make_music(dur, drop_at):
+    """112 BPM bed (Am F C G) with kick sidechain, a dip just before drop_at, and a final chord."""
+    n_s = int(SR * dur)
+    music = np.zeros(n_s)
+    duck = np.ones(n_s)
     bpm = 112
     beat = 60 / bpm
     bar = beat * 4
-    # Am  F  C  G  (one chord per bar)
     prog = [(57, [57, 60, 64]), (53, [53, 57, 60]), (48, [55, 60, 64]), (55, [55, 59, 62])]
     melody = [76, 72, 74, 76, 79, 76, 74, 72]
-    nbars = int(DUR / bar) + 1
-    for b in range(nbars):
+    for b in range(int(dur / bar) + 1):
         t0 = b * bar
         root, chord = prog[b % 4]
         intro = b < 1
-        outro = t0 >= 39.0
-        if outro:
+        if t0 >= dur - 0.5:
             break
         add(music, pad([n + 12 for n in chord], bar), t0, 0.5)
         for k in range(8):
@@ -194,8 +193,8 @@ def main(path, vo_path=None):
                 add(music, kick(), tb, 0.9)
                 i = int(tb * SR)
                 L = int(0.18 * SR)
-                if i < N:
-                    seg = min(L, N - i)
+                if i < n_s:
+                    seg = min(L, n_s - i)
                     duck[i:i + seg] = np.minimum(duck[i:i + seg], 0.55 + 0.45 * np.arange(seg) / L)
             if k in (1, 3) and not intro:
                 add(music, clap(), tb, 0.55)
@@ -204,10 +203,14 @@ def main(path, vo_path=None):
                 add(music, pluck(n), t0 + k * beat / 2, 0.18)
     music *= duck
     # break before the CTA drop
-    i0, i1 = int(to_out(34.7) * SR), int(to_out(35.0) * SR)
+    i0, i1 = int((drop_at - 0.3) * SR), int(drop_at * SR)
     music[i0:i1] *= np.linspace(1, 0.2, i1 - i0)
-    # final chord tail
-    add(music, pad([69, 72, 76, 81], 1.6), DUR - 1.6, 0.6)
+    add(music, pad([69, 72, 76, 81], 1.6), dur - 1.6, 0.6)
+    return music
+
+
+def main(path, vo_path=None):
+    music = make_music(DUR, to_out(35.0))
 
     sfx = np.zeros(N)
 

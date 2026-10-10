@@ -15,3 +15,10 @@ zoom punch, peralihan kertas koyak, dan kad CTA "Mula buat video hari ini / Foll
 - `kolaj_render.py <workdir>` — render frame (perlu `photo.jpg`, `mask_u2net_human_seg.png`, `expr/{4..8}.jpg` + `_mask.png`, `refs/*.jpg`, `fonts/`).
 - `kolaj_audio.py out.wav [vo.mp3]` — muzik latar 112 BPM + SFX, campur VO (muzik merendah bila suara).
 - `kolaj_timing.py` — titik sauh frasa→masa VO; seluruh suntingan diregang ikut suara.
+
+`output/konsisten_kalahkan_viral.mp4` — episod #02 "Konsisten Kalahkan Viral" (35s, VO `assets/vo_konsisten.mp3`):
+ekspresi keliru → sinis → senyum → terkejut → tunjuk, graf views melonjak lalu senyap, cop "PUTUS ASA",
+loteri vs tabung syiling, kalendar ✓, ikon pelanggan bertambah, carta pertumbuhan 3 bulan, CTA "KEJAR KONSISTEN".
+
+- `konsisten_render.py <workdir>` — guna semula enjin `kolaj_render.py`, babak disusun terus ikut masa VO (perlu `expr/9.jpg` + mask).
+- `konsisten_audio.py out.wav vo.mp3` — muzik dikongsi (`kolaj_audio.make_music`) + SFX + VO.
