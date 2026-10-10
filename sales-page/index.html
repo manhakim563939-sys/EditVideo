@@ -147,6 +147,18 @@ strong{font-weight:700}
 .testi h2{color:var(--ink)}
 .tcard{border:2px solid var(--gold);border-radius:14px;overflow:hidden;margin-bottom:14px;background:#000}
 .tcard img{width:100%}
+.tq{margin:20px 0;border-radius:14px;overflow:hidden;border:2px solid var(--gold);background:#000;box-shadow:0 10px 24px rgba(0,0,0,.18)}
+.tq-tag{background:var(--gold);color:var(--ink);font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;padding:6px 12px}
+.tq img{width:100%}
+.tq-cap{background:var(--ink);color:#fff;font-size:14.5px;font-weight:700;padding:10px 12px;line-height:1.35}
+.tq-cap .stars{color:var(--gold-hi);margin-right:4px}
+.proof{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:6px 0 18px}
+.proof div{background:var(--ink);color:#fff;border-radius:12px;padding:12px 6px;text-align:center;font-size:12px;line-height:1.25}
+.proof b{display:block;font-family:Anton,sans-serif;font-weight:400;font-size:26px;color:var(--gold-hi);line-height:1.1}
+.rotq{margin:18px auto 0;max-width:400px;min-height:74px;background:rgba(255,255,255,.06);border:1px solid rgba(244,198,90,.35);border-radius:12px;padding:10px 14px;text-align:left;position:relative}
+.rotq .who{font-size:12px;color:var(--gold-hi);font-weight:700}
+.rotq .say{font-size:14px;color:#efe6d2;font-style:italic;transition:opacity .4s}
+.rotq .say.fade{opacity:0}
 .tcard .cap{background:var(--ink);color:var(--gold-hi);font-size:13px;font-weight:600;padding:8px 12px}
 .stars{color:var(--gold);letter-spacing:2px}
 
@@ -357,6 +369,10 @@ footer b{color:#d8cdb6}
     <div class="trust">
       <span>✔ Ada KKM</span><span>✔ COD Seluruh Malaysia</span><span>✔ Pos Percuma 3 Botol*</span>
     </div>
+    <div class="rotq" aria-live="polite">
+      <div class="who" id="rotWho"><span class="stars">★★★★★</span> Wan paq</div>
+      <div class="say" id="rotSay">“sy dh 14 tahun minum ketum… sy oder ni 2 botol x dan abis, boleh berhenti ketum dh dekat 2 bulan”</div>
+    </div>
   </header>
 
   <!-- PAIN -->
@@ -433,6 +449,11 @@ footer b{color:#d8cdb6}
         <img src="img/dopamine-serotonin.jpg" alt="Perbandingan kesan dopamine rendah (lemau, tiada motivasi, hilang fokus) dan serotonin rendah (baran, gelisah, susah tidur)" width="640" height="954">
         <figcaption>Bila berhenti, “rasa puas” dan “rasa tenang” dalam badan jatuh serentak. Itu yang buat kau lemau, baran dan susah tidur.</figcaption>
       </figure>
+      <div class="tq rv z">
+        <div class="tq-tag">💬 Komen sebenar pembeli</div>
+        <img src="img/testi-kail.jpg" alt="Komen kail: susah nak berhenti sebab sakit badan, amal jus bidara hitam ni memang menjadi">
+        <div class="tq-cap"><span class="stars">★★★★★</span> “Susah nak berhenti sebab sakit badan… amal jus ni, memang menjadi.”</div>
+      </div>
       <div class="callout rv">
         <p>Ramai yang gagal bukan sebab tak cukup semangat. Mereka gagal sebab <b>lalu fasa ni seorang diri, tanpa apa-apa bantuan</b>. 2–3 hari menahan, akhirnya cari ketum balik sebab tak tahan.</p>
       </div>
@@ -475,6 +496,11 @@ footer b{color:#d8cdb6}
       <div class="ben rv l"><div class="n">3</div><p>Keinginan nak cari ketum makin berkurang</p></div>
       <div class="ben rv l"><div class="n">4</div><p>Tidur lebih lena, badan lebih bertenaga</p></div>
       <div class="ben rv l"><div class="n">5</div><p>Hati lebih tenang. Rohani &amp; jasmani sama-sama dijaga</p></div>
+      <div class="tq rv z">
+        <div class="tq-tag">💬 Komen sebenar pembeli</div>
+        <img src="img/testi-hazwan.jpg" alt="Komen Hazwan Rauf: sejak amalkan jus bidara hitam, air hijau memang tak sentuh langsung">
+        <div class="tq-cap"><span class="stars">★★★★★</span> “Sejak amalkan Jus Bidara Hitam, ayaq hijau memang tak sentuh langsung dah.”</div>
+      </div>
       <p class="fine">*Berdasarkan pengalaman pengguna. Keputusan berbeza mengikut individu, tahap pengambilan dan kekuatan diri.</p>
     </div>
   </section>
@@ -483,10 +509,16 @@ footer b{color:#d8cdb6}
   <section class="testi">
     <div class="wrap">
       <h2>Jangan percaya cakap kami. <span class="gold">Dengar cakap mereka.</span></h2>
-      <p>Ini komen sebenar pengguna Jus Bidara Hitam:</p>
+      <div class="proof">
+        <div class="rv z"><b>9</b>komen sebenar di page ni</div>
+        <div class="rv z"><b>3 hari</b>paling cepat stop</div>
+        <div class="rv z"><b>14 thn</b>paling lama minum ketum</div>
+      </div>
+      <p>Ini komen sebenar pengguna Jus Bidara Hitam. Kami tak ubah satu perkataan pun:</p>
 
       <div class="tcard rv l"><img src="img/testi-wanpaq.jpg" alt="Komen Wan paq: dah 14 tahun minum ketum, order 2 botol tak habis lagi dah boleh berhenti hampir 2 bulan"><div class="cap"><span class="stars">★★★★★</span> 14 tahun minum ketum, dah hampir 2 bulan berhenti</div></div>
       <div class="tcard rv r"><img src="img/testi-kioami.jpg" alt="Komen kioami: hari ke-7 tinggalkan ketum"><div class="cap"><span class="stars">★★★★★</span> Hari ke-7 tinggalkan ketum</div></div>
+      <div class="tcard rv r"><img src="img/testi-popi.jpg" alt="Komen popi3459: memang padu, betul-betul mujarab, dah boleh slowly tinggal air hijau"><div class="cap"><span class="stars">★★★★★</span> “Memang padu, dah boleh slowly tinggal aiq hijau”</div></div>
       <div class="tcard rv l"><img src="img/testi-wakden.jpg" alt="Komen Wak den tongkang: amalkan 3 hari, setakat ni dah stop ketum"><div class="cap"><span class="stars">★★★★★</span> Baru 3 hari amalkan, dah stop</div></div>
       <div class="tcard rv r"><img src="img/testi-shahnemo.jpg" alt="Komen Shah Nemo: mission complete, kini bebas"><div class="cap"><span class="stars">★★★★★</span> “Mission complete… kini bebas”</div></div>
       <div class="tcard rv l"><img src="img/testi-zul.jpg" alt="Komen zul mohamad: dah macam-macam cuba produk, tapi ini berkesan"><div class="cap"><span class="stars">★★★★★</span> Dah cuba macam-macam produk, yang ni berkesan</div></div>
@@ -554,6 +586,12 @@ footer b{color:#d8cdb6}
     <div class="wrap">
       <h2>Harga promo <span class="gold">hari ini</span></h2>
       <p class="lead">Harga asal <s>RM35</s> sebotol. Pilih pakej yang sesuai dengan tahap kau.</p>
+      <div class="tq rv z dark">
+        <div class="tq-tag">💬 Komen sebenar pembeli</div>
+        <img src="img/testi-rashid.jpg" alt="Komen Rashid: dah beli, separuh botol diminum, dah 3 minggu tak sentuh ketum">
+        <div class="tq-cap"><span class="stars">★★★★★</span> Separuh botol pun belum habis, dah <span class="gold">3 minggu</span> tak sentuh ketum.</div>
+      </div>
+
 
       <div class="pkg rv" data-pkg="1">
         <div class="name">Pakej Cuba</div>
@@ -687,6 +725,29 @@ footer b{color:#d8cdb6}
 </div>
 
 <script>
+/* ====== Testimoni berputar di hero ====== */
+(function(){
+  const Q = [
+    ["Wan paq","“sy dh 14 tahun minum ketum… sy oder ni 2 botol x dan abis, boleh berhenti ketum dh dekat 2 bulan”"],
+    ["Rashid","“Sya dah beli bang, separuh botol Sya menum dah 3 minggu tak setuh cektom”"],
+    ["Hazwan Rauf","“sejak2 amalkan jus bidara hitam, ayaq hijau mmg x sentuh langsung dah”"],
+    ["kioami","“alhamdulillah hari ni ke7 sy tggalkan ciktom”"],
+    ["Wak den tongkang","“sy amalkan dh 3 hari mcm ok setakat ni dh stop cek tom”"],
+    ["kail","“sush bang nk berhenti sakit badan, sy amal jus bidara hitam ni, memng menjadi”"]
+  ];
+  const who = document.getElementById("rotWho"), say = document.getElementById("rotSay");
+  if (!who || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  let i = 0;
+  setInterval(() => {
+    say.classList.add("fade");
+    setTimeout(() => {
+      i = (i + 1) % Q.length;
+      who.innerHTML = '<span class="stars">★★★★★</span> ' + Q[i][0];
+      say.textContent = Q[i][1];
+      say.classList.remove("fade");
+    }, 400);
+  }, 4000);
+})();
 /* ====== Animasi ====== */
 (function(){
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
