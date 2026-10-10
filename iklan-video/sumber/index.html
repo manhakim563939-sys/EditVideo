@@ -63,6 +63,7 @@
       #s2 .grid { position: absolute; left: 60px; right: 60px; top: 820px; display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
       #s2 .sym { background: var(--cream); color: var(--ink); border-radius: 22px; padding: 26px 20px; font-weight: 800; font-size: 38px; display: flex; align-items: center; gap: 18px; border-left: 10px solid var(--red); }
       #s2 .sym b { font-size: 54px; }
+      #s2 .notweak { top: 1110px; font-family: "Playfair Display", serif; font-style: italic; font-weight: 800; font-size: 64px; color: var(--gold-hi); }
 
       /* S3 duit */
       #s3 { background: var(--ink); }
@@ -119,6 +120,7 @@
 
       /* S8 CTA */
       #s8 .shade { background: linear-gradient(180deg, rgba(20,18,14,.15) 0%, rgba(20,18,14,.35) 40%, rgba(20,18,14,.97) 66%); }
+      #s8 .l0 { top: 770px; font-size: 54px; color: #fff; }
       #s8 .l1 { top: 860px; font-size: 92px; }
       #s8 .l2 { top: 960px; font-size: 70px; color: var(--gold-hi); }
       #s8 .btn { position: absolute; left: 120px; right: 120px; top: 1080px; background: linear-gradient(180deg, #34c86b, var(--wa)); border-radius: 26px; padding: 26px 20px; text-align: center; font-weight: 800; font-size: 46px; box-shadow: 0 10px 0 #127a3a, 0 20px 40px rgba(0,0,0,.4); }
@@ -129,10 +131,10 @@
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="40" data-width="1080" data-height="1350">
+    <div id="root" data-composition-id="main" data-start="0" data-duration="45" data-width="1080" data-height="1350">
 
       <!-- S1: Hook (0–4.5s) -->
-      <div id="s1" class="scene clip" data-start="0" data-duration="4.5" data-track-index="1">
+      <div id="s1" class="scene clip" data-start="0" data-duration="4.4" data-track-index="1">
         <img class="bgimg" src="assets/akibat-ketum.jpg" alt="" />
         <div class="shade"></div>
         <div class="eyebrow"><span>KHAS UNTUK KAKI KETUM</span></div>
@@ -141,19 +143,20 @@
       </div>
 
       <!-- S2: Simptom kain buruk (4.5–9.5s) -->
-      <div id="s2" class="scene clip" data-start="4.5" data-duration="5" data-track-index="1">
+      <div id="s2" class="scene clip" data-start="4.4" data-duration="7.4" data-track-index="1">
         <div class="img"><img src="assets/dopamine-serotonin.jpg" alt="" /></div>
         <h2 class="loud">Fasa <span class="gold">“kain buruk”</span><br />yang buat kau kalah</h2>
         <div class="grid">
+          <div class="sym"><b>🦴</b>Badan sakit</div>
           <div class="sym"><b>🥱</b>Menguap</div>
-          <div class="sym"><b>🦴</b>Sendi ngilu</div>
           <div class="sym"><b>🌙</b>Tak boleh tidur</div>
-          <div class="sym"><b>😰</b>Gelisah, baran</div>
+          <div class="sym"><b>😞</b>Kalah lagi</div>
         </div>
+        <div class="center notweak">Bukan sebab kau lemah.</div>
       </div>
 
       <!-- S3: Kos (9.5–14s) -->
-      <div id="s3" class="scene clip" data-start="9.5" data-duration="4.5" data-track-index="1">
+      <div id="s3" class="scene clip" data-start="11.8" data-duration="6.1" data-track-index="1">
         <div class="center q">Cuba kira duit yang ketum ambil:</div>
         <div class="rows">
           <div class="row"><span>Sehari</span><b>RM15</b></div>
@@ -161,18 +164,18 @@
           <div class="row"><span>Setahun</span><b>RM5,400</b></div>
         </div>
         <div class="center loud big" id="money">RM0</div>
-        <div class="center cap">dalam 10 tahun. Duit dapur. Duit anak.</div>
+        <div class="center cap">Duit untuk anak-anak… habis dalam plastik ketum.</div>
       </div>
 
       <!-- S4: Namun (14–18s) -->
-      <div id="s4" class="scene clip" data-start="14" data-duration="4" data-track-index="1">
+      <div id="s4" class="scene clip" data-start="17.9" data-duration="3.45" data-track-index="1">
         <div class="center loud namun">Namun!</div>
         <div class="center script">Kita masih<br />belum terlambat.</div>
         <div class="fig"><img src="assets/poster-rantai.jpg" alt="" /></div>
       </div>
 
       <!-- S5: Produk (18–24s) -->
-      <div id="s5" class="scene clip" data-start="18" data-duration="6" data-track-index="1">
+      <div id="s5" class="scene clip" data-start="21.35" data-duration="5.75" data-track-index="1">
         <img class="bgimg" src="assets/poster-akar.jpg" alt="" />
         <div class="center tag">Formulasi tradisional turun-temurun</div>
         <div class="center script brand">Jus Bidara Hitam</div>
@@ -191,9 +194,9 @@
       </div>
 
       <!-- S6: Testimoni (24–31.5s) -->
-      <div id="s6" class="scene clip" data-start="24" data-duration="7.5" data-track-index="1">
+      <div id="s6" class="scene clip" data-start="27.1" data-duration="6.15" data-track-index="1">
         <div class="center loud h">Komen sebenar <span class="gold">pembeli</span></div>
-        <div class="center sub">Kami tak ubah satu perkataan pun</div>
+        <div class="center sub">Mereka pun pernah rasa apa yang kau rasa</div>
         <div class="stack">
         <div class="card" id="c1"><img src="assets/testi-wanpaq.jpg" alt="" /><div class="cap"><s>★★★★★</s>14 tahun minum, dah 2 bulan berhenti</div></div>
         <div class="card" id="c2"><img src="assets/testi-rashid.jpg" alt="" /><div class="cap"><s>★★★★★</s>Separuh botol, 3 minggu tak sentuh</div></div>
@@ -203,7 +206,7 @@
       </div>
 
       <!-- S7: Tawaran (31.5–36s) -->
-      <div id="s7" class="scene clip" data-start="31.5" data-duration="4.5" data-track-index="1">
+      <div id="s7" class="scene clip" data-start="33.25" data-duration="5.5" data-track-index="1">
         <div class="center loud h">Harga promo <span class="gold">hari ini</span></div>
         <div class="price">
           <div class="was">RM35</div>
@@ -224,9 +227,10 @@
       </div>
 
       <!-- S8: CTA (36–40s) -->
-      <div id="s8" class="scene clip" data-start="36" data-duration="4" data-track-index="1">
+      <div id="s8" class="scene clip" data-start="38.75" data-duration="6.25" data-track-index="1">
         <img class="bgimg" src="assets/poster-koyak.jpg" alt="" />
         <div class="shade"></div>
+        <div class="center script l0">Anak kau tunggu ayah dia balik…</div>
         <div class="center loud l1">Hari ini berhenti.</div>
         <div class="center script l2">Esok lebih tenang.</div>
         <div class="btn">TEMPAH SEKARANG<small>WhatsApp 017-963 7611 · COD ada</small></div>
@@ -234,96 +238,102 @@
       </div>
 
       <!-- Jalur jenama & progress sepanjang video -->
-      <div id="brandbar" class="clip" data-start="0" data-duration="40" data-track-index="2">Jus Bidara Hitam <i>◆</i> Mbah Lanang</div>
-      <div id="progress" class="clip" data-start="0" data-duration="40" data-track-index="3"></div>
+      <div id="brandbar" class="clip" data-start="0" data-duration="45" data-track-index="2">Jus Bidara Hitam <i>◆</i> Mbah Lanang</div>
+      <div id="progress" class="clip" data-start="0" data-duration="45" data-track-index="3"></div>
+      <audio id="vo" src="assets/vo.mp3" data-start="0" data-duration="43.65" data-track-index="4" data-volume="1"></audio>
     </div>
 
     <script>
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
       const E = "power3.out";
+      // Masa disegerakkan dengan VO (assets/vo.mp3, 43.65s)
+      tl.fromTo("#progress", { scaleX: 0 }, { scaleX: 1, duration: 45, ease: "none" }, 0);
 
-      // progress bar
-      tl.fromTo("#progress", { scaleX: 0 }, { scaleX: 1, duration: 40, ease: "none" }, 0);
+      // S1 0–4.4  "Berapa kali dah kau janji… esok aku berhenti?"
+      tl.fromTo("#s1 .bgimg", { scale: 1.18 }, { scale: 1, duration: 4.4, ease: "none" }, 0);
+      tl.from("#s1 .eyebrow span", { y: -60, opacity: 0, duration: 0.5, ease: "back.out(2)" }, 0.1);
+      tl.from("#s1 h1 .l", { scale: 2.4, opacity: 0, duration: 0.45, stagger: 0.4, ease: "power4.out" }, 0.3);
+      tl.from("#s1 .sub", { y: 40, opacity: 0, duration: 0.5, ease: E }, 2.8);
+      tl.to("#s1 h1 .gold", { scale: 1.08, duration: 0.25, yoyo: true, repeat: 3, ease: "sine.inOut" }, 1.6);
+      tl.to("#s1", { opacity: 0, duration: 0.25 }, 4.15);
 
-      // ---------- S1 hook ----------
-      tl.fromTo("#s1 .bgimg", { scale: 1.18 }, { scale: 1, duration: 4.5, ease: "none" }, 0);
-      tl.from("#s1 .eyebrow span", { y: -60, opacity: 0, duration: 0.5, ease: "back.out(2)" }, 0.15);
-      tl.from("#s1 h1 .l", { scale: 2.4, opacity: 0, duration: 0.45, stagger: 0.35, ease: "power4.out" }, 0.4);
-      tl.from("#s1 .sub", { y: 40, opacity: 0, duration: 0.5, ease: E }, 1.4);
-      tl.to("#s1 h1 .gold", { scale: 1.08, duration: 0.25, yoyo: true, repeat: 3, ease: "sine.inOut" }, 2.2);
-      tl.to("#s1", { opacity: 0, duration: 0.3 }, 4.2);
-
-      // ---------- S2 simptom ----------
-      tl.fromTo("#s2 .img img", { scale: 1.15 }, { scale: 1, duration: 5, ease: "none" }, 4.5);
-      tl.from("#s2 h2", { y: 60, opacity: 0, duration: 0.5, ease: E }, 4.6);
-      tl.from("#s2 .sym", { x: (i) => (i % 2 ? 300 : -300), opacity: 0, duration: 0.45, stagger: 0.35, ease: "back.out(1.6)" }, 5.2);
-      tl.to("#s2 .sym b", { rotation: 18, duration: 0.12, yoyo: true, repeat: 5, stagger: 0.35, ease: "sine.inOut" }, 5.6);
-      tl.to("#s2", { opacity: 0, duration: 0.3 }, 9.2);
-
-      // ---------- S3 kos ----------
-      tl.from("#s3 .q", { y: -40, opacity: 0, duration: 0.45, ease: E }, 9.6);
-      tl.from("#s3 .row", { x: -200, opacity: 0, duration: 0.4, stagger: 0.3, ease: E }, 10.0);
-      const money = { v: 0 };
-      tl.from("#s3 .big", { scale: 0.6, opacity: 0, duration: 0.4, ease: "back.out(2)" }, 11.0);
-      tl.to(money, {
-        v: 54000, duration: 1.6, ease: "power2.out",
-        onUpdate: () => { document.getElementById("money").textContent = "RM" + Math.round(money.v).toLocaleString("en-US"); }
-      }, 11.0);
-      tl.to("#s3 .big", { scale: 1.1, duration: 0.18, yoyo: true, repeat: 1, ease: "sine.inOut" }, 12.6);
-      tl.from("#s3 .cap", { y: 30, opacity: 0, duration: 0.4, ease: E }, 12.7);
-      tl.to("#s3", { opacity: 0, duration: 0.3 }, 13.7);
-
-      // ---------- S4 namun ----------
-      tl.from("#s4 .namun", { scale: 3, rotation: -12, opacity: 0, duration: 0.5, ease: "back.out(1.8)" }, 14.0);
-      tl.from("#s4 .script", { y: 40, opacity: 0, duration: 0.5, ease: E }, 14.5);
-      tl.from("#s4 .fig", { y: 500, rotation: 6, duration: 0.7, ease: E }, 14.9);
-      tl.to("#s4 .fig img", { scale: 1.08, duration: 2.6, ease: "none" }, 15.4);
-      tl.to("#s4", { opacity: 0, duration: 0.3 }, 17.7);
-
-      // ---------- S5 produk ----------
-      tl.fromTo("#s5 .bgimg", { scale: 1.1 }, { scale: 1, duration: 6, ease: "none" }, 18);
-      tl.from("#s5 .tag", { opacity: 0, y: -20, duration: 0.4 }, 18.1);
-      tl.from("#s5 .brand", { opacity: 0, scale: 0.7, duration: 0.6, ease: "back.out(1.6)" }, 18.3);
-      tl.from("#s5 .motto", { opacity: 0, scaleX: 0.3, duration: 0.5, ease: E }, 18.8);
-      tl.from("#s5 .glow", { opacity: 0, scale: 0.4, duration: 0.8, ease: E }, 19.0);
-      tl.from("#s5 .bottle", { y: 700, rotation: -10, duration: 0.9, ease: "back.out(1.3)" }, 19.0);
-      tl.to("#s5 .bottle", { y: -18, duration: 1.1, yoyo: true, repeat: 3, ease: "sine.inOut" }, 19.9);
-      tl.to("#s5 .glow", { scale: 1.12, opacity: 0.8, duration: 1.1, yoyo: true, repeat: 3, ease: "sine.inOut" }, 19.9);
-      tl.from("#s5 .chip", { y: 80, opacity: 0, duration: 0.4, stagger: 0.25, ease: "back.out(2)" }, 20.6);
-      tl.from(".leaf", { opacity: 0, scale: 0, duration: 0.5, stagger: 0.15 }, 19.4);
-      tl.to("#lf1", { y: -120, rotation: 140, duration: 4, ease: "sine.inOut" }, 19.6);
-      tl.to("#lf2", { y: 140, rotation: -160, duration: 4, ease: "sine.inOut" }, 19.6);
-      tl.to("#lf3", { y: -90, rotation: 120, duration: 4, ease: "sine.inOut" }, 19.6);
-      tl.to("#lf4", { y: 110, rotation: -120, duration: 4, ease: "sine.inOut" }, 19.6);
-      tl.to("#s5", { opacity: 0, duration: 0.3 }, 23.7);
-
-      // ---------- S6 testimoni ----------
-      tl.from("#s6 .h", { y: -60, opacity: 0, duration: 0.5, ease: E }, 24.1);
-      tl.from("#s6 .sub", { opacity: 0, duration: 0.4 }, 24.5);
-      ["#c1", "#c2", "#c3", "#c4"].forEach((id, i) => {
-        tl.from(id, { x: i % 2 ? 1100 : -1100, rotation: i % 2 ? 4 : -4, duration: 0.6, ease: "back.out(1.2)" }, 24.8 + i * 1.35);
-        tl.to(id + " s", { color: "#f4c65a", scale: 1.15, duration: 0.2, yoyo: true, repeat: 1 }, 25.4 + i * 1.35);
+      // S2 4.4–11.8  "Tapi bila badan mula sakit… menguap, tak boleh tidur… kau kalah lagi. Bukan sebab kau lemah."
+      tl.fromTo("#s2 .img img", { scale: 1.15 }, { scale: 1, duration: 7.4, ease: "none" }, 4.4);
+      tl.from("#s2 h2", { y: 60, opacity: 0, duration: 0.5, ease: E }, 4.45);
+      [5.3, 6.7, 7.5, 8.75].forEach((t, i) => {
+        tl.from("#s2 .sym:nth-child(" + (i + 1) + ")", { x: i % 2 ? 300 : -300, opacity: 0, duration: 0.4, ease: "back.out(1.6)" }, t);
+        tl.to("#s2 .sym:nth-child(" + (i + 1) + ") b", { rotation: 18, duration: 0.12, yoyo: true, repeat: 3, ease: "sine.inOut" }, t + 0.35);
       });
-      tl.to("#s6 .card", { scale: 1.02, duration: 0.35, yoyo: true, repeat: 1, stagger: 0.12, ease: "sine.inOut" }, 30.2);
-      tl.to("#s6", { opacity: 0, duration: 0.3 }, 31.2);
+      tl.from("#s2 .notweak", { y: 40, opacity: 0, duration: 0.5, ease: E }, 10.15);
+      tl.to("#s2", { opacity: 0, duration: 0.25 }, 11.55);
 
-      // ---------- S7 tawaran ----------
-      tl.from("#s7 .h", { y: -60, opacity: 0, duration: 0.45, ease: E }, 31.6);
-      tl.from("#s7 .price", { scale: 0.5, opacity: 0, duration: 0.5, ease: "back.out(1.8)" }, 31.9);
-      tl.from("#s7 .price .now", { scale: 2, duration: 0.4, ease: "power4.out" }, 32.3);
-      tl.from("#s7 .best", { y: 300, opacity: 0, duration: 0.55, ease: "back.out(1.5)" }, 32.8);
-      tl.to("#s7 .best", { scale: 1.04, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" }, 33.5);
-      tl.from("#s7 .tick", { scale: 0, opacity: 0, duration: 0.3, stagger: 0.18, ease: "back.out(2.5)" }, 33.5);
-      tl.to("#s7", { opacity: 0, duration: 0.3 }, 35.7);
+      // S3 11.8–17.9  "Lima puluh empat ribu ringgit… duit untuk anak-anak… habis dalam plastik ketum."
+      tl.from("#s3 .q", { y: -40, opacity: 0, duration: 0.35, ease: E }, 11.8);
+      tl.from("#s3 .row", { x: -200, opacity: 0, duration: 0.3, stagger: 0.12, ease: E }, 11.85);
+      const money = { v: 0 };
+      tl.from("#s3 .big", { scale: 0.6, opacity: 0, duration: 0.35, ease: "back.out(2)" }, 11.95);
+      tl.to(money, {
+        v: 54000, duration: 1.55, ease: "power2.out",
+        onUpdate: () => { document.getElementById("money").textContent = "RM" + Math.round(money.v).toLocaleString("en-US"); }
+      }, 11.95);
+      tl.to("#s3 .big", { scale: 1.1, duration: 0.18, yoyo: true, repeat: 1, ease: "sine.inOut" }, 13.5);
+      tl.from("#s3 .cap", { y: 30, opacity: 0, duration: 0.45, ease: E }, 14.05);
+      tl.to("#s3 .cap", { color: "#f4c65a", duration: 0.4 }, 16.1);
+      tl.to("#s3", { opacity: 0, duration: 0.25 }, 17.65);
 
-      // ---------- S8 CTA ----------
-      tl.fromTo("#s8 .bgimg", { scale: 1.15 }, { scale: 1, duration: 4, ease: "none" }, 36);
-      tl.from("#s8 .l1", { y: 60, opacity: 0, duration: 0.5, ease: E }, 36.2);
-      tl.from("#s8 .l2", { y: 40, opacity: 0, duration: 0.5, ease: E }, 36.6);
-      tl.from("#s8 .btn", { scale: 0.3, opacity: 0, duration: 0.5, ease: "back.out(2)" }, 37.1);
-      tl.to("#s8 .btn", { scale: 1.06, duration: 0.35, yoyo: true, repeat: 5, ease: "sine.inOut" }, 37.7);
-      tl.from("#s8 .fine", { opacity: 0, duration: 0.4 }, 37.4);
+      // S4 17.9–21.35  "Namun… belum terlambat. Kau masih boleh berubah."
+      tl.from("#s4 .namun", { scale: 3, rotation: -12, opacity: 0, duration: 0.45, ease: "back.out(1.8)" }, 17.95);
+      tl.from("#s4 .script", { y: 40, opacity: 0, duration: 0.45, ease: E }, 18.7);
+      tl.from("#s4 .fig", { y: 500, rotation: 6, duration: 0.6, ease: E }, 19.8);
+      tl.to("#s4 .fig img", { scale: 1.08, duration: 1.3, ease: "none" }, 20.0);
+      tl.to("#s4", { opacity: 0, duration: 0.25 }, 21.1);
+
+      // S5 21.35–27.1  "Jus Bidara Hitam. Warisan orang tua kita… ikhtiar untuk badan, dan untuk hati."
+      tl.fromTo("#s5 .bgimg", { scale: 1.1 }, { scale: 1, duration: 5.75, ease: "none" }, 21.35);
+      tl.from("#s5 .brand", { opacity: 0, scale: 0.7, duration: 0.5, ease: "back.out(1.6)" }, 21.45);
+      tl.from("#s5 .glow", { opacity: 0, scale: 0.4, duration: 0.7, ease: E }, 21.6);
+      tl.from("#s5 .bottle", { y: 700, rotation: -10, duration: 0.8, ease: "back.out(1.3)" }, 21.6);
+      tl.from("#s5 .tag", { opacity: 0, y: -20, duration: 0.4 }, 22.95);
+      tl.from("#s5 .chip", { y: 80, opacity: 0, duration: 0.35, stagger: 0.2, ease: "back.out(2)" }, 23.1);
+      tl.from("#s5 .motto", { opacity: 0, scaleX: 0.3, duration: 0.45, ease: E }, 24.55);
+      tl.to("#s5 .bottle", { y: -18, duration: 1.1, yoyo: true, repeat: 3, ease: "sine.inOut" }, 22.4);
+      tl.to("#s5 .glow", { scale: 1.12, opacity: 0.8, duration: 1.1, yoyo: true, repeat: 3, ease: "sine.inOut" }, 22.4);
+      tl.from(".leaf", { opacity: 0, scale: 0, duration: 0.5, stagger: 0.15 }, 22.0);
+      tl.to("#lf1", { y: -120, rotation: 140, duration: 4.5, ease: "sine.inOut" }, 22.2);
+      tl.to("#lf2", { y: 140, rotation: -160, duration: 4.5, ease: "sine.inOut" }, 22.2);
+      tl.to("#lf3", { y: -90, rotation: 120, duration: 4.5, ease: "sine.inOut" }, 22.2);
+      tl.to("#lf4", { y: 110, rotation: -120, duration: 4.5, ease: "sine.inOut" }, 22.2);
+      tl.to("#s5", { opacity: 0, duration: 0.25 }, 26.85);
+
+      // S6 27.1–33.25  "Mereka pun pernah rasa apa yang kau rasa. Empat belas tahun minum ketum… hari ni, dah bebas."
+      tl.from("#s6 .h", { y: -60, opacity: 0, duration: 0.45, ease: E }, 27.15);
+      tl.from("#s6 .sub", { opacity: 0, duration: 0.4 }, 27.3);
+      [27.9, 29.6, 31.4, 32.2].forEach((t, i) => {
+        const id = "#c" + (i + 1);
+        tl.from(id, { x: i % 2 ? 1100 : -1100, rotation: i % 2 ? 4 : -4, duration: 0.5, ease: "back.out(1.2)" }, t);
+        tl.to(id + " s", { scale: 1.15, duration: 0.2, yoyo: true, repeat: 1 }, t + 0.5);
+      });
+      tl.to("#c1", { scale: 1.03, duration: 0.3, yoyo: true, repeat: 1, ease: "sine.inOut" }, 30.0);
+      tl.to("#s6", { opacity: 0, duration: 0.25 }, 33.0);
+
+      // S7 33.25–38.75  "Mulakan dengan dua puluh empat ringgit. Tiga botol enam puluh ringgit, pos percuma. COD ada."
+      tl.from("#s7 .h", { y: -60, opacity: 0, duration: 0.4, ease: E }, 33.3);
+      tl.from("#s7 .price", { scale: 0.5, opacity: 0, duration: 0.45, ease: "back.out(1.8)" }, 33.35);
+      tl.fromTo("#s7 .price .now", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2.5)" }, 34.3);
+      tl.from("#s7 .best", { y: 300, opacity: 0, duration: 0.5, ease: "back.out(1.5)" }, 35.15);
+      tl.to("#s7 .best", { scale: 1.04, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" }, 36.65);
+      tl.from("#s7 .tick", { scale: 0, opacity: 0, duration: 0.3, stagger: 0.25, ease: "back.out(2.5)" }, 37.5);
+      tl.to("#s7", { opacity: 0, duration: 0.25 }, 38.5);
+
+      // S8 38.75–45  "Anak kau tunggu ayah dia balik… Hari ini, berhenti. Tempah sekarang."
+      tl.fromTo("#s8 .bgimg", { scale: 1.15 }, { scale: 1, duration: 6.25, ease: "none" }, 38.75);
+      tl.from("#s8 .l0", { y: 30, opacity: 0, duration: 0.6, ease: E }, 38.85);
+      tl.from("#s8 .l1", { scale: 1.6, opacity: 0, duration: 0.45, ease: "power4.out" }, 40.95);
+      tl.from("#s8 .l2", { y: 40, opacity: 0, duration: 0.5, ease: E }, 41.8);
+      tl.from("#s8 .btn", { scale: 0.3, opacity: 0, duration: 0.45, ease: "back.out(2)" }, 42.6);
+      tl.to("#s8 .btn", { scale: 1.06, duration: 0.35, yoyo: true, repeat: 5, ease: "sine.inOut" }, 43.1);
+      tl.from("#s8 .fine", { opacity: 0, duration: 0.4 }, 43.0);
 
       window.__timelines["main"] = tl;
       tl.seek(0);
