@@ -1,0 +1,640 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jus Bidara Hitam</title>
+<meta name="description" content="Jus Bidara Hitam Mbah Lanang — ikhtiar tradisional untuk kaki ketum yang betul-betul nak berhenti. Ada KKM. COD seluruh Malaysia.">
+<meta property="og:title" content="Dah bertahun minum ketum? Masih belum terlambat untuk berhenti.">
+<meta property="og:description" content="Jus Bidara Hitam — ikhtiar penyembuhan rohani & jasmani. Promo RM24 sebotol. COD ada.">
+<meta property="og:image" content="img/produk.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Playfair+Display:ital,wght@1,700;1,800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14120e;
+  --char:#211d17;
+  --char-2:#2c271f;
+  --gold:#e3a92f;
+  --gold-hi:#f4c65a;
+  --gold-deep:#b07a16;
+  --cream:#faf3e2;
+  --paper:#ffffff;
+  --leaf:#4e8a2a;
+  --leaf-deep:#356b1a;
+  --danger:#c8322a;
+  --text:#1f1b15;
+  --muted:#5f574a;
+  --line:#e9dcc0;
+  --wa:#1fae55;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:Poppins,system-ui,sans-serif;
+  background:#e9e2d2;
+  color:var(--text);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+.page{max-width:520px;margin:0 auto;background:var(--paper);overflow:hidden;box-shadow:0 0 40px rgba(0,0,0,.15);padding-bottom:84px}
+section{padding:44px 20px}
+.wrap{max-width:460px;margin:0 auto}
+h1,h2,.loud{font-family:Anton,Impact,sans-serif;font-weight:400;letter-spacing:.3px;line-height:1.08;text-transform:uppercase}
+h2{font-size:34px;margin-bottom:16px}
+p{margin-bottom:14px;font-size:16px}
+.c{text-align:center}
+.gold{color:var(--gold)}
+.red{color:var(--danger)}
+.leaf{color:var(--leaf)}
+.script{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:800;text-transform:none;letter-spacing:0}
+.hl{background:linear-gradient(transparent 58%,rgba(227,169,47,.45) 58%);padding:0 2px}
+strong{font-weight:700}
+
+/* top strip */
+.strip{background:var(--ink);color:var(--gold-hi);font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;text-align:center;padding:9px 12px}
+
+/* hero */
+.hero{background:radial-gradient(ellipse at 50% 0%,#3a3124 0%,var(--char) 55%,var(--ink) 100%);color:#fff;padding:36px 20px 40px;position:relative}
+.hero .eyebrow{display:inline-block;background:var(--gold);color:var(--ink);font-weight:700;font-size:13px;padding:5px 12px;border-radius:4px;margin-bottom:16px}
+.hero h1{font-size:44px;margin-bottom:14px}
+.hero h1 .script{display:block;font-size:46px;color:var(--gold-hi);margin-top:6px}
+.hero .sub{font-size:17px;color:#ece3cf}
+.hero-img{position:relative;margin:24px auto 22px;width:78%;max-width:320px}
+.hero-img img{border-radius:18px;border:3px solid var(--gold);box-shadow:0 18px 40px rgba(0,0,0,.55)}
+.hero-img .badge{position:absolute;right:-14px;top:18px;background:var(--danger);color:#fff;width:92px;height:92px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;line-height:1.05;transform:rotate(10deg);box-shadow:0 6px 16px rgba(0,0,0,.4);border:3px solid #fff}
+.hero-img .badge small{font-size:11px;font-weight:600}
+.hero-img .badge b{font-family:Anton,sans-serif;font-size:28px;font-weight:400}
+.trust{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:18px}
+.trust span{border:1px solid rgba(244,198,90,.5);color:var(--gold-hi);font-size:12.5px;font-weight:600;padding:5px 10px;border-radius:999px}
+
+/* buttons */
+.btn{display:block;width:100%;text-align:center;text-decoration:none;border:0;cursor:pointer;font-family:Poppins,sans-serif;font-weight:800;font-size:19px;color:var(--ink);background:linear-gradient(180deg,var(--gold-hi),var(--gold) 60%,var(--gold-deep));padding:17px 18px;border-radius:12px;box-shadow:0 6px 0 #7d550c,0 12px 24px rgba(0,0,0,.25);text-transform:uppercase;letter-spacing:.3px;transition:transform .1s}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 #7d550c}
+.btn small{display:block;font-size:12.5px;font-weight:600;text-transform:none;letter-spacing:0;opacity:.85}
+.btn.wa{background:linear-gradient(180deg,#34c86b,var(--wa));color:#fff;box-shadow:0 6px 0 #127a3a,0 12px 24px rgba(0,0,0,.2)}
+.pulse{animation:pulse 2.2s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+@media (prefers-reduced-motion:reduce){.pulse{animation:none}html{scroll-behavior:auto}}
+
+/* pain */
+.pain{background:var(--cream)}
+.pain h2{color:var(--ink)}
+.checks{list-style:none;margin:18px 0 22px}
+.checks li{position:relative;padding:12px 14px 12px 46px;background:#fff;border:1px solid var(--line);border-radius:10px;margin-bottom:9px;font-weight:500;font-size:15.5px}
+.checks li::before{content:"✓";position:absolute;left:12px;top:50%;transform:translateY(-50%);width:24px;height:24px;border-radius:50%;background:var(--danger);color:#fff;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center}
+.quote{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:700;font-size:22px;line-height:1.35;text-align:center;color:var(--ink);padding:6px 6px 0}
+
+/* money calc */
+.calc{background:var(--ink);color:#fff;border-radius:16px;padding:22px 18px;margin-top:22px;text-align:center}
+.calc .row{display:flex;justify-content:space-between;padding:9px 2px;border-bottom:1px dashed rgba(255,255,255,.18);font-size:15px}
+.calc .row:last-of-type{border:0}
+.calc .row b{color:var(--gold-hi);font-size:17px}
+.calc .big{font-family:Anton,sans-serif;font-size:46px;color:var(--danger);line-height:1;margin:10px 0 4px}
+
+/* danger */
+.danger{background:var(--char);color:#f2ead8}
+.danger h2{color:#fff}
+.risk{display:flex;gap:14px;align-items:flex-start;background:var(--char-2);border-left:4px solid var(--danger);border-radius:10px;padding:16px 14px;margin-bottom:12px}
+.risk .ic{flex:0 0 44px;height:44px;border-radius:10px;background:rgba(200,50,42,.18);display:flex;align-items:center;justify-content:center;font-size:24px}
+.risk h3{font-size:17px;color:var(--gold-hi);margin-bottom:4px;line-height:1.3}
+.risk p{font-size:14.5px;margin:0;color:#ddd3bf}
+.banner{background:var(--danger);color:#fff;text-align:center;border-radius:12px;padding:18px 14px;margin-top:22px}
+.banner .loud{font-size:26px}
+
+/* turn */
+.turn{background:linear-gradient(180deg,var(--gold) 0%,var(--gold-hi) 100%);text-align:center;padding:40px 20px}
+.turn .loud{font-size:56px;color:var(--ink);line-height:1}
+.turn .script{font-size:34px;color:var(--ink);display:block;margin-top:6px}
+.turn p{margin:16px 0 0;font-weight:600;color:var(--ink)}
+
+/* why */
+.why h2{color:var(--ink)}
+.symptoms{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:18px 0}
+.symptoms div{background:var(--cream);border:1px solid var(--line);border-radius:10px;padding:12px 10px;text-align:center;font-size:14px;font-weight:600}
+.symptoms div span{display:block;font-size:26px;margin-bottom:2px}
+.callout{background:var(--ink);color:#fff;border-radius:14px;padding:20px 18px;margin-top:16px}
+.callout p{margin:0;font-size:16.5px}
+.callout b{color:var(--gold-hi)}
+
+/* product */
+.product{background:radial-gradient(ellipse at 50% 20%,#3a3124,var(--ink) 70%);color:#fff;text-align:center}
+.product .tag{color:var(--gold-hi);font-size:13px;letter-spacing:2px;text-transform:uppercase;font-weight:600}
+.product h2{font-size:22px;margin:10px 0 0;color:#fff}
+.product .brand{font-size:52px;color:var(--gold-hi);display:block;line-height:1.1;margin:4px 0 6px}
+.product .motto{display:inline-block;border-top:1px solid var(--gold);border-bottom:1px solid var(--gold);padding:6px 14px;font-size:14px;color:var(--gold-hi);margin-bottom:22px}
+.product .bottle{width:58%;max-width:250px;margin:0 auto 24px;border-radius:16px;box-shadow:0 0 0 3px var(--gold),0 20px 50px rgba(0,0,0,.6)}
+.ingr{display:grid;gap:10px;text-align:left}
+.ingr > div{display:flex;gap:14px;align-items:center;background:rgba(255,255,255,.06);border:1px solid rgba(227,169,47,.35);border-radius:12px;padding:14px}
+.ingr .leafic{flex:0 0 48px;height:48px;border-radius:50%;background:var(--leaf);display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:inset 0 0 0 3px rgba(255,255,255,.15)}
+.ingr h3{font-size:16px;color:var(--gold-hi);line-height:1.3}
+.ingr p{font-size:13.5px;margin:2px 0 0;color:#ddd3bf}
+.bitter{margin-top:22px;font-family:"Playfair Display",serif;font-style:italic;font-size:26px;color:var(--gold-hi)}
+.bitter + p{font-size:14.5px;color:#cfc5b0;margin-top:4px}
+
+/* benefits */
+.benefits{background:var(--cream)}
+.benefits h2{color:var(--ink)}
+.ben{display:flex;gap:12px;align-items:center;background:#fff;border-radius:999px;padding:8px 18px 8px 8px;margin-bottom:10px;border:1px solid var(--line);box-shadow:0 3px 0 var(--line)}
+.ben .n{flex:0 0 44px;height:44px;border-radius:50%;background:var(--ink);color:var(--gold-hi);font-family:Anton,sans-serif;font-size:20px;display:flex;align-items:center;justify-content:center}
+.ben p{margin:0;font-weight:600;font-size:15px;line-height:1.35}
+.fine{font-size:12.5px;color:var(--muted);margin-top:10px}
+
+/* testimonials */
+.testi{background:var(--paper)}
+.testi h2{color:var(--ink)}
+.tcard{border:2px solid var(--gold);border-radius:14px;overflow:hidden;margin-bottom:14px;background:#000}
+.tcard img{width:100%}
+.tcard .cap{background:var(--ink);color:var(--gold-hi);font-size:13px;font-weight:600;padding:8px 12px}
+.stars{color:var(--gold);letter-spacing:2px}
+
+/* story */
+.story{background:var(--char);color:#efe6d2}
+.story h2{color:#fff}
+.story .ayat{background:rgba(227,169,47,.1);border:1px solid rgba(227,169,47,.4);border-radius:12px;padding:16px;margin:16px 0;font-size:15px}
+.story .ayat b{color:var(--gold-hi)}
+
+/* how */
+.how h2{color:var(--ink)}
+.dose{background:var(--ink);color:#fff;border-radius:16px;padding:22px 18px;text-align:center}
+.dose .loud{font-size:30px;color:var(--gold-hi)}
+.dose p{margin:6px 0 0;color:#e8dfcb}
+.times{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+.times div{background:var(--cream);border-radius:10px;padding:10px 4px;text-align:center;font-size:12.5px;font-weight:700;color:var(--ink)}
+.times div span{display:block;font-size:22px}
+
+/* future */
+.future{background:linear-gradient(180deg,#fff,var(--cream))}
+.future h2{color:var(--ink)}
+.fut{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px}
+.fut .ic{flex:0 0 40px;height:40px;border-radius:50%;background:var(--leaf);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px}
+.fut p{margin:0;font-size:15.5px}
+
+/* pricing */
+.pricing{background:var(--ink);color:#fff}
+.pricing h2{color:#fff;text-align:center}
+.pricing .lead{text-align:center;color:#d9cfba}
+.pkg{position:relative;background:#fff;color:var(--text);border-radius:16px;padding:20px 18px;margin-top:18px;border:3px solid transparent;cursor:pointer}
+.pkg.best{border-color:var(--gold);box-shadow:0 0 0 4px rgba(227,169,47,.25)}
+.pkg .ribbon{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--danger);color:#fff;font-size:12px;font-weight:800;letter-spacing:1px;padding:4px 14px;border-radius:999px;white-space:nowrap}
+.pkg .name{font-family:Anton,sans-serif;font-size:24px;text-transform:uppercase;color:var(--ink)}
+.pkg .bottles{color:var(--muted);font-size:14px}
+.pkg .price{display:flex;align-items:baseline;gap:10px;margin:8px 0 4px}
+.pkg .price s{color:#9a8f7c;font-size:17px}
+.pkg .price b{font-family:Anton,sans-serif;font-weight:400;font-size:44px;color:var(--danger);line-height:1}
+.pkg .save{display:inline-block;background:#e8f3df;color:var(--leaf-deep);font-weight:700;font-size:13px;padding:3px 10px;border-radius:6px}
+.pkg ul{list-style:none;margin:12px 0 14px;font-size:14px}
+.pkg ul li{padding:3px 0 3px 22px;position:relative}
+.pkg ul li::before{content:"✔";position:absolute;left:0;color:var(--leaf);font-weight:800}
+.pkg .pick{display:block;text-align:center;background:var(--ink);color:var(--gold-hi);font-weight:700;padding:12px;border-radius:10px;text-decoration:none;font-size:15px}
+.pkg.best .pick{background:linear-gradient(180deg,var(--gold-hi),var(--gold));color:var(--ink)}
+.guarantee{display:flex;gap:14px;align-items:center;border:2px dashed var(--gold);border-radius:14px;padding:16px;margin-top:24px}
+.guarantee .seal{flex:0 0 70px;height:70px;border-radius:50%;background:var(--gold);color:var(--ink);display:flex;align-items:center;justify-content:center;text-align:center;font-weight:800;font-size:11px;line-height:1.1;box-shadow:inset 0 0 0 4px var(--ink),0 0 0 2px var(--gold)}
+.guarantee p{margin:0;font-size:14.5px;color:#e8dfcb}
+.guarantee b{color:var(--gold-hi)}
+
+/* order form */
+.order{background:var(--cream)}
+.order h2{color:var(--ink);text-align:center}
+.form{background:#fff;border-radius:16px;padding:20px 16px;border:1px solid var(--line);box-shadow:0 10px 30px rgba(0,0,0,.06)}
+.form label{display:block;font-weight:600;font-size:14px;margin:14px 0 6px}
+.form label:first-child{margin-top:0}
+.form input,.form select,.form textarea{width:100%;font:inherit;font-size:16px;padding:12px 13px;border:1.5px solid #d8ccb1;border-radius:10px;background:#fffdf8;color:var(--text)}
+.form textarea{min-height:76px;resize:vertical}
+.form input:focus,.form select:focus,.form textarea:focus{outline:none;border-color:var(--gold-deep);box-shadow:0 0 0 3px rgba(227,169,47,.25)}
+.opts{display:grid;gap:8px}
+.form .opt{display:flex;margin:0;align-items:center;gap:10px;border:1.5px solid #d8ccb1;border-radius:10px;padding:11px 12px;cursor:pointer;font-size:15px;background:#fffdf8}
+.form .opt input{width:auto;padding:0;accent-color:var(--gold-deep)}
+.opt:has(input:checked){border-color:var(--gold-deep);background:#fff6df}
+.opt .r{margin-left:auto;font-weight:800;color:var(--danger)}
+.opt .tagmini{font-size:11px;font-weight:700;background:var(--danger);color:#fff;padding:2px 7px;border-radius:999px}
+.summary{background:var(--ink);color:#fff;border-radius:12px;padding:14px 16px;margin:18px 0 16px;font-size:14.5px}
+.summary div{display:flex;justify-content:space-between;gap:12px;padding:3px 0}
+.summary div span:last-child{text-align:right}
+.summary .tot{border-top:1px dashed rgba(255,255,255,.25);margin-top:6px;padding-top:9px;font-weight:700;font-size:17px}
+.summary .tot b{color:var(--gold-hi)}
+.err{color:var(--danger);font-size:13.5px;font-weight:600;margin-top:10px;display:none}
+.note{font-size:12.5px;color:var(--muted);text-align:center;margin-top:12px}
+
+/* faq */
+.faq h2{color:var(--ink)}
+details{border:1px solid var(--line);border-radius:12px;margin-bottom:10px;background:#fff}
+summary{cursor:pointer;list-style:none;padding:14px 44px 14px 16px;font-weight:600;font-size:15.5px;position:relative}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:22px;color:var(--gold-deep);font-weight:700}
+details[open] summary::after{content:"–"}
+details p{padding:0 16px 14px;margin:0;font-size:14.5px;color:var(--muted)}
+
+/* closing */
+.closing{background:radial-gradient(ellipse at 50% 0%,#3a3124,var(--ink) 75%);color:#fff;text-align:center}
+.closing .loud{font-size:40px}
+.closing .script{font-size:30px;color:var(--gold-hi);display:block;margin:10px 0 18px}
+
+/* footer */
+footer{background:#0c0b08;color:#a59b87;font-size:12px;text-align:center;padding:26px 20px 30px}
+footer p{font-size:12px;margin-bottom:10px}
+footer b{color:#d8cdb6}
+
+/* sticky */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;justify-content:center;pointer-events:none}
+.sticky-in{pointer-events:auto;width:100%;max-width:520px;background:rgba(20,18,14,.96);backdrop-filter:blur(6px);padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:12px;border-top:2px solid var(--gold)}
+.sticky-in .txt{color:#fff;font-size:12.5px;line-height:1.25}
+.sticky-in .txt b{color:var(--gold-hi);font-size:16px;display:block}
+.sticky-in .btn{flex:1;font-size:15px;padding:12px 10px;box-shadow:0 4px 0 #7d550c}
+
+.mt{margin-top:22px}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="strip">Ikhtiar Penyembuhan Rohani &amp; Jasmani</div>
+
+  <!-- HERO -->
+  <header class="hero c">
+    <span class="eyebrow">Khas untuk yang betul-betul nak berhenti ketum</span>
+    <h1>Dah bertahun minum ketum, sehari tak minum badan dah meragam?
+      <span class="script">Masih belum terlambat.</span>
+    </h1>
+    <p class="sub">Ada pengguna yang <strong class="gold">14 tahun</strong> minum ketum, habis 2 botol pun belum, dan dah hampir 2 bulan tak sentuh ketum. Baca sampai habis untuk tahu ikhtiar yang dia guna.</p>
+
+    <div class="hero-img">
+      <img src="img/produk-botol.jpg" alt="Sebotol Jus Bidara Hitam Mbah Lanang 300ml" width="420" height="1000">
+      <div class="badge"><small>Promo</small><b>RM24</b><small>sebotol</small></div>
+    </div>
+
+    <a href="#pakej" class="btn pulse">Saya nak berhenti<small>Lihat pakej promo &amp; COD</small></a>
+    <div class="trust">
+      <span>✔ Ada KKM</span><span>✔ COD Seluruh Malaysia</span><span>✔ Pos Percuma 3 Botol*</span>
+    </div>
+  </header>
+
+  <!-- PAIN -->
+  <section class="pain">
+    <div class="wrap">
+      <h2>Jujur dengan diri sendiri. <span class="red">Berapa banyak yang kena dengan kau?</span></h2>
+      <ul class="checks">
+        <li>Bangun pagi, benda pertama yang dicari ialah air ketum</li>
+        <li>Tak minum, badan lemau, tak larat nak pergi kerja</li>
+        <li>Lambat sikit dapat, mula menguap, hidung berair, sendi ngilu</li>
+        <li>Malam susah nak tidur, gelisah tak tentu pasal</li>
+        <li>Dah berkali-kali janji nak berhenti, tapi 2–3 hari dah kalah</li>
+        <li>Duit gaji habis, tapi bungkus ketum tak pernah tak ada</li>
+      </ul>
+      <p class="quote">“Sebenarnya kita bukan nak minum. Kita minum sebab nak rasa <span class="hl">normal</span> balik.”</p>
+
+      <div class="calc">
+        <p style="margin-bottom:8px;font-weight:600">Cuba kira berapa ketum ambil dari poket kau:</p>
+        <div class="row"><span>Sehari (contoh)</span><b>RM15</b></div>
+        <div class="row"><span>Sebulan</span><b>RM450</b></div>
+        <div class="row"><span>Setahun</span><b>RM5,400</b></div>
+        <div class="big">RM54,000</div>
+        <p style="margin:0;font-size:14px;color:#d9cfba">dalam 10 tahun. Itu duit dapur, duit sekolah anak, duit rumah.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DANGER -->
+  <section class="danger">
+    <div class="wrap">
+      <h2>Ketum nampak “biasa”. <span class="gold">Harga sebenar dia mahal.</span></h2>
+      <p>Ramai pandang ketum macam air kopi. Kesannya datang perlahan-lahan, sampai satu hari kita sedar dah terlambat.</p>
+
+      <div class="risk"><div class="ic">🫃</div><div><h3>Sembelit teruk &amp; perut bermasalah</h3><p>Ramai kaki ketum lama mengadu susah buang air besar berhari-hari. Najis keras, perut sebu, makan pun tak lalu.</p></div></div>
+      <div class="risk"><div class="ic">🩺</div><div><h3>Badan susut, kulit gelap, muka cengkung</h3><p>Selera makan hilang, berat turun. Orang keliling nampak perubahan sebelum kita sendiri perasan.</p></div></div>
+      <div class="risk"><div class="ic">🫀</div><div><h3>Beban pada hati &amp; organ dalaman</h3><p>Ada laporan kes masalah hati pada pengguna ketum tegar. Kita tak tahu badan kita yang mana satu, sampai dah terkena.</p></div></div>
+      <div class="risk"><div class="ic">🚔</div><div><h3>Risiko ditahan polis</h3><p>Ketum tersenarai di bawah Akta Racun 1952. Kena tahan, kena denda, ada rekod. Setiap kali jumpa roadblock, hati berdebar.</p></div></div>
+      <div class="risk"><div class="ic">💔</div><div><h3>Keluarga yang tanggung</h3><p>Duit habis, barang dapur tak cukup, isteri makan hati, anak malu dengan kawan. Yang paling sakit, mereka tak pernah pilih semua ni.</p></div></div>
+
+      <div class="banner"><div class="loud">Selagi hidup dengan ketum,<br>selagi itu hidup tak aman.</div></div>
+    </div>
+  </section>
+
+  <!-- TURN -->
+  <section class="turn">
+    <div class="loud">Namun!</div>
+    <span class="script">Kita masih belum terlambat.</span>
+    <p>Teruskan membaca. Ini mungkin titik mula untuk kau bebas dari ketum.</p>
+  </section>
+
+  <!-- WHY HARD -->
+  <section class="why">
+    <div class="wrap">
+      <h2>Kenapa susah sangat nak berhenti? <span class="red">Bukan sebab kau lemah.</span></h2>
+      <p>Bila dah bertahun minum, badan dah “set” untuk dapat ketum setiap hari. Bila berhenti mengejut, badan memberontak. Inilah yang orang panggil fasa <strong>“kain buruk”</strong>:</p>
+      <div class="symptoms">
+        <div><span>🥱</span>Menguap tak henti</div>
+        <div><span>🤧</span>Mata &amp; hidung berair</div>
+        <div><span>🦴</span>Sendi &amp; urat ngilu</div>
+        <div><span>🌙</span>Tak boleh tidur</div>
+        <div><span>😰</span>Gelisah, panas baran</div>
+        <div><span>🪫</span>Lesu, kosong, tak bermaya</div>
+      </div>
+      <div class="callout">
+        <p>Ramai yang gagal bukan sebab tak cukup semangat. Mereka gagal sebab <b>lalu fasa ni seorang diri, tanpa apa-apa bantuan</b>. 2–3 hari menahan, akhirnya cari ketum balik sebab tak tahan.</p>
+      </div>
+      <p class="mt">Sebab tu orang dulu-dulu tak suruh berhenti dengan cara paksa. Mereka bantu badan dengan herba, sambil hati diperkuatkan dengan doa dan niat.</p>
+    </div>
+  </section>
+
+  <!-- PRODUCT -->
+  <section class="product">
+    <div class="wrap">
+      <div class="tag">Formulasi tradisional turun-temurun</div>
+      <h2>Memperkenalkan</h2>
+      <span class="brand script">Jus Bidara Hitam</span>
+      <div class="motto">Ikhtiar Penyembuhan Rohani &amp; Jasmani</div>
+      <img class="bottle" src="img/produk.jpg" alt="Jus Bidara Hitam Mbah Lanang 300ml" width="720" height="1280">
+
+      <p style="color:#e8dfcb">Jus Bidara Hitam diadun dari amalan perubatan tradisional yang diwarisi turun-temurun, sebagai <strong class="gold">ikhtiar membantu badan melalui fasa berhenti ketum</strong> dengan lebih tenang.</p>
+
+      <div class="ingr mt">
+        <div><div class="leafic">🌿</div><div><h3>Daun Bidara</h3><p>Pokok yang disebut dalam Al-Quran, lama digunakan dalam amalan rawatan dan penjagaan diri masyarakat Melayu.</p></div></div>
+        <div><div class="leafic">🪵</div><div><h3>Teras Kemuning</h3><p>Bahan yang lama dipercayai dalam ramuan tradisional Melayu.</p></div></div>
+        <div><div class="leafic">🌱</div><div><h3>Akar Kayu &amp; Herba Terpilih</h3><p>Campuran akar dan herba warisan yang dipilih untuk melengkapkan formula.</p></div></div>
+      </div>
+
+      <div class="bitter">“Bitter is Better”</div>
+      <p>Ya, rasanya pahit. Macam jalan nak berhenti ketum, yang pahit itulah yang membawa kebaikan.</p>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="benefits">
+    <div class="wrap">
+      <h2>Apa yang pengguna kongsi selepas amalkan</h2>
+      <div class="ben"><div class="n">1</div><p>Lebih mudah lalui hari-hari pertama tanpa ketum</p></div>
+      <div class="ben"><div class="n">2</div><p>Rasa “kain buruk” lebih ringan berbanding berhenti mengejut</p></div>
+      <div class="ben"><div class="n">3</div><p>Keinginan nak cari ketum makin berkurang</p></div>
+      <div class="ben"><div class="n">4</div><p>Tidur lebih lena, badan lebih bertenaga</p></div>
+      <div class="ben"><div class="n">5</div><p>Hati lebih tenang. Rohani &amp; jasmani sama-sama dijaga</p></div>
+      <p class="fine">*Berdasarkan pengalaman pengguna. Keputusan berbeza mengikut individu, tahap pengambilan dan kekuatan diri.</p>
+    </div>
+  </section>
+
+  <!-- TESTIMONI -->
+  <section class="testi">
+    <div class="wrap">
+      <h2>Jangan percaya cakap kami. <span class="gold">Dengar cakap mereka.</span></h2>
+      <p>Ini komen sebenar pengguna Jus Bidara Hitam:</p>
+
+      <div class="tcard"><img src="img/testi-wanpaq.jpg" alt="Komen Wan paq: dah 14 tahun minum ketum, order 2 botol tak habis lagi dah boleh berhenti hampir 2 bulan"><div class="cap"><span class="stars">★★★★★</span> 14 tahun minum ketum, dah hampir 2 bulan berhenti</div></div>
+      <div class="tcard"><img src="img/testi-kioami.jpg" alt="Komen kioami: hari ke-7 tinggalkan ketum"><div class="cap"><span class="stars">★★★★★</span> Hari ke-7 tinggalkan ketum</div></div>
+      <div class="tcard"><img src="img/testi-shahnemo.jpg" alt="Komen Shah Nemo: mission complete, kini bebas"><div class="cap"><span class="stars">★★★★★</span> “Mission complete… kini bebas”</div></div>
+      <div class="tcard"><img src="img/testi-zul.jpg" alt="Komen zul mohamad: dah macam-macam cuba produk, tapi ini berkesan"><div class="cap"><span class="stars">★★★★★</span> Dah cuba macam-macam produk, yang ni berkesan</div></div>
+
+      <a href="#pakej" class="btn mt">Saya nak jadi yang seterusnya</a>
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section class="story">
+    <div class="wrap">
+      <h2>Kenapa <span class="gold">bidara?</span></h2>
+      <p>Pokok bidara (sidr) bukan pokok biasa. Ia disebut dalam Al-Quran, dan daunnya digunakan dalam amalan umat Islam sejak dulu, daripada mandian hinggalah amalan rawatan.</p>
+      <div class="ayat">
+        <p style="margin:0">Pokok bidara disebut dalam <b>Surah An-Najm (53:14)</b>, <b>Surah Saba’ (34:16)</b> dan <b>Surah Al-Waqi’ah (56:28)</b>.</p>
+      </div>
+      <p>Orang tua-tua kita faham satu perkara: berhenti dari ketagihan bukan sekadar urusan badan. Ia juga urusan hati. Sebab tu Jus Bidara Hitam dibawa sebagai <strong class="gold">ikhtiar rohani dan jasmani</strong>. Badan dibantu dengan herba, hati dikuatkan dengan doa dan niat.</p>
+      <p style="margin:0">Yang menyembuhkan tetap Allah. Kita cuma berikhtiar dengan cara yang terbaik.</p>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <section class="how">
+    <div class="wrap">
+      <h2>Cara amalkan</h2>
+      <div class="dose">
+        <div class="loud">4 penutup botol</div>
+        <p>campur dalam 1 cawan air kosong, kacau dan minum</p>
+      </div>
+      <p class="c mt" style="font-weight:700;margin-bottom:0">Amalkan 4 kali sehari untuk kesan terbaik:</p>
+      <div class="times">
+        <div><span>🌅</span>Pagi</div>
+        <div><span>☀️</span>Tengah hari</div>
+        <div><span>🌇</span>Petang</div>
+        <div><span>🌙</span>Sebelum tidur</div>
+      </div>
+      <p class="mt">💡 <strong>Tips:</strong> Mulakan dengan niat dan doa. Amalkan secara konsisten, jangan skip. Minum air kosong yang cukup sepanjang hari.</p>
+    </div>
+  </section>
+
+  <!-- FUTURE -->
+  <section class="future">
+    <div class="wrap">
+      <h2>Bayangkan hidup kau <span class="leaf">30 hari dari sekarang…</span></h2>
+      <div class="fut"><div class="ic">💰</div><p><strong>Duit tak bocor lagi.</strong> RM400–500 sebulan boleh masuk tabung anak, bayar hutang, bawa keluarga makan luar.</p></div>
+      <div class="fut"><div class="ic">😴</div><p><strong>Bangun pagi segar</strong> tanpa perlu cari apa-apa dulu untuk rasa normal.</p></div>
+      <div class="fut"><div class="ic">🚗</div><p><strong>Lalu roadblock dengan tenang.</strong> Tak ada apa nak disorok.</p></div>
+      <div class="fut"><div class="ic">👨‍👩‍👧</div><p><strong>Keluarga pandang kau lain.</strong> Isteri lega, anak bangga dengan ayah dia.</p></div>
+      <p class="quote mt">“Demi orang tersayang, mereka nak sangat kita berhenti.”</p>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing" id="pakej">
+    <div class="wrap">
+      <h2>Harga promo <span class="gold">hari ini</span></h2>
+      <p class="lead">Harga asal <s>RM35</s> sebotol. Pilih pakej yang sesuai dengan tahap kau.</p>
+
+      <div class="pkg" data-pkg="1">
+        <div class="name">Pakej Cuba</div>
+        <div class="bottles">1 botol (300ml)</div>
+        <div class="price"><s>RM35</s><b>RM24</b></div>
+        <span class="save">Jimat RM11</span>
+        <ul><li>Sesuai untuk mula cuba</li><li>COD ada</li></ul>
+        <a href="#tempah" class="pick" data-choose="1">Pilih Pakej Ini</a>
+      </div>
+
+      <div class="pkg" data-pkg="2">
+        <div class="name">Pakej Usaha</div>
+        <div class="bottles">2 botol (600ml)</div>
+        <div class="price"><s>RM70</s><b>RM45</b></div>
+        <span class="save">Jimat RM25</span>
+        <ul><li>Untuk yang dah lama minum</li><li>COD ada</li></ul>
+        <a href="#tempah" class="pick" data-choose="2">Pilih Pakej Ini</a>
+      </div>
+
+      <div class="pkg best" data-pkg="3">
+        <span class="ribbon">★ PALING BERBALOI ★</span>
+        <div class="name">Pakej Bebas</div>
+        <div class="bottles">3 botol (900ml)</div>
+        <div class="price"><s>RM105</s><b>RM60</b></div>
+        <span class="save">Jimat RM45 + Pos Percuma</span>
+        <ul><li>RM20 sebotol sahaja</li><li><strong>PERCUMA POS</strong> Semenanjung</li><li>Stok cukup, tak putus di tengah jalan</li><li>COD ada</li></ul>
+        <a href="#tempah" class="pick" data-choose="3">Pilih Pakej Ini</a>
+      </div>
+
+      <div class="guarantee">
+        <div class="seal">JAMINAN<br>GANTI<br>BARU</div>
+        <p><b>Barang sampai rosak?</b> Kami ganti dengan botol baru terus. Tak perlu banyak soal. Risiko di pihak kami.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORDER -->
+  <section class="order" id="tempah">
+    <div class="wrap">
+      <h2>Tempah sekarang</h2>
+      <p class="c" style="color:var(--muted)">Isi borang di bawah. Pesanan akan dihantar terus ke WhatsApp kami untuk pengesahan.</p>
+
+      <form class="form" id="orderForm" novalidate>
+        <label>Pilih pakej</label>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="pkg" value="1"> 1 Botol <span class="r">RM24</span></label>
+          <label class="opt"><input type="radio" name="pkg" value="2"> 2 Botol <span class="r">RM45</span></label>
+          <label class="opt"><input type="radio" name="pkg" value="3" checked> 3 Botol <span class="tagmini">FREE POS</span><span class="r">RM60</span></label>
+        </div>
+
+        <label for="nama">Nama penuh</label>
+        <input id="nama" name="nama" autocomplete="name" placeholder="Contoh: Ahmad bin Ali">
+
+        <label for="tel">No. telefon</label>
+        <input id="tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="Contoh: 0123456789">
+
+        <label for="alamat">Alamat penuh</label>
+        <textarea id="alamat" name="alamat" autocomplete="street-address" placeholder="No. rumah, jalan, taman"></textarea>
+
+        <label for="poskod">Poskod</label>
+        <input id="poskod" name="poskod" inputmode="numeric" autocomplete="postal-code" maxlength="5" placeholder="Contoh: 15000">
+
+        <label for="negeri">Negeri</label>
+        <select id="negeri" name="negeri">
+          <option value="">Pilih negeri</option>
+          <option>Johor</option><option>Kedah</option><option>Kelantan</option><option>Melaka</option>
+          <option>Negeri Sembilan</option><option>Pahang</option><option>Perak</option><option>Perlis</option>
+          <option>Pulau Pinang</option><option>Selangor</option><option>Terengganu</option>
+          <option>W.P. Kuala Lumpur</option><option>W.P. Putrajaya</option>
+          <option>Sabah</option><option>Sarawak</option><option>W.P. Labuan</option>
+        </select>
+
+        <label>Cara bayaran</label>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="bayar" value="COD (Bayar Bila Barang Sampai)" checked> COD, bayar bila barang sampai</label>
+          <label class="opt"><input type="radio" name="bayar" value="Online Transfer"> Online transfer</label>
+        </div>
+
+        <div class="summary" id="summary"></div>
+
+        <button type="submit" class="btn wa">Hantar pesanan via WhatsApp<small>Kami akan sahkan pesanan anda</small></button>
+        <div class="err" id="err"></div>
+        <p class="note">🔒 Maklumat anda hanya digunakan untuk penghantaran.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="wrap">
+      <h2>Soalan lazim</h2>
+      <details><summary>Berapa lama baru nampak kesan?</summary><p>Setiap orang berbeza, bergantung pada berapa lama dan berapa banyak minum ketum. Ada pengguna yang kongsi dah tinggalkan ketum pada hari ke-7, ada yang ambil masa lebih lama. Yang penting, amalkan secara konsisten.</p></details>
+      <details><summary>Berapa botol saya perlu?</summary><p>Kalau dah bertahun minum, kami syorkan Pakej Bebas (3 botol) supaya stok tak putus di tengah jalan. Lagipun pos percuma ke Semenanjung.</p></details>
+      <details><summary>Rasa dia macam mana?</summary><p>Pahit. Sebab tu motto kami “Bitter is Better”. Campur dengan secawan air kosong untuk lebih mudah diminum.</p></details>
+      <details><summary>Produk ni selamat? Ada KKM?</summary><p>Ya, produk ini ada kelulusan KKM. Bagi yang mengandung, menyusukan anak atau ada penyakit kronik, sila rujuk doktor sebelum mengamalkan.</p></details>
+      <details><summary>Boleh untuk ketagihan selain ketum?</summary><p>Fokus utama Jus Bidara Hitam ialah untuk mereka yang nak berhenti ketum. Untuk ketagihan dadah lain seperti heroin atau syabu, sila dapatkan bantuan AADK atau klinik kesihatan berdekatan.</p></details>
+      <details><summary>Boleh COD? Berapa lama sampai?</summary><p>Boleh, COD ada. Selepas pesanan disahkan di WhatsApp, barang akan dihantar dan biasanya sampai dalam beberapa hari bekerja.</p></details>
+      <details><summary>Kalau barang sampai rosak?</summary><p>Kami ganti dengan botol baru terus. Hantar gambar barang yang rosak ke WhatsApp kami.</p></details>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <section class="closing">
+    <div class="wrap">
+      <div class="loud">Ketum dah ambil bertahun dari hidup kau.</div>
+      <span class="script">Jangan bagi dia ambil tahun depan pula.</span>
+      <p style="color:#d9cfba">Hari ini berhenti. Esok lebih tenang.</p>
+      <a href="#tempah" class="btn pulse mt">Tempah Jus Bidara Hitam<small>Dari RM24 sahaja · COD ada</small></a>
+    </div>
+  </section>
+
+  <footer>
+    <p><b>Jus Bidara Hitam · Mbah Lanang</b></p>
+    <!-- TODO: isi nama syarikat & no. pendaftaran SSM / no. KKM -->
+    <p>[NAMA SYARIKAT] · No. SSM: [XXXXXXXX] · No. KKM: [XXXXXXXX]</p>
+    <p>Produk ini adalah produk tradisional dan bukan pengganti rawatan perubatan. Keputusan berbeza mengikut individu. Testimoni adalah pengalaman peribadi pengguna.</p>
+    <p>Laman ini bukan sebahagian daripada laman web Facebook atau Meta Platforms, Inc. dan tidak disokong oleh Facebook dalam apa jua cara.</p>
+    <p style="margin:0">© <span id="yr">2026</span> Jus Bidara Hitam. Hak cipta terpelihara.</p>
+  </footer>
+</div>
+
+<div class="sticky">
+  <div class="sticky-in">
+    <div class="txt">Promo hari ini<b>Dari RM24</b></div>
+    <a href="#tempah" class="btn">Tempah sekarang</a>
+  </div>
+</div>
+
+<script>
+/* ====== TETAPAN — tukar di sini ====== */
+const WA_NUMBER = "60XXXXXXXXX";   // No. WhatsApp penerima pesanan, format 60123456789 (tanpa + atau -)
+const PAKEJ = {
+  1:{nama:"Pakej Cuba - 1 Botol", harga:24, pos:"Kos pos akan dimaklumkan"},
+  2:{nama:"Pakej Usaha - 2 Botol", harga:45, pos:"Kos pos akan dimaklumkan"},
+  3:{nama:"Pakej Bebas - 3 Botol", harga:60, pos:"PERCUMA (Semenanjung)"}
+};
+const SABAH_SARAWAK = ["Sabah","Sarawak","W.P. Labuan"];
+/* ===================================== */
+
+const form = document.getElementById("orderForm");
+const summary = document.getElementById("summary");
+const err = document.getElementById("err");
+document.getElementById("yr").textContent = new Date().getFullYear();
+
+function val(name){ const el = form.elements[name]; return (el && el.value || "").trim(); }
+function selectedPkg(){ return (form.querySelector('input[name="pkg"]:checked')||{}).value || "3"; }
+function posText(id){
+  if (SABAH_SARAWAK.includes(val("negeri"))) return "Kos pos Sabah/Sarawak akan dimaklumkan";
+  return PAKEJ[id].pos;
+}
+function renderSummary(){
+  const id = selectedPkg(), p = PAKEJ[id];
+  summary.innerHTML =
+    `<div><span>${p.nama}</span><span>RM${p.harga}</span></div>` +
+    `<div><span>Penghantaran</span><span>${posText(id)}</span></div>` +
+    `<div class="tot"><span>Jumlah produk</span><b>RM${p.harga}</b></div>`;
+}
+form.addEventListener("change", renderSummary);
+renderSummary();
+
+document.querySelectorAll("[data-choose]").forEach(a => {
+  a.addEventListener("click", () => {
+    const r = form.querySelector(`input[name="pkg"][value="${a.dataset.choose}"]`);
+    if (r){ r.checked = true; renderSummary(); }
+  });
+});
+
+form.addEventListener("submit", e => {
+  e.preventDefault();
+  const nama = val("nama"), tel = val("tel"), alamat = val("alamat"), poskod = val("poskod"), negeri = val("negeri");
+  const missing = [];
+  if (!nama) missing.push("nama");
+  if (!/^\+?[0-9\s-]{9,15}$/.test(tel)) missing.push("no. telefon yang sah");
+  if (!alamat) missing.push("alamat");
+  if (!/^[0-9]{5}$/.test(poskod)) missing.push("poskod 5 digit");
+  if (!negeri) missing.push("negeri");
+  if (missing.length){
+    err.textContent = "Sila lengkapkan: " + missing.join(", ") + ".";
+    err.style.display = "block";
+    return;
+  }
+  err.style.display = "none";
+  const id = selectedPkg(), p = PAKEJ[id];
+  const bayar = (form.querySelector('input[name="bayar"]:checked')||{}).value || "COD";
+  const msg =
+`Assalamualaikum, saya nak tempah *Jus Bidara Hitam*.
+
+*Pakej:* ${p.nama}
+*Harga:* RM${p.harga}
+*Penghantaran:* ${posText(id)}
+*Bayaran:* ${bayar}
+
+*Nama:* ${nama}
+*Telefon:* ${tel}
+*Alamat:* ${alamat}, ${poskod} ${negeri}`;
+  window.location.href = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(msg);
+});
+</script>
+</body>
+</html>
