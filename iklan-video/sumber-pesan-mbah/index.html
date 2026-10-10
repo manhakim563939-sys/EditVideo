@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="ms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1350" />
+    <title>Jus Bidara Hitam — Pesan Mbah</title>
+    <script src="assets/gsap.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Playfair+Display:ital,wght@0,700;1,600;1,800&family=Poppins:wght@500;600;700;800&display=block"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #14120e;
+        --gold: #e3a92f;
+        --gold-hi: #f6c66b;
+        --gold-deep: #b07a16;
+        --cream: #fbf1dc;
+        --leaf: #4e8a2a;
+        --wa: #1fae55;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1350px; overflow: hidden; background: #05060f; font-family: Poppins, sans-serif; color: #fff; }
+      #root { position: relative; width: 1080px; height: 1350px; overflow: hidden; }
+      .layer { position: absolute; inset: 0; }
+      .scene { position: absolute; inset: 0; z-index: 10; }
+      .center { position: absolute; left: 80px; right: 80px; text-align: center; }
+      .quote { font-family: "Playfair Display", serif; font-style: italic; font-weight: 600; line-height: 1.3; text-shadow: 0 4px 24px rgba(0,0,0,.6); }
+      .loud { font-family: Anton, sans-serif; text-transform: uppercase; line-height: 1.04; letter-spacing: .5px; text-shadow: 0 6px 30px rgba(0,0,0,.45); }
+
+      /* langit: 4 lapisan bersilang pudar, malam → subuh → matahari terbit → pagi */
+      #sky-night { background: linear-gradient(180deg, #04050d 0%, #0b1029 55%, #161a3a 100%); }
+      #sky-dawn { background: linear-gradient(180deg, #0c1230 0%, #262857 45%, #5f4469 78%, #a86656 100%); }
+      #sky-rise { background: linear-gradient(180deg, #23336a 0%, #7d5677 38%, #e08a55 72%, #f5c26a 100%); }
+      #sky-gold { background: linear-gradient(180deg, #3a4b7a 0%, #c98a6a 35%, #f2b25a 65%, #f8d58c 100%); }
+      .star { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: #fff; box-shadow: 0 0 8px rgba(255,255,255,.9); }
+      #sun { position: absolute; left: 330px; top: 1250px; width: 420px; height: 420px; border-radius: 50%;
+        background: radial-gradient(circle, #fffbe8 0%, #ffe8a6 28%, #f6c66b 46%, rgba(246,198,107,.35) 62%, rgba(246,198,107,0) 72%); z-index: 2; }
+      #horizon { position: absolute; left: 0; bottom: 0; width: 1080px; height: 360px; z-index: 3; }
+      #veil { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5,6,15,.0) 0%, rgba(5,6,15,.0) 60%, rgba(5,6,15,.35) 100%); z-index: 4; }
+
+      #brandbar { position: absolute; left: 0; right: 0; top: 0; height: 64px; z-index: 50; background: rgba(20,18,14,.85); border-bottom: 3px solid var(--gold); display: flex; align-items: center; justify-content: center; gap: 18px; font-weight: 700; font-size: 24px; letter-spacing: 3px; color: var(--gold-hi); text-transform: uppercase; }
+      #brandbar i { font-style: normal; color: var(--gold-deep); }
+      #progress { position: absolute; left: 0; bottom: 0; height: 8px; width: 1080px; background: var(--gold); transform-origin: left center; z-index: 51; }
+
+      /* S1 */
+      #s1 .badge { position: absolute; left: 430px; top: 130px; width: 220px; height: 220px; border-radius: 50%; box-shadow: 0 0 0 6px var(--gold), 0 0 60px rgba(246,198,107,.5); }
+      #s1 .lbl { top: 385px; font-size: 34px; letter-spacing: 10px; font-weight: 800; color: var(--gold-hi); }
+      #s1 .to { top: 440px; font-size: 44px; color: #e9e2ff; }
+      #s1 .q { top: 600px; font-size: 76px; }
+
+      /* S2 */
+      #s2 .w { position: absolute; left: 0; right: 0; text-align: center; font-size: 130px; }
+      #s2 .w1 { top: 150px; } #s2 .w2 { top: 340px; color: var(--gold-hi); } #s2 .w3 { top: 530px; }
+      #s2 .q { top: 740px; font-size: 62px; }
+
+      /* S3 */
+      #s3 .q { top: 170px; font-size: 70px; }
+      #s3 .pills { position: absolute; left: 80px; right: 80px; top: 560px; display: flex; flex-direction: column; align-items: center; gap: 22px; }
+      #s3 .pill { background: rgba(10,10,25,.6); border: 2px solid rgba(246,198,107,.6); border-radius: 999px; padding: 18px 44px; font-size: 46px; font-weight: 700; color: #fff4dc; backdrop-filter: blur(4px); }
+
+      /* S4 */
+      #s4 .q { top: 150px; font-size: 64px; }
+      #s4 .big { top: 300px; font-size: 140px; color: #fff; }
+      #s4 .big .g { color: var(--gold-hi); display: block; }
+
+      /* S5 */
+      #s5 .tag { top: 105px; font-size: 32px; letter-spacing: 6px; font-weight: 800; color: #fff4dc; text-transform: uppercase; text-shadow: 0 2px 12px rgba(0,0,0,.6); }
+      #s5 .brand { top: 150px; font-size: 104px; font-family: "Playfair Display", serif; font-style: italic; font-weight: 800; color: #fff; white-space: nowrap; text-shadow: 0 6px 30px rgba(0,0,0,.5); }
+      #s5 .bottle { position: absolute; left: 395px; top: 320px; width: 290px; border-radius: 26px; box-shadow: 0 0 0 6px var(--gold), 0 30px 70px rgba(0,0,0,.6); }
+      #s5 .chips { position: absolute; left: 40px; right: 40px; top: 1030px; display: flex; justify-content: center; gap: 14px; }
+      #s5 .chip { background: var(--leaf); color: #fff; font-weight: 800; font-size: 28px; padding: 12px 22px; border-radius: 999px; white-space: nowrap; box-shadow: 0 8px 18px rgba(0,0,0,.35); }
+      #s5 .bib { position: absolute; left: 700px; top: 380px; width: 230px; height: 230px; border-radius: 50%; background: var(--ink); border: 5px solid var(--gold); display: flex; align-items: center; justify-content: center; text-align: center; font-family: "Playfair Display", serif; font-style: italic; font-weight: 800; font-size: 40px; color: var(--gold-hi); line-height: 1.1; transform: rotate(10deg); }
+
+      /* S6 */
+      #s6 .panel { position: absolute; left: 50px; right: 50px; top: 100px; bottom: 300px; background: rgba(20,18,14,.78); border-radius: 34px; border: 3px solid rgba(246,198,107,.55); }
+      #s6 .q { top: 140px; font-size: 58px; }
+      #s6 .sub { top: 300px; font-size: 28px; color: #d9cfba; font-weight: 600; }
+      #s6 .stack { position: absolute; left: 90px; right: 90px; top: 360px; display: flex; flex-direction: column; gap: 16px; }
+      #s6 .card { border: 4px solid var(--gold); border-radius: 22px; overflow: hidden; background: #000; }
+      #s6 .card img { width: 100%; display: block; }
+      #s6 .card .cap { background: var(--ink); color: var(--gold-hi); font-weight: 800; font-size: 28px; padding: 8px 18px; }
+
+      /* S7 */
+      #s7 .panel { position: absolute; left: 90px; right: 90px; top: 150px; background: rgba(20,18,14,.85); border-radius: 36px; border: 3px solid var(--gold); padding: 40px 30px 44px; text-align: center; }
+      #s7 .a { font-size: 44px; font-weight: 700; color: #fff4dc; }
+      #s7 .was { font-size: 46px; color: #a59b87; text-decoration: line-through; font-weight: 600; margin-top: 8px; }
+      #s7 .now { font-family: Anton, sans-serif; font-size: 200px; color: var(--gold-hi); line-height: 1; }
+      #s7 .per { font-size: 36px; font-weight: 700; color: #fff4dc; }
+      #s7 .best { margin: 30px 10px 0; background: linear-gradient(180deg, var(--gold-hi), var(--gold)); color: var(--ink); border-radius: 26px; padding: 22px; }
+      #s7 .best .t { font-family: Anton, sans-serif; font-size: 80px; line-height: 1.05; }
+      #s7 .best .s { font-size: 32px; font-weight: 800; }
+      #s7 .cod { margin-top: 24px; font-size: 36px; font-weight: 800; color: var(--gold-hi); }
+
+      /* S8 */
+      #s8 .q1 { top: 140px; font-size: 66px; color: #fff; }
+      #s8 .q2 { top: 230px; font-size: 80px; color: #fff; white-space: nowrap; left: 20px; right: 20px; }
+      #s8 .badge { position: absolute; left: 460px; top: 400px; width: 160px; height: 160px; border-radius: 50%; box-shadow: 0 0 0 5px var(--gold), 0 0 50px rgba(255,255,255,.6); }
+      #s8 .doa { top: 585px; font-size: 54px; color: #fff; }
+      #s8 .btn { position: absolute; left: 120px; right: 120px; top: 740px; background: linear-gradient(180deg, #34c86b, var(--wa)); border-radius: 26px; padding: 24px 20px; text-align: center; font-weight: 800; font-size: 46px; box-shadow: 0 10px 0 #127a3a, 0 20px 40px rgba(0,0,0,.35); }
+      #s8 .btn small { display: block; font-size: 30px; font-weight: 700; }
+      #s8 .fine { top: 1270px; font-size: 22px; color: #fff; z-index: 5; text-shadow: 0 2px 6px #000; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="45" data-width="1080" data-height="1350">
+
+      <!-- Latar berterusan: langit, bintang, matahari, siluet kampung -->
+      <div id="sky-night" class="layer clip" data-start="0" data-duration="45" data-track-index="0"></div>
+      <div id="sky-dawn" class="layer clip" data-start="0" data-duration="45" data-track-index="0"></div>
+      <div id="sky-rise" class="layer clip" data-start="0" data-duration="45" data-track-index="0"></div>
+      <div id="sky-gold" class="layer clip" data-start="0" data-duration="45" data-track-index="0"></div>
+      <div id="stars" class="layer clip" data-start="0" data-duration="45" data-track-index="0"></div>
+      <div id="sun" class="clip" data-start="0" data-duration="45" data-track-index="0"></div>
+      <svg id="horizon" class="clip" data-start="0" data-duration="45" data-track-index="0" viewBox="0 0 1080 360" preserveAspectRatio="none" aria-hidden="true">
+        <g fill="#0a0907">
+          <path d="M0 210 C 160 150 300 175 430 200 C 560 225 700 160 860 170 C 960 176 1030 195 1080 205 L1080 360 L0 360 Z" />
+          <!-- masjid kecil -->
+          <rect x="150" y="150" width="120" height="70" />
+          <path d="M160 150 Q210 80 260 150 Z" />
+          <rect x="292" y="80" width="18" height="140" />
+          <path d="M288 82 L301 50 L314 82 Z" />
+          <!-- rumah kampung bertiang -->
+          <rect x="690" y="150" width="150" height="60" />
+          <path d="M675 152 L765 95 L855 152 Z" />
+          <rect x="700" y="210" width="10" height="40" /><rect x="760" y="210" width="10" height="40" /><rect x="820" y="210" width="10" height="40" />
+          <!-- pokok kelapa -->
+          <path d="M520 220 C 515 160 525 110 545 70 L 552 72 C 535 112 527 160 532 220 Z" />
+          <path d="M548 70 C 510 55 480 60 455 80 C 490 68 520 70 546 76 Z M548 70 C 585 50 620 55 645 75 C 610 66 580 68 550 76 Z M548 70 C 540 40 520 25 495 22 C 520 35 535 50 545 72 Z M548 70 C 565 40 590 30 615 30 C 590 40 572 55 552 74 Z" />
+          <path d="M960 215 C 950 165 958 125 975 95 L 981 97 C 966 128 960 165 970 215 Z" />
+          <path d="M978 95 C 945 82 920 86 900 102 C 930 92 955 94 976 100 Z M978 95 C 1010 78 1040 82 1062 98 C 1032 90 1006 92 980 100 Z M978 95 C 972 70 955 58 935 55 C 955 66 968 78 976 98 Z" />
+        </g>
+      </svg>
+      <div id="veil" class="clip" data-start="0" data-duration="45" data-track-index="0"></div>
+
+      <!-- S1: pesan bermula (0–5.5) -->
+      <div id="s1" class="scene clip" data-start="0" data-duration="5.5" data-track-index="1">
+        <img class="badge" src="assets/mbah-badge.png" alt="Mbah Lanang" />
+        <div class="center lbl">PESAN MBAH</div>
+        <div class="center quote to">untuk cucu-cucu Mbah…</div>
+        <div class="center quote q">“Setiap orang ada jalan gelap dalam hidupnya.”</div>
+      </div>
+
+      <!-- S2: jatuh bangun (5.5–11.5) -->
+      <div id="s2" class="scene clip" data-start="5.5" data-duration="6" data-track-index="1">
+        <div class="w loud w1">Ada yang jatuh.</div>
+        <div class="w loud w2">Bangun.</div>
+        <div class="w loud w3">Jatuh lagi.</div>
+        <div class="center quote q">Bukan sebab lemah…<br />sebab berjalan seorang diri.</div>
+      </div>
+
+      <!-- S3: tak mudah (11.5–17.5) -->
+      <div id="s3" class="scene clip" data-start="11.5" data-duration="6" data-track-index="1">
+        <div class="center quote q">“Nak tinggalkan ketum<br />memang tak mudah, cu.”</div>
+        <div class="pills">
+          <div class="pill">Badan sakit</div>
+          <div class="pill">Duit habis</div>
+          <div class="pill">Keluarga menunggu</div>
+        </div>
+      </div>
+
+      <!-- S4: pahit itu tanda berubah (17.5–23.5) -->
+      <div id="s4" class="scene clip" data-start="17.5" data-duration="6" data-track-index="1">
+        <div class="center quote q">Tapi ingat, cu…</div>
+        <div class="center loud big"><span class="l">Pahit itu</span><span class="l g">tanda kita</span><span class="l">sedang berubah.</span></div>
+      </div>
+
+      <!-- S5: ikhtiar (23.5–30) -->
+      <div id="s5" class="scene clip" data-start="23.5" data-duration="6.5" data-track-index="1">
+        <div class="center tag">Ikhtiar orang dulu-dulu</div>
+        <div class="center brand">Jus Bidara Hitam</div>
+        <img class="bottle" src="assets/produk-botol.jpg" alt="Jus Bidara Hitam 300ml" />
+        <div class="bib">Bitter<br />is<br />Better</div>
+        <div class="chips">
+          <div class="chip">🌿 Daun Bidara</div>
+          <div class="chip">🪵 Teras Kemuning</div>
+          <div class="chip">🌱 Akar Kayu</div>
+        </div>
+      </div>
+
+      <!-- S6: cucu-cucu yang dah mula (30–35.5) -->
+      <div id="s6" class="scene clip" data-start="30" data-duration="5.5" data-track-index="1">
+        <div class="panel"></div>
+        <div class="center quote q">“Ramai cucu Mbah dah mulakan langkah.”</div>
+        <div class="center sub">Komen sebenar pembeli · keputusan berbeza mengikut individu</div>
+        <div class="stack">
+          <div class="card"><img src="assets/testi-wanpaq.jpg" alt="" /><div class="cap">★★★★★ Wan paq</div></div>
+          <div class="card"><img src="assets/testi-kioami.jpg" alt="" /><div class="cap">★★★★★ kioami</div></div>
+          <div class="card"><img src="assets/testi-hazwan.jpg" alt="" /><div class="cap">★★★★★ Hazwan Rauf</div></div>
+        </div>
+      </div>
+
+      <!-- S7: tawaran (35.5–40.5) -->
+      <div id="s7" class="scene clip" data-start="35.5" data-duration="5" data-track-index="1">
+        <div class="panel">
+          <div class="a">Mulakan dengan</div>
+          <div class="was">RM35</div>
+          <div class="now">RM24</div>
+          <div class="per">sebotol (300ml)</div>
+          <div class="best"><div class="t">3 BOTOL RM60</div><div class="s">+ POS PERCUMA SEMENANJUNG</div></div>
+          <div class="cod">✔ COD seluruh Malaysia</div>
+        </div>
+      </div>
+
+      <!-- S8: subuh esok (40.5–45) -->
+      <div id="s8" class="scene clip" data-start="40.5" data-duration="4.5" data-track-index="1">
+        <div class="center quote q1">Subuh esok…</div>
+        <div class="center quote q2">mulakan langkah pertama.</div>
+        <img class="badge" src="assets/mbah-badge.png" alt="Mbah Lanang" />
+        <div class="center quote doa">Mbah doakan.</div>
+        <div class="btn">TEMPAH SEKARANG<small>WhatsApp 017-963 7611 · COD ada</small></div>
+        <div class="center fine">Produk tradisional, bukan pengganti rawatan perubatan. Keputusan berbeza mengikut individu.</div>
+      </div>
+
+      <div id="brandbar" class="clip" data-start="0" data-duration="45" data-track-index="2">Jus Bidara Hitam <i>◆</i> Mbah Lanang</div>
+      <div id="progress" class="clip" data-start="0" data-duration="45" data-track-index="3"></div>
+    </div>
+
+    <script>
+      // bintang: kedudukan tetap (deterministik)
+      const starBox = document.getElementById("stars");
+      for (let i = 0; i < 46; i++) {
+        const d = document.createElement("div");
+        d.className = "star";
+        d.style.left = ((i * 211) % 1060) + 10 + "px";
+        d.style.top = ((i * 137) % 900) + 70 + "px";
+        const sz = 2 + (i % 3);
+        d.style.width = d.style.height = sz + "px";
+        d.style.opacity = 0.4 + ((i * 7) % 6) / 10;
+        starBox.appendChild(d);
+      }
+
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+      const T = 45;
+      tl.fromTo("#progress", { scaleX: 0 }, { scaleX: 1, duration: T, ease: "none" }, 0);
+
+      // ---- latar: malam → subuh → terbit → pagi ----
+      tl.set(["#sky-dawn", "#sky-rise", "#sky-gold"], { opacity: 0 }, 0);
+      tl.to("#sky-dawn", { opacity: 1, duration: 6, ease: "sine.inOut" }, 8);
+      tl.to("#sky-rise", { opacity: 1, duration: 6, ease: "sine.inOut" }, 16);
+      tl.to("#sky-gold", { opacity: 1, duration: 8, ease: "sine.inOut" }, 30);
+      tl.to(".star", { opacity: 0, duration: 7, stagger: 0.05, ease: "sine.in" }, 12);
+      tl.to("#sun", { y: -690, scale: 1.15, duration: 27, ease: "sine.out" }, 16);
+      tl.to("#horizon", { y: 20, duration: T, ease: "none" }, 0);
+
+      // ---- S1 ----
+      tl.from("#s1 .badge", { scale: 0.4, opacity: 0, duration: 0.8, ease: "back.out(1.6)" }, 0.2);
+      tl.from("#s1 .lbl", { opacity: 0, scaleX: 1.6, duration: 0.8, ease: E }, 0.6);
+      tl.from("#s1 .to", { opacity: 0, y: 20, duration: 0.6, ease: E }, 1.2);
+      tl.from("#s1 .q", { opacity: 0, y: 40, duration: 0.9, ease: E }, 2.2);
+      tl.to("#s1", { opacity: 0, duration: 0.4 }, 5.1);
+
+      // ---- S2 ----
+      tl.from("#s2 .w1", { opacity: 0, y: -80, duration: 0.45, ease: "power4.out" }, 5.7);
+      tl.to("#s2 .w1", { y: 15, rotation: -2, duration: 0.3, ease: "power2.in" }, 6.3);
+      tl.from("#s2 .w2", { opacity: 0, y: 80, duration: 0.45, ease: "back.out(1.8)" }, 7.0);
+      tl.from("#s2 .w3", { opacity: 0, y: -80, duration: 0.45, ease: "power4.out" }, 8.0);
+      tl.to("#s2 .w3", { y: 15, rotation: 2, duration: 0.3, ease: "power2.in" }, 8.6);
+      tl.from("#s2 .q", { opacity: 0, y: 40, duration: 0.8, ease: E }, 9.2);
+      tl.to("#s2", { opacity: 0, duration: 0.4 }, 11.1);
+
+      // ---- S3 ----
+      tl.from("#s3 .q", { opacity: 0, y: 40, duration: 0.8, ease: E }, 11.7);
+      tl.from("#s3 .pill", { opacity: 0, scale: 0.6, duration: 0.45, stagger: 1.0, ease: "back.out(2)" }, 13.4);
+      tl.to("#s3", { opacity: 0, duration: 0.4 }, 17.1);
+
+      // ---- S4 ----
+      tl.from("#s4 .q", { opacity: 0, y: 30, duration: 0.7, ease: E }, 17.7);
+      tl.from("#s4 .big .l", { opacity: 0, scale: 1.8, duration: 0.5, stagger: 0.55, ease: "power4.out" }, 19.0);
+      tl.to("#s4 .big .g", { textShadow: "0 0 40px rgba(246,198,107,.95)", duration: 0.6, yoyo: true, repeat: 3 }, 20.8);
+      tl.to("#s4", { opacity: 0, duration: 0.4 }, 23.1);
+
+      // ---- S5 ----
+      tl.from("#s5 .tag", { opacity: 0, y: -20, duration: 0.5 }, 23.7);
+      tl.from("#s5 .brand", { opacity: 0, scale: 0.7, duration: 0.6, ease: "back.out(1.6)" }, 24.1);
+      tl.from("#s5 .bottle", { y: 800, duration: 1.0, ease: "back.out(1.2)" }, 24.4);
+      tl.to("#s5 .bottle", { y: -16, duration: 1.2, yoyo: true, repeat: 3, ease: "sine.inOut" }, 25.4);
+      tl.from("#s5 .bib", { scale: 0, rotation: -40, duration: 0.6, ease: "back.out(2)" }, 25.8);
+      tl.from("#s5 .chip", { y: 80, opacity: 0, duration: 0.4, stagger: 0.3, ease: "back.out(2)" }, 26.6);
+      tl.to("#s5", { opacity: 0, duration: 0.4 }, 29.6);
+
+      // ---- S6 ----
+      tl.from("#s6 .panel", { opacity: 0, scale: 0.92, duration: 0.5, ease: E }, 30.1);
+      tl.from("#s6 .q", { opacity: 0, y: 30, duration: 0.6, ease: E }, 30.3);
+      tl.from("#s6 .sub", { opacity: 0, duration: 0.4 }, 30.8);
+      tl.from("#s6 .card", { opacity: 0, x: (i) => (i % 2 ? 600 : -600), duration: 0.55, stagger: 0.9, ease: "back.out(1.2)" }, 31.2);
+      tl.to("#s6", { opacity: 0, duration: 0.4 }, 35.1);
+
+      // ---- S7 ----
+      tl.from("#s7 .panel", { opacity: 0, y: 80, duration: 0.6, ease: E }, 35.6);
+      tl.fromTo("#s7 .now", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(2.5)" }, 36.2);
+      tl.from("#s7 .best", { y: 120, opacity: 0, duration: 0.5, ease: "back.out(1.5)" }, 37.4);
+      tl.to("#s7 .best", { scale: 1.04, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" }, 38.0);
+      tl.from("#s7 .cod", { opacity: 0, y: 20, duration: 0.4 }, 39.0);
+      tl.to("#s7", { opacity: 0, duration: 0.4 }, 40.1);
+
+      // ---- S8 ----
+      tl.from("#s8 .q1", { opacity: 0, y: 30, duration: 0.6, ease: E }, 40.6);
+      tl.from("#s8 .q2", { opacity: 0, y: 30, duration: 0.6, ease: E }, 41.3);
+      tl.from("#s8 .badge", { scale: 0, duration: 0.5, ease: "back.out(2)" }, 42.0);
+      tl.from("#s8 .doa", { opacity: 0, duration: 0.5 }, 42.3);
+      tl.from("#s8 .btn", { scale: 0.3, opacity: 0, duration: 0.45, ease: "back.out(2)" }, 42.8);
+      tl.to("#s8 .btn", { scale: 1.06, duration: 0.35, yoyo: true, repeat: 2, ease: "sine.inOut" }, 43.3);
+      tl.from("#s8 .fine", { opacity: 0, duration: 0.4 }, 42.9);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
