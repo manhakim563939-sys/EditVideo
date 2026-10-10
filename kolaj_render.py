@@ -264,44 +264,66 @@ def card(w, h, bg=WHITE, radius=0):
 
 
 # ---------------------------------------------------------------- the person stickers
-def build_stickers():
-    src = np.asarray(Image.open(f"{WD}/photo.jpg").convert("RGB")).astype(np.float32)
-    m = np.asarray(Image.open(f"{WD}/mask_u2net_human_seg.png").convert("L")).astype(np.float32) / 255
+def bw_dramatic(rgb):
+    """High-contrast black & white: local contrast (CLAHE) + S-curve + slightly crushed blacks."""
+    g = (rgb[..., 0] * 0.30 + rgb[..., 1] * 0.59 + rgb[..., 2] * 0.11).astype(np.uint8)
+    g = cv2.createCLAHE(clipLimit=2.2, tileGridSize=(8, 8)).apply(g).astype(np.float32) / 255
+    g = 0.5 + 0.5 * np.tanh(2.4 * (g - 0.52)) / math.tanh(1.2)
+    g = np.clip((g - 0.04) / 0.98, 0, 1) * 255
+    return np.repeat(g[..., None], 3, axis=2)
+
+
+def torn_rect_mask(h, w, seed, inset=14, amp=7):
+    """1 inside a rectangle whose four edges are jagged like torn paper."""
+    img = Image.new("L", (w, h), 0)
+    ImageDraw.Draw(img).polygon(torn_poly(inset, inset, w - inset, h - inset, seed=seed, amp=amp, step=12), fill=255)
+    return np.asarray(img).astype(np.float32) / 255
+
+
+def sticker(img, mask, outline_edges):
+    """RGBA paper cut-out with white border + drop shadow. outline_edges=False leaves frame edges open."""
+    pad = 40
+    mp = cv2.copyMakeBorder(mask, pad, pad, pad, pad, cv2.BORDER_CONSTANT, value=0)
+    ip = cv2.copyMakeBorder(img, pad, pad, pad, pad, cv2.BORDER_CONSTANT, value=0)
+    if not outline_edges:
+        mp[-pad:, :] = np.maximum(mp[-pad:, :], mp[-pad - 1:-pad, :])
+        mp[:, :pad] = np.maximum(mp[:, :pad], mp[:, pad:pad + 1])
+        mp[:, -pad:] = np.maximum(mp[:, -pad:], mp[:, -pad - 1:-pad])
+    ker = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (31, 31))
+    ol = cv2.GaussianBlur(cv2.dilate(mp, ker), (0, 0), 1.2)
+    rgb = ip * mp[..., None] + 255 * (1 - mp[..., None])
+    rgba = np.dstack([rgb, ol * 255]).astype(np.uint8)
+    return with_shadow(Image.fromarray(rgba, "RGBA"), offset=(14, 20), blur=14, alpha=0.38, pad=50)
+
+
+def build_stickers(photo, mask, head_bottom=0.54, seed=21):
+    """Full (frame-filling) and head-and-shoulders (torn) stickers, black & white."""
+    im = Image.open(photo).convert("RGB")
+    mk = Image.open(mask).convert("L")
+    tw = 1127  # normalise every photo to the same width so stickers share one scale
+    th = int(im.height * tw / im.width)
+    src = np.asarray(im.resize((tw, th), Image.LANCZOS)).astype(np.float32)
+    m = np.asarray(mk.resize((tw, th), Image.LANCZOS)).astype(np.float32) / 255
     m = np.clip((m - 0.2) / 0.6, 0, 1)
-    # print-like grade
-    s = np.clip((src - 128) * 1.08 + 128 + np.array([6, 2, -4], np.float32), 0, 255)
-
-    def sticker(img, mask, outline_bottom):
-        pad = 40
-        mp = cv2.copyMakeBorder(mask, pad, pad, pad, pad, cv2.BORDER_CONSTANT, value=0)
-        ip = cv2.copyMakeBorder(img, pad, pad, pad, pad, cv2.BORDER_CONSTANT, value=0)
-        if not outline_bottom:
-            mp[-pad:, :] = np.maximum(mp[-pad:, :], mp[-pad - 1:-pad, :])
-            mp[:, :pad] = np.maximum(mp[:, :pad], mp[:, pad:pad + 1])
-            mp[:, -pad:] = np.maximum(mp[:, -pad:], mp[:, -pad - 1:-pad])
-        ker = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (31, 31))
-        ol = cv2.GaussianBlur(cv2.dilate(mp, ker), (0, 0), 1.2)
-        rgb = ip * mp[..., None] + 255 * (1 - mp[..., None])
-        rgba = np.dstack([rgb, ol * 255]).astype(np.uint8)
-        return with_shadow(Image.fromarray(rgba, "RGBA"), offset=(14, 20), blur=14, alpha=0.38, pad=50)
-
-    full = sticker(s, m, outline_bottom=False)
-    # head & shoulders, torn across the chest
-    y0, y1, x0, x1 = 150, 1080, 40, 1090
-    hm = m[y0:y1, x0:x1].copy()
-    rng = np.random.default_rng(21)
-    prof = np.cumsum(rng.normal(0, 3, hm.shape[1]))
-    prof = cv2.GaussianBlur(prof.reshape(1, -1).astype(np.float32), (0, 0), 3).ravel()
-    prof = prof - prof.mean()
-    cut = (hm.shape[0] - 40 + np.clip(prof, -25, 25)).astype(int)
-    for x in range(hm.shape[1]):
-        hm[cut[x]:, x] = 0
-    head = sticker(s[y0:y1, x0:x1], hm, outline_bottom=True)
+    s = bw_dramatic(src)
+    full = sticker(s, m, outline_edges=False)
+    top = int(np.argmax(m.max(axis=1) > 0.5))
+    y0, y1 = max(0, top - 70), int(th * head_bottom)
+    hm = m[y0:y1].copy() * torn_rect_mask(y1 - y0, tw, seed)
+    head = sticker(s[y0:y1], hm, outline_edges=True)
     return full, head
 
 
-FULL, HEAD = build_stickers()
-FULL_SC = W / (FULL.width - 100) * 1.02  # full sticker: photo spans canvas width
+EXPR = f"{WD}/expr"
+STK = {
+    "asal": build_stickers(f"{WD}/photo.jpg", f"{WD}/mask_u2net_human_seg.png"),
+    "senyum": build_stickers(f"{EXPR}/4.jpg", f"{EXPR}/4_mask.png", seed=22),
+    "sinis": build_stickers(f"{EXPR}/5.jpg", f"{EXPR}/5_mask.png", seed=23),
+    "fikir": build_stickers(f"{EXPR}/6.jpg", f"{EXPR}/6_mask.png", head_bottom=0.74, seed=24),
+    "tunjuk": build_stickers(f"{EXPR}/7.jpg", f"{EXPR}/7_mask.png", seed=25),
+    "terkejut": build_stickers(f"{EXPR}/8.jpg", f"{EXPR}/8_mask.png", seed=26),
+}
+FULL_SC = W / (STK["asal"][0].width - 100) * 1.02  # full sticker: photo spans canvas width
 
 
 def polaroid(name, w=430, caption=None, tape=True, seed=0):
@@ -343,20 +365,63 @@ def ref(name, w=430, caption=None, seed=0):
     return REF[k]
 
 
-def draw_full(c, t, cy_offset, scale=1.0, cx=W / 2, rot=0.0, alpha=1.0):
-    """Full-width sticker anchored to the bottom; cy_offset pushes it down."""
-    sc = FULL_SC * scale * (1 + 0.006 * math.sin(t * 2.1))
-    hh = FULL.height * sc
-    place(c, FULL, cx, H - hh / 2 + cy_offset + 50 * sc, scale=sc, rot=rot + 0.5 * math.sin(t * 1.3), alpha=alpha)
+def alive(c, spr, t, t0, cx, cy, sc=1.0, rot=0.0, t1=None, rise=520):
+    """Lively entrance: rises with overshoot, swings and squashes into place, then
+    'boils' like stop-motion (re-posed 8x per second) with a gentle bob; drops away at t1."""
+    if t < t0 or (t1 is not None and t > t1 + 0.3):
+        return
+    u = t - t0
+    dy = rise * (1 - ease_back(u / 0.45))
+    swing = 13 * math.exp(-5 * u) * math.cos(13 * u)
+    sq = 0.11 * math.exp(-7 * u) * math.sin(22 * u)
+    rng = np.random.default_rng(int(t * 8) * 7919 + int(t0 * 100))
+    jx, jy, jr = rng.uniform(-4, 4, 3) * (1, 1, 0.3)
+    bob = 7 * math.sin(t * 2.3 + t0)
+    a = clamp(u / 0.1)
+    if t1 is not None and t > t1:
+        o = ease_out((t - t1) / 0.3)
+        a *= 1 - o
+        dy += 260 * o * o
+    s = spr.resize((max(1, int(spr.width * sc * (1 - sq))), max(1, int(spr.height * sc * (1 + sq)))), Image.BILINEAR)
+    place(c, s, cx + jx, cy + dy + jy + bob, rot=rot + swing + jr, alpha=a)
 
 
-def draw_head(c, t, cx, cy, scale, rot=0.0, t0=None, t1=None):
-    sc = scale * (1 + 0.01 * math.sin(t * 2.4))
-    r = rot + 0.8 * math.sin(t * 1.7)
-    if t0 is not None:
-        pop(c, HEAD, t, t0, cx, cy, rot=r, t1=t1, scale=sc, dur=0.45)
-    else:
-        place(c, HEAD, cx, cy, scale=sc, rot=r)
+def draw_full(c, t, who, t0, cy_offset, scale=1.0, cx=W / 2, t1=None):
+    """Frame-filling sticker anchored to the bottom; cy_offset pushes it down."""
+    spr = STK[who][0]
+    sc = FULL_SC * scale
+    alive(c, spr, t, t0, cx, H - spr.height * sc / 2 + cy_offset + 50 * sc, sc=sc, t1=t1, rise=900)
+
+
+def draw_head(c, t, who, cx, cy, scale, t0, rot=0.0, t1=None):
+    alive(c, STK[who][1], t, t0, cx, cy, sc=scale, rot=rot, t1=t1)
+
+
+def sparkle(c, t, t0, cx, cy, r, t1=None):
+    """Four-point twinkle star (white with ink outline) that pops and pulses."""
+    if t < t0 or (t1 is not None and t > t1):
+        return
+    k = ease_back((t - t0) / 0.3) * (1 + 0.15 * math.sin((t - t0) * 9))
+    rr = r * k
+    ang = (t - t0) * 0.8
+    pts = []
+    for i in range(8):
+        a = ang + i * math.pi / 4
+        d = rr if i % 2 == 0 else rr * 0.32
+        pts.append((cx + d * math.cos(a), cy + d * math.sin(a)))
+    ImageDraw.Draw(c).polygon(pts, fill=WHITE + (255,), outline=INK + (255,), width=5)
+
+
+def doodle(c, t, t0, text, cx, cy, size=130, col=INK, rot=0.0, t1=None):
+    """Hand-drawn marker glyph ('?', '!!') that pops in and wiggles."""
+    if t < t0 or (t1 is not None and t > t1):
+        return
+    f = F_MARK(size)
+    w_, h_, b = text_size(f, text)
+    img = Image.new("RGBA", (w_ + 40, h_ + 40), (0, 0, 0, 0))
+    ImageDraw.Draw(img).text((20 - b[0], 20 - b[1]), text, font=f, fill=col + (255,))
+    k = ease_back((t - t0) / 0.3)
+    place(c, img, cx, cy + 6 * math.sin(t * 6 + t0), scale=max(0.01, k), rot=rot + 8 * math.sin(t * 5 + t0))
 
 
 # ---------------------------------------------------------------- icons / B-roll
@@ -452,7 +517,8 @@ def feed_screen(offset, show_me):
         col = FEED_COLS[k % len(FEED_COLS)]
         d.rounded_rectangle([18, y, sw - 18, y + ch - 30], radius=26, fill=(INK if is_me else col) + (255,))
         if is_me:
-            hs = HEAD.resize((int(HEAD.width * 0.42), int(HEAD.height * 0.42)), Image.BILINEAR)
+            hd = STK["senyum"][1]
+            hs = hd.resize((int(hd.width * 0.42), int(hd.height * 0.42)), Image.BILINEAR)
             comp_clip(scr, hs, int(sw / 2 - hs.width / 2), int(y + 10))
             d.ellipse([sw / 2 - 50, y + 190, sw / 2 + 50, y + 290], fill=(255, 255, 255, 200))
             d.polygon([(sw / 2 - 16, y + 215), (sw / 2 - 16, y + 265), (sw / 2 + 26, y + 240)], fill=RED + (255,))
@@ -797,13 +863,13 @@ def world(t):
     c = Image.fromarray(bg).convert("RGBA")
 
     if s0 == 0.0:  # HOOK
-        k = ease_back((t - 0.0) / 0.6)
-        draw_full(c, t, 380 + 900 * (1 - k))
+        draw_full(c, t, "sinis", 0.05, 380)
         pop(c, A["play"], t, 2.6, 880, 640, rot=10)
         burst(c, t, 2.6, 880, 640, RED, r0=130, r1=200)
         scribble_arrow(c, t, 3.0, (760, 820), (640, 1000), RED, bend=-50)
     elif s0 == 5.0:  # 80% traffic
-        pop(c, ref("terkejut_phone", 430, "Serius?!", 1), t, 5.1, 790, 1170, rot=5 + 0.8 * math.sin(t * 1.7))
+        draw_head(c, t, "terkejut", 790, 1180, 0.68, 5.1, rot=5)
+        doodle(c, t, 5.45, "!!", 1000, 900, 150, RED, rot=12)
         prog = ease_out((t - 5.4) / 2.3)
         if t >= 5.3:
             num = int(round(82 * prog))
@@ -835,7 +901,10 @@ def world(t):
             place(c, A["stop"], 790, 560, scale=2.0 - ease_out(kk), rot=-12, alpha=kk)
         pop(c, A["hand"], t, 13.8, 760, 1180, rot=-10)
     elif s0 == 16.0:  # trust
-        draw_head(c, t, 540, 1080, 0.95, rot=-2, t0=16.1, t1=18.3)
+        draw_head(c, t, "senyum", 540, 1080, 0.95, 16.1, rot=-2, t1=18.3)
+        sparkle(c, t, 16.5, 870, 760, 70, t1=18.3)
+        sparkle(c, t, 16.75, 220, 900, 50, t1=18.3)
+        sparkle(c, t, 16.95, 800, 1000, 36, t1=18.3)
         pop(c, A["h_percaya"], t, 16.2, 540, 190, rot=-1.5, t1=22.3)
         pop(c, ref("selfie_peace", 470, seed=3), t, 18.45, 330, 540, rot=-5, t1=22.3)
         pop(c, ref("gitar", 470, seed=4), t, 19.75, 780, 930, rot=4, t1=22.3)
@@ -847,7 +916,7 @@ def world(t):
         circle_marker(c, t, 23.2, 700, 400, 190, 60)
         pop(c, ref("cafe_ketawa", 640, seed=6), t, 22.6, 540, 900, rot=2)
     elif s0 == 24.4:  # algorithm reach
-        draw_head(c, t, 800, 1330, 0.58, rot=-4, t0=24.5)
+        draw_head(c, t, "asal", 800, 1330, 0.58, 24.5, rot=-4)
         for j, (tt, x) in enumerate(zip([24.65, 25.15, 25.65], [210, 520, 840])):
             pop(c, A["chips_p"][j], t, tt, x, 230, rot=[-4, 2, -3][j])
         pop(c, A["k_platform"], t, 24.9, 540, 360, rot=1)
@@ -862,7 +931,9 @@ def world(t):
             slide(c, A["steps"][j], t, tt, 540 + [-40, 20, -10][j], y, rot=[-2, 1.5, -1][j], dx=-500)
         scribble_arrow(c, t, 32.6, (930, 470), (950, 650), INK, bend=-40, width=7)
         scribble_arrow(c, t, 33.6, (950, 690), (940, 860), INK, bend=-40, width=7)
-        pop(c, ref("berfikir", 340, "hmm...", 7), t, 30.4, 790, 1250, rot=6, t1=33.8)
+        draw_head(c, t, "fikir", 790, 1300, 0.5, 30.4, rot=5, t1=33.75)
+        doodle(c, t, 30.7, "?", 1000, 1010, 150, RED, rot=12, t1=33.75)
+        doodle(c, t, 31.0, "?", 590, 1060, 100, INK, rot=-10, t1=33.75)
         pop(c, ref("thumbs_up", 360, "Laku!", 8), t, 33.95, 790, 1250, rot=-5)
         if t >= 33.95:
             place(c, bar_chart(clamp((t - 33.95) / 0.9), ["J", "F", "M", "A"], [0.25, 0.45, 0.7, 0.95],
@@ -870,8 +941,7 @@ def world(t):
                   250, 1230, rot=-4, alpha=clamp((t - 33.95) / 0.2))
     else:  # CTA
         rays(c, t, 540, 1100, alpha=clamp((t - 35.0) / 0.5))
-        k = ease_back((t - 35.0) / 0.55)
-        draw_full(c, t, 560 + 700 * (1 - k), scale=0.92)
+        draw_full(c, t, "tunjuk", 35.0, 560, scale=0.92)
         pop(c, ref("stres", 400, "takut nak mula?", 9), t, 35.4, 290, 560, rot=-6, t1=36.95)
         pop(c, ref("laptop_kerja", 400, "terus buat!", 10), t, 36.1, 790, 600, rot=5, t1=36.95)
     return c
