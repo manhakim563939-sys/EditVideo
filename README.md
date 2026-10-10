@@ -38,3 +38,11 @@ COMBO x3, 3 SOALAN SAKTI, FINAL ROUND, K.O.! dengan kilatan & gegaran skrin, kad
 
 - `versus_render.py <workdir>` — renderer (perlu `fb/<pose>.jpg` + `_mask.png`, `fb/cu_*.jpg`).
 - `versus_audio.py out.wav vo.mp3` — muzik dikongsi + SFX tumbukan/swish/riser + VO.
+
+`output/majalah_muka_brand.mp4` — "Muka Anda Ialah Brand Anda" (44.5s, VO `assets/vo_majalah.mp3`).
+Konsep baharu **MAJALAH "NIAGA"**: anda sebagai model muka depan (full body hitam putih, cover lines ikut suara,
+barcode), animasi selak halaman 3D dengan bayang lipatan, halaman editorial (petikan besar, feature "Duta Produk
+Terbaik", panduan 3 langkah berbingkai, ruangan Gaya Hidup, infografik KENAL → PERCAYA → BELI) dan muka belakang CTA.
+
+- `majalah_render.py <workdir>` — renderer majalah (perlu `fb/` pose + close-up).
+- `majalah_audio.py out.wav vo.mp3` — muzik dikongsi + bunyi selak kertas/klik kamera + VO.
