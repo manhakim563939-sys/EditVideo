@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="ms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Jus Bidara Hitam — Peta Badan Kain Buruk</title>
+    <script src="assets/gsap.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Playfair+Display:ital,wght@1,800&family=Poppins:wght@500;600;700;800&display=block"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #14120e;
+        --char: #1f1b16;
+        --gold: #e3a92f;
+        --gold-hi: #f4c65a;
+        --gold-deep: #b07a16;
+        --cream: #faf3e2;
+        --red: #e0412f;
+        --leaf: #4e8a2a;
+        --wa: #1fae55;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--ink); font-family: Poppins, sans-serif; color: #fff; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: radial-gradient(ellipse at 50% 45%, #2a231b 0%, var(--ink) 70%); }
+      .scene { position: absolute; inset: 0; overflow: hidden; }
+      .center { position: absolute; left: 70px; right: 70px; text-align: center; }
+      .loud { font-family: Anton, sans-serif; text-transform: uppercase; line-height: 1.04; letter-spacing: .5px; }
+      .script { font-family: "Playfair Display", serif; font-style: italic; font-weight: 800; }
+
+      #brandbar { position: absolute; left: 0; right: 0; top: 0; height: 72px; z-index: 50; background: var(--ink); border-bottom: 3px solid var(--gold); display: flex; align-items: center; justify-content: center; gap: 18px; font-weight: 700; font-size: 26px; letter-spacing: 3px; color: var(--gold-hi); text-transform: uppercase; }
+      #brandbar i { font-style: normal; color: var(--gold-deep); }
+      #progress { position: absolute; left: 0; bottom: 0; height: 10px; width: 1080px; background: var(--gold); transform-origin: left center; z-index: 51; }
+
+      /* S1 hook */
+      #s1 .h { top: 430px; font-size: 96px; left: 30px; right: 30px; }
+      #s1 .h .l { display: block; }
+      #s1 .kb { top: 680px; font-size: 140px; color: var(--red); left: 20px; right: 20px; white-space: nowrap; }
+      #s1 .rip { position: absolute; left: 150px; right: 150px; top: 860px; height: 26px; }
+      #s1 .sub { top: 950px; font-size: 50px; font-weight: 600; color: #efe6d2; line-height: 1.35; }
+
+      /* S2 peta badan */
+      #s2 .h1 { top: 140px; font-size: 54px; font-weight: 700; color: #efe6d2; }
+      #s2 .h2 { top: 220px; font-size: 104px; }
+      #s2 .h2 .r { color: var(--red); }
+      #body { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+      .pt { position: absolute; width: 36px; height: 36px; margin: -18px 0 0 -18px; border-radius: 50%; background: var(--red); box-shadow: 0 0 24px var(--red); }
+      .ring { position: absolute; width: 36px; height: 36px; margin: -18px 0 0 -18px; border-radius: 50%; border: 5px solid var(--red); }
+      .lab { position: absolute; width: 330px; background: rgba(31,27,22,.92); border: 3px solid var(--red); border-radius: 18px; padding: 14px 18px; }
+      .lab b { display: block; font-family: Anton, sans-serif; font-weight: 400; font-size: 40px; text-transform: uppercase; color: var(--red); line-height: 1.05; }
+      .lab span { display: block; font-size: 28px; font-weight: 700; color: #f4ece0; line-height: 1.25; }
+      .lab.r { left: 720px; } .lab.l { left: 30px; }
+      #s2 .banner { position: absolute; left: 60px; right: 60px; top: 1560px; background: var(--red); border-radius: 26px; padding: 26px 20px; text-align: center; }
+      #s2 .banner .a { font-size: 40px; font-weight: 800; }
+      #s2 .banner .b { font-family: Anton, sans-serif; font-size: 110px; line-height: 1; }
+
+      /* S3 minum balik */
+      #s3 .q1 { top: 520px; font-size: 64px; font-weight: 700; color: #efe6d2; }
+      #s3 .big { top: 650px; font-size: 150px; color: var(--red); left: 20px; right: 20px; white-space: nowrap; }
+      #s3 .q2 { top: 880px; font-size: 66px; line-height: 1.25; }
+      #s3 .q2 .g { color: var(--gold-hi); }
+
+      /* S4 ikhtiar */
+      #s4 .tag { top: 150px; font-size: 32px; letter-spacing: 6px; font-weight: 800; color: var(--gold-hi); }
+      #s4 .h { top: 200px; font-size: 92px; }
+      #s4 .h .g { color: var(--gold-hi); }
+      #s4 .glow { position: absolute; left: 240px; top: 420px; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(244,198,90,.5), transparent 65%); }
+      #s4 .bottle { position: absolute; left: 380px; top: 430px; width: 320px; border-radius: 26px; box-shadow: 0 0 0 6px var(--gold), 0 30px 70px rgba(0,0,0,.7); }
+      #s4 .brand { top: 1215px; font-size: 96px; color: var(--gold-hi); white-space: nowrap; }
+      #s4 .when { position: absolute; left: 70px; right: 70px; top: 1380px; background: var(--cream); color: var(--ink); border-radius: 26px; padding: 26px 30px; border-left: 14px solid var(--red); }
+      #s4 .when .w { font-family: Anton, sans-serif; font-size: 56px; text-transform: uppercase; line-height: 1.05; }
+      #s4 .when .d { font-size: 34px; font-weight: 700; color: #5f574a; margin-top: 8px; }
+      #s4 .chips { position: absolute; left: 40px; right: 40px; top: 1660px; display: flex; justify-content: center; gap: 14px; }
+      #s4 .chip { background: var(--leaf); font-weight: 800; font-size: 30px; padding: 14px 24px; border-radius: 999px; white-space: nowrap; }
+
+      /* S5 testimoni + badan tenang */
+      #s5 .h { top: 140px; font-size: 80px; }
+      #s5 .h .g { color: var(--gold-hi); }
+      #s5 .sub { top: 245px; font-size: 30px; font-weight: 600; color: #d9cfba; }
+      #s5 .card { position: absolute; left: 60px; right: 60px; border: 5px solid var(--gold); border-radius: 26px; overflow: hidden; background: #000; box-shadow: 0 20px 40px rgba(0,0,0,.4); }
+      #s5 .card img { width: 100%; display: block; }
+      #s5 .card .cap { background: var(--ink); color: var(--gold-hi); font-weight: 800; font-size: 34px; padding: 12px 22px; }
+      #k1 { top: 330px; } #k2 { top: 640px; }
+      #s5 .calm { position: absolute; left: 60px; right: 60px; top: 1000px; text-align: center; }
+      #s5 .calm .script { font-size: 76px; color: var(--gold-hi); line-height: 1.2; }
+
+      /* S6 tawaran */
+      #s6 .h { top: 200px; font-size: 104px; }
+      #s6 .h .g { color: var(--gold-hi); }
+      #s6 .price { position: absolute; left: 110px; right: 110px; top: 400px; background: #fff; color: var(--ink); border-radius: 36px; padding: 40px; text-align: center; }
+      #s6 .price .was { font-size: 56px; color: #9a8f7c; text-decoration: line-through; font-weight: 600; }
+      #s6 .price .now { font-family: Anton, sans-serif; font-size: 230px; color: var(--red); line-height: 1; }
+      #s6 .price .per { font-size: 44px; font-weight: 700; }
+      #s6 .best { position: absolute; left: 110px; right: 110px; top: 920px; background: linear-gradient(180deg, var(--gold-hi), var(--gold)); color: var(--ink); border-radius: 32px; padding: 34px; text-align: center; }
+      #s6 .best .rib { font-size: 32px; font-weight: 800; letter-spacing: 3px; }
+      #s6 .best .t { font-family: Anton, sans-serif; font-size: 110px; line-height: 1.05; }
+      #s6 .best .s { font-size: 38px; font-weight: 800; }
+      #s6 .ticks { position: absolute; left: 110px; right: 110px; top: 1300px; display: grid; gap: 18px; }
+      #s6 .tick { border: 3px solid rgba(244,198,90,.6); border-radius: 20px; padding: 18px; font-size: 40px; font-weight: 700; color: var(--gold-hi); text-align: center; }
+
+      /* S7 CTA */
+      #s7 .q1 { top: 380px; font-size: 110px; }
+      #s7 .q1 .r { color: var(--red); }
+      #s7 .q2 { top: 680px; font-size: 80px; color: var(--gold-hi); line-height: 1.2; }
+      #s7 .btn { position: absolute; left: 110px; right: 110px; top: 1000px; background: linear-gradient(180deg, #34c86b, var(--wa)); border-radius: 28px; padding: 30px 20px; text-align: center; font-weight: 800; font-size: 54px; box-shadow: 0 10px 0 #127a3a, 0 20px 40px rgba(0,0,0,.4); }
+      #s7 .btn small { display: block; font-size: 34px; font-weight: 700; }
+      #s7 .mini { position: absolute; left: 470px; top: 1260px; width: 140px; border-radius: 18px; box-shadow: 0 0 0 4px var(--gold); }
+      #s7 .fine { top: 1650px; font-size: 26px; color: #d9cfba; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="46" data-width="1080" data-height="1920">
+
+      <!-- S1 hook (0–4.5) -->
+      <div id="s1" class="scene clip" data-start="0" data-duration="4.5" data-track-index="1">
+        <div class="center loud h"><span class="l">Kenapa berhenti ketum</span><span class="l">buat badan jadi</span></div>
+        <div class="center loud kb">“Kain Buruk”?</div>
+        <svg class="rip" viewBox="0 0 780 26" preserveAspectRatio="none" aria-hidden="true"><path d="M0 13 L40 3 L80 22 L120 5 L160 20 L200 4 L240 23 L280 6 L320 21 L360 3 L400 22 L440 5 L480 20 L520 4 L560 23 L600 6 L640 21 L680 3 L720 22 L780 10" fill="none" stroke="#e0412f" stroke-width="6" stroke-linejoin="round" /></svg>
+        <div class="center sub">Ramai rasa benda ni…<br />tapi tak ramai faham.</div>
+      </div>
+
+      <!-- S2 peta badan (4.5–18.5) -->
+      <div id="s2" class="scene clip" data-start="4.5" data-duration="14" data-track-index="1">
+        <div class="center h1">Bila berhenti ketum mengejut…</div>
+        <div class="center loud h2">Ini yang <span class="r">badan rasa</span></div>
+        <svg id="body" viewBox="0 0 1080 1920" aria-hidden="true">
+          <g id="fig" fill="#2c2620" stroke="#e3a92f" stroke-width="4" stroke-linejoin="round">
+            <circle cx="540" cy="470" r="72" />
+            <rect x="514" y="535" width="52" height="50" />
+            <path d="M412 600 Q540 570 668 600 L690 640 L655 905 L425 905 L390 640 Z" />
+            <path d="M410 605 L352 635 L310 900 L340 908 L392 690 Z" />
+            <path d="M670 605 L728 635 L770 900 L740 908 L688 690 Z" />
+            <path d="M425 905 L655 905 L645 1010 L615 1400 L560 1400 L546 1020 L534 1020 L520 1400 L465 1400 L435 1010 Z" />
+          </g>
+          <g stroke="#e0412f" stroke-width="4" fill="none" stroke-dasharray="8 8">
+            <path id="ln1" d="M560 450 L715 440" />
+            <path id="ln2" d="M515 495 L365 560" />
+            <path id="ln3" d="M675 625 L715 690" />
+            <path id="ln4" d="M540 820 L365 860" />
+            <path id="ln5" d="M590 1200 L715 1215" />
+          </g>
+        </svg>
+        <div class="ring" id="r1" style="left:560px;top:450px"></div><div class="pt" id="p1" style="left:560px;top:450px"></div>
+        <div class="ring" id="r2" style="left:515px;top:495px"></div><div class="pt" id="p2" style="left:515px;top:495px"></div>
+        <div class="ring" id="r3" style="left:675px;top:625px"></div><div class="pt" id="p3" style="left:675px;top:625px"></div>
+        <div class="ring" id="r4" style="left:540px;top:820px"></div><div class="pt" id="p4" style="left:540px;top:820px"></div>
+        <div class="ring" id="r5" style="left:590px;top:1200px"></div><div class="pt" id="p5" style="left:590px;top:1200px"></div>
+        <div class="lab r" id="L1" style="top:380px"><b>Kepala</b><span>pening, gelisah, panas baran</span></div>
+        <div class="lab l" id="L2" style="top:520px"><b>Mata &amp; hidung</b><span>berair, menguap tak henti</span></div>
+        <div class="lab r" id="L3" style="top:660px"><b>Bahu &amp; sendi</b><span>ngilu, lenguh, sakit-sakit</span></div>
+        <div class="lab l" id="L4" style="top:820px"><b>Perut</b><span>memulas, tak lalu makan</span></div>
+        <div class="lab r" id="L5" style="top:1160px"><b>Kaki</b><span>lenguh, tak senang duduk</span></div>
+        <div class="banner"><div class="a">Seluruh badan rasa macam</div><div class="b">KAIN BURUK</div></div>
+      </div>
+
+      <!-- S3 minum balik (18.5–24) -->
+      <div id="s3" class="scene clip" data-start="18.5" data-duration="5.5" data-track-index="1">
+        <div class="center q1">Sebab tu ramai yang…</div>
+        <div class="center loud big">Minum balik.</div>
+        <div class="center script q2">Bukan sebab tak nak berhenti.<br /><span class="g">Sebab tak tahan sakit.</span></div>
+      </div>
+
+      <!-- S4 ikhtiar (24–33) -->
+      <div id="s4" class="scene clip" data-start="24" data-duration="9" data-track-index="1">
+        <div class="center tag">Ikhtiar orang dulu-dulu</div>
+        <div class="center loud h">Untuk fasa <span class="g">kain buruk</span></div>
+        <div class="glow"></div>
+        <img class="bottle" src="assets/produk-botol.jpg" alt="Jus Bidara Hitam 300ml" />
+        <div class="center script brand">Jus Bidara Hitam</div>
+        <div class="when"><div class="w">⚡ Bila datang rasa sakit badan / ketagih</div><div class="d">4 penutup + segelas air · juga pagi &amp; malam selepas makan</div></div>
+        <div class="chips"><div class="chip">🌿 Daun Bidara</div><div class="chip">🪵 Teras Kemuning</div><div class="chip">🌱 Akar Kayu</div></div>
+      </div>
+
+      <!-- S5 testimoni (33–38.5) -->
+      <div id="s5" class="scene clip" data-start="33" data-duration="5.5" data-track-index="1">
+        <div class="center loud h">Kata mereka <span class="g">yang dah lalui</span></div>
+        <div class="center sub">Komen sebenar pembeli · keputusan berbeza mengikut individu</div>
+        <div class="card" id="k1"><img src="assets/testi-kail.jpg" alt="" /><div class="cap">★★★★★ kail</div></div>
+        <div class="card" id="k2"><img src="assets/testi-popi.jpg" alt="" /><div class="cap">★★★★★ popi3459</div></div>
+        <div class="calm"><div class="script">Fasa ni boleh dilalui.</div></div>
+      </div>
+
+      <!-- S6 tawaran (38.5–42.5) -->
+      <div id="s6" class="scene clip" data-start="38.5" data-duration="4" data-track-index="1">
+        <div class="center loud h">Mula <span class="g">hari ini</span></div>
+        <div class="price"><div class="was">RM35</div><div class="now">RM24</div><div class="per">sebotol (300ml)</div></div>
+        <div class="best"><div class="rib">★ PALING BERBALOI ★</div><div class="t">3 BOTOL RM60</div><div class="s">+ POS PERCUMA SEMENANJUNG</div></div>
+        <div class="ticks"><div class="tick">✔ COD seluruh Malaysia</div><div class="tick">✔ Rosak? Ganti baru</div></div>
+      </div>
+
+      <!-- S7 CTA (42.5–46) -->
+      <div id="s7" class="scene clip" data-start="42.5" data-duration="3.5" data-track-index="1">
+        <div class="center loud q1">Fasa <span class="r">kain buruk</span><br />memang berat.</div>
+        <div class="center script q2">Jangan lalui<br />tanpa ikhtiar.</div>
+        <div class="btn">TEMPAH SEKARANG<small>WhatsApp 017-963 7611 · COD ada</small></div>
+        <img class="mini" src="assets/produk-botol.jpg" alt="" />
+        <div class="center fine">Produk tradisional, bukan pengganti rawatan perubatan. Keputusan berbeza mengikut individu.</div>
+      </div>
+
+      <div id="brandbar" class="clip" data-start="0" data-duration="46" data-track-index="2">Jus Bidara Hitam <i>◆</i> Mbah Lanang</div>
+      <div id="progress" class="clip" data-start="0" data-duration="46" data-track-index="3"></div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+      tl.fromTo("#progress", { scaleX: 0 }, { scaleX: 1, duration: 46, ease: "none" }, 0);
+
+      // S1
+      tl.from("#s1 .h .l", { y: -50, opacity: 0, duration: 0.4, stagger: 0.3, ease: E }, 0.1);
+      tl.from("#s1 .kb", { scale: 2.6, opacity: 0, rotation: -6, duration: 0.45, ease: "power4.out" }, 0.9);
+      tl.to("#s1 .kb", { x: 8, duration: 0.05, yoyo: true, repeat: 7 }, 1.4);
+      tl.from("#s1 .rip", { scaleX: 0, transformOrigin: "left center", duration: 0.5, ease: E }, 1.5);
+      tl.from("#s1 .sub", { opacity: 0, y: 30, duration: 0.45, ease: E }, 2.4);
+      tl.to("#s1", { opacity: 0, duration: 0.25 }, 4.25);
+
+      // S2 peta badan
+      tl.from("#s2 .h1", { opacity: 0, y: -20, duration: 0.4 }, 4.6);
+      tl.from("#s2 .h2", { opacity: 0, scale: 0.7, duration: 0.45, ease: "back.out(1.6)" }, 4.9);
+      tl.from("#fig", { opacity: 0, y: 60, duration: 0.6, ease: E }, 5.0);
+      tl.set([".pt", ".ring", ".lab", "#body path[id^=ln]"], { opacity: 0 }, 0);
+      [6.2, 8.2, 10.2, 12.2, 14.2].forEach((t, i) => {
+        const n = i + 1;
+        tl.fromTo("#p" + n, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(3)", immediateRender: false }, t);
+        tl.fromTo("#r" + n, { scale: 1, opacity: 0.9 }, { scale: 3.2, opacity: 0, duration: 1.0, repeat: 3, ease: "power1.out", immediateRender: false }, t);
+        tl.to("#ln" + n, { opacity: 1, duration: 0.3 }, t + 0.15);
+        tl.fromTo("#L" + n, { opacity: 0, x: i % 2 ? -60 : 60 }, { opacity: 1, x: 0, duration: 0.4, ease: E, immediateRender: false }, t + 0.25);
+      });
+      tl.to("#fig", { attr: { fill: "#4a1d17" }, duration: 3.5, ease: "none" }, 12.0);
+      tl.from("#s2 .banner", { y: 300, opacity: 0, duration: 0.5, ease: "back.out(1.4)" }, 16.0);
+      tl.to(["#fig", "#s2 .banner"], { x: 7, duration: 0.05, yoyo: true, repeat: 13 }, 16.6);
+      tl.to("#s2", { opacity: 0, duration: 0.25 }, 18.25);
+
+      // S3
+      tl.from("#s3 .q1", { opacity: 0, y: 30, duration: 0.4, ease: E }, 18.6);
+      tl.from("#s3 .big", { scale: 2.4, opacity: 0, duration: 0.4, ease: "power4.out" }, 19.4);
+      tl.from("#s3 .q2", { opacity: 0, y: 30, duration: 0.5, ease: E }, 20.6);
+      tl.to("#s3", { opacity: 0, duration: 0.25 }, 23.75);
+
+      // S4
+      tl.from("#s4 .tag", { opacity: 0, y: -20, duration: 0.4 }, 24.1);
+      tl.from("#s4 .h", { opacity: 0, scale: 0.7, duration: 0.5, ease: "back.out(1.6)" }, 24.3);
+      tl.from("#s4 .glow", { opacity: 0, scale: 0.4, duration: 0.8, ease: E }, 25.0);
+      tl.from("#s4 .bottle", { y: 900, rotation: -8, duration: 0.9, ease: "back.out(1.2)" }, 25.0);
+      tl.to("#s4 .bottle", { y: -16, duration: 1.1, yoyo: true, repeat: 5, ease: "sine.inOut" }, 25.9);
+      tl.from("#s4 .brand", { opacity: 0, y: 30, duration: 0.45, ease: E }, 26.0);
+      tl.from("#s4 .when", { x: 900, duration: 0.55, ease: "back.out(1.3)" }, 27.6);
+      tl.to("#s4 .when", { scale: 1.04, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" }, 28.4);
+      tl.from("#s4 .chip", { y: 80, opacity: 0, duration: 0.35, stagger: 0.25, ease: "back.out(2)" }, 30.4);
+      tl.to("#s4", { opacity: 0, duration: 0.25 }, 32.75);
+
+      // S5
+      tl.from("#s5 .h", { y: -60, opacity: 0, duration: 0.4, ease: E }, 33.1);
+      tl.from("#s5 .sub", { opacity: 0, duration: 0.4 }, 33.3);
+      tl.from("#k1", { x: -1100, rotation: -3, duration: 0.55, ease: "back.out(1.2)" }, 33.5);
+      tl.from("#k2", { x: 1100, rotation: 3, duration: 0.55, ease: "back.out(1.2)" }, 35.0);
+      tl.from("#s5 .calm", { opacity: 0, y: 30, duration: 0.5, ease: E }, 36.6);
+      tl.to("#s5", { opacity: 0, duration: 0.25 }, 38.25);
+
+      // S6
+      tl.from("#s6 .h", { y: -60, opacity: 0, duration: 0.4, ease: E }, 38.55);
+      tl.from("#s6 .price", { scale: 0.5, opacity: 0, duration: 0.45, ease: "back.out(1.8)" }, 38.7);
+      tl.fromTo("#s6 .price .now", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2.5)" }, 39.0);
+      tl.from("#s6 .best", { y: 300, opacity: 0, duration: 0.5, ease: "back.out(1.5)" }, 39.9);
+      tl.from("#s6 .tick", { scale: 0, opacity: 0, duration: 0.3, stagger: 0.35, ease: "back.out(2.5)" }, 41.0);
+      tl.to("#s6", { opacity: 0, duration: 0.25 }, 42.25);
+
+      // S7
+      tl.from("#s7 .q1", { opacity: 0, y: 40, duration: 0.45, ease: E }, 42.6);
+      tl.from("#s7 .q2", { opacity: 0, y: 30, duration: 0.45, ease: E }, 43.2);
+      tl.from("#s7 .btn", { scale: 0.3, opacity: 0, duration: 0.4, ease: "back.out(2)" }, 43.8);
+      tl.to("#s7 .btn", { scale: 1.06, duration: 0.3, yoyo: true, repeat: 2, ease: "sine.inOut" }, 44.25);
+      tl.from("#s7 .mini", { y: 200, opacity: 0, duration: 0.45, ease: E }, 44.0);
+      tl.from("#s7 .fine", { opacity: 0, duration: 0.4 }, 44.2);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
