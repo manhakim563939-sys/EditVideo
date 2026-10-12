@@ -110,10 +110,10 @@
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="50" data-width="1080" data-height="1920">
+    <div id="root" data-composition-id="main" data-start="0.0" data-duration="52.62" data-width="1080" data-height="1920">
 
       <!-- S1 hook (0–4.5) -->
-      <div id="s1" class="scene clip" data-start="0" data-duration="3.45" data-track-index="1">
+      <div id="s1" class="scene clip" data-start="0.0" data-duration="3.45" data-track-index="1">
         <div class="center loud h"><span class="l">Kenapa berhenti ketum</span><span class="l">buat badan jadi</span></div>
         <div class="center loud kb">“Kain Buruk”?</div>
         <svg class="rip" viewBox="0 0 780 26" preserveAspectRatio="none" aria-hidden="true"><path d="M0 13 L40 3 L80 22 L120 5 L160 20 L200 4 L240 23 L280 6 L320 21 L360 3 L400 22 L440 5 L480 20 L520 4 L560 23 L600 6 L640 21 L680 3 L720 22 L780 10" fill="none" stroke="#e0412f" stroke-width="6" stroke-linejoin="round" /></svg>
@@ -182,7 +182,7 @@
       </div>
 
       <!-- S6 tawaran (38.5–42.5) -->
-      <div id="s6" class="scene clip" data-start="38.45" data-duration="5.4" data-track-index="1">
+      <div id="s6" class="scene clip" data-start="38.45" data-duration="8.02" data-track-index="1">
         <div class="center loud h">Mula <span class="g">hari ini</span></div>
         <div class="price"><div class="was">RM35</div><div class="now">RM28</div><div class="per">sebotol + RM8 pos</div></div>
         <div class="best"><div class="rib">★ PALING BERBALOI ★</div><div class="t">3 BOTOL RM65</div><div class="s">+ POS PERCUMA SEMENANJUNG</div></div>
@@ -190,7 +190,7 @@
       </div>
 
       <!-- S7 CTA (42.5–46) -->
-      <div id="s7" class="scene clip" data-start="43.85" data-duration="6.15" data-track-index="1">
+      <div id="s7" class="scene clip" data-start="46.47" data-duration="6.15" data-track-index="1">
         <div class="center loud q1">Fasa <span class="r">kain buruk</span><br />memang berat.</div>
         <div class="center script q2">Jangan lalui<br />tanpa ikhtiar.</div>
         <div class="btn">TEMPAH SEKARANG<small>WhatsApp 017-963 7611 · COD ada</small></div>
@@ -198,10 +198,9 @@
         <div class="center fine">Produk tradisional, bukan pengganti rawatan perubatan. Keputusan berbeza mengikut individu.</div>
       </div>
 
-      <div id="brandbar" class="clip" data-start="0" data-duration="50" data-track-index="2">Jus Bidara Hitam <i>◆</i> Mbah Lanang</div>
-      <div id="progress" class="clip" data-start="0" data-duration="50" data-track-index="3"></div>
-      <audio id="voA" src="assets/vo.mp3" data-start="0" data-duration="38.44" data-media-start="0" data-track-index="4" data-volume="1"></audio>
-      <audio id="voB" src="assets/vo.mp3" data-start="41.72" data-duration="7.21" data-media-start="41.72" data-track-index="4" data-volume="1"></audio>
+      <div id="brandbar" class="clip" data-start="0.0" data-duration="52.62" data-track-index="2">Jus Bidara Hitam <i>◆</i> Mbah Lanang</div>
+      <div id="progress" class="clip" data-start="0.0" data-duration="52.62" data-track-index="3"></div>
+      <audio id="vo" src="assets/vo2.mp3" data-start="0" data-duration="51.59" data-track-index="4" data-volume="1"></audio>
     </div>
 
     <script>
@@ -209,7 +208,7 @@
       const tl = gsap.timeline({ paused: true });
       const E = "power3.out";
       // Masa disegerakkan dengan VO (assets/vo.mp3, 48.93s)
-      tl.fromTo("#progress", { scaleX: 0 }, { scaleX: 1, duration: 50, ease: "none" }, 0);
+      tl.fromTo("#progress", { scaleX: 0 }, { scaleX: 1, duration: 52.62, ease: "none" }, 0.0);
 
       // S1 0–3.45 "Kenapa berhenti ketum… buat badan jadi kain buruk?"
       tl.from("#s1 .h .l", { y: -50, opacity: 0, duration: 0.35, stagger: 1.75, ease: E }, 0.05);
@@ -223,7 +222,7 @@
       tl.from("#s2 .h1", { opacity: 0, y: -20, duration: 0.4 }, 3.6);
       tl.from("#fig", { opacity: 0, y: 60, duration: 0.6, ease: E }, 3.7);
       tl.from("#s2 .h2", { opacity: 0, scale: 0.7, duration: 0.45, ease: "back.out(1.6)" }, 5.2);
-      tl.set([".pt", ".ring", ".lab", "#body path[id^=ln]"], { opacity: 0 }, 0);
+      tl.set([".pt", ".ring", ".lab", "#body path[id^=ln]"], { opacity: 0 }, 0.0);
       [6.82, 9.05, 11.61, 13.83, 15.0].forEach((t, i) => {
         const n = i + 1;
         tl.fromTo("#p" + n, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(3)", immediateRender: false }, t);
@@ -266,17 +265,17 @@
       tl.from("#s6 .h", { y: -60, opacity: 0, duration: 0.35, ease: E }, 38.5);
       tl.from("#s6 .price", { scale: 0.5, opacity: 0, duration: 0.35, ease: "back.out(1.8)" }, 38.5);
       tl.fromTo("#s6 .price .now", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2.5)" }, 38.65);
-      tl.from("#s6 .best", { y: 300, opacity: 0, duration: 0.5, ease: "back.out(1.5)" }, 40.2);
-      tl.from("#s6 .tick", { scale: 0, opacity: 0, duration: 0.3, stagger: 0.95, ease: "back.out(2.5)" }, 41.8);
-      tl.to("#s6", { opacity: 0, duration: 0.2 }, 43.65);
+      tl.from("#s6 .best", { y: 300, opacity: 0, duration: 0.5, ease: "back.out(1.5)" }, 42.47);
+      tl.from("#s6 .tick", { scale: 0, opacity: 0, duration: 0.3, stagger: 0.95, ease: "back.out(2.5)" }, 44.07);
+      tl.to("#s6", { opacity: 0, duration: 0.2 }, 46.27);
 
       // S7 43.85–50 "Fasa kain buruk memang berat. Jangan lalui tanpa ikhtiar. Tempah sekarang."
-      tl.from("#s7 .q1", { opacity: 0, y: 40, duration: 0.45, ease: E }, 44.0);
-      tl.from("#s7 .q2", { opacity: 0, y: 30, duration: 0.45, ease: E }, 45.95);
-      tl.from("#s7 .mini", { y: 200, opacity: 0, duration: 0.45, ease: E }, 46.8);
-      tl.from("#s7 .fine", { opacity: 0, duration: 0.4 }, 47.0);
-      tl.from("#s7 .btn", { scale: 0.3, opacity: 0, duration: 0.4, ease: "back.out(2)" }, 47.9);
-      tl.to("#s7 .btn", { scale: 1.06, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" }, 48.35);
+      tl.from("#s7 .q1", { opacity: 0, y: 40, duration: 0.45, ease: E }, 46.62);
+      tl.from("#s7 .q2", { opacity: 0, y: 30, duration: 0.45, ease: E }, 48.57);
+      tl.from("#s7 .mini", { y: 200, opacity: 0, duration: 0.45, ease: E }, 49.42);
+      tl.from("#s7 .fine", { opacity: 0, duration: 0.4 }, 49.62);
+      tl.from("#s7 .btn", { scale: 0.3, opacity: 0, duration: 0.4, ease: "back.out(2)" }, 50.52);
+      tl.to("#s7 .btn", { scale: 1.06, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" }, 50.97);
 
       window.__timelines["main"] = tl;
       tl.seek(0);
