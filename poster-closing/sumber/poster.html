@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<title>Poster Closing Jus Bidara Hitam</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@600;700;800&display=block" rel="stylesheet">
+<style>
+  :root { --ink:#14120e; --gold:#e3a92f; --gold-hi:#f4c65a; --cream:#faf3e2; --red:#d8352a; --wa:#1fae55; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#333; font-family:Poppins, sans-serif; }
+  .poster { position:relative; width:1080px; height:1080px; overflow:hidden; margin:0 0 20px;
+    background: radial-gradient(ellipse at 50% 0%, #3d3222 0%, #1d1913 45%, var(--ink) 80%); color:#fff; display:flex; flex-direction:column; }
+  .poster::before { content:""; position:absolute; inset:14px; border:2px solid rgba(227,169,47,.45); border-radius:18px; pointer-events:none; }
+  .top { text-align:center; padding-top:42px; font-weight:800; font-size:22px; letter-spacing:6px; color:var(--gold-hi); text-transform:uppercase; }
+  .top i { font-style:normal; color:#8a6a2a; margin:0 10px; }
+  h1 { text-align:center; font-family:Anton, sans-serif; font-weight:400; text-transform:uppercase; font-size:70px; line-height:1.04; margin:10px 50px 0; letter-spacing:.5px; }
+  h1 .g { color:var(--gold-hi); }
+  h1 .hl { background:linear-gradient(transparent 14%, var(--gold) 14%, var(--gold) 86%, transparent 86%); color:var(--ink); padding:0 12px; }
+  .sub { text-align:center; font-weight:700; font-size:26px; color:#d9cfba; margin-top:8px; }
+  .list { flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:14px; padding:0 40px; min-height:0; }
+  .stk { background:#fff; padding:7px; border-radius:10px; box-shadow:0 12px 26px rgba(0,0,0,.55); }
+  .stk img { display:block; width:100%; border-radius:5px; }
+  .list .stk:nth-child(odd) { transform:rotate(-0.8deg); }
+  .list .stk:nth-child(even) { transform:rotate(0.8deg); }
+  .row { display:flex; align-items:center; gap:16px; }
+  .row .pill { flex:0 0 150px; text-align:center; background:var(--gold); color:var(--ink); font-family:Anton, sans-serif; font-size:40px; line-height:1; padding:14px 8px; border-radius:14px; transform:rotate(-3deg); box-shadow:0 8px 18px rgba(0,0,0,.45); }
+  .row .pill small { display:block; font-family:Poppins, sans-serif; font-weight:800; font-size:18px; margin-top:4px; }
+  .row .pill.hot { background:var(--red); color:#fff; }
+  .foot { margin:0 34px 30px; background:linear-gradient(180deg, #2a241b, #1a1610); border:2px solid var(--gold); border-radius:22px; padding:14px 20px; display:flex; align-items:center; gap:18px; }
+  .foot img { height:112px; border-radius:10px; box-shadow:0 0 0 3px var(--gold); }
+  .foot .p { flex:1; min-width:0; }
+  .foot .p b { font-family:Anton, sans-serif; font-weight:400; font-size:54px; color:var(--gold-hi); line-height:1; }
+  .foot .p b small { font-family:Poppins, sans-serif; font-weight:700; font-size:24px; color:#fff; margin-left:6px; }
+  .foot .p span { display:block; font-weight:700; font-size:22px; color:#e8dfcb; margin-top:4px; }
+  .foot .cta { background:linear-gradient(180deg, #34c86b, var(--wa)); border-radius:16px; padding:14px 20px; text-align:center; font-weight:800; font-size:26px; line-height:1.15; box-shadow:0 6px 0 #127a3a; }
+  .foot .cta small { display:block; font-size:18px; font-weight:700; }
+  .disc { position:absolute; left:0; right:0; bottom:10px; text-align:center; font-size:14px; font-weight:600; color:#8f8571; }
+</style>
+</head>
+<body>
+
+<!-- 1: bertahun minum -->
+<div class="poster" id="p1">
+  <div class="top">Jus Bidara Hitam <i>◆</i> Komen sebenar pembeli</div>
+  <h1>Dah <span class="hl">bertahun-tahun</span> minum.<br><span class="g">Ini kata mereka:</span></h1>
+  <div class="list" style="--w:880px">
+    <div class="stk" style="width:800px"><img src="use/nazri.jpg"></div>
+    <div class="stk" style="width:800px"><img src="use/eddy18.jpg"></div>
+    <div class="stk" style="width:800px"><img src="use/hisyam15.jpg"></div>
+    <div class="stk" style="width:800px"><img src="use/hamba32.jpg"></div>
+  </div>
+  <div class="foot"><img src="use/produk-botol.jpg"><div class="p"><b>RM24<small>sebotol</small></b><span>3 botol RM60 + pos percuma · COD</span></div><div class="cta">Balas "NAK"<small>untuk tempah</small></div></div>
+  <div class="disc">Komen sebenar pembeli. Keputusan berbeza mengikut individu.</div>
+</div>
+
+<!-- 2: takut sakit badan -->
+<div class="poster" id="p2">
+  <div class="top">Jus Bidara Hitam <i>◆</i> Komen sebenar pembeli</div>
+  <h1>Takut <span class="hl">sakit badan</span><br><span class="g">masa nak berhenti?</span></h1>
+  <div class="list">
+    <div class="stk" style="width:840px"><img src="use/baba.jpg"></div>
+    <div class="stk" style="width:840px"><img src="use/carlos.jpg"></div>
+    <div class="stk" style="width:840px"><img src="use/eddysengal.jpg"></div>
+    <div class="stk" style="width:840px"><img src="use/shahrizal.jpg"></div>
+  </div>
+  <div class="foot"><img src="use/produk-botol.jpg"><div class="p"><b>RM24<small>sebotol</small></b><span>3 botol RM60 + pos percuma · COD</span></div><div class="cta">Balas "NAK"<small>untuk tempah</small></div></div>
+  <div class="disc">Komen sebenar pembeli. Keputusan berbeza mengikut individu.</div>
+</div>
+
+<!-- 3: isteri & ibu -->
+<div class="poster" id="p3">
+  <div class="top">Jus Bidara Hitam <i>◆</i> Komen sebenar pembeli</div>
+  <h1>Kata <span class="hl">isteri &amp; ibu</span><br><span class="g">yang belikan untuk mereka</span></h1>
+  <div class="list">
+    <div class="stk" style="width:840px"><img src="use/hidayah.jpg"></div>
+    <div class="stk" style="width:840px"><img src="use/zatye.jpg"></div>
+    <div class="stk" style="width:840px"><img src="use/intan.jpg"></div>
+  </div>
+  <div class="foot"><img src="use/produk-botol.jpg"><div class="p"><b>RM24<small>sebotol</small></b><span>3 botol RM60 + pos percuma · COD</span></div><div class="cta">Balas "NAK"<small>untuk tempah</small></div></div>
+  <div class="disc">Komen sebenar pembeli. Keputusan berbeza mengikut individu.</div>
+</div>
+
+<!-- 4: berapa botol -->
+<div class="poster" id="p4">
+  <div class="top">Jus Bidara Hitam <i>◆</i> Komen sebenar pembeli</div>
+  <h1><span class="g">Berapa botol</span> <span class="hl">perlu?</span></h1>
+  <div class="sub">Ikut pengalaman pembeli kami:</div>
+  <div class="list">
+    <div class="row"><div class="pill">1<small>BOTOL</small></div><div class="stk" style="width:780px"><img src="use/leerock.jpg"></div></div>
+    <div class="row"><div class="pill">2<small>BOTOL</small></div><div class="stk" style="width:780px"><img src="use/muiz.jpg"></div></div>
+    <div class="row"><div class="pill">2<small>BOTOL</small></div><div class="stk" style="width:780px"><img src="use/skarjohor.jpg"></div></div>
+    <div class="row"><div class="pill hot">3<small>BOTOL</small></div><div class="stk" style="width:780px"><img src="use/roy.jpg"></div></div>
+  </div>
+  <div class="foot"><img src="use/produk-botol.jpg"><div class="p"><b>3 BOTOL RM60</b><span>paling berbaloi · pos percuma Semenanjung · COD</span></div><div class="cta">Balas "NAK"<small>untuk tempah</small></div></div>
+  <div class="disc">Komen sebenar pembeli. Keputusan berbeza mengikut individu.</div>
+</div>
+
+</body>
+</html>
