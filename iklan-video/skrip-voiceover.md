@@ -18,7 +18,7 @@
 | 14–18s | "NAMUN!" | **Namun…** belum terlambat. Kau masih boleh berubah. | Tarik nafas sebelum "Namun". Nada jadi lega, mula ada cahaya. |
 | 18–24s | Produk | Jus Bidara Hitam. Warisan orang tua kita… ikhtiar untuk badan, **dan untuk hati.** | Hangat dan tenang, penuh hormat. |
 | 24–31.5s | Testimoni | Mereka pun pernah rasa apa yang kau rasa. Empat belas tahun minum ketum… **hari ni, dah bebas.** | Ada rasa bangga. Senyum dalam suara pada "dah bebas". |
-| 31.5–36s | Tawaran | Mulakan dengan dua puluh empat ringgit. Tiga botol enam puluh, pos percuma. COD ada. | Lebih laju dan jelas, tapi jangan jadi nada jualan murah. |
+| 31.5–36s | Tawaran | Mulakan dengan dua puluh lapan ringgit, tambah pos lapan ringgit. Tiga botol enam puluh lima, pos percuma. COD ada. | Lebih laju dan jelas, tapi jangan jadi nada jualan murah. |
 | 36–40s | Penutup + butang | Anak kau tunggu ayah dia balik… Hari ini, berhenti. **Tempah sekarang.** | Lembut dan sebak pada ayat pertama. Tegas dan yakin pada "Tempah sekarang". |
 
 ## Skrip penuh (untuk dibaca sekali jalan)
@@ -35,7 +35,7 @@
 >
 > Mereka pun pernah rasa apa yang kau rasa. Empat belas tahun minum ketum… hari ni, dah bebas.
 >
-> Mulakan dengan dua puluh empat ringgit. Tiga botol enam puluh, pos percuma. COD ada.
+> Mulakan dengan dua puluh lapan ringgit, tambah pos lapan ringgit. Tiga botol enam puluh lima, pos percuma. COD ada.
 >
 > Anak kau tunggu ayah dia balik… Hari ini, berhenti. Tempah sekarang.
 

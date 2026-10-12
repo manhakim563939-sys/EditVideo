@@ -15,7 +15,7 @@
 | 20–24.5s | 3:00 pagi, "KALAH." | Pukul tiga pagi… ramai yang akhirnya kalah. Bukan sebab lemah. Sebab tak ada ikhtiar. |
 | 24.5–32s | Pelan hari pertama | Orang tua kita ada amalannya. Jus Bidara Hitam. Pagi selepas makan. Bila datang rasa ketagih atau sakit badan. Dan malam. Empat penutup, segelas air. |
 | 32–37.5s | Testimoni | Mereka yang dah lalui… pilih ikhtiar yang sama. |
-| 37.5–41.5s | Tawaran | Dua puluh empat ringgit sebotol. Tiga botol enam puluh, pos percuma. COD ada. |
+| 37.5–41.5s | Tawaran | Dua puluh lapan ringgit sebotol, tambah pos lapan ringgit. Tiga botol enam puluh lima, pos percuma. COD ada. |
 | 41.5–45s | CTA | Hari pertama memang berat. Jangan lalui seorang diri. Tempah sekarang. |
 
 ## Untuk copy ke ElevenLabs
@@ -37,7 +37,7 @@ Orang tua kita ada amalannya. Jus Bidara Hitam. Pagi selepas makan. Bila datang 
 
 Mereka yang dah lalui... pilih ikhtiar yang sama.
 
-Dua puluh empat ringgit sebotol. Tiga botol enam puluh ringgit, pos percuma. COD ada.
+Dua puluh lapan ringgit sebotol, tambah pos lapan ringgit. Tiga botol enam puluh lima ringgit, pos percuma. COD ada.
 
 Hari pertama memang berat. Jangan lalui seorang diri. Tempah sekarang.
 ```

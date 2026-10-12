@@ -21,7 +21,7 @@ Jus Bidara Hitam. Warisan orang tua kita... ikhtiar untuk badan, dan untuk hati.
 
 Ini pengalaman sebenar pembeli kami. Ramai yang dah kongsi... perjalanan mereka.
 
-Mulakan dengan dua puluh empat ringgit. Tiga botol enam puluh ringgit, pos percuma. COD ada.
+Mulakan dengan dua puluh lapan ringgit, tambah pos lapan ringgit. Tiga botol enam puluh lima ringgit, pos percuma. COD ada.
 
 Demi keluarga yang menunggu... mula hari ini. Tempah sekarang.
 ```
@@ -43,7 +43,7 @@ Hari ketiga. Hari ketujuh. Tiga minggu. Dua bulan. Ini perkongsian sebenar pembe
 
 Ikhtiar mereka... Jus Bidara Hitam. Empat penutup, pagi dan malam.
 
-Dua puluh empat ringgit sebotol. Tiga botol enam puluh ringgit, pos percuma. COD ada.
+Dua puluh lapan ringgit sebotol, tambah pos lapan ringgit. Tiga botol enam puluh lima ringgit, pos percuma. COD ada.
 
 Satu hari nanti, biar dia tulis... "Terima kasih sebab berhenti, ayah." Tempah sekarang.
 ```

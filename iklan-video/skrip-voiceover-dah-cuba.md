@@ -25,7 +25,7 @@ Ikhtiarnya: Jus Bidara Hitam. Amalkan bila datang rasa sakit badan atau ketagih.
 
 Pengalaman pembeli lain: Hari ketiga. Hari ketujuh. Tiga minggu. Dua bulan.
 
-Dua puluh empat ringgit sebotol. Tiga botol enam puluh, pos percuma. COD ada.
+Dua puluh lapan ringgit sebotol, tambah pos lapan ringgit. Tiga botol enam puluh lima, pos percuma. COD ada.
 
 Kalau cara lain tak jadi... cuba ikhtiar ni. Tempah sekarang.
 ```

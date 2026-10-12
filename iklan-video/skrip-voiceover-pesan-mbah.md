@@ -13,7 +13,7 @@
 | 17.5–23.5s | Matahari mula terbit | Tapi ingat, cu… pahit itu tanda kita sedang berubah. |
 | 23.5–30s | Produk | Orang dulu-dulu ada ikhtiarnya. Jus Bidara Hitam. Daun bidara, teras kemuning, akar kayu. Pahit… tapi baik. |
 | 30–35.5s | Testimoni | Ramai cucu Mbah dah mulakan langkah. |
-| 35.5–40.5s | Tawaran | Mulakan dengan dua puluh empat ringgit. Tiga botol enam puluh, pos percuma. COD ada. |
+| 35.5–40.5s | Tawaran | Mulakan dengan dua puluh lapan ringgit, tambah pos lapan ringgit. Tiga botol enam puluh lima, pos percuma. COD ada. |
 | 40.5–45s | Subuh, butang Tempah | Subuh esok… mulakan langkah pertama. Mbah doakan. |
 
 ## Untuk copy ke ElevenLabs
@@ -31,7 +31,7 @@ Orang dulu-dulu ada ikhtiarnya. Jus Bidara Hitam. Daun bidara, teras kemuning, a
 
 Ramai cucu Mbah dah mulakan langkah.
 
-Mulakan dengan dua puluh empat ringgit. Tiga botol enam puluh ringgit, pos percuma. COD ada.
+Mulakan dengan dua puluh lapan ringgit, tambah pos lapan ringgit. Tiga botol enam puluh lima ringgit, pos percuma. COD ada.
 
 Subuh esok... mulakan langkah pertama. Mbah doakan.
 ```

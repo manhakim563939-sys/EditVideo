@@ -11,7 +11,7 @@
 | 16–19.5s | Poster hidup lama / hidup baru | Tapi ramai dah lalu jalan ni… dan bebas. |
 | 19.5–27.5s | Garis masa perjalanan | Hari ketiga, dah stop. Hari ketujuh, tinggalkan ketum. Tiga minggu tak sentuh. Empat belas tahun minum… dua bulan dah bebas. |
 | 27.5–32.5s | Produk | Ikhtiar mereka… Jus Bidara Hitam. Empat penutup, pagi dan malam. |
-| 32.5–37s | Tawaran | Dua puluh empat ringgit sebotol. Tiga botol enam puluh, pos percuma. COD ada. |
+| 32.5–37s | Tawaran | Dua puluh lapan ringgit sebotol, tambah pos lapan ringgit. Tiga botol enam puluh lima, pos percuma. COD ada. |
 | 37–42s | Nota balasan + butang | Satu hari nanti, biar dia tulis… "Terima kasih sebab berhenti, ayah." Tempah sekarang. |
 
 ## Untuk copy ke ElevenLabs
@@ -29,7 +29,7 @@ Hari ketiga, dah stop. Hari ketujuh, tinggalkan ketum. Tiga minggu tak sentuh. E
 
 Ikhtiar mereka... Jus Bidara Hitam. Empat penutup, pagi dan malam.
 
-Dua puluh empat ringgit sebotol. Tiga botol enam puluh ringgit, pos percuma. COD ada.
+Dua puluh lapan ringgit sebotol, tambah pos lapan ringgit. Tiga botol enam puluh lima ringgit, pos percuma. COD ada.
 
 Satu hari nanti, biar dia tulis... "Terima kasih sebab berhenti, ayah." Tempah sekarang.
 ```

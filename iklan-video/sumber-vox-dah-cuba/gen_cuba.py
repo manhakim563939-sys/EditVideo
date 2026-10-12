@@ -28,14 +28,15 @@ PHRASES = [
     "Empat penutup, segelas air.",                          # 17
     "Pengalaman pembeli lain:",                             # 18 S5
     "Hari ketiga. Hari ketujuh. Tiga minggu. Dua bulan.",   # 19
-    "Dua puluh empat ringgit sebotol.",                     # 20 S6
-    "Tiga botol enam puluh, pos percuma. COD ada.",         # 21
+    "*RM28 sebotol + pos RM8.",                             # 20 S6 (suara harga lama dibisukan)
+    "3 botol *RM65, pos percuma. COD ada.",                 # 21
     "Kalau cara lain tak jadi… cuba ikhtiar ni.",           # 22 S7
     "*Tempah *sekarang.",                                   # 23
 ]
 SCENES = [("s0", 0), ("s1", 2), ("s2", 10), ("s3", 13), ("s4", 15), ("s5", 18), ("s6", 20), ("s7", 22)]
 GAP_AFTER = 19      # jeda senyap selepas frasa ini supaya dinding testimoni lebih lama
 GAP = 2.5
+MUTE_END = 48.62   # saat audio VO: bisukan sebutan harga lama (gap_at → sini)
 TAIL = 3.0          # kad CTA kekal selepas suara tamat
 
 
@@ -73,7 +74,7 @@ def main():
         html = html.replace("<!--AUDIO-->",
             '<audio id="voA" src="assets/vo.mp3" data-start="0" data-duration="%s" data-media-start="0" data-track-index="5" data-volume="1"></audio>\n'
             '      <audio id="voB" src="assets/vo.mp3" data-start="%s" data-duration="%s" data-media-start="%s" data-track-index="5" data-volume="1"></audio>'
-            % (gap_at, round(gap_at + GAP, 2), round(vo_end - gap_at + 0.3, 2), gap_at))
+            % (gap_at, sh(MUTE_END), round(vo_end - MUTE_END + 0.3, 2), MUTE_END))
     open(out_dir + "/index.html", "w").write(html)
     print("durasi", D, "potong audio pada", gap_at)
     for name, (a, d) in sc.items():
@@ -259,10 +260,10 @@ TEMPLATE = r'''<!doctype html>
         <div class="center loud h">Mula <span class="hl">hari ini</span></div>
         <div id="tagP">
           <div class="was">RM35<svg class="strike" viewBox="0 0 200 40" preserveAspectRatio="none" aria-hidden="true"><path id="strikeP" d="M4 26 C 60 10, 120 30, 196 12" fill="none" stroke="#d8352a" stroke-width="9" stroke-linecap="round" /></svg></div>
-          <div class="now">RM24</div>
-          <div class="per">sebotol (300ml)</div>
+          <div class="now">RM28</div>
+          <div class="per">sebotol + RM8 pos</div>
         </div>
-        <div class="note" id="bestN">3 botol RM60<small>+ pos percuma Semenanjung</small></div>
+        <div class="note" id="bestN">3 botol RM65<small>+ pos percuma Semenanjung</small></div>
         <div class="stamp" id="codS">COD</div>
         <div class="stk" id="wanS"><div class="tape"></div><img src="assets/testi-wanpaq.jpg" alt="" /><div class="who"><b>★★★★★</b>Wan paq</div></div>
       </div>
@@ -274,8 +275,8 @@ TEMPLATE = r'''<!doctype html>
           <img class="pb" src="assets/produk-botol.jpg" alt="Jus Bidara Hitam" />
           <div class="info">
             <div class="nm">Jus Bidara Hitam</div>
-            <div class="pr"><b>RM24</b> sebotol</div>
-            <div class="sub">3 botol RM60 · pos percuma Semenanjung · COD</div>
+            <div class="pr"><b>RM28</b> sebotol + RM8 pos</div>
+            <div class="sub">3 botol RM65 · pos percuma Semenanjung · COD</div>
             <div class="stars"><b>★★★★★</b> 9 komen sebenar pembeli</div>
           </div>
         </div>

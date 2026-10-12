@@ -11,7 +11,7 @@
 | 18.5–24s | "MINUM BALIK." | Sebab tu ramai yang minum balik. Bukan sebab tak nak berhenti. Sebab tak tahan sakit. |
 | 24–33s | Produk | Orang dulu-dulu ada ikhtiar untuk fasa ni. Jus Bidara Hitam. Amalkan bila datang rasa sakit badan atau ketagih. Empat penutup, segelas air. |
 | 33–38.5s | Testimoni | Kata mereka yang dah lalui… fasa ni boleh dilalui. |
-| 38.5–42.5s | Tawaran | Dua puluh empat ringgit sebotol. Tiga botol enam puluh, pos percuma. COD ada. |
+| 38.5–42.5s | Tawaran | Dua puluh lapan ringgit sebotol, tambah pos lapan ringgit. Tiga botol enam puluh lima, pos percuma. COD ada. |
 | 42.5–46s | CTA | Fasa kain buruk memang berat. Jangan lalui tanpa ikhtiar. Tempah sekarang. |
 
 ## Untuk copy ke ElevenLabs
@@ -27,7 +27,7 @@ Orang dulu-dulu ada ikhtiar untuk fasa ni. Jus Bidara Hitam. Amalkan bila datang
 
 Kata mereka yang dah lalui... fasa ni boleh dilalui.
 
-Dua puluh empat ringgit sebotol. Tiga botol enam puluh ringgit, pos percuma. COD ada.
+Dua puluh lapan ringgit sebotol, tambah pos lapan ringgit. Tiga botol enam puluh lima ringgit, pos percuma. COD ada.
 
 Fasa kain buruk memang berat. Jangan lalui tanpa ikhtiar. Tempah sekarang.
 ```
