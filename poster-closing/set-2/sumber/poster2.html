@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<title>Poster Closing Set 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Permanent+Marker&family=Poppins:wght@600;700;800&display=block" rel="stylesheet">
+<style>
+  :root { --paper:#efe5cf; --ink:#201b15; --red:#d8352a; --marker:#ffd84a; --note:#ffe680; --gold:#e3a92f; --leaf:#4e8a2a; --wa:#1fae55; --cork:#c89b62; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#333; font-family:Poppins, sans-serif; }
+  .poster { position:relative; width:1080px; height:1080px; overflow:hidden; margin:0 0 20px; background:var(--paper); color:var(--ink); }
+  .grain { position:absolute; inset:0; width:1080px; height:1080px; opacity:.5; mix-blend-mode:multiply; pointer-events:none; }
+  .loud { font-family:Anton, sans-serif; text-transform:uppercase; line-height:1.03; letter-spacing:.5px; }
+  .hand { font-family:"Permanent Marker", cursive; }
+  .hl { background:linear-gradient(transparent 12%, var(--marker) 12%, var(--marker) 88%, transparent 88%); padding:0 10px; }
+  .hlr { background:linear-gradient(transparent 12%, var(--red) 12%, var(--red) 88%, transparent 88%); color:#fff; padding:0 10px; }
+  .stk { position:absolute; background:#fff; padding:7px; border-radius:6px; box-shadow:0 10px 20px rgba(40,25,5,.3), 0 2px 4px rgba(40,25,5,.2); }
+  .stk img { display:block; width:100%; border-radius:3px; }
+  .tape { position:absolute; width:120px; height:34px; background:rgba(255,236,150,.75); top:-16px; left:50%; margin-left:-60px; transform:rotate(-4deg); }
+  .pin { position:absolute; top:-12px; left:50%; margin-left:-13px; width:26px; height:26px; border-radius:50%; background:radial-gradient(circle at 35% 35%, #ff7a6b, #c0261b 60%, #7d140c); box-shadow:0 4px 6px rgba(0,0,0,.4); }
+  .note { position:absolute; background:var(--note); padding:16px 20px; box-shadow:0 10px 20px rgba(40,25,5,.25); font-family:"Permanent Marker", cursive; font-size:36px; line-height:1.15; }
+  .stamp { position:absolute; border:9px solid var(--red); color:var(--red); font-family:Anton, sans-serif; line-height:1; padding:4px 18px; background:rgba(239,229,207,.85); }
+  .bar { position:absolute; left:0; right:0; bottom:0; height:120px; background:var(--ink); display:flex; align-items:center; gap:18px; padding:0 36px; color:#fff; }
+  .bar img { height:96px; border-radius:8px; box-shadow:0 0 0 3px var(--gold); }
+  .bar .p { flex:1; min-width:0; }
+  .bar .p b { font-family:Anton, sans-serif; font-weight:400; font-size:50px; color:#f4c65a; line-height:1; }
+  .bar .p b small { font-family:Poppins, sans-serif; font-weight:700; font-size:22px; color:#fff; margin-left:6px; }
+  .bar .p span { display:block; font-weight:700; font-size:21px; color:#e8dfcb; margin-top:3px; }
+  .bar .cta { background:linear-gradient(180deg, #34c86b, var(--wa)); border-radius:16px; padding:12px 20px; text-align:center; font-weight:800; font-size:26px; line-height:1.15; box-shadow:0 6px 0 #127a3a; }
+  .bar .cta small { display:block; font-size:17px; font-weight:700; }
+  .disc { position:absolute; left:0; right:0; bottom:126px; text-align:center; font-size:15px; font-weight:700; color:#6b6253; }
+
+  /* 1 papan gabus */
+  #q1 .board { position:absolute; left:30px; right:30px; top:200px; bottom:160px; border-radius:16px; background:var(--cork);
+    background-image:radial-gradient(rgba(90,55,20,.35) 1.5px, transparent 1.6px), radial-gradient(rgba(255,230,190,.25) 1.2px, transparent 1.3px);
+    background-size:14px 14px, 11px 11px; background-position:0 0, 6px 5px; box-shadow:inset 0 0 0 12px #6e4a25, inset 0 0 30px rgba(0,0,0,.35), 0 12px 24px rgba(40,25,5,.3); }
+  #q1 .h { position:absolute; left:40px; right:40px; top:40px; text-align:center; font-size:84px; }
+  #q1 .cnt { position:absolute; right:42px; top:150px; z-index:5; width:150px; height:150px; border-radius:50%; background:var(--red); color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; transform:rotate(12deg); box-shadow:0 10px 20px rgba(0,0,0,.35); }
+  #q1 .cnt b { font-family:Anton, sans-serif; font-weight:400; font-size:64px; line-height:.9; }
+  #q1 .cnt span { font-weight:800; font-size:18px; }
+
+  /* 2 kira jimat */
+  #q2 .h { position:absolute; left:40px; right:40px; top:44px; text-align:center; font-size:80px; }
+  #q2 .rcpt { position:absolute; left:60px; top:215px; width:450px; background:#fff; padding:26px 28px 30px; box-shadow:0 14px 26px rgba(40,25,5,.3); transform:rotate(-2.5deg); font-family:"Courier New", monospace; font-weight:700;
+    clip-path:polygon(0 0,100% 0,100% 96%,95% 100%,90% 96%,85% 100%,80% 96%,75% 100%,70% 96%,65% 100%,60% 96%,55% 100%,50% 96%,45% 100%,40% 96%,35% 100%,30% 96%,25% 100%,20% 96%,15% 100%,10% 96%,5% 100%,0 96%); }
+  #q2 .rcpt h3 { font-family:Anton, sans-serif; font-weight:400; font-size:38px; text-transform:uppercase; text-align:center; border-bottom:3px dashed #999; padding-bottom:10px; margin-bottom:10px; }
+  #q2 .rcpt .r { display:flex; justify-content:space-between; font-size:30px; padding:8px 0; border-bottom:2px dashed #ccc; }
+  #q2 .rcpt .tot { font-size:34px; color:var(--red); border:0; padding-top:14px; }
+  #q2 .rcpt small { display:block; font-family:Poppins, sans-serif; font-size:17px; color:#6b6253; margin-top:8px; }
+  #q2 .vs { position:absolute; left:500px; top:390px; width:100px; height:100px; border-radius:50%; background:var(--ink); color:#fff; font-family:Anton, sans-serif; font-size:48px; display:flex; align-items:center; justify-content:center; z-index:3; }
+  #q2 .deal { position:absolute; left:590px; top:240px; width:430px; background:var(--note); padding:24px 22px; box-shadow:0 14px 26px rgba(40,25,5,.3); transform:rotate(2.5deg); text-align:center; }
+  #q2 .deal .t { font-family:Anton, sans-serif; font-size:44px; text-transform:uppercase; }
+  #q2 .deal .big { font-family:Anton, sans-serif; font-size:130px; color:var(--red); line-height:1; }
+  #q2 .deal .s { font-weight:800; font-size:24px; }
+  #q2 .deal img { width:96px; margin:10px auto 0; display:block; border-radius:8px; box-shadow:0 0 0 3px #fff; }
+  #q2 .lbl { position:absolute; left:70px; top:625px; font-size:38px; color:var(--red); transform:rotate(-2deg); }
+
+  /* 3 hero */
+  #q3 .h { position:absolute; left:40px; right:40px; top:44px; text-align:center; font-size:76px; }
+  #q3 .ring { position:absolute; left:20px; top:250px; width:1040px; height:330px; z-index:3; }
+  #q3 .arrow { position:absolute; left:660px; top:160px; width:200px; height:130px; z-index:3; }
+  #q3 .ann { position:absolute; left:780px; top:222px; font-size:52px; color:var(--red); transform:rotate(6deg); z-index:3; }
+  #q3 .ann2 { position:absolute; left:80px; top:640px; font-size:44px; transform:rotate(-2deg); }
+
+  /* 4 ajak kawan */
+  #q4 .h { position:absolute; left:40px; right:40px; top:44px; text-align:center; font-size:76px; }
+  #q4 .heart { position:absolute; font-size:60px; color:var(--red); }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><filter id="pn"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" seed="5"/><feColorMatrix type="matrix" values="0 0 0 0 0.45  0 0 0 0 0.36  0 0 0 0 0.22  0 0 0 0.35 0"/></filter></svg>
+
+<!-- 1 PAPAN BUKTI -->
+<div class="poster" id="q1">
+  <svg class="grain"><rect width="1080" height="1080" filter="url(#pn)"/></svg>
+  <div class="loud h"><span class="hl">35 pembeli</span> dah kongsi</div>
+  <div class="cnt"><b>35+</b><span>komen sebenar</span></div>
+  <div class="board" id="board"></div>
+  <div class="disc">Komen sebenar pembeli. Keputusan berbeza mengikut individu.</div>
+  <div class="bar"><img src="use2/produk-botol.jpg"><div class="p"><b>RM24<small>sebotol</small></b><span>3 botol RM60 + pos percuma · COD</span></div><div class="cta">Balas "NAK"<small>untuk tempah</small></div></div>
+</div>
+
+<!-- 2 KIRA JIMAT -->
+<div class="poster" id="q2">
+  <svg class="grain"><rect width="1080" height="1080" filter="url(#pn)"/></svg>
+  <div class="loud h">Cuba <span class="hl">kira</span> sendiri</div>
+  <div class="rcpt">
+    <h3>Kos air ketum</h3>
+    <div class="r"><span>Sehari</span><span>RM15</span></div>
+    <div class="r"><span>Seminggu</span><span>RM105</span></div>
+    <div class="r tot"><span>SEBULAN</span><span>RM450</span></div>
+    <small>*contoh RM15 sehari</small>
+  </div>
+  <div class="vs">VS</div>
+  <div class="deal">
+    <div class="t">Jus Bidara Hitam</div>
+    <div class="big">RM60</div>
+    <div class="s">3 botol · pos percuma · COD</div>
+    <img src="use2/produk-botol.jpg">
+  </div>
+  <div class="hand lbl">Kata pembeli:</div>
+  <div class="stk" style="left:70px;top:690px;width:580px;transform:rotate(-1.5deg)"><div class="tape"></div><img src="use2/skarjohor.jpg"></div>
+  <div class="stk" style="left:440px;top:800px;width:580px;transform:rotate(1.5deg);z-index:2"><div class="tape"></div><img src="use2/dendam.jpg"></div>
+  <div class="disc">Komen sebenar pembeli. Keputusan berbeza mengikut individu.</div>
+  <div class="bar"><img src="use2/produk-botol.jpg"><div class="p"><b>3 BOTOL RM60</b><span>pos percuma Semenanjung · COD</span></div><div class="cta">Balas "NAK"<small>untuk tempah</small></div></div>
+</div>
+
+<!-- 3 HERO 21 TAHUN -->
+<div class="poster" id="q3">
+  <svg class="grain"><rect width="1080" height="1080" filter="url(#pn)"/></svg>
+  <div class="loud h">Minum <span class="hlr">21 tahun</span>.<br>Ini komen dia:</div>
+  <div class="stk" style="left:50px;top:290px;width:980px;transform:rotate(-1.5deg)"><div class="tape"></div><img src="use2/nazri.jpg"></div>
+  <svg class="ring" viewBox="0 0 1040 330"><path d="M520 14 C 860 12, 1030 70, 1025 165 C 1020 268, 820 318, 510 316 C 220 314, 16 268, 16 165 C 16 70, 200 16, 540 18" fill="none" stroke="#d8352a" stroke-width="9" stroke-linecap="round"/></svg>
+  <div class="hand ann">21 TAHUN!</div>
+  <div class="hand ann2">Ramai lagi yang minum bertahun-tahun:</div>
+  <div class="stk" style="left:60px;top:720px;width:470px;transform:rotate(-2deg)"><div class="tape"></div><img src="use2/eddy18.jpg"></div>
+  <div class="stk" style="left:560px;top:730px;width:470px;transform:rotate(2deg)"><div class="tape"></div><img src="use2/hisyam.jpg"></div>
+  <div class="disc">Komen sebenar pembeli. Keputusan berbeza mengikut individu.</div>
+  <div class="bar"><img src="use2/produk-botol.jpg"><div class="p"><b>RM24<small>sebotol</small></b><span>3 botol RM60 + pos percuma · COD</span></div><div class="cta">Balas "NAK"<small>untuk tempah</small></div></div>
+</div>
+
+<!-- 4 AJAK KAWAN -->
+<div class="poster" id="q4">
+  <svg class="grain"><rect width="1080" height="1080" filter="url(#pn)"/></svg>
+  <div class="loud h">Dah jadi,<br><span class="hl">siap ajak kawan</span> cuba</div>
+  <div class="stk" style="left:60px;top:245px;width:700px;transform:rotate(-2deg)"><div class="tape"></div><img src="use2/ans.jpg"></div>
+  <div class="note" style="left:790px;top:270px;width:240px;transform:rotate(4deg)">2 orang kawan pun cuba!</div>
+  <div class="stk" style="left:300px;top:500px;width:720px;transform:rotate(1.5deg)"><div class="tape"></div><img src="use2/amattrya.jpg"></div>
+  <div class="stk" style="left:60px;top:665px;width:640px;transform:rotate(-1.5deg)"><div class="tape"></div><img src="use2/suhedi.jpg"></div>
+  <div class="stk" style="left:600px;top:760px;width:430px;transform:rotate(3deg);z-index:2"><div class="tape"></div><img src="use2/hazwan.jpg"></div>
+  <div class="heart" style="left:40px;top:520px;transform:rotate(-14deg)">♥</div>
+  <div class="disc">Komen sebenar pembeli. Keputusan berbeza mengikut individu.</div>
+  <div class="bar"><img src="use2/produk-botol.jpg"><div class="p"><b>RM24<small>sebotol</small></b><span>3 botol RM60 + pos percuma · COD</span></div><div class="cta">Balas "NAK"<small>untuk tempah</small></div></div>
+</div>
+
+<script>
+  // papan gabus: 12 komen dipin (kedudukan tetap)
+  const B = ["syahmi4","amat6","dendam","panjang","syahmi2mg","liebaling","jilak","ms888","budak","leerock","roy","hamba"];
+  const board = document.getElementById("board");
+  B.forEach((f, i) => {
+    const d = document.createElement("div");
+    d.className = "stk";
+    const col = i % 2, row = Math.floor(i / 2);
+    d.style.left = (col ? 515 : 28) + (row % 2 ? 14 : 0) + "px";
+    d.style.top = 34 + row * 108 + "px";
+    d.style.width = "468px";
+    d.style.transform = "rotate(" + ([-2.5, 1.8, 2.2, -1.6, -1.2, 2.6][row] * (col ? -1 : 1)) + "deg)";
+    d.innerHTML = '<div class="pin"></div><img src="use2/' + f + '.jpg">';
+    board.appendChild(d);
+  });
+</script>
+</body>
+</html>
