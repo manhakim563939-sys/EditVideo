@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<title>Poster Closing Set 3</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Permanent+Marker&family=Playfair+Display:ital,wght@0,800;0,900;1,800&family=Poppins:wght@500;600;700;800&display=block" rel="stylesheet">
+<style>
+  :root { --bg:#f7f8f3; --ink:#15190f; --leaf:#3f7a22; --leaf-d:#2a5716; --leaf-l:#e4efd8; --red:#d23a2c; --gold:#e3a92f; --wa:#1fae55; --grey:#6a7060; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#333; font-family:Poppins, sans-serif; }
+  .poster { position:relative; width:1080px; height:1080px; overflow:hidden; margin:0 0 20px; background:var(--bg); color:var(--ink); }
+  .leafbg { position:absolute; width:420px; height:420px; opacity:.12; }
+  .loud { font-family:Anton, sans-serif; text-transform:uppercase; line-height:1.03; letter-spacing:.5px; }
+  .serif { font-family:"Playfair Display", serif; }
+  .hand { font-family:"Permanent Marker", cursive; }
+  .card { position:absolute; background:#fff; border-radius:14px; box-shadow:0 10px 24px rgba(20,30,10,.14); }
+  .proof { position:absolute; background:#fff; padding:6px; border-radius:10px; box-shadow:0 8px 18px rgba(20,30,10,.18); border:2px solid var(--leaf-l); }
+  .proof img { display:block; width:100%; border-radius:6px; }
+  .bar { position:absolute; left:0; right:0; bottom:0; height:118px; background:var(--leaf-d); display:flex; align-items:center; gap:18px; padding:0 36px; color:#fff; }
+  .bar img { height:94px; border-radius:8px; box-shadow:0 0 0 3px #fff; }
+  .bar .p { flex:1; min-width:0; }
+  .bar .p b { font-family:Anton, sans-serif; font-weight:400; font-size:50px; color:#fff; line-height:1; }
+  .bar .p b small { font-family:Poppins, sans-serif; font-weight:700; font-size:22px; margin-left:6px; }
+  .bar .p span { display:block; font-weight:700; font-size:21px; color:#d8e8c8; margin-top:3px; }
+  .bar .cta { background:#fff; color:var(--leaf-d); border-radius:16px; padding:12px 22px; text-align:center; font-weight:800; font-size:26px; line-height:1.15; box-shadow:0 6px 0 rgba(0,0,0,.25); }
+  .bar .cta small { display:block; font-size:17px; font-weight:700; color:var(--grey); }
+  .disc { position:absolute; left:0; right:0; bottom:124px; text-align:center; font-size:15px; font-weight:600; color:var(--grey); }
+
+  /* 9 kalendar */
+  #r1 .h { position:absolute; left:40px; right:40px; top:36px; text-align:center; font-size:72px; }
+  #r1 .h .g { color:var(--leaf); }
+  #r1 .cal { left:60px; top:150px; width:430px; padding:16px 16px 18px; }
+  #r1 .cal .ring { display:flex; justify-content:space-around; position:absolute; left:40px; right:40px; top:-12px; }
+  #r1 .cal .ring i { width:16px; height:30px; border-radius:8px; background:#8d9384; }
+  #r1 .cal .mh { background:var(--leaf); color:#fff; text-align:center; font-family:Anton, sans-serif; font-size:34px; letter-spacing:2px; border-radius:8px; padding:6px; margin-bottom:10px; }
+  #r1 .grid { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; }
+  #r1 .grid div { position:relative; height:40px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:24px; color:#9aa08f; background:#f1f3ec; border-radius:6px; }
+  #r1 .grid div.on { color:var(--ink); background:#fff; }
+  #r1 .grid div.on::after { content:""; position:absolute; inset:-3px; border:4px solid var(--red); border-radius:50%; transform:rotate(-8deg); }
+  #r1 .list { position:absolute; left:50px; right:50px; top:468px; display:flex; flex-direction:column; gap:12px; }
+  #r1 .it .proof { flex:0 0 640px; }
+  #r1 .it { display:flex; align-items:center; gap:10px; }
+  #r1 .it b { flex:0 0 170px; text-align:center; font-family:Anton, sans-serif; font-weight:400; font-size:38px; line-height:1; color:#fff; background:var(--red); border-radius:10px; padding:8px 4px; }
+  #r1 .it .proof { position:relative; flex:0 0 600px; min-width:0; }
+  #r1 .foot { position:absolute; left:540px; top:200px; width:480px; font-size:40px; line-height:1.25; color:var(--leaf-d); transform:rotate(-2deg); }
+
+  /* 10 akhbar */
+  #r2 { background:#f3efe4; }
+  #r2 .mast { position:absolute; left:40px; right:40px; top:30px; text-align:center; border-bottom:4px double var(--ink); padding-bottom:10px; }
+  #r2 .mast .nm { font-family:"Playfair Display", serif; font-weight:900; font-size:78px; line-height:1; letter-spacing:1px; }
+  #r2 .mast .meta { display:flex; justify-content:space-between; font-size:16px; font-weight:700; color:var(--grey); margin-top:6px; text-transform:uppercase; letter-spacing:2px; }
+  #r2 .hd { position:absolute; left:40px; right:40px; top:178px; font-family:"Playfair Display", serif; font-weight:900; font-size:52px; line-height:1.05; }
+  #r2 .dek { position:absolute; left:40px; right:40px; top:330px; font-size:24px; font-weight:600; color:#3d4136; border-bottom:2px solid var(--ink); padding-bottom:14px; }
+  #r2 .col { position:absolute; top:400px; width:490px; display:flex; flex-direction:column; gap:12px; }
+  #r2 .col .kick { font-weight:800; font-size:18px; letter-spacing:2px; color:var(--red); text-transform:uppercase; border-top:3px solid var(--red); padding-top:6px; }
+  #r2 .col .proof { position:relative; border:1px solid #c9c2ad; box-shadow:none; border-radius:4px; filter:grayscale(.15); }
+  #r2 .rule { position:absolute; left:539px; top:400px; width:2px; height:530px; background:#bdb6a2; }
+
+  /* 11 petikan minimal */
+  #r3 .qm { position:absolute; left:60px; top:30px; font-family:"Playfair Display", serif; font-weight:900; font-size:300px; line-height:1; color:var(--leaf); opacity:.9; }
+  #r3 .q { position:absolute; left:80px; right:80px; top:250px; font-family:"Playfair Display", serif; font-weight:800; font-size:92px; line-height:1.12; }
+  #r3 .q em { font-style:italic; color:var(--leaf); }
+  #r3 .q .u { background:linear-gradient(transparent 70%, #cfe5b9 70%); }
+  #r3 .by { position:absolute; left:84px; top:590px; font-weight:700; font-size:28px; color:var(--grey); }
+  #r3 .lbl { position:absolute; left:84px; top:670px; font-weight:800; font-size:20px; letter-spacing:3px; color:var(--leaf); text-transform:uppercase; }
+
+  /* 12 kad penilaian */
+  #r4 .h { position:absolute; left:40px; right:40px; top:36px; text-align:center; font-size:66px; }
+  #r4 .score { left:60px; top:150px; width:330px; height:330px; display:flex; flex-direction:column; align-items:center; justify-content:center; border:6px solid var(--leaf); }
+  #r4 .score b { font-family:Anton, sans-serif; font-weight:400; font-size:150px; color:var(--leaf); line-height:.9; }
+  #r4 .score b small { font-size:60px; color:var(--grey); }
+  #r4 .score .st { color:var(--gold); font-size:42px; letter-spacing:4px; margin-top:6px; }
+  #r4 .score span { font-weight:700; font-size:20px; color:var(--grey); margin-top:6px; text-align:center; }
+  #r4 .score .proof { position:relative; }
+  #r4 .rows { position:absolute; left:420px; right:40px; top:150px; display:flex; flex-direction:column; gap:14px; }
+  #r4 .rw { display:flex; align-items:center; gap:12px; }
+  #r4 .rw .ck { flex:0 0 58px; height:58px; border-radius:50%; background:var(--leaf); color:#fff; font-size:36px; font-weight:800; display:flex; align-items:center; justify-content:center; }
+  #r4 .rw .t { flex:0 0 150px; font-weight:800; font-size:24px; line-height:1.15; }
+  #r4 .rw .proof { position:relative; flex:1; min-width:0; }
+  #r4 .babaP { left:60px; top:520px; width:960px; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs><path id="leaf" d="M210 20 C 330 60 400 170 380 300 C 360 390 280 410 210 400 C 140 410 60 390 40 300 C 20 170 90 60 210 20 Z M210 40 L210 395"/></defs></svg>
+
+<!-- 9 KALENDAR -->
+<div class="poster" id="r1">
+  <svg class="leafbg" style="right:-120px;top:-80px;transform:rotate(30deg)" viewBox="0 0 420 420"><use href="#leaf" fill="#3f7a22" stroke="#2a5716" stroke-width="6"/></svg>
+  <div class="loud h">Kalendar <span class="g">kejayaan</span> pembeli</div>
+  <div class="card cal">
+    <div class="ring"><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="mh">HARI TANPA KETUM</div>
+    <div class="grid" id="grid"></div>
+  </div>
+  <div class="hand foot">Bulatan merah = hari mereka kongsi dah tak sentuh ketum.<br><span style="color:#d23a2c">Ini komen asal mereka ↓</span></div>
+  <div class="list">
+    <div class="it"><b>HARI 3</b><div class="proof"><img src="use3/panjang.jpg"></div></div>
+    <div class="it"><b>2 MINGGU</b><div class="proof"><img src="use3/syahmi2mg.jpg"></div></div>
+    <div class="it"><b>32 HARI</b><div class="proof"><img src="use3/hamba.jpg"></div></div>
+  </div>
+  <div class="disc">Komen sebenar pembeli. Keputusan berbeza mengikut individu.</div>
+  <div class="bar"><img src="use3/produk-botol.jpg"><div class="p"><b>RM24<small>sebotol</small></b><span>3 botol RM60 + pos percuma · COD</span></div><div class="cta">Balas "NAK"<small>untuk tempah</small></div></div>
+</div>
+
+<!-- 10 AKHBAR -->
+<div class="poster" id="r2">
+  <div class="mast"><div class="nm">Berita Bidara</div><div class="meta"><span>Edisi Pembeli</span><span>Komen sebenar · tanpa suntingan</span><span>Percuma</span></div></div>
+  <div class="hd">Minum 15 hingga 21 tahun, mereka kongsi pengalaman berhenti</div>
+  <div class="dek">Pembeli Jus Bidara Hitam tinggalkan komen selepas mengamalkan jus ini. Ini sebahagian daripadanya.</div>
+  <div class="col" style="left:40px">
+    <div class="kick">21 tahun minum</div><div class="proof"><img src="use3/nazri.jpg"></div>
+    <div class="kick">Dah cuba ubat klinik</div><div class="proof"><img src="use3/shahrizal.jpg"></div>
+    <div class="kick">15 tahun minum</div><div class="proof"><img src="use3/hisyam.jpg"></div>
+  </div>
+  <div class="rule"></div>
+  <div class="col" style="left:560px">
+    <div class="kick">Kata isteri</div><div class="proof"><img src="use3/zatye.jpg"></div>
+    <div class="kick">Tidur lena</div><div class="proof"><img src="use3/carlos.jpg"></div>
+    <div class="kick">Kata ibu</div><div class="proof"><img src="use3/intan.jpg"></div>
+  </div>
+  <div class="disc">Komen sebenar pembeli. Keputusan berbeza mengikut individu.</div>
+  <div class="bar"><img src="use3/produk-botol.jpg"><div class="p"><b>RM24<small>sebotol</small></b><span>3 botol RM60 + pos percuma · COD</span></div><div class="cta">Balas "NAK"<small>untuk tempah</small></div></div>
+</div>
+
+<!-- 11 PETIKAN MINIMAL -->
+<div class="poster" id="r3">
+  <svg class="leafbg" style="right:-100px;top:200px;width:520px;height:520px;transform:rotate(-25deg)" viewBox="0 0 420 420"><use href="#leaf" fill="#3f7a22" stroke="#2a5716" stroke-width="6"/></svg>
+  <div class="qm">“</div>
+  <div class="q"><span class="u">Sakit badan</span> pun<br>dah <em>tak terasa.</em>”</div>
+  <div class="by">— BABA TWO DAUGHTER, pembeli Jus Bidara Hitam</div>
+  <div class="lbl">Bukti komen asal:</div>
+  <div class="proof" style="left:80px;top:705px;width:920px"><img src="use3/baba.jpg"></div>
+  <div class="disc">Komen sebenar pembeli. Keputusan berbeza mengikut individu.</div>
+  <div class="bar"><img src="use3/produk-botol.jpg"><div class="p"><b>RM24<small>sebotol</small></b><span>3 botol RM60 + pos percuma · COD</span></div><div class="cta">Balas "NAK"<small>untuk tempah</small></div></div>
+</div>
+
+<!-- 12 KAD PENILAIAN -->
+<div class="poster" id="r4">
+  <div class="loud h">Kad <span style="color:var(--leaf)">penilaian</span> pembeli</div>
+  <div class="card score"><b>10<small>/10</small></b><div class="st">★★★★★</div><span>“saya support jus<br>bidara ni 10/10”</span></div>
+  <div class="rows">
+    <div class="rw"><div class="ck">✓</div><div class="t">Memang jadi</div><div class="proof"><img src="use3/ms888.jpg"></div></div>
+    <div class="rw"><div class="ck">✓</div><div class="t">Recommend</div><div class="proof"><img src="use3/hazwan.jpg"></div></div>
+    <div class="rw"><div class="ck">✓</div><div class="t">2 botol cukup</div><div class="proof"><img src="use3/jilak.jpg"></div></div>
+  </div>
+  <div class="proof babaP"><img src="use3/baba.jpg"></div>
+  <div class="disc">Komen sebenar pembeli. Keputusan berbeza mengikut individu.</div>
+  <div class="bar"><img src="use3/produk-botol.jpg"><div class="p"><b>RM24<small>sebotol</small></b><span>3 botol RM60 + pos percuma · COD</span></div><div class="cta">Balas "NAK"<small>untuk tempah</small></div></div>
+</div>
+
+<script>
+  const ON = [3, 14, 32];
+  const g = document.getElementById("grid");
+  for (let d = 1; d <= 35; d++) {
+    const c = document.createElement("div");
+    c.textContent = d;
+    if (ON.includes(d)) c.className = "on";
+    g.appendChild(c);
+  }
+</script>
+</body>
+</html>
