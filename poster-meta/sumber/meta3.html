@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<title>Poster Meta Ads Trust</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@500;600;700;800&display=block" rel="stylesheet">
+<style>
+  :root { --ink:#14120e; --gold:#e3a92f; --gold-hi:#f4c65a; --red:#d8352a; --leaf:#2f5a22; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#333; font-family:Poppins, sans-serif; }
+  .poster { position:relative; width:1080px; height:1350px; overflow:hidden; color:#fff; display:flex; flex-direction:column;
+    background: radial-gradient(ellipse at 50% 0%, #2c3a20 0%, #1a1c13 45%, var(--ink) 85%); }
+  .poster::before { content:""; position:absolute; inset:14px; border:2px solid rgba(227,169,47,.45); border-radius:18px; pointer-events:none; }
+  .top { text-align:center; padding-top:40px; font-weight:800; font-size:22px; letter-spacing:6px; color:var(--gold-hi); text-transform:uppercase; }
+  .top i { font-style:normal; color:#8a6a2a; margin:0 10px; }
+  h1 { text-align:center; font-family:Anton, sans-serif; font-weight:400; text-transform:uppercase; font-size:100px; line-height:1; margin:14px 40px 0; }
+  h1 .hl { background:linear-gradient(transparent 10%, var(--gold) 10%, var(--gold) 90%, transparent 90%); color:var(--ink); padding:0 14px; }
+  .sub { text-align:center; font-weight:700; font-size:32px; color:#e8dfcb; margin-top:12px; }
+  .sub b { color:var(--gold-hi); }
+  .list { flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:14px; padding:14px 40px; min-height:0; }
+  .row { display:flex; align-items:center; gap:16px; }
+  .pill { flex:0 0 150px; text-align:center; background:var(--gold); color:var(--ink); font-family:Anton, sans-serif; font-size:52px; line-height:1; padding:12px 6px; border-radius:14px; transform:rotate(-3deg); box-shadow:0 8px 18px rgba(0,0,0,.45); }
+  .pill small { display:block; font-family:Poppins, sans-serif; font-weight:800; font-size:17px; margin-top:4px; letter-spacing:.5px; }
+  .pill.alt { background:#fff; font-size:34px; padding:18px 6px; }
+  .stk { flex:0 0 770px; background:#fff; padding:6px; border-radius:10px; box-shadow:0 12px 26px rgba(0,0,0,.55); }
+  .stk img { display:block; width:100%; border-radius:5px; }
+  .row:nth-child(odd) .stk { transform:rotate(-0.6deg); }
+  .row:nth-child(even) .stk { transform:rotate(0.6deg); }
+  .trust { display:flex; justify-content:center; gap:14px; margin:6px 40px 0; }
+  .trust div { flex:1; border:2px solid rgba(244,198,90,.55); border-radius:14px; padding:10px 8px; text-align:center; font-weight:700; font-size:20px; line-height:1.25; color:#efe6d2; }
+  .trust b { display:block; color:var(--gold-hi); font-size:24px; font-weight:800; }
+  .price { margin:16px 40px 0; background:#fff; color:var(--ink); border-radius:18px; display:flex; align-items:center; justify-content:center; gap:26px; padding:14px 20px; }
+  .price .p1 b { font-family:Anton, sans-serif; font-weight:400; font-size:60px; color:var(--red); line-height:1; }
+  .price .p1 small { font-weight:800; font-size:22px; margin-left:8px; }
+  .price .sep { width:2px; height:60px; background:#d9cdb5; }
+  .price .p2 b { display:block; font-family:Anton, sans-serif; font-weight:400; font-size:50px; line-height:1; }
+  .price .p2 span { font-weight:800; font-size:18px; color:#7a5a12; }
+  .disc { text-align:center; font-size:15px; font-weight:600; color:#8f8571; margin:14px 40px 30px; }
+</style>
+</head>
+<body>
+<div class="poster" id="m3">
+  <div class="top">Jus Bidara Hitam <i>◆</i> Komen sebenar pembeli</div>
+  <h1>Bukan <span class="hl">kata kami.</span></h1>
+  <div class="sub">Kata mereka yang dah minum <b>bertahun-tahun:</b></div>
+  <div class="list">
+    <div class="row"><div class="pill">21<small>TAHUN MINUM</small></div><div class="stk"><img src="use/nazri.jpg"></div></div>
+    <div class="row"><div class="pill">18<small>TAHUN MINUM</small></div><div class="stk"><img src="use/eddy18.jpg"></div></div>
+    <div class="row"><div class="pill">14<small>TAHUN MINUM</small></div><div class="stk"><img src="use/wanpaq.jpg"></div></div>
+    <div class="row"><div class="pill alt">ISTERI<small>YANG BELIKAN</small></div><div class="stk"><img src="use/zatye.jpg"></div></div>
+  </div>
+  <div class="trust">
+    <div><b>Komen sebenar</b>pembeli, bukan lakonan</div>
+    <div><b>Resipi turun-temurun</b>Mbah Lanang</div>
+    <div><b>COD</b>bayar bila barang sampai</div>
+  </div>
+  <div class="price">
+    <div class="p1"><b>RM28</b><small>sebotol + RM8 pos</small></div>
+    <div class="sep"></div>
+    <div class="p2"><b>3 BOTOL RM65</b><span>POS PERCUMA SEMENANJUNG</span></div>
+  </div>
+  <div class="disc">Produk tradisional, bukan pengganti rawatan perubatan. Keputusan berbeza mengikut individu.</div>
+</div>
+</body>
+</html>
