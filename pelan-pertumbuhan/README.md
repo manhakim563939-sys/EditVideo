@@ -18,3 +18,9 @@
 3. `npx remotion render src/index.ts Main out/video.mp4 --crf=18`
 
 Babak akan memanjang/memendek ikut VO sebenar; muzik di-duck di bawah suara secara automatik.
+
+## VO semasa
+- `vo-source/elevenlabs_aina_full.mp3` — fail asal ElevenLabs (suara "Aina").
+- `vo-source/segments.json` — titik potong setiap babak (dijumpai dengan padanan jeda + transkripsi Whisper).
+- `vo-source/cue_times.json` — masa sebenar perkataan cue dalam setiap fail VO; `build.py` guna ini supaya animasi tepat pada suara.
+- `public/vo/s01.wav … s19.wav` — VO yang telah dinormalkan (−16 LUFS) dan dipotong ikut babak.

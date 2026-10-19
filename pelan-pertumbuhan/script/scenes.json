@@ -1,8 +1,8 @@
 {
   "fps": 30,
   "wordsPerSecond": 2.3,
-  "padIn": 0.6,
-  "padOut": 0.9,
+  "padIn": 0.5,
+  "padOut": 0.6,
   "scenes": [
     {
       "id": "s01", "kind": "intro",

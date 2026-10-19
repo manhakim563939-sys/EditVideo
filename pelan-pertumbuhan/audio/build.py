@@ -44,19 +44,39 @@ def probe_dur(path):
     return float(out.strip())
 
 
-def cue_times(words, cues, speech):
-    res, start = {}, 0
+# Measured cue times inside each VO file (vo-source/cue_times.json, made by aligning the
+# ElevenLabs audio with Whisper). Missing cues are interpolated by word position.
+MEASURED = {}
+if os.path.exists(f"{ROOT}/vo-source/cue_times.json"):
+    MEASURED = json.load(open(f"{ROOT}/vo-source/cue_times.json"))
+
+
+def cue_times(words, cues, speech, measured=None):
+    idx, start = {}, 0
     n = len(words)
     for a in cues:
         al = a.lower()
         for i in range(start, n):
             w = words[i].lower()
             if w == al or (len(al) >= 3 and w.startswith(al)):
-                res[a] = round(PAD_IN + speech * i / n, 3)
+                idx[a] = i
                 start = i + 1
                 break
         else:
             raise SystemExit(f"cue '{a}' not found in: {' '.join(words)}")
+    measured = measured or {}
+    # anchors: (word index, seconds into the VO)
+    anchors = [(0, 0.0)] + sorted((idx[a], measured[a]) for a in cues if a in measured) + [(n, speech)]
+    res = {}
+    for a in cues:
+        if a in measured:
+            sec = measured[a]
+        else:
+            i = idx[a]
+            lo = max((p for p in anchors if p[0] <= i), key=lambda p: p[0])
+            hi = min((p for p in anchors if p[0] > i), key=lambda p: p[0])
+            sec = lo[1] + (hi[1] - lo[1]) * (i - lo[0]) / max(1, hi[0] - lo[0])
+        res[a] = round(PAD_IN + sec, 3)
     return res
 
 
@@ -73,7 +93,7 @@ for s in SPEC["scenes"]:
     dur = round(PAD_IN + speech + PAD_OUT, 3)
     sc = dict(s)
     sc.update(start=round(t, 3), dur=dur, speech=round(speech, 3), voSrc=rel,
-              cueT=cue_times(words, s["cues"], speech))
+              cueT=cue_times(words, s["cues"], speech, MEASURED.get(s["id"]) if absp else None))
     scenes.append(sc)
     t += dur
 TOTAL = round(t + 0.5, 3)
