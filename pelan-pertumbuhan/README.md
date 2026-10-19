@@ -1,6 +1,6 @@
 # Pelan Pertumbuhan Aimi Curtain — Motion Graphics
 
-`preview_v1.mp4` — preview 1920×1080 (16:9), 30fps, ~3:31. Text-led (belum ada VO), dengan muzik & SFX procedural. **Belum final export.**
+`preview_v2.mp4` — preview 1920×1080 (16:9), 30fps, 3:54, dengan VO ElevenLabs (Aina), muzik & SFX procedural. **Belum final export.**
 
 `SKRIP_VO.md` — skrip VO untuk ElevenLabs, ikut babak (s01–s19) + teks penuh.
 
