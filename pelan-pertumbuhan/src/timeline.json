@@ -1,0 +1,965 @@
+{
+ "fps": 30,
+ "padIn": 0.6,
+ "total": 211.173,
+ "hasVo": false,
+ "scenes": [
+  {
+   "id": "s01",
+   "kind": "intro",
+   "vo": "Ini pelan pertumbuhan Aimi Curtain. Tiga fasa, satu hala tuju yang jelas.",
+   "cues": [
+    "pelan",
+    "Tiga",
+    "hala"
+   ],
+   "start": 0.0,
+   "dur": 6.717,
+   "speech": 5.217,
+   "voSrc": null,
+   "cueT": {
+    "pelan": 1.035,
+    "Tiga": 2.774,
+    "hala": 4.078
+   }
+  },
+  {
+   "id": "s02",
+   "kind": "roadmap",
+   "vo": "Fasa satu, bina asas yang kukuh. Fasa dua, kuasai pasaran Kulim dan sekitar. Fasa tiga, tembusi pasaran B2B dan berkembang ke skala besar.",
+   "cues": [
+    "satu",
+    "dua",
+    "tiga"
+   ],
+   "nodes": [
+    "Asas Kukuh",
+    "Dominasi Pasaran",
+    "Skala B2B"
+   ],
+   "start": 6.717,
+   "dur": 11.5,
+   "speech": 10.0,
+   "voSrc": null,
+   "cueT": {
+    "satu": 1.035,
+    "dua": 3.643,
+    "tiga": 6.687
+   }
+  },
+  {
+   "id": "s03",
+   "kind": "phase",
+   "phase": 1,
+   "vo": "Fasa satu: Asas Kukuh dan Kapasiti Operasi. Fokusnya, persiapkan enjin syarikat.",
+   "cues": [
+    "Asas",
+    "Fokusnya"
+   ],
+   "title": [
+    "Asas Kukuh &",
+    "Kapasiti Operasi"
+   ],
+   "focus": "Persiapkan Enjin Syarikat",
+   "start": 18.217,
+   "dur": 6.283,
+   "speech": 4.783,
+   "voSrc": null,
+   "cueT": {
+    "Asas": 1.47,
+    "Fokusnya": 3.643
+   }
+  },
+  {
+   "id": "s04",
+   "kind": "action",
+   "phase": 1,
+   "n": 1,
+   "of": 3,
+   "icon": "target",
+   "viz": "usp",
+   "vo": "Pertama, kenalkan servis dan kedai. Iklan ditumpukan sepenuhnya kepada USP syarikat, iaitu servis langsir tempahan khas dari A hingga Z. Ukur, jahit, pasang.",
+   "cues": [
+    "Pertama",
+    "USP",
+    "A",
+    "Ukur",
+    "jahit",
+    "pasang"
+   ],
+   "title": "Kenalkan Servis & Kedai",
+   "sub": "Iklan fokus pada USP: langsir tempahan khas A–Z",
+   "start": 24.5,
+   "dur": 11.5,
+   "speech": 10.0,
+   "voSrc": null,
+   "cueT": {
+    "Pertama": 0.6,
+    "USP": 4.513,
+    "A": 7.991,
+    "Ukur": 9.296,
+    "jahit": 9.73,
+    "pasang": 10.165
+   }
+  },
+  {
+   "id": "s05",
+   "kind": "action",
+   "phase": 1,
+   "n": 2,
+   "of": 3,
+   "icon": "gear",
+   "viz": "sop",
+   "vo": "Kedua, kuatkan tiga staf sedia ada. Wujudkan SOP kerja yang jelas. Asingkan tugas melayan WhatsApp, memotong dan menjahit, serta memasang, supaya kerja tidak bertindih dan staf tak burnout.",
+   "cues": [
+    "Kedua",
+    "SOP",
+    "WhatsApp",
+    "memotong",
+    "memasang",
+    "bertindih",
+    "burnout"
+   ],
+   "title": "Kuatkan Staf Sedia Ada (3 Orang)",
+   "sub": "SOP kerja yang jelas · tugas diasingkan",
+   "start": 36.0,
+   "dur": 13.674,
+   "speech": 12.174,
+   "voSrc": null,
+   "cueT": {
+    "Kedua": 0.6,
+    "SOP": 3.643,
+    "WhatsApp": 6.687,
+    "memotong": 7.122,
+    "memasang": 8.861,
+    "bertindih": 10.6,
+    "burnout": 12.339
+   }
+  },
+  {
+   "id": "s06",
+   "kind": "action",
+   "phase": 1,
+   "n": 3,
+   "of": 3,
+   "icon": "people",
+   "viz": "capacity",
+   "vo": "Ketiga, tambah staf secara strategik. Bila leads dah konsisten dan operasi capai kapasiti maksimum, barulah tambah staf di bahagian kritikal sahaja. Contohnya, tambah installer untuk lajukan proses siap.",
+   "cues": [
+    "Ketiga",
+    "leads",
+    "kapasiti",
+    "kritikal",
+    "installer"
+   ],
+   "title": "Tambah Staf Strategik",
+   "sub": "Hanya bila leads konsisten & kapasiti maksimum",
+   "start": 49.674,
+   "dur": 13.674,
+   "speech": 12.174,
+   "voSrc": null,
+   "cueT": {
+    "Ketiga": 0.6,
+    "leads": 3.209,
+    "kapasiti": 5.817,
+    "kritikal": 8.861,
+    "installer": 10.6
+   }
+  },
+  {
+   "id": "s07",
+   "kind": "goal",
+   "phase": 1,
+   "goalViz": "flow",
+   "vo": "Matlamatnya, operasi berjalan lancar tanpa kualiti terjejas, walaupun tempahan mula masuk berterusan. Tanda kejayaannya: tempahan diproses dengan lancar, kerja siap tepat pada masa seratus peratus, dan pelanggan berpuas hati dengan kemasan kerja.",
+   "cues": [
+    "Matlamatnya",
+    "Tanda",
+    "diproses",
+    "siap",
+    "pelanggan"
+   ],
+   "goal": "Operasi berjalan lancar tanpa kualiti terjejas walaupun tempahan mula masuk berterusan.",
+   "kpi": [
+    "Tempahan diproses dengan lancar",
+    "Siap tepat pada masa 100%",
+    "Pelanggan puas hati dengan kemasan"
+   ],
+   "start": 63.348,
+   "dur": 15.413,
+   "speech": 13.913,
+   "voSrc": null,
+   "cueT": {
+    "Matlamatnya": 0.6,
+    "Tanda": 5.817,
+    "diproses": 7.122,
+    "siap": 8.861,
+    "pelanggan": 11.904
+   }
+  },
+  {
+   "id": "s08",
+   "kind": "phase",
+   "phase": 2,
+   "vo": "Fasa dua: Dominasi Pasaran dan Penjenamaan. Fokusnya, tawan pasaran Kulim dan sekitar.",
+   "cues": [
+    "Dominasi",
+    "Fokusnya"
+   ],
+   "title": [
+    "Dominasi Pasaran",
+    "& Penjenamaan"
+   ],
+   "focus": "Tawan Pasaran Kulim & Sekitar",
+   "start": 78.761,
+   "dur": 6.717,
+   "speech": 5.217,
+   "voSrc": null,
+   "cueT": {
+    "Dominasi": 1.47,
+    "Fokusnya": 3.209
+   }
+  },
+  {
+   "id": "s09",
+   "kind": "action",
+   "phase": 2,
+   "n": 1,
+   "of": 4,
+   "icon": "rocket",
+   "viz": "geo",
+   "vo": "Pertama, kuasai pasaran tempatan. Tingkatkan bajet marketing, dengan sasaran geo-targeted ke taman perumahan baharu yang sedang serah kunci.",
+   "cues": [
+    "Pertama",
+    "bajet",
+    "geo",
+    "taman",
+    "serah"
+   ],
+   "title": "Conquer Market Tempatan",
+   "sub": "Bajet marketing ↑ · sasaran geo-targeted",
+   "start": 85.478,
+   "dur": 9.326,
+   "speech": 7.826,
+   "voSrc": null,
+   "cueT": {
+    "Pertama": 0.6,
+    "bajet": 2.774,
+    "geo": 4.513,
+    "taman": 5.383,
+    "serah": 7.557
+   }
+  },
+  {
+   "id": "s10",
+   "kind": "action",
+   "phase": 2,
+   "n": 2,
+   "of": 4,
+   "icon": "billboard",
+   "viz": "billboard",
+   "vo": "Kedua, pasang billboard di persimpangan utama Kulim, untuk lonjakkan kredibiliti dan kepercayaan jenama secara luar talian.",
+   "cues": [
+    "Kedua",
+    "persimpangan",
+    "kredibiliti",
+    "kepercayaan"
+   ],
+   "title": "Pemasangan Billboard",
+   "sub": "Persimpangan utama Kulim",
+   "start": 94.804,
+   "dur": 8.457,
+   "speech": 6.957,
+   "voSrc": null,
+   "cueT": {
+    "Kedua": 0.6,
+    "persimpangan": 2.339,
+    "kredibiliti": 4.513,
+    "kepercayaan": 5.383
+   }
+  },
+  {
+   "id": "s11",
+   "kind": "action",
+   "phase": 2,
+   "n": 3,
+   "of": 4,
+   "icon": "camera",
+   "viz": "testimonials",
+   "vo": "Ketiga, kuatkan branding. Kumpul testimoni gambar dan video dari rumah pelanggan secara agresif, sebagai bahan kempen before and after yang premium.",
+   "cues": [
+    "Ketiga",
+    "gambar",
+    "video",
+    "before"
+   ],
+   "title": "Kuatkan Branding",
+   "sub": "Testimoni gambar & video dari rumah pelanggan",
+   "start": 103.261,
+   "dur": 10.63,
+   "speech": 9.13,
+   "voSrc": null,
+   "cueT": {
+    "Ketiga": 0.6,
+    "gambar": 2.774,
+    "video": 3.643,
+    "before": 7.557
+   }
+  },
+  {
+   "id": "s12",
+   "kind": "action",
+   "phase": 2,
+   "n": 4,
+   "of": 4,
+   "icon": "store",
+   "viz": "store",
+   "vo": "Keempat, pindah ke kedai bawah yang lebih besar. Lot ground floor dengan ruang display langsir saiz sebenar, dan mockup ruang tamu, untuk pengalaman pelanggan yang eksklusif.",
+   "cues": [
+    "Keempat",
+    "ground",
+    "display",
+    "mockup",
+    "eksklusif"
+   ],
+   "title": "Pindah Kedai Bawah, Lebih Besar",
+   "sub": "Pengalaman pelanggan yang eksklusif",
+   "start": 113.891,
+   "dur": 12.804,
+   "speech": 11.304,
+   "voSrc": null,
+   "cueT": {
+    "Keempat": 0.6,
+    "ground": 4.513,
+    "display": 6.252,
+    "mockup": 8.426,
+    "eksklusif": 11.47
+   }
+  },
+  {
+   "id": "s13",
+   "kind": "goal",
+   "phase": 2,
+   "goalViz": "map",
+   "vo": "Matlamatnya, menjadikan Aimi Curtain jenama top of mind, pilihan nombor satu bagi setiap pemilik rumah baharu di Kulim, Lunas dan Bukit Mertajam. Tanda kejayaannya: pelanggan walk-in dan carian nama jenama secara organik di media sosial meningkat mendadak.",
+   "cues": [
+    "Matlamatnya",
+    "Kulim",
+    "Lunas",
+    "Bukit",
+    "Tanda",
+    "walk",
+    "carian"
+   ],
+   "goal": "Jadikan Aimi Curtain jenama Top of Mind — pilihan nombor 1 pemilik rumah baharu.",
+   "kpi": [
+    "Pelanggan walk-in meningkat",
+    "Carian jenama organik di media sosial meningkat"
+   ],
+   "start": 126.695,
+   "dur": 17.587,
+   "speech": 16.087,
+   "voSrc": null,
+   "cueT": {
+    "Matlamatnya": 0.6,
+    "Kulim": 7.991,
+    "Lunas": 8.426,
+    "Bukit": 9.296,
+    "Tanda": 10.165,
+    "walk": 11.47,
+    "carian": 12.339
+   }
+  },
+  {
+   "id": "s14",
+   "kind": "phase",
+   "phase": 3,
+   "vo": "Fasa tiga: Penembusan B2B dan Skala Besar. Fokusnya, lubuk aliran tunai dan kontrak berterusan.",
+   "cues": [
+    "Penembusan",
+    "Fokusnya"
+   ],
+   "title": [
+    "Penembusan B2B",
+    "& Skala Besar"
+   ],
+   "focus": "Lubuk Aliran Tunai & Kontrak Berterusan",
+   "start": 144.282,
+   "dur": 7.587,
+   "speech": 6.087,
+   "voSrc": null,
+   "cueT": {
+    "Penembusan": 1.47,
+    "Fokusnya": 3.643
+   }
+  },
+  {
+   "id": "s15",
+   "kind": "action",
+   "phase": 3,
+   "n": 1,
+   "of": 3,
+   "icon": "handshake",
+   "viz": "developer",
+   "vo": "Pertama, bekerjasama dengan pemaju hartanah. Tawarkan pemasangan langsir tajaan atau diskaun untuk showhouse, dan letak baucar Aimi Curtain dalam welcome kit pembeli rumah.",
+   "cues": [
+    "Pertama",
+    "pemaju",
+    "showhouse",
+    "baucar",
+    "welcome"
+   ],
+   "title": "Kerjasama Pemaju Hartanah",
+   "sub": "Showhouse + baucar dalam welcome kit",
+   "start": 151.869,
+   "dur": 11.5,
+   "speech": 10.0,
+   "voSrc": null,
+   "cueT": {
+    "Pertama": 0.6,
+    "pemaju": 1.904,
+    "showhouse": 5.817,
+    "baucar": 7.122,
+    "welcome": 8.861
+   }
+  },
+  {
+   "id": "s16",
+   "kind": "action",
+   "phase": 3,
+   "n": 2,
+   "of": 3,
+   "icon": "building",
+   "viz": "commercial",
+   "vo": "Kedua, masuk sektor komersial dan hospitaliti. Pasarkan pakej langsir blackout dan bidai secara pukal kepada hotel butik, homestay premium dan pejabat pengurusan.",
+   "cues": [
+    "Kedua",
+    "blackout",
+    "bidai",
+    "pukal",
+    "hotel",
+    "homestay",
+    "pejabat"
+   ],
+   "title": "Sektor Komersial & Hospitaliti",
+   "sub": "Pakej pukal blackout & bidai",
+   "start": 163.369,
+   "dur": 11.065,
+   "speech": 9.565,
+   "voSrc": null,
+   "cueT": {
+    "Kedua": 0.6,
+    "blackout": 4.513,
+    "bidai": 5.383,
+    "pukal": 6.252,
+    "hotel": 7.122,
+    "homestay": 7.991,
+    "pejabat": 9.296
+   }
+  },
+  {
+   "id": "s17",
+   "kind": "action",
+   "phase": 3,
+   "n": 3,
+   "of": 3,
+   "icon": "briefcase",
+   "viz": "vendor",
+   "vo": "Ketiga, daftar sebagai vendor korporat. Siapkan profil syarikat yang profesional, supaya layak masuk tender dan sebut harga projek institusi serta syarikat swasta.",
+   "cues": [
+    "Ketiga",
+    "profil",
+    "tender",
+    "sebut",
+    "institusi"
+   ],
+   "title": "Pendaftaran Vendor Korporat",
+   "sub": "Profil syarikat profesional",
+   "start": 174.434,
+   "dur": 11.065,
+   "speech": 9.565,
+   "voSrc": null,
+   "cueT": {
+    "Ketiga": 0.6,
+    "profil": 3.209,
+    "tender": 6.252,
+    "sebut": 7.122,
+    "institusi": 8.426
+   }
+  },
+  {
+   "id": "s18",
+   "kind": "goal",
+   "phase": 3,
+   "goalViz": "stable",
+   "vo": "Matlamatnya, memasuki pasaran korporat dan komersial untuk jualan pukal, yang menjamin kestabilan pendapatan syarikat jangka panjang. Tanda kejayaannya: syarikat tidak lagi bergantung seratus peratus pada jualan runcit, dan mempunyai sekurang-kurangnya dua hingga tiga kontrak B2B setiap tahun.",
+   "cues": [
+    "Matlamatnya",
+    "kestabilan",
+    "Tanda",
+    "bergantung",
+    "dua"
+   ],
+   "goal": "Masuki pasaran korporat & komersial — jualan pukal untuk kestabilan pendapatan jangka panjang.",
+   "kpi": [
+    "Tidak lagi bergantung 100% pada jualan runcit (B2C)",
+    "Sekurang-kurangnya 2–3 kontrak B2B setahun"
+   ],
+   "start": 185.499,
+   "dur": 17.587,
+   "speech": 16.087,
+   "voSrc": null,
+   "cueT": {
+    "Matlamatnya": 0.6,
+    "kestabilan": 5.383,
+    "Tanda": 7.557,
+    "bergantung": 9.73,
+    "dua": 13.643
+   }
+  },
+  {
+   "id": "s19",
+   "kind": "outro",
+   "vo": "Asas yang kukuh. Pasaran yang dikuasai. Pendapatan yang stabil. Inilah pelan pertumbuhan Aimi Curtain.",
+   "cues": [
+    "Asas",
+    "Pasaran",
+    "Pendapatan",
+    "Inilah"
+   ],
+   "nodes": [
+    "Asas yang kukuh",
+    "Pasaran yang dikuasai",
+    "Pendapatan yang stabil"
+   ],
+   "start": 203.086,
+   "dur": 7.587,
+   "speech": 6.087,
+   "voSrc": null,
+   "cueT": {
+    "Asas": 0.6,
+    "Pasaran": 1.904,
+    "Pendapatan": 3.209,
+    "Inilah": 4.513
+   }
+  }
+ ],
+ "sfx": [
+  {
+   "t": 0.3,
+   "k": "riser",
+   "g": 0.35,
+   "d": 0.9
+  },
+  {
+   "t": 1.2,
+   "k": "impact",
+   "g": 0.5
+  },
+  {
+   "t": 1.25,
+   "k": "shimmer",
+   "g": 0.35
+  },
+  {
+   "t": 6.717,
+   "k": "whoosh_s",
+   "g": 0.32
+  },
+  {
+   "t": 10.36,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 13.404,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 18.217,
+   "k": "whoosh",
+   "g": 0.5
+  },
+  {
+   "t": 18.666999999999998,
+   "k": "impact",
+   "g": 0.45
+  },
+  {
+   "t": 18.717,
+   "k": "shimmer",
+   "g": 0.3
+  },
+  {
+   "t": 24.5,
+   "k": "whoosh_s",
+   "g": 0.32
+  },
+  {
+   "t": 29.012999999999998,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 32.491,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 33.796,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 34.230000000000004,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 34.665,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 36.0,
+   "k": "whoosh_s",
+   "g": 0.32
+  },
+  {
+   "t": 39.643,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 42.687,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 43.122,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 44.861000000000004,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 46.6,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 48.339,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 49.674,
+   "k": "whoosh_s",
+   "g": 0.32
+  },
+  {
+   "t": 52.883,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 55.491,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 58.535,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 60.274,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 63.348,
+   "k": "whoosh_s",
+   "g": 0.32
+  },
+  {
+   "t": 70.47,
+   "k": "chime",
+   "g": 0.3
+  },
+  {
+   "t": 72.209,
+   "k": "chime",
+   "g": 0.3
+  },
+  {
+   "t": 75.252,
+   "k": "chime",
+   "g": 0.3
+  },
+  {
+   "t": 78.761,
+   "k": "whoosh",
+   "g": 0.5
+  },
+  {
+   "t": 79.211,
+   "k": "impact",
+   "g": 0.45
+  },
+  {
+   "t": 79.261,
+   "k": "shimmer",
+   "g": 0.3
+  },
+  {
+   "t": 85.478,
+   "k": "whoosh_s",
+   "g": 0.32
+  },
+  {
+   "t": 88.252,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 89.991,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 90.86099999999999,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 93.035,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 94.804,
+   "k": "whoosh_s",
+   "g": 0.32
+  },
+  {
+   "t": 97.143,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 99.31700000000001,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 100.187,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 103.261,
+   "k": "whoosh_s",
+   "g": 0.32
+  },
+  {
+   "t": 106.035,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 106.904,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 110.818,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 113.891,
+   "k": "whoosh_s",
+   "g": 0.32
+  },
+  {
+   "t": 118.40400000000001,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 120.143,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 122.31700000000001,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 125.361,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 126.695,
+   "k": "whoosh_s",
+   "g": 0.32
+  },
+  {
+   "t": 138.165,
+   "k": "chime",
+   "g": 0.3
+  },
+  {
+   "t": 139.034,
+   "k": "chime",
+   "g": 0.3
+  },
+  {
+   "t": 144.282,
+   "k": "whoosh",
+   "g": 0.5
+  },
+  {
+   "t": 144.732,
+   "k": "impact",
+   "g": 0.45
+  },
+  {
+   "t": 144.782,
+   "k": "shimmer",
+   "g": 0.3
+  },
+  {
+   "t": 151.869,
+   "k": "whoosh_s",
+   "g": 0.32
+  },
+  {
+   "t": 153.773,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 157.686,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 158.99099999999999,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 160.73,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 163.369,
+   "k": "whoosh_s",
+   "g": 0.32
+  },
+  {
+   "t": 167.882,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 168.752,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 169.621,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 170.49099999999999,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 171.36,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 172.665,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 174.434,
+   "k": "whoosh_s",
+   "g": 0.32
+  },
+  {
+   "t": 177.643,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 180.686,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 181.55599999999998,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 182.85999999999999,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 185.499,
+   "k": "whoosh_s",
+   "g": 0.32
+  },
+  {
+   "t": 195.22899999999998,
+   "k": "chime",
+   "g": 0.3
+  },
+  {
+   "t": 199.142,
+   "k": "chime",
+   "g": 0.3
+  },
+  {
+   "t": 203.086,
+   "k": "whoosh_s",
+   "g": 0.32
+  },
+  {
+   "t": 204.99,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 206.29500000000002,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 207.59900000000002,
+   "k": "tick",
+   "g": 0.32
+  },
+  {
+   "t": 207.59900000000002,
+   "k": "shimmer",
+   "g": 0.35
+  }
+ ]
+}

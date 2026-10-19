@@ -1,0 +1,137 @@
+{
+  "fps": 30,
+  "wordsPerSecond": 2.3,
+  "padIn": 0.6,
+  "padOut": 0.9,
+  "scenes": [
+    {
+      "id": "s01", "kind": "intro",
+      "vo": "Ini pelan pertumbuhan Aimi Curtain. Tiga fasa, satu hala tuju yang jelas.",
+      "cues": ["pelan", "Tiga", "hala"]
+    },
+    {
+      "id": "s02", "kind": "roadmap",
+      "vo": "Fasa satu, bina asas yang kukuh. Fasa dua, kuasai pasaran Kulim dan sekitar. Fasa tiga, tembusi pasaran B2B dan berkembang ke skala besar.",
+      "cues": ["satu", "dua", "tiga"],
+      "nodes": ["Asas Kukuh", "Dominasi Pasaran", "Skala B2B"]
+    },
+    {
+      "id": "s03", "kind": "phase", "phase": 1,
+      "vo": "Fasa satu: Asas Kukuh dan Kapasiti Operasi. Fokusnya, persiapkan enjin syarikat.",
+      "cues": ["Asas", "Fokusnya"],
+      "title": ["Asas Kukuh &", "Kapasiti Operasi"],
+      "focus": "Persiapkan Enjin Syarikat"
+    },
+    {
+      "id": "s04", "kind": "action", "phase": 1, "n": 1, "of": 3, "icon": "target", "viz": "usp",
+      "vo": "Pertama, kenalkan servis dan kedai. Iklan ditumpukan sepenuhnya kepada USP syarikat, iaitu servis langsir tempahan khas dari A hingga Z. Ukur, jahit, pasang.",
+      "cues": ["Pertama", "USP", "A", "Ukur", "jahit", "pasang"],
+      "title": "Kenalkan Servis & Kedai",
+      "sub": "Iklan fokus pada USP: langsir tempahan khas A–Z"
+    },
+    {
+      "id": "s05", "kind": "action", "phase": 1, "n": 2, "of": 3, "icon": "gear", "viz": "sop",
+      "vo": "Kedua, kuatkan tiga staf sedia ada. Wujudkan SOP kerja yang jelas. Asingkan tugas melayan WhatsApp, memotong dan menjahit, serta memasang, supaya kerja tidak bertindih dan staf tak burnout.",
+      "cues": ["Kedua", "SOP", "WhatsApp", "memotong", "memasang", "bertindih", "burnout"],
+      "title": "Kuatkan Staf Sedia Ada (3 Orang)",
+      "sub": "SOP kerja yang jelas · tugas diasingkan"
+    },
+    {
+      "id": "s06", "kind": "action", "phase": 1, "n": 3, "of": 3, "icon": "people", "viz": "capacity",
+      "vo": "Ketiga, tambah staf secara strategik. Bila leads dah konsisten dan operasi capai kapasiti maksimum, barulah tambah staf di bahagian kritikal sahaja. Contohnya, tambah installer untuk lajukan proses siap.",
+      "cues": ["Ketiga", "leads", "kapasiti", "kritikal", "installer"],
+      "title": "Tambah Staf Strategik",
+      "sub": "Hanya bila leads konsisten & kapasiti maksimum"
+    },
+    {
+      "id": "s07", "kind": "goal", "phase": 1, "goalViz": "flow",
+      "vo": "Matlamatnya, operasi berjalan lancar tanpa kualiti terjejas, walaupun tempahan mula masuk berterusan. Tanda kejayaannya: tempahan diproses dengan lancar, kerja siap tepat pada masa seratus peratus, dan pelanggan berpuas hati dengan kemasan kerja.",
+      "cues": ["Matlamatnya", "Tanda", "diproses", "siap", "pelanggan"],
+      "goal": "Operasi berjalan lancar tanpa kualiti terjejas walaupun tempahan mula masuk berterusan.",
+      "kpi": ["Tempahan diproses dengan lancar", "Siap tepat pada masa 100%", "Pelanggan puas hati dengan kemasan"]
+    },
+    {
+      "id": "s08", "kind": "phase", "phase": 2,
+      "vo": "Fasa dua: Dominasi Pasaran dan Penjenamaan. Fokusnya, tawan pasaran Kulim dan sekitar.",
+      "cues": ["Dominasi", "Fokusnya"],
+      "title": ["Dominasi Pasaran", "& Penjenamaan"],
+      "focus": "Tawan Pasaran Kulim & Sekitar"
+    },
+    {
+      "id": "s09", "kind": "action", "phase": 2, "n": 1, "of": 4, "icon": "rocket", "viz": "geo",
+      "vo": "Pertama, kuasai pasaran tempatan. Tingkatkan bajet marketing, dengan sasaran geo-targeted ke taman perumahan baharu yang sedang serah kunci.",
+      "cues": ["Pertama", "bajet", "geo", "taman", "serah"],
+      "title": "Conquer Market Tempatan",
+      "sub": "Bajet marketing ↑ · sasaran geo-targeted"
+    },
+    {
+      "id": "s10", "kind": "action", "phase": 2, "n": 2, "of": 4, "icon": "billboard", "viz": "billboard",
+      "vo": "Kedua, pasang billboard di persimpangan utama Kulim, untuk lonjakkan kredibiliti dan kepercayaan jenama secara luar talian.",
+      "cues": ["Kedua", "persimpangan", "kredibiliti", "kepercayaan"],
+      "title": "Pemasangan Billboard",
+      "sub": "Persimpangan utama Kulim"
+    },
+    {
+      "id": "s11", "kind": "action", "phase": 2, "n": 3, "of": 4, "icon": "camera", "viz": "testimonials",
+      "vo": "Ketiga, kuatkan branding. Kumpul testimoni gambar dan video dari rumah pelanggan secara agresif, sebagai bahan kempen before and after yang premium.",
+      "cues": ["Ketiga", "gambar", "video", "before"],
+      "title": "Kuatkan Branding",
+      "sub": "Testimoni gambar & video dari rumah pelanggan"
+    },
+    {
+      "id": "s12", "kind": "action", "phase": 2, "n": 4, "of": 4, "icon": "store", "viz": "store",
+      "vo": "Keempat, pindah ke kedai bawah yang lebih besar. Lot ground floor dengan ruang display langsir saiz sebenar, dan mockup ruang tamu, untuk pengalaman pelanggan yang eksklusif.",
+      "cues": ["Keempat", "ground", "display", "mockup", "eksklusif"],
+      "title": "Pindah Kedai Bawah, Lebih Besar",
+      "sub": "Pengalaman pelanggan yang eksklusif"
+    },
+    {
+      "id": "s13", "kind": "goal", "phase": 2, "goalViz": "map",
+      "vo": "Matlamatnya, menjadikan Aimi Curtain jenama top of mind, pilihan nombor satu bagi setiap pemilik rumah baharu di Kulim, Lunas dan Bukit Mertajam. Tanda kejayaannya: pelanggan walk-in dan carian nama jenama secara organik di media sosial meningkat mendadak.",
+      "cues": ["Matlamatnya", "Kulim", "Lunas", "Bukit", "Tanda", "walk", "carian"],
+      "goal": "Jadikan Aimi Curtain jenama Top of Mind — pilihan nombor 1 pemilik rumah baharu.",
+      "kpi": ["Pelanggan walk-in meningkat", "Carian jenama organik di media sosial meningkat"]
+    },
+    {
+      "id": "s14", "kind": "phase", "phase": 3,
+      "vo": "Fasa tiga: Penembusan B2B dan Skala Besar. Fokusnya, lubuk aliran tunai dan kontrak berterusan.",
+      "cues": ["Penembusan", "Fokusnya"],
+      "title": ["Penembusan B2B", "& Skala Besar"],
+      "focus": "Lubuk Aliran Tunai & Kontrak Berterusan"
+    },
+    {
+      "id": "s15", "kind": "action", "phase": 3, "n": 1, "of": 3, "icon": "handshake", "viz": "developer",
+      "vo": "Pertama, bekerjasama dengan pemaju hartanah. Tawarkan pemasangan langsir tajaan atau diskaun untuk showhouse, dan letak baucar Aimi Curtain dalam welcome kit pembeli rumah.",
+      "cues": ["Pertama", "pemaju", "showhouse", "baucar", "welcome"],
+      "title": "Kerjasama Pemaju Hartanah",
+      "sub": "Showhouse + baucar dalam welcome kit"
+    },
+    {
+      "id": "s16", "kind": "action", "phase": 3, "n": 2, "of": 3, "icon": "building", "viz": "commercial",
+      "vo": "Kedua, masuk sektor komersial dan hospitaliti. Pasarkan pakej langsir blackout dan bidai secara pukal kepada hotel butik, homestay premium dan pejabat pengurusan.",
+      "cues": ["Kedua", "blackout", "bidai", "pukal", "hotel", "homestay", "pejabat"],
+      "title": "Sektor Komersial & Hospitaliti",
+      "sub": "Pakej pukal blackout & bidai"
+    },
+    {
+      "id": "s17", "kind": "action", "phase": 3, "n": 3, "of": 3, "icon": "briefcase", "viz": "vendor",
+      "vo": "Ketiga, daftar sebagai vendor korporat. Siapkan profil syarikat yang profesional, supaya layak masuk tender dan sebut harga projek institusi serta syarikat swasta.",
+      "cues": ["Ketiga", "profil", "tender", "sebut", "institusi"],
+      "title": "Pendaftaran Vendor Korporat",
+      "sub": "Profil syarikat profesional"
+    },
+    {
+      "id": "s18", "kind": "goal", "phase": 3, "goalViz": "stable",
+      "vo": "Matlamatnya, memasuki pasaran korporat dan komersial untuk jualan pukal, yang menjamin kestabilan pendapatan syarikat jangka panjang. Tanda kejayaannya: syarikat tidak lagi bergantung seratus peratus pada jualan runcit, dan mempunyai sekurang-kurangnya dua hingga tiga kontrak B2B setiap tahun.",
+      "cues": ["Matlamatnya", "kestabilan", "Tanda", "bergantung", "dua"],
+      "goal": "Masuki pasaran korporat & komersial — jualan pukal untuk kestabilan pendapatan jangka panjang.",
+      "kpi": ["Tidak lagi bergantung 100% pada jualan runcit (B2C)", "Sekurang-kurangnya 2–3 kontrak B2B setahun"]
+    },
+    {
+      "id": "s19", "kind": "outro",
+      "vo": "Asas yang kukuh. Pasaran yang dikuasai. Pendapatan yang stabil. Inilah pelan pertumbuhan Aimi Curtain.",
+      "cues": ["Asas", "Pasaran", "Pendapatan", "Inilah"],
+      "nodes": ["Asas yang kukuh", "Pasaran yang dikuasai", "Pendapatan yang stabil"]
+    }
+  ]
+}
