@@ -1,5 +1,7 @@
 # Aimi Curtain — Siri QnA (5 video pendek, TikTok / Reels)
 
+
+**FINAL:** `final/AimiCurtain_QnA1..5_Final_9x16.mp4` — 1080×1920, 30fps, CRF 17, AAC 256k.
 Dipotong daripada satu video temubual (6:45). Suara penyoal **dibuang**; soalan dipaparkan sebagai bubble teks
 di awal setiap video (4s), diikuti jawapan Aimi yang dipendekkan (jump-cut), teks kinetik emas dan animasi
 penerangan, dan end card WhatsApp.
