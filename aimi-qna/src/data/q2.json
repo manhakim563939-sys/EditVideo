@@ -1,0 +1,208 @@
+{
+ "id": "q2",
+ "no": 2,
+ "title": "TAK PANDAI UKUR",
+ "question": "Nak sangat tempah, tapi sumpah tak pandai ukur cermin. Takut salah ukur, senteng pulak langsir nanti…",
+ "fps": 30,
+ "hook": 4.0,
+ "clipLen": 49.2,
+ "dialogEnd": 53.2,
+ "endCard": 2.3,
+ "total": 55.5,
+ "cuts": [
+  4.0,
+  13.75,
+  28.1,
+  42.9
+ ],
+ "beats": [
+  {
+   "s": 4.05,
+   "e": 8.95,
+   "lines": [
+    {
+     "t": "LEBAR:",
+     "at": 4.35
+    },
+    {
+     "t": "UKUR *BINGKAI TINGKAP*",
+     "at": 6.95
+    }
+   ]
+  },
+  {
+   "s": 9.05,
+   "e": 13.7,
+   "lines": [
+    {
+     "t": "*+5 INCI* KIRI",
+     "at": 11.15,
+     "big": true
+    },
+    {
+     "t": "*+5 INCI* KANAN",
+     "at": 12.45,
+     "big": true
+    }
+   ]
+  },
+  {
+   "s": 13.8,
+   "e": 21.1,
+   "lines": [
+    {
+     "t": "CONTOH: BINGKAI",
+     "at": 13.8
+    },
+    {
+     "t": "*4 KAKI*",
+     "at": 14.6,
+     "big": true
+    }
+   ]
+  },
+  {
+   "s": 21.2,
+   "e": 28.0,
+   "lines": [
+    {
+     "t": "48\" + 10\"",
+     "at": 21.6
+    },
+    {
+     "t": "= *58 INCI*",
+     "at": 24.4,
+     "big": true
+    }
+   ]
+  },
+  {
+   "s": 28.15,
+   "e": 40.05,
+   "lines": [
+    {
+     "t": "LABUH?",
+     "at": 28.25
+    },
+    {
+     "t": "*IKUT* KITA NAK BUAT",
+     "at": 30.15
+    }
+   ]
+  },
+  {
+   "s": 40.15,
+   "e": 42.85,
+   "lines": [
+    {
+     "t": "PASTIKAN *5 INCI* LEBIH",
+     "at": 40.25
+    },
+    {
+     "t": "DARIPADA BINGKAI",
+     "at": 41.65
+    }
+   ]
+  },
+  {
+   "s": 42.95,
+   "e": 53.15,
+   "lines": [
+    {
+     "t": "NAK LEBIH CANTIK?",
+     "at": 42.95
+    },
+    {
+     "t": "UKUR DARI *SILING*",
+     "at": 46.15
+    },
+    {
+     "t": "SAMPAI *LANTAI*",
+     "at": 48.75
+    }
+   ]
+  }
+ ],
+ "viz": [
+  {
+   "type": "window",
+   "s": 4.05,
+   "e": 28.0,
+   "pad": 11.15,
+   "pad2": 12.45,
+   "ex": 13.8,
+   "sum": 21.6,
+   "res": 24.4
+  },
+  {
+   "type": "height",
+   "s": 28.15,
+   "e": 53.15,
+   "five": 40.25,
+   "ceil": 46.15
+  }
+ ],
+ "sfx": [
+  {
+   "t": 0.05,
+   "k": "whoosh_s",
+   "g": 0.3
+  },
+  {
+   "t": 0.3,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 4.0,
+   "k": "whoosh",
+   "g": 0.35
+  },
+  {
+   "t": 11.15,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 12.45,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 13.75,
+   "k": "whoosh_s",
+   "g": 0.18
+  },
+  {
+   "t": 14.6,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 24.4,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 28.1,
+   "k": "whoosh_s",
+   "g": 0.18
+  },
+  {
+   "t": 42.9,
+   "k": "whoosh_s",
+   "g": 0.18
+  },
+  {
+   "t": 53.20000000000002,
+   "k": "whoosh",
+   "g": 0.35
+  },
+  {
+   "t": 53.70000000000002,
+   "k": "ding",
+   "g": 0.3
+  }
+ ],
+ "musicLift": 4.0
+}

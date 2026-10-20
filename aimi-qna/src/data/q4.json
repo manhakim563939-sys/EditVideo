@@ -1,0 +1,142 @@
+{
+ "id": "q4",
+ "no": 4,
+ "title": "TEMPOH SIAP",
+ "question": "Kalau confirm tempah harini, berapa lama nak tunggu langsir siap pasang? Bulan depan nak masuk rumah ni…",
+ "fps": 30,
+ "hook": 4.0,
+ "clipLen": 17.65,
+ "dialogEnd": 21.65,
+ "endCard": 2.3,
+ "total": 23.95,
+ "cuts": [
+  4.0,
+  11.0,
+  16.5
+ ],
+ "beats": [
+  {
+   "s": 4.05,
+   "e": 6.4,
+   "lines": [
+    {
+     "t": "CONFIRM",
+     "at": 4.1
+    },
+    {
+     "t": "*HARI NI?*",
+     "at": 5.0,
+     "big": true
+    }
+   ]
+  },
+  {
+   "s": 6.5,
+   "e": 9.8,
+   "lines": [
+    {
+     "t": "BIASANYA ±",
+     "at": 6.6
+    },
+    {
+     "t": "*2 MINGGU*",
+     "at": 7.4,
+     "big": true
+    }
+   ]
+  },
+  {
+   "s": 9.9,
+   "e": 16.45,
+   "lines": [
+    {
+     "t": "TEMPAHAN *BERSUSUN*",
+     "at": 11.1
+    },
+    {
+     "t": "→ LEWAT SIKIT",
+     "at": 13.2
+    }
+   ]
+  },
+  {
+   "s": 16.55,
+   "e": 21.6,
+   "lines": [
+    {
+     "t": "IKUT PERSETUJUAN",
+     "at": 16.55
+    },
+    {
+     "t": "± *SEBULAN*",
+     "at": 19.55,
+     "big": true
+    }
+   ]
+  }
+ ],
+ "viz": [
+  {
+   "type": "calendar",
+   "s": 4.05,
+   "e": 21.6,
+   "start": 5.0,
+   "two": 7.4,
+   "queue": 11.1,
+   "month": 19.55
+  }
+ ],
+ "sfx": [
+  {
+   "t": 0.05,
+   "k": "whoosh_s",
+   "g": 0.3
+  },
+  {
+   "t": 0.3,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 4.0,
+   "k": "whoosh",
+   "g": 0.35
+  },
+  {
+   "t": 5.0,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 7.4,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 11.0,
+   "k": "whoosh_s",
+   "g": 0.18
+  },
+  {
+   "t": 16.5,
+   "k": "whoosh_s",
+   "g": 0.18
+  },
+  {
+   "t": 19.55,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 21.649999999999977,
+   "k": "whoosh",
+   "g": 0.35
+  },
+  {
+   "t": 22.149999999999977,
+   "k": "ding",
+   "g": 0.3
+  }
+ ],
+ "musicLift": 4.0
+}

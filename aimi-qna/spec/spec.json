@@ -1,0 +1,92 @@
+{
+ "hook": 4.0,
+ "endCard": 2.3,
+ "qna": {
+  "q1": {
+   "no": 1, "title": "ISU BAJET",
+   "question": "Langsir custom-made ni dengar cerita harga kayangan, beribu-ribu kan? Takut bajet lari baru lepas beli rumah…",
+   "segs": [[33.60,41.75],[41.90,47.62],[47.98,55.85],[56.30,65.10],[71.95,76.75],[102.85,108.0]],
+   "beats": [
+    { "s": 33.7, "e": 41.6, "lines": [{ "t": "KAMI SUGGEST", "at": 35.6 }, { "t": "IKUT *BAJET* ANDA", "at": 37.7, "big": true }] },
+    { "s": 41.95, "e": 47.55, "lines": [{ "t": "NAK NAMPAK", "at": 43.2 }, { "t": "*PREMIUM?*", "at": 45.4, "big": true }] },
+    { "s": 48.0, "e": 55.8, "lines": [{ "t": "RUANG TAMU →", "at": 48.6 }, { "t": "*KAIN PREMIUM*", "at": 50.2 }, { "t": "BILIK → KAIN BAJET", "at": 52.7 }] },
+    { "s": 56.35, "e": 65.0, "lines": [{ "t": "KAMI *ADJUST*", "at": 61.5, "big": true }, { "t": "IKUT BAJET CUSTOMER", "at": 63.0 }] },
+    { "s": 72.0, "e": 76.7, "lines": [{ "t": "HARGA BERAPA?", "at": 72.0 }, { "t": "*KENA ADA UKURAN*", "at": 74.6 }] },
+    { "s": 102.9, "e": 108.0, "style": "stamp", "lines": [{ "t": "*KENA UKUR DULU!*", "at": 105.4, "big": true }] }
+   ],
+   "viz": [
+    { "type": "budget", "s": 33.7, "e": 47.6 },
+    { "type": "rooms", "s": 48.0, "e": 65.0, "a": 48.6, "b": 52.7, "c": 61.5 },
+    { "type": "measure", "s": 72.0, "e": 108.0, "stamp": 105.4 }
+   ]
+  },
+  "q2": {
+   "no": 2, "title": "TAK PANDAI UKUR",
+   "question": "Nak sangat tempah, tapi sumpah tak pandai ukur cermin. Takut salah ukur, senteng pulak langsir nanti…",
+   "segs": [[137.65,147.40],[147.75,162.10],[162.45,177.25],[188.75,199.05]],
+   "beats": [
+    { "s": 137.7, "e": 142.6, "lines": [{ "t": "LEBAR:", "at": 138.0 }, { "t": "UKUR *BINGKAI TINGKAP*", "at": 140.6 }] },
+    { "s": 142.7, "e": 147.35, "lines": [{ "t": "*+5 INCI* KIRI", "at": 144.8, "big": true }, { "t": "*+5 INCI* KANAN", "at": 146.1, "big": true }] },
+    { "s": 147.8, "e": 155.1, "lines": [{ "t": "CONTOH: BINGKAI", "at": 147.8 }, { "t": "*4 KAKI*", "at": 148.6, "big": true }] },
+    { "s": 155.2, "e": 162.0, "lines": [{ "t": "48\" + 10\"", "at": 155.6 }, { "t": "= *58 INCI*", "at": 158.4, "big": true }] },
+    { "s": 162.5, "e": 174.4, "lines": [{ "t": "LABUH?", "at": 162.6 }, { "t": "*IKUT* KITA NAK BUAT", "at": 164.5 }] },
+    { "s": 174.5, "e": 177.2, "lines": [{ "t": "PASTIKAN *5 INCI* LEBIH", "at": 174.6 }, { "t": "DARIPADA BINGKAI", "at": 176.0 }] },
+    { "s": 188.8, "e": 199.0, "lines": [{ "t": "NAK LEBIH CANTIK?", "at": 188.8 }, { "t": "UKUR DARI *SILING*", "at": 192.0 }, { "t": "SAMPAI *LANTAI*", "at": 194.6 }] }
+   ],
+   "viz": [
+    { "type": "window", "s": 137.7, "e": 162.0, "pad": 144.8, "pad2": 146.1, "ex": 147.8, "sum": 155.6, "res": 158.4 },
+    { "type": "height", "s": 162.5, "e": 199.0, "five": 174.6, "ceil": 192.0 }
+   ]
+  },
+  "q3": {
+   "no": 3, "title": "RUMAH PANAS",
+   "question": "Petang matahari pacak tepat kat ruang tamu. Panas lit-lit! Kain jenis apa yang ngam nak bagi sejuk sikit?",
+   "segs": [[218.10,226.60],[226.90,231.30],[231.90,239.85],[240.40,247.05],[247.45,254.75],[255.30,264.40],[265.55,273.15]],
+   "beats": [
+    { "s": 218.15, "e": 222.8, "lines": [{ "t": "BIASANYA", "at": 218.2 }, { "t": "*KAIN BLACKOUT*", "at": 218.9, "big": true }] },
+    { "s": 222.9, "e": 226.55, "lines": [{ "t": "BASIC · STANDARD", "at": 223.5 }, { "t": "· *PREMIUM*", "at": 225.4, "big": true }] },
+    { "s": 226.95, "e": 233.4, "lines": [{ "t": "PREMIUM =", "at": 227.0 }, { "t": "*FLOWY* & CANTIK", "at": 229.6, "big": true }] },
+    { "s": 233.5, "e": 239.8, "lines": [{ "t": "SEKAT CAHAYA?", "at": 234.5 }, { "t": "TAK BANYAK BEZA", "at": 237.3 }] },
+    { "s": 240.45, "e": 247.0, "lines": [{ "t": "BASIC ±", "at": 240.5 }, { "t": "*60%*", "at": 240.7, "big": true }] },
+    { "s": 247.5, "e": 251.4, "lines": [{ "t": "PREMIUM SAMPAI", "at": 247.6 }, { "t": "*80%*", "at": 249.0, "big": true }] },
+    { "s": 251.5, "e": 264.3, "lines": [{ "t": "ADA *100%*", "at": 251.6, "big": true }, { "t": "TAPI *GELAP TOTAL*", "at": 260.2 }] },
+    { "s": 265.6, "e": 273.1, "lines": [{ "t": "80% = CAHAYA", "at": 265.7 }, { "t": "*MASIH MASUK*", "at": 267.3, "big": true }] }
+   ],
+   "viz": [
+    { "type": "tiers", "s": 218.15, "e": 239.8, "t1": 223.5, "t2": 224.4, "t3": 225.4, "flowy": 229.6 },
+    { "type": "block", "s": 240.45, "e": 273.1, "b60": 240.7, "b80": 249.0, "b100": 251.6, "dark": 260.2, "back": 265.7 }
+   ]
+  },
+  "q4": {
+   "no": 4, "title": "TEMPOH SIAP",
+   "question": "Kalau confirm tempah harini, berapa lama nak tunggu langsir siap pasang? Bulan depan nak masuk rumah ni…",
+   "segs": [[296.20,303.20],[303.40,308.90],[309.55,314.70]],
+   "beats": [
+    { "s": 296.25, "e": 298.6, "lines": [{ "t": "CONFIRM", "at": 296.3 }, { "t": "*HARI NI?*", "at": 297.2, "big": true }] },
+    { "s": 298.7, "e": 302.0, "lines": [{ "t": "BIASANYA ±", "at": 298.8 }, { "t": "*2 MINGGU*", "at": 299.6, "big": true }] },
+    { "s": 302.1, "e": 308.85, "lines": [{ "t": "TEMPAHAN *BERSUSUN*", "at": 303.5 }, { "t": "→ LEWAT SIKIT", "at": 305.6 }] },
+    { "s": 309.6, "e": 314.65, "lines": [{ "t": "IKUT PERSETUJUAN", "at": 309.6 }, { "t": "± *SEBULAN*", "at": 312.6, "big": true }] }
+   ],
+   "viz": [
+    { "type": "calendar", "s": 296.25, "e": 314.65, "start": 297.2, "two": 299.6, "queue": 303.5, "month": 312.6 }
+   ]
+  },
+  "q5": {
+   "no": 5, "title": "DESIGN & KONSEP",
+   "question": "Rumah konsep minimalis moden, deko dah cun. Tapi buntu nak pilih kaler langsir, takut tak masuk dengan perabot…",
+   "segs": [[350.60,358.90],[362.80,365.00],[367.25,384.05]],
+   "beats": [
+    { "s": 350.65, "e": 358.85, "lines": [{ "t": "KENA TENGOK", "at": 352.6 }, { "t": "*PERABOT* RUMAH", "at": 355.5, "big": true }] },
+    { "s": 362.85, "e": 364.95, "lines": [{ "t": "KONSEP *MINIMALIS* PUN", "at": 362.9 }] },
+    { "s": 367.3, "e": 371.4, "lines": [{ "t": "BERGANTUNG PADA", "at": 367.4 }, { "t": "*WARNA* YANG ADA", "at": 368.8, "big": true }] },
+    { "s": 371.5, "e": 377.9, "lines": [{ "t": "BARU BOLEH", "at": 375.8 }, { "t": "*MATCH*", "at": 376.6, "big": true }] },
+    { "s": 378.0, "e": 381.6, "lines": [{ "t": "TERUS SUGGEST BIRU?", "at": 378.0 }, { "t": "NUDE? *TAK BOLEH*", "at": 379.6 }] },
+    { "s": 381.7, "e": 384.0, "lines": [{ "t": "TENGOK", "at": 381.7 }, { "t": "*SUASANA RUMAH*", "at": 382.3, "big": true }] }
+   ],
+   "viz": [
+    { "type": "palette", "s": 350.65, "e": 371.4, "sofa": 355.5, "mini": 362.9, "color": 368.8 },
+    { "type": "checklist", "s": 371.5, "e": 384.0, "items": [["CAT", 372.2], ["LANTAI", 373.0], ["SOFA", 373.8], ["PERABOT", 374.7]], "match": 376.6, "guess": 378.0, "no": 379.6, "suasana": 382.3 }
+   ]
+  }
+ }
+}

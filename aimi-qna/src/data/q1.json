@@ -1,0 +1,205 @@
+{
+ "id": "q1",
+ "no": 1,
+ "title": "ISU BAJET",
+ "question": "Langsir custom-made ni dengar cerita harga kayangan, beribu-ribu kan? Takut bajet lari baru lepas beli rumah…",
+ "fps": 30,
+ "hook": 4.0,
+ "clipLen": 40.49,
+ "dialogEnd": 44.49,
+ "endCard": 2.3,
+ "total": 46.79,
+ "cuts": [
+  4.0,
+  12.15,
+  17.87,
+  25.74,
+  34.54,
+  39.34
+ ],
+ "beats": [
+  {
+   "s": 4.1,
+   "e": 12.0,
+   "lines": [
+    {
+     "t": "KAMI SUGGEST",
+     "at": 6.0
+    },
+    {
+     "t": "IKUT *BAJET* ANDA",
+     "at": 8.1,
+     "big": true
+    }
+   ]
+  },
+  {
+   "s": 12.2,
+   "e": 17.8,
+   "lines": [
+    {
+     "t": "NAK NAMPAK",
+     "at": 13.45
+    },
+    {
+     "t": "*PREMIUM?*",
+     "at": 15.65,
+     "big": true
+    }
+   ]
+  },
+  {
+   "s": 17.89,
+   "e": 25.69,
+   "lines": [
+    {
+     "t": "RUANG TAMU →",
+     "at": 18.49
+    },
+    {
+     "t": "*KAIN PREMIUM*",
+     "at": 20.09
+    },
+    {
+     "t": "BILIK → KAIN BAJET",
+     "at": 22.59
+    }
+   ]
+  },
+  {
+   "s": 25.79,
+   "e": 34.44,
+   "lines": [
+    {
+     "t": "KAMI *ADJUST*",
+     "at": 30.94,
+     "big": true
+    },
+    {
+     "t": "IKUT BAJET CUSTOMER",
+     "at": 32.44
+    }
+   ]
+  },
+  {
+   "s": 34.59,
+   "e": 39.29,
+   "lines": [
+    {
+     "t": "HARGA BERAPA?",
+     "at": 34.59
+    },
+    {
+     "t": "*KENA ADA UKURAN*",
+     "at": 37.19
+    }
+   ]
+  },
+  {
+   "s": 39.39,
+   "e": 44.49,
+   "style": "stamp",
+   "lines": [
+    {
+     "t": "*KENA UKUR DULU!*",
+     "at": 41.89,
+     "big": true
+    }
+   ]
+  }
+ ],
+ "viz": [
+  {
+   "type": "budget",
+   "s": 4.1,
+   "e": 17.85
+  },
+  {
+   "type": "rooms",
+   "s": 17.89,
+   "e": 34.44,
+   "a": 18.49,
+   "b": 22.59,
+   "c": 30.94
+  },
+  {
+   "type": "measure",
+   "s": 34.59,
+   "e": 44.49,
+   "stamp": 41.89
+  }
+ ],
+ "sfx": [
+  {
+   "t": 0.05,
+   "k": "whoosh_s",
+   "g": 0.3
+  },
+  {
+   "t": 0.3,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 4.0,
+   "k": "whoosh",
+   "g": 0.35
+  },
+  {
+   "t": 8.1,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 12.15,
+   "k": "whoosh_s",
+   "g": 0.18
+  },
+  {
+   "t": 15.65,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 17.87,
+   "k": "whoosh_s",
+   "g": 0.18
+  },
+  {
+   "t": 25.74,
+   "k": "whoosh_s",
+   "g": 0.18
+  },
+  {
+   "t": 30.94,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 34.54,
+   "k": "whoosh_s",
+   "g": 0.18
+  },
+  {
+   "t": 39.34,
+   "k": "whoosh_s",
+   "g": 0.18
+  },
+  {
+   "t": 41.89,
+   "k": "impact_s",
+   "g": 0.3
+  },
+  {
+   "t": 44.49,
+   "k": "whoosh",
+   "g": 0.35
+  },
+  {
+   "t": 44.99,
+   "k": "ding",
+   "g": 0.3
+  }
+ ],
+ "musicLift": 4.0
+}

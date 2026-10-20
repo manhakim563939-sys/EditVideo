@@ -1,0 +1,198 @@
+{
+ "id": "q5",
+ "no": 5,
+ "title": "DESIGN & KONSEP",
+ "question": "Rumah konsep minimalis moden, deko dah cun. Tapi buntu nak pilih kaler langsir, takut tak masuk dengan perabot…",
+ "fps": 30,
+ "hook": 4.0,
+ "clipLen": 27.3,
+ "dialogEnd": 31.3,
+ "endCard": 2.3,
+ "total": 33.6,
+ "cuts": [
+  4.0,
+  12.3,
+  14.5
+ ],
+ "beats": [
+  {
+   "s": 4.05,
+   "e": 12.25,
+   "lines": [
+    {
+     "t": "KENA TENGOK",
+     "at": 6.0
+    },
+    {
+     "t": "*PERABOT* RUMAH",
+     "at": 8.9,
+     "big": true
+    }
+   ]
+  },
+  {
+   "s": 12.35,
+   "e": 14.45,
+   "lines": [
+    {
+     "t": "KONSEP *MINIMALIS* PUN",
+     "at": 12.4
+    }
+   ]
+  },
+  {
+   "s": 14.55,
+   "e": 18.65,
+   "lines": [
+    {
+     "t": "BERGANTUNG PADA",
+     "at": 14.65
+    },
+    {
+     "t": "*WARNA* YANG ADA",
+     "at": 16.05,
+     "big": true
+    }
+   ]
+  },
+  {
+   "s": 18.75,
+   "e": 25.15,
+   "lines": [
+    {
+     "t": "BARU BOLEH",
+     "at": 23.05
+    },
+    {
+     "t": "*MATCH*",
+     "at": 23.85,
+     "big": true
+    }
+   ]
+  },
+  {
+   "s": 25.25,
+   "e": 28.85,
+   "lines": [
+    {
+     "t": "TERUS SUGGEST BIRU?",
+     "at": 25.25
+    },
+    {
+     "t": "NUDE? *TAK BOLEH*",
+     "at": 26.85
+    }
+   ]
+  },
+  {
+   "s": 28.95,
+   "e": 31.25,
+   "lines": [
+    {
+     "t": "TENGOK",
+     "at": 28.95
+    },
+    {
+     "t": "*SUASANA RUMAH*",
+     "at": 29.55,
+     "big": true
+    }
+   ]
+  }
+ ],
+ "viz": [
+  {
+   "type": "palette",
+   "s": 4.05,
+   "e": 18.65,
+   "sofa": 8.9,
+   "mini": 12.4,
+   "color": 16.05
+  },
+  {
+   "type": "checklist",
+   "s": 18.75,
+   "e": 31.25,
+   "items": [
+    [
+     "CAT",
+     19.45
+    ],
+    [
+     "LANTAI",
+     20.25
+    ],
+    [
+     "SOFA",
+     21.05
+    ],
+    [
+     "PERABOT",
+     21.95
+    ]
+   ],
+   "match": 23.85,
+   "guess": 25.25,
+   "no": 379.6,
+   "suasana": 29.55
+  }
+ ],
+ "sfx": [
+  {
+   "t": 0.05,
+   "k": "whoosh_s",
+   "g": 0.3
+  },
+  {
+   "t": 0.3,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 4.0,
+   "k": "whoosh",
+   "g": 0.35
+  },
+  {
+   "t": 8.9,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 12.3,
+   "k": "whoosh_s",
+   "g": 0.18
+  },
+  {
+   "t": 14.5,
+   "k": "whoosh_s",
+   "g": 0.18
+  },
+  {
+   "t": 16.05,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 23.85,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 29.55,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 31.299999999999955,
+   "k": "whoosh",
+   "g": 0.35
+  },
+  {
+   "t": 31.799999999999955,
+   "k": "ding",
+   "g": 0.3
+  }
+ ],
+ "musicLift": 4.0
+}
