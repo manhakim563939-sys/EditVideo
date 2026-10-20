@@ -1,0 +1,671 @@
+{
+ "fps": 30,
+ "dialogEnd": 33.07,
+ "endCard": 2.2,
+ "shots": [
+  {
+   "s": 0.0,
+   "e": 2.2,
+   "kind": "video",
+   "src": "broll/pintu-bidai.mp4",
+   "in": 0.0,
+   "zoom": [
+    1.0,
+    1.12
+   ],
+   "oy": 0.5
+  },
+  {
+   "s": 2.2,
+   "e": 5.4,
+   "kind": "main",
+   "in": 2.2,
+   "zoom": [
+    1.26,
+    1.33
+   ],
+   "oy": 0.28
+  },
+  {
+   "s": 5.4,
+   "e": 7.95,
+   "kind": "brand"
+  },
+  {
+   "s": 7.95,
+   "e": 9.55,
+   "kind": "image",
+   "src": "img/kedai.jpg",
+   "zoom": [
+    1.0,
+    1.35
+   ],
+   "oy": 0.24
+  },
+  {
+   "s": 9.55,
+   "e": 11.25,
+   "kind": "testi"
+  },
+  {
+   "s": 11.25,
+   "e": 14.47,
+   "kind": "main",
+   "in": 11.25,
+   "zoom": [
+    1.34,
+    1.27
+   ],
+   "oy": 0.28
+  },
+  {
+   "s": 14.47,
+   "e": 15.6,
+   "kind": "video",
+   "src": "broll/pasang-tangga.mp4",
+   "in": 0.0,
+   "zoom": [
+    1.05,
+    1.15
+   ],
+   "oy": 0.4
+  },
+  {
+   "s": 15.6,
+   "e": 17.15,
+   "kind": "video",
+   "src": "broll/team-pasang.mp4",
+   "in": 0.3,
+   "zoom": [
+    1.0,
+    1.08
+   ],
+   "oy": 0.3
+  },
+  {
+   "s": 17.15,
+   "e": 18.15,
+   "kind": "video",
+   "src": "broll/ruang-kelabu.mp4",
+   "in": 3.0,
+   "zoom": [
+    1.0,
+    1.06
+   ],
+   "oy": 0.4
+  },
+  {
+   "s": 18.15,
+   "e": 21.3,
+   "kind": "main",
+   "in": 18.15,
+   "zoom": [
+    1.26,
+    1.32
+   ],
+   "oy": 0.28
+  },
+  {
+   "s": 21.3,
+   "e": 23.45,
+   "kind": "video",
+   "src": "broll/team-pasang.mp4",
+   "in": 4.5,
+   "zoom": [
+    1.0,
+    1.06
+   ],
+   "oy": 0.3
+  },
+  {
+   "s": 23.45,
+   "e": 25.85,
+   "kind": "main",
+   "in": 23.45,
+   "zoom": [
+    1.42,
+    1.3
+   ],
+   "oy": 0.27
+  },
+  {
+   "s": 25.85,
+   "e": 27.95,
+   "kind": "video",
+   "src": "broll/pintu-bidai.mp4",
+   "in": 4.0,
+   "zoom": [
+    1.08,
+    1.0
+   ],
+   "oy": 0.4
+  },
+  {
+   "s": 27.95,
+   "e": 33.07,
+   "kind": "main",
+   "in": 27.95,
+   "zoom": [
+    1.28,
+    1.22
+   ],
+   "oy": 0.28
+  }
+ ],
+ "punches": [
+  {
+   "t": 4.57,
+   "amt": 0.06,
+   "dur": 0.75
+  },
+  {
+   "t": 11.34,
+   "amt": 0.05,
+   "dur": 1.6
+  },
+  {
+   "t": 29.24,
+   "amt": 0.05,
+   "dur": 0.7
+  }
+ ],
+ "beats": [
+  {
+   "s": 0.05,
+   "e": 2.4,
+   "pos": "mid",
+   "lines": [
+    {
+     "t": "RANCANG NAK MASUK",
+     "at": 0.05
+    },
+    {
+     "t": "*RUMAH BARU*",
+     "at": 0.75,
+     "big": true
+    },
+    {
+     "t": "BULAN DEPAN?",
+     "at": 1.4
+    }
+   ]
+  },
+  {
+   "s": 2.63,
+   "e": 4.5,
+   "pos": "low",
+   "lines": [
+    {
+     "t": "TAPI *LANGSIR*",
+     "at": 2.63
+    },
+    {
+     "t": "TAK TEMPAH LAGI?",
+     "at": 3.5
+    }
+   ]
+  },
+  {
+   "s": 4.57,
+   "e": 5.38,
+   "pos": "low",
+   "style": "stamp",
+   "lines": [
+    {
+     "t": "*JANGAN RISAU!*",
+     "at": 4.57,
+     "big": true
+    }
+   ]
+  },
+  {
+   "s": 5.42,
+   "e": 6.42,
+   "pos": "top",
+   "style": "light",
+   "lines": [
+    {
+     "t": "PASS SAJA PADA",
+     "at": 5.42
+    }
+   ]
+  },
+  {
+   "s": 7.95,
+   "e": 9.52,
+   "pos": "low",
+   "style": "badge",
+   "lines": [
+    {
+     "t": "*100%*",
+     "at": 7.98,
+     "big": true
+    },
+    {
+     "t": "BUMIPUTERA",
+     "at": 8.85
+    }
+   ]
+  },
+  {
+   "s": 11.34,
+   "e": 13.0,
+   "pos": "low",
+   "lines": [
+    {
+     "t": "DAH KAMI SIAPKAN",
+     "at": 11.34
+    },
+    {
+     "t": "*TANPA GAGAL*",
+     "at": 12.15,
+     "big": true
+    }
+   ]
+  },
+  {
+   "s": 13.07,
+   "e": 14.45,
+   "pos": "low",
+   "step": 1,
+   "lines": [
+    {
+     "t": "KAMI *SETTLE-KAN*",
+     "at": 13.07
+    },
+    {
+     "t": "UKURAN",
+     "at": 14.0
+    }
+   ]
+  },
+  {
+   "s": 14.52,
+   "e": 15.58,
+   "pos": "low",
+   "step": 2,
+   "lines": [
+    {
+     "t": "JAHIT",
+     "at": 14.52
+    },
+    {
+     "t": "*KEMAS-KEMAS*",
+     "at": 15.0,
+     "big": true
+    }
+   ]
+  },
+  {
+   "s": 15.65,
+   "e": 17.12,
+   "pos": "low",
+   "step": 3,
+   "lines": [
+    {
+     "t": "DAN TERUS *PASANG*",
+     "at": 15.65
+    },
+    {
+     "t": "KE RUMAH ANDA",
+     "at": 16.3
+    }
+   ]
+  },
+  {
+   "s": 17.2,
+   "e": 18.12,
+   "pos": "low",
+   "style": "stamp",
+   "lines": [
+    {
+     "t": "*TEPAT PADA MASA*",
+     "at": 17.3,
+     "big": true
+    }
+   ]
+  },
+  {
+   "s": 18.23,
+   "e": 19.9,
+   "pos": "low",
+   "lines": [
+    {
+     "t": "KALAU ANDA",
+     "at": 18.23
+    },
+    {
+     "t": "*TAKDE MASA*",
+     "at": 18.85,
+     "big": true
+    }
+   ]
+  },
+  {
+   "s": 19.95,
+   "e": 21.28,
+   "pos": "low",
+   "lines": [
+    {
+     "t": "TAK PAYAH DATANG",
+     "at": 19.95
+    },
+    {
+     "t": "*KEDAI* PUN TAK PE",
+     "at": 20.6
+    }
+   ]
+  },
+  {
+   "s": 21.33,
+   "e": 23.43,
+   "pos": "low",
+   "lines": [
+    {
+     "t": "TEAM KAMI AKAN DATANG",
+     "at": 21.33
+    },
+    {
+     "t": "*UKUR* KE RUMAH ANDA",
+     "at": 22.15
+    }
+   ]
+  },
+  {
+   "s": 23.47,
+   "e": 23.98,
+   "pos": "low",
+   "style": "stamp",
+   "lines": [
+    {
+     "t": "*FREE JE!*",
+     "at": 23.47,
+     "big": true
+    }
+   ]
+  },
+  {
+   "s": 23.98,
+   "e": 25.83,
+   "pos": "low",
+   "lines": [
+    {
+     "t": "BUKAN TU JE,",
+     "at": 23.98
+    },
+    {
+     "t": "KALAU ANDA NAK TENGOK",
+     "at": 24.6
+    }
+   ]
+  },
+  {
+   "s": 25.87,
+   "e": 27.93,
+   "pos": "low",
+   "style": "swatch",
+   "lines": [
+    {
+     "t": "*SAMPEL*",
+     "at": 25.87,
+     "big": true
+    },
+    {
+     "t": "MATERIAL KAIN",
+     "at": 26.3
+    },
+    {
+     "t": "& WARNA",
+     "at": 27.2
+    }
+   ]
+  },
+  {
+   "s": 28.09,
+   "e": 29.2,
+   "pos": "low",
+   "lines": [
+    {
+     "t": "PUN KAMI *BAWAKAN*",
+     "at": 28.09
+    },
+    {
+     "t": "SEKALI",
+     "at": 28.7
+    }
+   ]
+  },
+  {
+   "s": 29.24,
+   "e": 29.98,
+   "pos": "low",
+   "style": "stamp",
+   "lines": [
+    {
+     "t": "*MUDAH* KERJA ANDA!",
+     "at": 29.24
+    }
+   ]
+  },
+  {
+   "s": 30.0,
+   "e": 31.92,
+   "pos": "low",
+   "lines": [
+    {
+     "t": "SEBARANG PERTANYAAN",
+     "at": 30.0
+    },
+    {
+     "t": "& *TEMPAHAN*",
+     "at": 30.9
+    }
+   ]
+  },
+  {
+   "s": 31.97,
+   "e": 33.07,
+   "pos": "low",
+   "style": "cta",
+   "lines": [
+    {
+     "t": "TEKAN JE",
+     "at": 31.97
+    },
+    {
+     "t": "*WHATSAPP* DI BAWAH",
+     "at": 32.3
+    }
+   ]
+  }
+ ],
+ "pips": [
+  {
+   "s": 19.95,
+   "e": 21.28,
+   "kind": "image",
+   "src": "img/kedai.jpg",
+   "label": "Tak perlu ke kedai",
+   "side": "right"
+  },
+  {
+   "s": 28.09,
+   "e": 29.95,
+   "kind": "video",
+   "src": "broll/pintu-bidai.mp4",
+   "in": 25.0,
+   "label": "Sampel dibawa ke rumah",
+   "side": "left"
+  }
+ ],
+ "brand": {
+  "pre": 5.42,
+  "logo": 6.45,
+  "name": 6.75
+ },
+ "testi": {
+  "s": 9.55,
+  "count": 9,
+  "counterFrom": 9.6,
+  "counterTo": 10.6
+ },
+ "sfx": [
+  {
+   "t": 0.05,
+   "k": "whoosh_s",
+   "g": 0.3
+  },
+  {
+   "t": 0.75,
+   "k": "pop",
+   "g": 0.35
+  },
+  {
+   "t": 2.2,
+   "k": "whoosh_s",
+   "g": 0.3
+  },
+  {
+   "t": 4.57,
+   "k": "impact_s",
+   "g": 0.45
+  },
+  {
+   "t": 5.42,
+   "k": "riser",
+   "g": 0.35,
+   "d": 1.0
+  },
+  {
+   "t": 6.45,
+   "k": "impact",
+   "g": 0.55
+  },
+  {
+   "t": 6.5,
+   "k": "shimmer",
+   "g": 0.35
+  },
+  {
+   "t": 7.95,
+   "k": "whoosh",
+   "g": 0.4
+  },
+  {
+   "t": 8.0,
+   "k": "pop",
+   "g": 0.4
+  },
+  {
+   "t": 9.55,
+   "k": "whoosh_s",
+   "g": 0.35
+  },
+  {
+   "t": 9.6,
+   "k": "ticks",
+   "g": 0.28,
+   "d": 1.0
+  },
+  {
+   "t": 10.62,
+   "k": "ding",
+   "g": 0.35
+  },
+  {
+   "t": 12.15,
+   "k": "impact_s",
+   "g": 0.4
+  },
+  {
+   "t": 13.07,
+   "k": "click",
+   "g": 0.35
+  },
+  {
+   "t": 14.47,
+   "k": "whoosh_s",
+   "g": 0.3
+  },
+  {
+   "t": 14.52,
+   "k": "click",
+   "g": 0.35
+  },
+  {
+   "t": 15.6,
+   "k": "whoosh_s",
+   "g": 0.3
+  },
+  {
+   "t": 15.65,
+   "k": "click",
+   "g": 0.35
+  },
+  {
+   "t": 17.3,
+   "k": "ding",
+   "g": 0.3
+  },
+  {
+   "t": 18.15,
+   "k": "whoosh_s",
+   "g": 0.3
+  },
+  {
+   "t": 19.95,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 21.3,
+   "k": "whoosh_s",
+   "g": 0.3
+  },
+  {
+   "t": 23.47,
+   "k": "impact_s",
+   "g": 0.5
+  },
+  {
+   "t": 25.85,
+   "k": "whoosh_s",
+   "g": 0.3
+  },
+  {
+   "t": 27.95,
+   "k": "whoosh_s",
+   "g": 0.3
+  },
+  {
+   "t": 28.09,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 29.24,
+   "k": "pop",
+   "g": 0.35
+  },
+  {
+   "t": 30.0,
+   "k": "whoosh_s",
+   "g": 0.3
+  },
+  {
+   "t": 32.3,
+   "k": "ding",
+   "g": 0.35
+  },
+  {
+   "t": 33.07,
+   "k": "whoosh",
+   "g": 0.4
+  },
+  {
+   "t": 33.2,
+   "k": "shimmer",
+   "g": 0.35
+  }
+ ]
+}
