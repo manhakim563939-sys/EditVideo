@@ -1,5 +1,7 @@
 # Aimi Curtain — Kinetic Typography Edit (TikTok / Reels)
 
+
+**FINAL:** `AimiCurtain_Kinetic_Final_9x16.mp4` — 1080×1920, 30fps, 35.3s, CRF 16, AAC 256k, −16.4 LUFS.
 `preview_v1.mp4` — 1080×1920, 30fps, 35.3s (33.1s video utama + 2.2s end card). **Belum final export.**
 
 Arah visual: **Gold Kinetic Luxe** — zamrud & emas dari logo AIMI CURTAIN; Montserrat Black untuk teks kinetik
