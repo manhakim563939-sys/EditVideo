@@ -1,0 +1,542 @@
+{
+ "fps": 30,
+ "dialogEnd": 35.55,
+ "endCard": 2.4,
+ "musicLift": 16.3,
+ "face": {
+  "x": 540,
+  "y": 520
+ },
+ "segs": [
+  {
+   "s": 0.0,
+   "e": 3.05,
+   "kind": "th"
+  },
+  {
+   "s": 3.05,
+   "e": 5.35,
+   "kind": "vox",
+   "type": "money"
+  },
+  {
+   "s": 5.35,
+   "e": 9.0,
+   "kind": "vox",
+   "type": "aircond"
+  },
+  {
+   "s": 9.0,
+   "e": 12.25,
+   "kind": "vox",
+   "type": "bill"
+  },
+  {
+   "s": 12.25,
+   "e": 16.2,
+   "kind": "th"
+  },
+  {
+   "s": 16.2,
+   "e": 20.3,
+   "kind": "photos"
+  },
+  {
+   "s": 20.3,
+   "e": 24.65,
+   "kind": "vox",
+   "type": "sun"
+  },
+  {
+   "s": 24.65,
+   "e": 28.95,
+   "kind": "room",
+   "in": 2.0
+  },
+  {
+   "s": 28.95,
+   "e": 35.55,
+   "kind": "th"
+  }
+ ],
+ "zooms": [
+  {
+   "s": 0.0,
+   "z": [
+    1.3,
+    1.36
+   ],
+   "oy": 0.24
+  },
+  {
+   "s": 1.45,
+   "z": [
+    1.42,
+    1.46
+   ],
+   "oy": 0.24
+  },
+  {
+   "s": 12.25,
+   "z": [
+    1.3,
+    1.34
+   ],
+   "oy": 0.24
+  },
+  {
+   "s": 14.0,
+   "z": [
+    1.42,
+    1.46
+   ],
+   "oy": 0.24
+  },
+  {
+   "s": 28.95,
+   "z": [
+    1.3,
+    1.34
+   ],
+   "oy": 0.24
+  },
+  {
+   "s": 30.9,
+   "z": [
+    1.4,
+    1.44
+   ],
+   "oy": 0.24
+  },
+  {
+   "s": 33.7,
+   "z": [
+    1.28,
+    1.26
+   ],
+   "oy": 0.24
+  }
+ ],
+ "vox": {
+  "money": {
+   "kicker": "MELABUR PADA LANGSIR YANG TEPAT",
+   "lines": [
+    {
+     "t": "SEBENARNYA BOLEH",
+     "at": 3.08
+    },
+    {
+     "t": "*JIMATKAN*",
+     "at": 3.6,
+     "big": true
+    },
+    {
+     "t": "DUIT POKET ANDA.",
+     "at": 4.4
+    }
+   ]
+  },
+  "aircond": {
+   "kicker": "SITUASI BIASA",
+   "lines": [
+    {
+     "t": "KADANG BUKA AIRCOND",
+     "at": 5.4
+    },
+    {
+     "t": "NOMBOR *16*",
+     "at": 6.36
+    },
+    {
+     "t": "PUN *LAMBAT* NAK RASA SEJUK",
+     "at": 7.61
+    }
+   ]
+  },
+  "bill": {
+   "kicker": "AKIBATNYA",
+   "lines": [
+    {
+     "t": "SILAP-SILAP *HUJUNG BULAN*",
+     "at": 9.0
+    },
+    {
+     "t": "BIL ELEKTRIK YANG",
+     "at": 10.76
+    },
+    {
+     "t": "*MELAMBUNG*",
+     "at": 11.25,
+     "big": true
+    }
+   ]
+  },
+  "sun": {
+   "kicker": "MACAM MANA IA BANTU",
+   "lines": [
+    {
+     "t": "KAIN TEBAL NI AKAN MEMBANTU",
+     "at": 20.4
+    },
+    {
+     "t": "*BLOCK* HABA & CAHAYA",
+     "at": 22.67
+    },
+    {
+     "t": "MATAHARI DARI LUAR",
+     "at": 23.6
+    }
+   ],
+   "haba": 23.0,
+   "cahaya": 23.55
+  }
+ },
+ "photoLabels": [
+  {
+   "t": "LANGSIR BLACKOUT",
+   "at": 17.6,
+   "x": 70,
+   "y": 560,
+   "ax": 330,
+   "ay": 900
+  },
+  {
+   "t": "CUSTOM MADE",
+   "at": 18.7,
+   "x": 110,
+   "y": 1060,
+   "ax": 420,
+   "ay": 820
+  }
+ ],
+ "photoStamp": 19.33,
+ "beats": [
+  {
+   "s": 0.0,
+   "e": 1.42,
+   "lines": [
+    {
+     "t": "RAMAI PEMILIK RUMAH",
+     "at": 0.0
+    },
+    {
+     "t": "*TAK TAHU*...",
+     "at": 0.7,
+     "big": true
+    }
+   ]
+  },
+  {
+   "s": 1.45,
+   "e": 3.0,
+   "lines": [
+    {
+     "t": "MELABUR PADA",
+     "at": 1.45
+    },
+    {
+     "t": "*LANGSIR YANG TEPAT*",
+     "at": 2.0
+    }
+   ]
+  },
+  {
+   "s": 12.3,
+   "e": 13.95,
+   "lines": [
+    {
+     "t": "SEBAB TU",
+     "at": 12.3
+    },
+    {
+     "t": "*PEMILIHAN LANGSIR*",
+     "at": 12.64
+    },
+    {
+     "t": "YANG BETUL",
+     "at": 13.4
+    }
+   ]
+  },
+  {
+   "s": 14.0,
+   "e": 16.15,
+   "fx": "underline",
+   "lines": [
+    {
+     "t": "SEDIKIT SEBANYAK",
+     "at": 14.0
+    },
+    {
+     "t": "*DAPAT MEMBANTU*",
+     "at": 14.9
+    }
+   ]
+  },
+  {
+   "s": 16.3,
+   "e": 17.5,
+   "lines": [
+    {
+     "t": "CONTOHNYA DENGAN",
+     "at": 16.3
+    },
+    {
+     "t": "MENGGUNAKAN",
+     "at": 16.8
+    }
+   ],
+   "pos": "bottom"
+  },
+  {
+   "s": 24.7,
+   "e": 27.4,
+   "lines": [
+    {
+     "t": "RUANG TAMU AKAN",
+     "at": 24.9
+    },
+    {
+     "t": "JADI *REDUP*",
+     "at": 25.9,
+     "big": true
+    }
+   ]
+  },
+  {
+   "s": 27.45,
+   "e": 28.9,
+   "lines": [
+    {
+     "t": "DAN AIRCOND PUN",
+     "at": 27.47
+    },
+    {
+     "t": "*CEPAT SEJUK*",
+     "at": 27.95,
+     "big": true
+    }
+   ]
+  },
+  {
+   "s": 29.0,
+   "e": 30.85,
+   "lines": [
+    {
+     "t": "NAK TEMPAH LANGSIR",
+     "at": 29.0
+    },
+    {
+     "t": "& NAK KAMI *URUSKAN*",
+     "at": 29.9
+    }
+   ]
+  },
+  {
+   "s": 30.9,
+   "e": 33.65,
+   "fx": "steps",
+   "lines": [
+    {
+     "t": "DARI UKUR, JAHIT",
+     "at": 30.9
+    },
+    {
+     "t": "SAMPAILAH *PEMASANGAN*",
+     "at": 32.47
+    }
+   ],
+   "items": [
+    [
+     "UKUR",
+     31.1
+    ],
+    [
+     "JAHIT",
+     31.66
+    ],
+    [
+     "PEMASANGAN",
+     33.03
+    ]
+   ]
+  },
+  {
+   "s": 33.7,
+   "e": 35.55,
+   "style": "cta",
+   "button": "WhatsApp Aimi Curtain",
+   "lines": [
+    {
+     "t": "*WHATSAPP* SEKARANG",
+     "at": 33.7
+    },
+    {
+     "t": "UNTUK KAMI BANTU",
+     "at": 34.4
+    }
+   ]
+  }
+ ],
+ "sfx": [
+  {
+   "t": 0.0,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 0.7,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 3.05,
+   "k": "whoosh_s",
+   "g": 0.35
+  },
+  {
+   "t": 3.6,
+   "k": "ticks",
+   "g": 0.2,
+   "d": 0.4
+  },
+  {
+   "t": 3.9,
+   "k": "ding",
+   "g": 0.3
+  },
+  {
+   "t": 5.35,
+   "k": "whoosh_s",
+   "g": 0.35
+  },
+  {
+   "t": 6.36,
+   "k": "click",
+   "g": 0.4
+  },
+  {
+   "t": 7.61,
+   "k": "ticks",
+   "g": 0.15,
+   "d": 1.2
+  },
+  {
+   "t": 9.0,
+   "k": "whoosh_s",
+   "g": 0.35
+  },
+  {
+   "t": 10.76,
+   "k": "whoosh_s",
+   "g": 0.3
+  },
+  {
+   "t": 11.25,
+   "k": "impact_s",
+   "g": 0.45
+  },
+  {
+   "t": 12.25,
+   "k": "whoosh_s",
+   "g": 0.3
+  },
+  {
+   "t": 12.64,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 14.9,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 16.2,
+   "k": "whoosh",
+   "g": 0.35
+  },
+  {
+   "t": 17.6,
+   "k": "ticks",
+   "g": 0.2,
+   "d": 0.4
+  },
+  {
+   "t": 18.7,
+   "k": "ticks",
+   "g": 0.2,
+   "d": 0.35
+  },
+  {
+   "t": 19.33,
+   "k": "impact_s",
+   "g": 0.4
+  },
+  {
+   "t": 20.3,
+   "k": "whoosh_s",
+   "g": 0.35
+  },
+  {
+   "t": 23.0,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 23.55,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 24.65,
+   "k": "whoosh_s",
+   "g": 0.35
+  },
+  {
+   "t": 25.9,
+   "k": "impact_s",
+   "g": 0.3
+  },
+  {
+   "t": 27.95,
+   "k": "shimmer",
+   "g": 0.3
+  },
+  {
+   "t": 28.95,
+   "k": "whoosh_s",
+   "g": 0.3
+  },
+  {
+   "t": 31.1,
+   "k": "click",
+   "g": 0.35
+  },
+  {
+   "t": 31.66,
+   "k": "click",
+   "g": 0.35
+  },
+  {
+   "t": 33.03,
+   "k": "click",
+   "g": 0.35
+  },
+  {
+   "t": 33.7,
+   "k": "ding",
+   "g": 0.3
+  },
+  {
+   "t": 35.55,
+   "k": "whoosh",
+   "g": 0.4
+  },
+  {
+   "t": 35.65,
+   "k": "shimmer",
+   "g": 0.35
+  }
+ ]
+}
