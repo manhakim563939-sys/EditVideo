@@ -1,5 +1,7 @@
 # Aimi Curtain — Vox × Kinetic Typography Edit #3 (TikTok / Reels)
 
+
+**FINAL:** `AimiCurtain_Vox03_Final_9x16.mp4` — 1080×1920, 30fps, 38.0s, x264 CRF 17 (slow), AAC 256k, −16.8 LUFS.
 `preview_v1.mp4` — 1080×1920, 30fps, 38.0s (35.6s video utama 03 + 2.4s end card). **Belum final export.**
 
 Arah visual: **Vox Explainer × Gold Kinetic**. Bahagian penerangan (jimat duit, aircond 16, bil hujung bulan,
