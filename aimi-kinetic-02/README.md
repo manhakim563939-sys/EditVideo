@@ -1,5 +1,7 @@
 # Aimi Curtain — Kinetic Typography Edit #2 (TikTok / Reels)
 
+
+**FINAL:** `AimiCurtain_Kinetic02_Final_9x16.mp4` — 1080×1920, 30fps, 38.2s, CRF 18, AAC 256k, −16.4 LUFS.
 `preview_v1.mp4` — 1080×1920, 30fps, 38.2s (36.0s video utama 02 + 2.2s end card). **Belum final export.**
 
 Konsep sama seperti `aimi-kinetic/` (Gold Kinetic Luxe), tetapi overlay foto/video dikurangkan (2 sisipan sahaja)
