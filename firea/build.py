@@ -30,3 +30,29 @@ head = f'''<!doctype html>
 '''
 (here / "index.html").write_text(head + body + "\n" + audio_js + "\n</body>\n</html>\n")
 print("index.html", round((here / "index.html").stat().st_size / 1e6, 2), "MB")
+
+# ---- halaman kedai gaya marketplace: shop.html -> shop/index.html (fireadeodorant.com/shop/) ----
+shop = (here / "shop.html").read_text()
+shop = re.sub(r'src="(img/[^"]+\.jpg)"',
+              lambda m: f'src="data:image/jpeg;base64,{b64(m.group(1))}"' if (here / m.group(1)).exists() else m.group(0), shop)
+s_title, s_body = shop.split("\n", 1)
+s_head = f'''<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+{s_title}
+<meta name="description" content="Firea Celeste Musk Deodorant Roll-on 50ml. 0% alkohol, cepat kering, tahan pagi sampai malam. COD & free pos 2 botol (Semenanjung).">
+<link rel="canonical" href="https://fireadeodorant.com/shop/">
+<meta property="og:type" content="product">
+<meta property="og:url" content="https://fireadeodorant.com/shop/">
+<meta property="og:title" content="Firea Celeste Musk Deodorant Roll-on 50ml | Dari RM28">
+<meta property="og:description" content="0% alkohol, cepat kering, tak melekit. COD tersedia. Free pos 2 botol ke atas (Semenanjung).">
+<meta property="og:image" content="https://fireadeodorant.com/img/produk-pink.jpg">
+<meta name="theme-color" content="#7d1f45">
+</head>
+<body>
+'''
+(here / "shop").mkdir(exist_ok=True)
+(here / "shop" / "index.html").write_text(s_head + s_body + "\n</body>\n</html>\n")
+print("shop/index.html", round((here / "shop" / "index.html").stat().st_size / 1e6, 2), "MB")

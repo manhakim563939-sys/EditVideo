@@ -1,0 +1,490 @@
+<title>Firea Official Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: halaman produk gaya marketplace mudah alih — carousel 1:1, blok harga, baris maklumat bertingkat, bar beli melekat di bawah, checkout dalam bottom sheet */
+:root{
+  --bg:#f4eef1; --card:#ffffff; --ink:#24131b; --muted:#7d6a73; --line:#efe3e8;
+  --berry:#7d1f45; --rose:#d81b60; --rose-soft:#fde7ef; --petal:#ffc9da;
+  --good:#16865a; --good-soft:#e5f5ed; --warn:#b4560b; --warn-soft:#fff1e3;
+  --scrim:rgba(20,8,14,.55); --shadow:0 -6px 24px rgba(60,10,30,.12);
+  --f:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#140c10; --card:#1f141a; --ink:#f7e9ef; --muted:#b89fab; --line:#33222b;
+  --berry:#e2477f; --rose:#ff4f8b; --rose-soft:#3a1626; --petal:#5a2238;
+  --good:#45c58a; --good-soft:#132a1f; --warn:#f0a35b; --warn-soft:#2e1d0e;
+  --scrim:rgba(0,0,0,.65); --shadow:0 -6px 24px rgba(0,0,0,.5); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#140c10; --card:#1f141a; --ink:#f7e9ef; --muted:#b89fab; --line:#33222b;
+  --berry:#e2477f; --rose:#ff4f8b; --rose-soft:#3a1626; --petal:#5a2238;
+  --good:#45c58a; --good-soft:#132a1f; --warn:#f0a35b; --warn-soft:#2e1d0e;
+  --scrim:rgba(0,0,0,.65); --shadow:0 -6px 24px rgba(0,0,0,.5); color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+img{max-width:100%;display:block}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.5 var(--f)}
+.app{max-width:520px;margin:0 auto;background:var(--bg);padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+.card{background:var(--card);padding:14px 16px;margin-bottom:8px}
+h1,h2,h3{margin:0;line-height:1.3}
+p{margin:0}
+button{font:inherit;color:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--rose);outline-offset:2px}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;align-items:center;gap:10px;padding:10px 14px;background:color-mix(in srgb,var(--card) 92%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top b{font-weight:800;color:var(--berry);font-size:1.05rem}
+.top .tag{font-size:.7rem;font-weight:700;background:var(--berry);color:#fff;border-radius:4px;padding:1px 6px}
+.top .sp{flex:1}
+.icon-btn{width:36px;height:36px;border-radius:50%;border:0;background:var(--bg);display:grid;place-items:center;cursor:pointer;text-decoration:none;color:var(--ink)}
+
+/* carousel */
+.gallery{position:relative;background:var(--card)}
+.slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.slides::-webkit-scrollbar{display:none}
+.slides img{flex:0 0 100%;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;scroll-snap-align:start}
+.slides img.fit{object-fit:contain;background:#f7dbe3}
+.count{position:absolute;right:12px;bottom:12px;background:rgba(0,0,0,.55);color:#fff;font-size:.78rem;font-weight:600;padding:3px 10px;border-radius:999px;font-variant-numeric:tabular-nums}
+.thumbs{display:flex;gap:6px;padding:8px 16px;background:var(--card);overflow-x:auto}
+.thumbs button{flex:0 0 52px;height:52px;border-radius:8px;overflow:hidden;border:2px solid transparent;padding:0;cursor:pointer;background:none}
+.thumbs button[aria-current="true"]{border-color:var(--rose)}
+.thumbs img{width:100%;height:100%;object-fit:cover}
+
+/* price */
+.promo{display:flex;align-items:center;justify-content:space-between;gap:10px;background:linear-gradient(90deg,var(--rose),var(--berry));color:#fff;padding:10px 16px}
+.promo b{font-size:1.02rem}
+.promo small{opacity:.9}
+.price-row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.price{font-size:1.9rem;font-weight:800;color:var(--rose);font-variant-numeric:tabular-nums}
+.price small{font-size:1rem}
+.strike{color:var(--muted);text-decoration:line-through;font-size:.95rem}
+.off{background:var(--rose-soft);color:var(--rose);font-weight:800;font-size:.8rem;padding:2px 8px;border-radius:4px}
+.title{font-size:1.02rem;font-weight:600;margin-top:8px}
+.meta{display:flex;gap:12px;color:var(--muted);font-size:.82rem;margin-top:6px;flex-wrap:wrap}
+.meta b{color:var(--ink)}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.badge{font-size:.75rem;font-weight:700;border-radius:4px;padding:3px 8px;background:var(--good-soft);color:var(--good)}
+.badge.r{background:var(--rose-soft);color:var(--rose)}
+.badge.w{background:var(--warn-soft);color:var(--warn)}
+
+/* info rows */
+.row{display:grid;grid-template-columns:84px 1fr auto;gap:10px;align-items:start;padding:12px 0;border-bottom:1px solid var(--line);font-size:.9rem;background:none;border-left:0;border-right:0;border-top:0;width:100%;text-align:left;cursor:default}
+.row:last-child{border-bottom:0}
+.row .k{color:var(--muted)}
+.row .v{min-width:0}
+.row .v small{display:block;color:var(--muted);font-size:.8rem}
+.row.tap{cursor:pointer}
+.chev{color:var(--muted)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);border-radius:6px;padding:3px 8px;font-size:.8rem}
+
+/* store */
+.store{display:flex;align-items:center;gap:12px}
+.store img{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid var(--petal)}
+.store .nm{flex:1;min-width:0}
+.store .nm b{display:flex;gap:6px;align-items:center}
+.store .nm small{color:var(--muted);font-size:.8rem}
+.btn-o{border:1.5px solid var(--rose);color:var(--rose);background:none;border-radius:8px;padding:7px 14px;font-weight:700;cursor:pointer;text-decoration:none;font-size:.88rem}
+
+/* sections */
+.sec-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.sec-h h2{font-size:1rem;font-weight:800}
+.sec-h a{color:var(--rose);font-size:.85rem;font-weight:700;text-decoration:none}
+.empty{background:var(--bg);border-radius:10px;padding:14px;text-align:center;color:var(--muted);font-size:.88rem}
+.rating{display:flex;align-items:center;gap:10px}
+.rating .big{font-size:1.6rem;font-weight:800}
+.stars{color:#f5a623;letter-spacing:1px}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+td{padding:8px 0;border-bottom:1px solid var(--line);vertical-align:top}
+td:first-child{color:var(--muted);width:42%;padding-right:10px}
+.desc p{margin:10px 0;color:var(--ink)}
+.desc h3{font-size:.95rem;margin:16px 0 6px;color:var(--berry)}
+.desc ul{margin:6px 0;padding-left:20px}
+.desc li{margin:4px 0}
+.desc img{border-radius:10px;margin:10px 0;width:100%;height:auto}
+.ing{display:grid;gap:8px;margin:8px 0}
+.ing div{background:var(--bg);border-radius:10px;padding:10px 12px}
+.ing b{display:block}
+.ing small{color:var(--muted)}
+.more{display:block;width:100%;margin-top:6px;border:0;background:none;color:var(--rose);font-weight:700;padding:10px;cursor:pointer}
+.clamp{max-height:520px;overflow:hidden;position:relative}
+.clamp::after{content:"";position:absolute;left:0;right:0;bottom:0;height:90px;background:linear-gradient(transparent,var(--card))}
+details{border-bottom:1px solid var(--line);padding:10px 0}
+details:last-child{border-bottom:0}
+summary{cursor:pointer;font-weight:600;font-size:.9rem;list-style:none;display:flex;justify-content:space-between;gap:10px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--rose);font-weight:800}
+details[open] summary::after{content:"–"}
+details p{color:var(--muted);font-size:.88rem;margin-top:6px}
+
+/* bottom bar */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--card);box-shadow:var(--shadow);padding:8px 12px calc(8px + env(safe-area-inset-bottom,0px))}
+.bar-in{max-width:520px;margin:0 auto;display:flex;gap:8px;align-items:center}
+.mini{display:grid;justify-items:center;font-size:.68rem;color:var(--muted);text-decoration:none;min-width:48px;background:none;border:0;cursor:pointer;gap:2px}
+.mini svg{width:22px;height:22px}
+.buy{flex:1;border:0;border-radius:10px;padding:12px;font-weight:800;font-size:1rem;cursor:pointer;color:#fff;background:linear-gradient(90deg,var(--rose),var(--berry))}
+.buy small{display:block;font-weight:600;font-size:.72rem;opacity:.9}
+
+/* sheet */
+.scrim{position:fixed;inset:0;background:var(--scrim);z-index:40;opacity:0;transition:opacity .2s}
+.scrim.on{opacity:1}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:41;max-width:520px;margin:0 auto;background:var(--card);border-radius:16px 16px 0 0;max-height:88vh;overflow-y:auto;transform:translateY(100%);transition:transform .25s ease;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px))}
+.sheet.on{transform:none}
+.sheet-h{display:flex;gap:12px;align-items:flex-end;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.sheet-h img{width:84px;height:84px;border-radius:10px;object-fit:cover}
+.sheet-h .x{margin-left:auto;align-self:flex-start;border:0;background:var(--bg);width:32px;height:32px;border-radius:50%;cursor:pointer}
+.opt-t{font-weight:700;font-size:.9rem;margin:14px 0 8px}
+.opts{display:grid;gap:8px}
+.opt{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;cursor:pointer;background:var(--card);text-align:left;width:100%}
+.opt[aria-pressed="true"]{border-color:var(--rose);background:var(--rose-soft)}
+.opt b{display:block}
+.opt small{color:var(--muted);font-size:.78rem}
+.opt .p{font-weight:800;color:var(--rose);white-space:nowrap;font-variant-numeric:tabular-nums}
+.tagx{font-size:.68rem;font-weight:800;background:var(--rose);color:#fff;border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:middle}
+.form{display:grid;gap:10px;margin-top:6px}
+.form label{font-size:.8rem;font-weight:700;display:grid;gap:4px}
+.form input,.form select,.form textarea{font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pay{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pay label{flex-direction:row;display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:8px;padding:10px;font-weight:600}
+.pay input{width:auto}
+.sum{background:var(--bg);border-radius:10px;padding:12px;display:grid;gap:4px;font-size:.88rem;font-variant-numeric:tabular-nums;margin-top:12px}
+.sum div{display:flex;justify-content:space-between}
+.sum .t{font-weight:800;font-size:1.05rem;border-top:1px solid var(--line);padding-top:6px;margin-top:4px}
+.sum .t span:last-child{color:var(--rose)}
+.err{color:#d13030;font-size:.85rem;margin-top:8px}
+.go{width:100%;margin-top:12px}
+#done{margin-top:12px;background:var(--good-soft);border-radius:10px;padding:12px;display:grid;gap:8px}
+#done pre{white-space:pre-wrap;font:inherit;font-size:.84rem;background:var(--card);padding:10px;border-radius:8px;margin:0;max-height:200px;overflow:auto}
+#done .r{display:flex;gap:8px}
+#done .r>*{flex:1;text-align:center;justify-content:center}
+.wa{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:#25d366;color:#fff;border-radius:10px;padding:11px;font-weight:800;text-decoration:none;border:0;cursor:pointer}
+.foot{text-align:center;color:var(--muted);font-size:.75rem;padding:16px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+<div class="app">
+  <header class="top">
+    <b>Firea</b><span class="tag">Official</span>
+    <span class="sp"></span>
+    <a class="icon-btn" href="https://fireadeodorant.com/" aria-label="Halaman utama Firea"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></svg></a>
+  </header>
+
+  <!-- galeri -->
+  <section class="gallery" aria-label="Gambar produk">
+    <div class="slides" id="slides">
+      <img class="fit" src="img/produk-pink.jpg" alt="Firea Celeste Musk Deodorant Roll-on 50ml" width="614" height="1100">
+      <img src="img/yakin-angkat-tangan.jpg" alt="Wanita bertudung mengangkat tangan dengan yakin memegang Firea" width="619" height="1100" loading="lazy">
+      <img src="img/aktif-panjat.jpg" alt="Wanita bertudung memanjat dinding panjat, botol Firea di sebelah" width="1100" height="614" loading="lazy">
+      <img src="img/rutin-cermin.jpg" alt="Wanita tersenyum di depan cermin memegang Firea" width="1100" height="614" loading="lazy">
+      <img src="img/produk-tangan.jpg" alt="Botol Firea dipegang di tangan" width="619" height="1100" loading="lazy">
+    </div>
+    <span class="count" id="count">1/5</span>
+  </section>
+  <div class="thumbs" id="thumbs"></div>
+
+  <div class="promo"><div><b>Harga Pakej Jimat</b><br><small>Ambil 3 botol, jimat <span id="saveTxt">RM19</span></small></div><small>COD · Free Pos 2 botol+ (SM)</small></div>
+
+  <!-- harga & tajuk -->
+  <section class="card">
+    <div class="price-row">
+      <span class="price" id="priceTxt">RM28</span>
+      <span class="strike" id="strikeTxt" hidden></span>
+      <span class="off" id="offTxt" hidden></span>
+    </div>
+    <h1 class="title">Firea Celeste Musk Deodorant Roll-on 50ml | 0% Alkohol 0% Paraben | Cepat Kering, Tak Melekit | Tahan Pagi Sampai Malam | Untuk Wanita Bertudung</h1>
+    <div class="meta" id="meta"></div>
+    <div class="badges">
+      <span class="badge">COD</span>
+      <span class="badge r">Free Pos 2 Botol+ (Semenanjung)</span>
+      <span class="badge w">Bernotifikasi KKM</span>
+      <span class="badge">Jaminan 7 Hari</span>
+    </div>
+  </section>
+
+  <!-- baris info -->
+  <section class="card" style="padding-top:2px;padding-bottom:2px">
+    <button class="row tap" type="button" data-open aria-label="Pilih pakej">
+      <span class="k">Pakej</span>
+      <span class="v"><span class="chips"><span class="chip">1 Botol</span><span class="chip">2 Botol</span><span class="chip">3 Botol</span></span><small id="pickTxt">Pilih pakej</small></span>
+      <span class="chev">›</span>
+    </button>
+    <div class="row">
+      <span class="k">Penghantaran</span>
+      <span class="v">J&amp;T Express<small>Semenanjung 2–3 hari · Sabah &amp; Sarawak 5–6 hari</small></span><span></span>
+    </div>
+    <div class="row">
+      <span class="k">Postage</span>
+      <span class="v">Semenanjung RM8, <b style="color:var(--good)">PERCUMA 2 botol+</b><small>Sabah &amp; Sarawak RM15</small></span><span></span>
+    </div>
+    <div class="row">
+      <span class="k">Bayaran</span>
+      <span class="v">COD atau online transfer<small>Caj COD sama seperti postage</small></span><span></span>
+    </div>
+    <div class="row">
+      <span class="k">Jaminan</span>
+      <span class="v">7 hari penggunaan<small>Kulit tak serasi (gatal/panas) atau botol rosak, WhatsApp kami</small></span><span></span>
+    </div>
+  </section>
+
+  <!-- ulasan -->
+  <section class="card" id="reviews">
+    <div class="sec-h"><h2>Ulasan pembeli</h2><a href="https://www.tiktok.com/@firea.hq" target="_blank" rel="noopener">Lihat di @firea.hq ›</a></div>
+    <div id="ratingBox"></div>
+  </section>
+
+  <!-- kedai -->
+  <section class="card">
+    <div class="store">
+      <img src="img/produk-pink.jpg" alt="" width="52" height="52">
+      <div class="nm"><b>Firea Official <span class="tag" style="font-size:.65rem;background:var(--berry);color:#fff;border-radius:4px;padding:1px 5px">Official</span></b><small>confidence in every touch · Malaysia</small></div>
+      <a class="btn-o" id="chatStore" href="#" target="_blank" rel="noopener">Chat</a>
+    </div>
+  </section>
+
+  <!-- butiran -->
+  <section class="card">
+    <div class="sec-h"><h2>Spesifikasi</h2></div>
+    <table>
+      <tr><td>Jenama</td><td>Firea</td></tr>
+      <tr><td>Produk</td><td>Celeste Musk Deodorant Roll-on (Antiperspirant)</td></tr>
+      <tr><td>Isi padu</td><td>50ml</td></tr>
+      <tr><td>Wangian</td><td>Celeste Musk</td></tr>
+      <tr><td>Formula</td><td>0% alkohol, 0% paraben, 0% aluminium</td></tr>
+      <tr><td>Bahan utama</td><td>Vitamin E (Tocopheryl Acetate), Ekstrak Kulit Limau (Citrus Unshiu Peel Extract), Bisabolol</td></tr>
+      <tr><td>Tempoh sebotol</td><td>Anggaran 40–45 hari</td></tr>
+      <tr><td>Notifikasi KKM</td><td>NOT260705867K</td></tr>
+      <tr><td>Dihantar dari</td><td>Malaysia</td></tr>
+    </table>
+  </section>
+
+  <section class="card">
+    <div class="sec-h"><h2>Penerangan produk</h2></div>
+    <div class="desc clamp" id="desc">
+      <p><b>Ketiak berpeluh dan berbau walaupun dah pakai deodoran?</b> Pakai tudung, baju lengan panjang, cuaca panas. Pagi wangi, tengah hari dah lain.</p>
+      <p>Firea Celeste Musk ialah deodoran roll-on <b>0% alkohol</b> yang diformulasi khas untuk <b>wanita bertudung yang aktif</b>. Bantu kawal peluh berlebihan supaya ketiak kekal kering dan bakteria tak ada tempat untuk membiak.</p>
+      <img src="img/aktif-panjat.jpg" alt="Hidup aktif, keyakinan bermula di sini" width="1100" height="614" loading="lazy">
+      <h3>Kenapa Firea?</h3>
+      <ul>
+        <li>Selesa dari pagi sampai malam</li>
+        <li>Cepat kering, tak melekit</li>
+        <li>Tak tinggal kesan pada baju putih atau hitam</li>
+        <li>0% alkohol, tak pedih walaupun lepas cukur</li>
+        <li>Wangian Celeste Musk yang lembut</li>
+      </ul>
+      <h3>3 bahan penjaga kulit</h3>
+      <div class="ing">
+        <div><b>Vitamin E</b><small>Antioksidan dan perapi kulit. Bantu kekalkan kelembapan.</small></div>
+        <div><b>Ekstrak Kulit Limau</b><small>Kaya antioksidan, sering digunakan untuk mencerahkan tona kulit. Bantu atasi ketiak gelap.</small></div>
+        <div><b>Bisabolol</b><small>Menenangkan kulit yang sensitif atau merengsa, terutamanya lepas cukur.</small></div>
+      </div>
+      <h3>Cara guna</h3>
+      <p>Pastikan ketiak bersih dan kering. Roll 3–4 kali pada setiap ketiak. Tunggu sekejap sampai kering, kemudian pakai baju.</p>
+      <img src="img/rutin-cermin.jpg" alt="Rutin pagi bersama Firea" width="1100" height="614" loading="lazy">
+      <h3>Sesuai untuk</h3>
+      <p>Wanita bertudung 20an hingga 40an yang aktif, kerja outdoor, banyak bergerak, atau dah cuba banyak deodoran tapi pedih atau tak tahan lama.</p>
+      <p style="color:var(--muted);font-size:.82rem">Keputusan berbeza mengikut individu. Jika kulit sangat sensitif, cuba sedikit dahulu pada kawasan kecil.</p>
+    </div>
+    <button class="more" type="button" id="moreBtn">Lihat lagi ⌄</button>
+  </section>
+
+  <section class="card">
+    <div class="sec-h"><h2>Soalan lazim</h2></div>
+    <details><summary>Betul ke tahan sampai malam?</summary><p>Ada pelanggan yang pakai dari pagi dan hanya mandi semula pukul 11 malam, badan tetap selesa tanpa bau walaupun penuh aktiviti. Keputusan berbeza mengikut individu.</p></details>
+    <details><summary>Boleh pakai lepas cukur?</summary><p>Boleh. Firea tanpa alkohol, jadi tak pedih seperti kebanyakan deodoran biasa. Elakkan sapu pada kulit yang luka.</p></details>
+    <details><summary>Ada kesan pada baju?</summary><p>Tiada. Tak meninggalkan kesan walaupun pada baju putih atau hitam.</p></details>
+    <details><summary>Berapa lama barang sampai?</summary><p>J&amp;T: Semenanjung 2–3 hari, Sabah dan Sarawak 5–6 hari.</p></details>
+    <details><summary>Macam mana kalau tak serasi?</summary><p>Kalau rasa gatal atau panas, atau botol rosak, WhatsApp kami dalam tempoh 7 hari penggunaan bersama gambar produk.</p></details>
+  </section>
+
+  <p class="foot">© <span id="yr"></span> Firea · Bernotifikasi KKM NOT260705867K</p>
+</div>
+
+<!-- bar bawah -->
+<nav class="bar" aria-label="Tindakan beli">
+  <div class="bar-in">
+    <a class="mini" href="https://fireadeodorant.com/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9l1-5h14l1 5M4 9v11h16V9M4 9h16M9 20v-6h6v6"/></svg>Kedai</a>
+    <a class="mini" id="chatBar" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg>Chat</a>
+    <button class="buy" type="button" data-open>Beli Sekarang<small id="barPrice">dari RM21.67 sebotol</small></button>
+  </div>
+</nav>
+
+<!-- checkout sheet -->
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" hidden>
+  <div class="sheet-h">
+    <img src="img/produk-pink.jpg" alt="" width="84" height="84">
+    <div><div class="price" id="sheetPrice" style="font-size:1.5rem">RM65</div><small id="sheetSub" style="color:var(--muted)"></small></div>
+    <button class="x" type="button" id="closeSheet" aria-label="Tutup">✕</button>
+  </div>
+  <h2 id="sheetTitle" class="opt-t">Pilih pakej</h2>
+  <div class="opts" id="opts"></div>
+
+  <form class="form" id="orderForm" novalidate>
+    <div class="opt-t" style="margin-bottom:0">Penghantaran</div>
+    <label for="f-name">Nama penerima<input id="f-name" autocomplete="name" placeholder="cth. Nur Aisyah binti Ahmad"></label>
+    <label for="f-phone">No. telefon (WhatsApp)<input id="f-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="cth. 012 345 6789"></label>
+    <label for="f-addr">Alamat<textarea id="f-addr" rows="2" autocomplete="street-address" placeholder="No. rumah, jalan, taman"></textarea></label>
+    <div class="two">
+      <label for="f-post">Poskod<input id="f-post" inputmode="numeric" maxlength="5" autocomplete="postal-code" placeholder="43000"></label>
+      <label for="f-city">Bandar<input id="f-city" autocomplete="address-level2"></label>
+    </div>
+    <label for="f-state">Negeri
+      <select id="f-state">
+        <option value="">Pilih negeri</option>
+        <option>Johor</option><option>Kedah</option><option>Kelantan</option><option>Melaka</option><option>Negeri Sembilan</option><option>Pahang</option><option>Perak</option><option>Perlis</option><option>Pulau Pinang</option><option>Selangor</option><option>Terengganu</option><option>WP Kuala Lumpur</option><option>WP Putrajaya</option><option>Sabah</option><option>Sarawak</option><option>WP Labuan</option>
+      </select>
+    </label>
+    <div class="opt-t" style="margin:4px 0 0">Bayaran</div>
+    <div class="pay" role="radiogroup" aria-label="Cara bayaran">
+      <label><input type="radio" name="pay" id="pay-cod" value="COD" checked> COD</label>
+      <label><input type="radio" name="pay" id="pay-online" value="Online Transfer"> Online transfer</label>
+    </div>
+    <div class="sum" aria-live="polite">
+      <div><span id="s-item">Pakej</span><span id="s-sub"></span></div>
+      <div><span id="s-ship-l">Postage</span><span id="s-ship"></span></div>
+      <div class="t"><span>Jumlah</span><span id="s-total"></span></div>
+    </div>
+    <p class="err" id="err" hidden></p>
+    <button class="buy go" type="submit">Hantar Order</button>
+    <div id="done" hidden>
+      <b>Order siap. Hantar mesej ini ke WhatsApp kami untuk sahkan:</b>
+      <pre id="msg"></pre>
+      <div class="r"><a class="wa" id="walink" href="#" target="_blank" rel="noopener">Buka WhatsApp</a><button class="btn-o" type="button" id="copy">Salin</button></div>
+      <small style="color:var(--muted)">Kalau WhatsApp tak terbuka, hantar ke 011-5883 9835. Untuk online transfer, butiran akaun diberi melalui WhatsApp.</small>
+    </div>
+  </form>
+</div>
+
+<script>
+/* ===== EDIT DI SINI ===== */
+const CONFIG = {
+  whatsapp: "601158839835",
+  unitPrice: 28,
+  shipping: { semenanjung: 8, sabahSarawak: 15 },
+  freeShipFrom: 2,
+  packages: [
+    { id: "p1", name: "1 Botol", qty: 1, price: 28 },
+    { id: "p2", name: "2 Botol", qty: 2, price: 50, tag: "Free Pos" },
+    { id: "p3", name: "3 Botol", qty: 3, price: 65, tag: "Paling Jimat", featured: true }
+  ],
+  // Isi dengan angka SEBENAR dari TikTok Shop anda. Biar null untuk sorok.
+  sold: null,          // cth. 1250  -> "1.2k terjual"
+  rating: null,        // cth. 4.9
+  ratingCount: null    // cth. 320
+};
+/* ======================== */
+
+const $ = s => document.querySelector(s);
+const rm = n => "RM" + (Number.isInteger(n) ? n : n.toFixed(2));
+$("#yr").textContent = new Date().getFullYear();
+const wa = t => "https://wa.me/" + CONFIG.whatsapp + (t ? "?text=" + encodeURIComponent(t) : "");
+$("#chatBar").href = $("#chatStore").href = wa("Hai Firea, saya nak tanya pasal Celeste Musk.");
+
+// harga ringkasan
+const P = CONFIG.packages, minP = Math.min(...P.map(p => p.price)), maxP = Math.max(...P.map(p => p.price));
+const best = P.reduce((a, b) => (b.price / b.qty < a.price / a.qty ? b : a));
+const bestSave = best.qty * CONFIG.unitPrice - best.price;
+$("#saveTxt").textContent = rm(bestSave);
+$("#barPrice").textContent = "dari " + rm(Math.round(best.price / best.qty * 100) / 100) + " sebotol";
+
+// meta & rating (hanya jika ada data sebenar)
+const meta = [];
+if (CONFIG.rating) meta.push(`<span><b>★ ${CONFIG.rating}</b>${CONFIG.ratingCount ? " (" + CONFIG.ratingCount + ")" : ""}</span>`);
+if (CONFIG.sold) meta.push(`<span><b>${CONFIG.sold >= 1000 ? (CONFIG.sold / 1000).toFixed(1).replace(".0", "") + "k" : CONFIG.sold}</b> terjual</span>`);
+meta.push("<span>50ml · Celeste Musk</span>");
+$("#meta").innerHTML = meta.join("");
+$("#ratingBox").innerHTML = CONFIG.rating
+  ? `<div class="rating"><span class="big">${CONFIG.rating}</span><span class="stars">★★★★★</span><span style="color:var(--muted);font-size:.85rem">${CONFIG.ratingCount || ""} ulasan</span></div>`
+  : `<div class="empty">Ulasan dan rating pembeli boleh dilihat di kedai TikTok rasmi kami, <b>@firea.hq</b>.</div>`;
+
+// galeri
+const slides = $("#slides"), imgs = [...slides.querySelectorAll("img")], thumbs = $("#thumbs");
+imgs.forEach((im, i) => {
+  const b = document.createElement("button"); b.type = "button"; b.setAttribute("aria-label", "Gambar " + (i + 1));
+  b.innerHTML = `<img src="${im.src}" alt="">`;
+  b.addEventListener("click", () => slides.scrollTo({ left: i * slides.clientWidth, behavior: "smooth" }));
+  thumbs.appendChild(b);
+});
+function onSlide() {
+  const i = Math.round(slides.scrollLeft / slides.clientWidth);
+  $("#count").textContent = (i + 1) + "/" + imgs.length;
+  [...thumbs.children].forEach((b, j) => b.setAttribute("aria-current", j === i));
+}
+slides.addEventListener("scroll", () => requestAnimationFrame(onSlide), { passive: true }); onSlide();
+
+// penerangan "lihat lagi"
+$("#moreBtn").addEventListener("click", () => { $("#desc").classList.remove("clamp"); $("#moreBtn").hidden = true; });
+
+// pakej & checkout
+let sel = (P.find(p => p.featured) || P[0]).id;
+const isEast = () => /Sabah|Sarawak|Labuan/.test($("#f-state").value);
+function calc() {
+  const p = P.find(x => x.id === sel);
+  const ship = isEast() ? CONFIG.shipping.sabahSarawak : (p.qty >= CONFIG.freeShipFrom ? 0 : CONFIG.shipping.semenanjung);
+  return { p, ship, total: p.price + ship };
+}
+P.forEach(p => {
+  const full = p.qty * CONFIG.unitPrice, save = full - p.price;
+  const b = document.createElement("button"); b.type = "button"; b.className = "opt"; b.dataset.id = p.id;
+  b.innerHTML = `<span><b>${p.name}${p.tag ? `<span class="tagx">${p.tag}</span>` : ""}</b><small>${rm(Math.round(p.price / p.qty * 100) / 100)} sebotol · ${p.qty * 40}–${p.qty * 45} hari${save > 0 ? " · jimat " + rm(save) : ""}</small></span><span class="p">${rm(p.price)}</span>`;
+  b.addEventListener("click", () => { sel = p.id; render(); });
+  $("#opts").appendChild(b);
+});
+function render() {
+  const { p, ship, total } = calc(), full = p.qty * CONFIG.unitPrice;
+  document.querySelectorAll(".opt").forEach(b => b.setAttribute("aria-pressed", b.dataset.id === sel));
+  $("#sheetPrice").textContent = rm(p.price);
+  $("#priceTxt").innerHTML = rm(p.price) + ' <small style="color:var(--muted);font-weight:600">/ ' + p.name.toLowerCase() + "</small>";
+  $("#sheetSub").textContent = p.name + (full > p.price ? " · jimat " + rm(full - p.price) : "");
+  $("#pickTxt").textContent = "Dipilih: " + p.name + " (" + rm(p.price) + ")";
+  $("#s-item").textContent = p.name;
+  $("#s-sub").textContent = rm(p.price);
+  $("#s-ship-l").textContent = "Postage J&T" + ($("#f-state").value ? (isEast() ? " (Sabah/Sarawak)" : " (Semenanjung)") : "");
+  $("#s-ship").textContent = ship ? rm(ship) : "PERCUMA";
+  $("#s-total").textContent = rm(total);
+  // harga coret di blok atas ikut pakej dipilih
+  if (full > p.price) { $("#strikeTxt").textContent = rm(full); $("#offTxt").textContent = "-" + Math.round((1 - p.price / full) * 100) + "%"; $("#strikeTxt").hidden = $("#offTxt").hidden = false; }
+  else { $("#strikeTxt").hidden = $("#offTxt").hidden = true; }
+}
+$("#f-state").addEventListener("change", render);
+render();
+
+// buka/tutup sheet
+const sheet = $("#sheet"), scrim = $("#scrim"); let lastFocus = null;
+function openSheet() {
+  lastFocus = document.activeElement; sheet.hidden = scrim.hidden = false;
+  requestAnimationFrame(() => { sheet.classList.add("on"); scrim.classList.add("on"); });
+  document.body.style.overflow = "hidden"; $("#closeSheet").focus();
+}
+function closeSheet() {
+  sheet.classList.remove("on"); scrim.classList.remove("on"); document.body.style.overflow = "";
+  setTimeout(() => { sheet.hidden = scrim.hidden = true; }, 250); if (lastFocus) lastFocus.focus();
+}
+document.querySelectorAll("[data-open]").forEach(b => b.addEventListener("click", openSheet));
+$("#closeSheet").addEventListener("click", closeSheet); scrim.addEventListener("click", closeSheet);
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !sheet.hidden) closeSheet(); });
+
+// hantar order
+$("#orderForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const v = id => document.getElementById(id).value.trim(), err = $("#err");
+  const need = [["f-name", "nama"], ["f-phone", "nombor telefon"], ["f-addr", "alamat"], ["f-post", "poskod"], ["f-city", "bandar"], ["f-state", "negeri"]];
+  const miss = need.filter(([id]) => !v(id));
+  if (miss.length) { err.textContent = "Sila isi " + miss.map(m => m[1]).join(", ") + "."; err.hidden = false; document.getElementById(miss[0][0]).focus(); return; }
+  if (!/^\d{5}$/.test(v("f-post"))) { err.textContent = "Poskod mesti 5 digit, cth. 43000."; err.hidden = false; $("#f-post").focus(); return; }
+  err.hidden = true;
+  const { p, ship, total } = calc();
+  const msg = ["*ORDER FIREA CELESTE MUSK*", `Pakej: ${p.name} ${rm(p.price)}`, `Postage: ${ship ? rm(ship) : "PERCUMA"}`, `Jumlah: *${rm(total)}*`,
+    `Bayaran: ${document.querySelector('input[name="pay"]:checked').value}`, "", `Nama: ${v("f-name")}`, `Tel: ${v("f-phone")}`,
+    `Alamat: ${v("f-addr")}, ${v("f-post")} ${v("f-city")}, ${v("f-state")}`].join("\n");
+  $("#msg").textContent = msg; $("#walink").href = wa(msg); $("#done").hidden = false;
+  $("#done").scrollIntoView({ behavior: "smooth", block: "center" });
+});
+$("#copy").addEventListener("click", () => {
+  const selMsg = () => { const r = document.createRange(); r.selectNodeContents($("#msg")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); };
+  if (navigator.clipboard) navigator.clipboard.writeText($("#msg").textContent).then(() => $("#copy").textContent = "Disalin ✓", selMsg); else selMsg();
+});
+</script>
