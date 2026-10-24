@@ -342,6 +342,23 @@ footer b{color:#d8cdb6}
   .fig img{transform:none}
 }
 </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '4124648504510096');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=4124648504510096&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 <div class="page">
@@ -818,6 +835,16 @@ function renderSummary(){
     `<div><span>Penghantaran</span><span>${posText(id)}</span></div>` +
     `<div class="tot"><span>Jumlah</span><b>${totalText(id)}</b></div>`;
 }
+function track(ev, data){ try { if (window.fbq) fbq("track", ev, data || {}); } catch (_) {} }
+(function(){
+  const sec = document.getElementById("pakej");
+  if (!sec) return;
+  let done = false;
+  const fire = () => { if (!done){ done = true; track("ViewContent", { content_name: "Jus Bidara Hitam", currency: "MYR", value: 28 }); } };
+  if (!("IntersectionObserver" in window)) { fire(); return; }
+  const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { fire(); io.disconnect(); } });
+  io.observe(sec);
+})();
 form.addEventListener("change", renderSummary);
 renderSummary();
 
@@ -858,6 +885,7 @@ form.addEventListener("submit", e => {
 *Telefon:* ${tel}
 *Alamat:* ${alamat}, ${poskod} ${negeri}`;
   const url = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(msg);
+  track("Contact", { content_name: p.nama, currency: "MYR", value: PAKEJ[id].harga + posRM(id) });
   waLink.href = url;
   waFallback.hidden = false;
   waLink.click();
