@@ -119,6 +119,19 @@ summary::after{content:"+";color:var(--rose);font-weight:800}
 details[open] summary::after{content:"–"}
 details p{color:var(--muted);font-size:.88rem;margin-top:6px}
 
+
+.sub-h{font-weight:700;font-size:.9rem;margin:14px 0 8px}
+.sub-h small{color:var(--muted);font-weight:500}
+.hs{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}
+.tv{margin:0;flex:0 0 46%;scroll-snap-align:start;border-radius:10px;overflow:hidden;background:var(--bg)}
+.tv video{display:block;width:100%;aspect-ratio:9/16;height:auto;background:#000;object-fit:cover}
+.tv figcaption{font-size:.78rem;font-weight:600;padding:6px 8px}
+.wa-card{flex:0 0 78%;scroll-snap-align:start;border:0;padding:0;border-radius:10px;overflow:hidden;background:var(--bg);cursor:zoom-in;align-self:flex-start}
+.wa-card img{width:100%;height:auto}
+.lb{position:fixed;inset:0;z-index:90;background:rgba(10,4,8,.92);display:grid;place-items:center;padding:56px 12px 24px;overflow:auto}
+.lb img{max-width:min(720px,100%);height:auto;border-radius:12px}
+.lb-x{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));right:12px;width:42px;height:42px;border-radius:50%;border:0;background:#fff;color:#000;cursor:pointer}
+
 /* bottom bar */
 .bar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--card);box-shadow:var(--shadow);padding:8px 12px calc(8px + env(safe-area-inset-bottom,0px))}
 .bar-in{max-width:520px;margin:0 auto;display:flex;gap:8px;align-items:center}
@@ -233,7 +246,29 @@ details p{color:var(--muted);font-size:.88rem;margin-top:6px}
   <section class="card" id="reviews">
     <div class="sec-h"><h2>Ulasan pembeli</h2><a href="https://www.tiktok.com/@firea.hq" target="_blank" rel="noopener">Lihat di @firea.hq ›</a></div>
     <div id="ratingBox"></div>
+    <div class="sub-h">Video pengguna</div>
+    <div class="hs">
+      <figure class="tv"><video controls playsinline preload="none" poster="img/testimoni-1-poster.jpg" src="media/testimoni-1.mp4" aria-label="Video testimoni Ayu"></video><figcaption>Ayu</figcaption></figure>
+      <figure class="tv"><video controls playsinline preload="none" poster="img/testimoni-2-poster.jpg" src="media/testimoni-2.mp4" aria-label="Video testimoni Seorang ibu, Perlis"></video><figcaption>Seorang ibu, Perlis</figcaption></figure>
+      <figure class="tv"><video controls playsinline preload="none" poster="img/testimoni-3-poster.jpg" src="media/testimoni-3.mp4" aria-label="Video testimoni Alia"></video><figcaption>Alia</figcaption></figure>
+    </div>
+    <div class="sub-h">Mesej WhatsApp pelanggan <small>· tekan untuk besarkan</small></div>
+    <div class="hs">
+      <button type="button" class="wa-card"><img src="img/wa/wa-1.jpg" alt="Mesej WhatsApp pelanggan Firea" loading="lazy"></button>
+      <button type="button" class="wa-card"><img src="img/wa/wa-2.jpg" alt="Mesej WhatsApp pelanggan Firea" loading="lazy"></button>
+      <button type="button" class="wa-card"><img src="img/wa/wa-3.jpg" alt="Mesej WhatsApp pelanggan Firea" loading="lazy"></button>
+      <button type="button" class="wa-card"><img src="img/wa/wa-4.jpg" alt="Mesej WhatsApp pelanggan Firea" loading="lazy"></button>
+      <button type="button" class="wa-card"><img src="img/wa/wa-5.jpg" alt="Mesej WhatsApp pelanggan Firea" loading="lazy"></button>
+      <button type="button" class="wa-card"><img src="img/wa/wa-6.jpg" alt="Mesej WhatsApp pelanggan Firea" loading="lazy"></button>
+      <button type="button" class="wa-card"><img src="img/wa/wa-7.jpg" alt="Mesej WhatsApp pelanggan Firea" loading="lazy"></button>
+      <button type="button" class="wa-card"><img src="img/wa/wa-8.jpg" alt="Mesej WhatsApp pelanggan Firea" loading="lazy"></button>
+      <button type="button" class="wa-card"><img src="img/wa/wa-9.jpg" alt="Mesej WhatsApp pelanggan Firea" loading="lazy"></button>
+      <button type="button" class="wa-card"><img src="img/wa/wa-10.jpg" alt="Mesej WhatsApp pelanggan Firea" loading="lazy"></button>
+      <button type="button" class="wa-card"><img src="img/wa/wa-11.jpg" alt="Mesej WhatsApp pelanggan Firea" loading="lazy"></button>
+    </div>
+    <p style="color:var(--muted);font-size:.75rem;margin-top:6px">Video dan mesej sebenar dari pengguna. Keputusan berbeza mengikut individu.</p>
   </section>
+  <div class="lb" id="lb" hidden><button type="button" class="lb-x" id="lbX" aria-label="Tutup">✕</button><img id="lbImg" alt=""></div>
 
   <!-- kedai -->
   <section class="card">
@@ -252,7 +287,7 @@ details p{color:var(--muted);font-size:.88rem;margin-top:6px}
       <tr><td>Produk</td><td>Celeste Musk Deodorant Roll-on (Antiperspirant)</td></tr>
       <tr><td>Isi padu</td><td>50ml</td></tr>
       <tr><td>Wangian</td><td>Celeste Musk</td></tr>
-      <tr><td>Formula</td><td>0% alkohol, 0% paraben, 0% aluminium</td></tr>
+      <tr><td>Formula</td><td>0% alkohol, 0% paraben</td></tr>
       <tr><td>Bahan utama</td><td>Vitamin E (Tocopheryl Acetate), Ekstrak Kulit Limau (Citrus Unshiu Peel Extract), Bisabolol</td></tr>
       <tr><td>Tempoh sebotol</td><td>Anggaran 40–45 hari</td></tr>
       <tr><td>Notifikasi KKM</td><td>NOT260705867K</td></tr>
@@ -398,7 +433,7 @@ meta.push("<span>50ml · Celeste Musk</span>");
 $("#meta").innerHTML = meta.join("");
 $("#ratingBox").innerHTML = CONFIG.rating
   ? `<div class="rating"><span class="big">${CONFIG.rating}</span><span class="stars">★★★★★</span><span style="color:var(--muted);font-size:.85rem">${CONFIG.ratingCount || ""} ulasan</span></div>`
-  : `<div class="empty">Ulasan dan rating pembeli boleh dilihat di kedai TikTok rasmi kami, <b>@firea.hq</b>.</div>`;
+  : "";
 
 // galeri
 const slides = $("#slides"), imgs = [...slides.querySelectorAll("img")], thumbs = $("#thumbs");
@@ -487,4 +522,12 @@ $("#copy").addEventListener("click", () => {
   const selMsg = () => { const r = document.createRange(); r.selectNodeContents($("#msg")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); };
   if (navigator.clipboard) navigator.clipboard.writeText($("#msg").textContent).then(() => $("#copy").textContent = "Disalin ✓", selMsg); else selMsg();
 });
+// video & lightbox ulasan
+const vids = [...document.querySelectorAll(".tv video")];
+vids.forEach(v => v.addEventListener("play", () => vids.forEach(o => { if (o !== v && !o.paused) o.pause(); })));
+const lb = $("#lb"), lbImg = $("#lbImg");
+document.querySelectorAll(".wa-card").forEach(b => b.addEventListener("click", () => { lbImg.src = b.querySelector("img").src; lb.hidden = false; $("#lbX").focus(); }));
+const lbClose = () => { lb.hidden = true; lbImg.src = ""; };
+$("#lbX").addEventListener("click", lbClose); lb.addEventListener("click", e => { if (e.target === lb) lbClose(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !lb.hidden) lbClose(); });
 </script>

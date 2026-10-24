@@ -232,6 +232,26 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
 #promo .x{position:absolute;top:6px;right:6px;border:0;background:var(--ink);color:var(--blush);width:20px;height:20px;border-radius:50%;cursor:pointer;font-size:.7rem;line-height:1}
 #pill{position:fixed;left:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:50;background:var(--rose);color:#fff;border:0;border-radius:999px;padding:8px 14px;font:700 .78rem var(--f-body);cursor:pointer}
 #wa{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:50;width:54px;height:54px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 10px 24px -8px rgba(0,0,0,.5)}
+
+/* testimoni video + whatsapp */
+.tv-row{display:grid;grid-auto-flow:column;grid-auto-columns:min(72vw,300px);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 4px 14px;margin-top:28px;text-align:left}
+@media (min-width:980px){.tv-row{grid-auto-flow:row;grid-template-columns:repeat(3,1fr);overflow:visible}}
+.tv{margin:0;scroll-snap-align:center;background:var(--paper);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);border:2px solid var(--petal)}
+.tv video{display:block;width:100%;aspect-ratio:9/16;height:auto;background:#000;object-fit:cover}
+.tv figcaption{padding:12px 14px;display:grid;gap:2px}
+.tv figcaption span{color:var(--muted);font-size:.85rem}
+.wa-h{margin-top:44px;font-size:1.3rem}
+.wa-row{columns:1;column-gap:14px;max-width:1000px;margin:14px auto 0;text-align:left}
+@media (min-width:700px){.wa-row{columns:2}}
+@media (min-width:1000px){.wa-row{columns:3}}
+.wa-card{display:block;width:100%;break-inside:avoid;margin:0 0 14px;border:0;padding:0;border-radius:16px;overflow:hidden;background:var(--paper);box-shadow:var(--shadow);cursor:zoom-in}
+.wa-row:not(.all) .wa-card:nth-child(n+5){display:none}
+.wa-more{margin-top:6px;border:2px solid var(--rose);background:none;color:var(--rose);font:700 1rem var(--f-body);border-radius:12px;padding:12px 22px;cursor:pointer}
+.wa-card img{width:100%;height:auto}
+.lb{position:fixed;inset:0;z-index:90;background:rgba(10,4,8,.92);display:grid;place-items:center;padding:56px 12px 24px;overflow:auto}
+.lb img{max-width:min(720px,100%);height:auto;border-radius:12px}
+.lb-x{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));right:12px;width:42px;height:42px;border-radius:50%;border:0;background:#fff;color:#000;font-size:1rem;cursor:pointer}
+
 /* ===== MOTION ===== */
 #progress{position:fixed;top:0;left:0;height:4px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--petal),var(--rose));z-index:70}
 .hero{position:relative;overflow:hidden}
@@ -305,7 +325,7 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
   <span class="vo-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
   <span id="vo-time">0:00</span>
 </div>
-<audio id="vo-audio" src="audio/voiceover.mp3" preload="metadata"></audio>
+<audio id="vo-audio" src="audio/voiceover-48k.mp3" preload="metadata"></audio>
 <section class="dark hero">
   <div class="floaties" aria-hidden="true"><i>♥</i><i>✦</i><i>♥</i><i>✧</i><i>♥</i><i>✦</i><i>♥</i><i>✧</i><i>♥</i><i>✦</i></div>
   <div class="wrap center">
@@ -334,8 +354,8 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
 
 <div class="ticker" aria-label="Kelebihan Firea">
   <div class="ticker-track">
-    <span>Bernotifikasi KKM NOT260705867K</span><span>0% Alkohol</span><span>0% Paraben</span><span>0% Aluminium</span><span>Cepat Kering, Tak Melekit</span><span>COD Tersedia</span><span>Free Postage 2 Botol (Semenanjung)</span><span>Jaminan 7 Hari</span>
-    <span aria-hidden="true">Bernotifikasi KKM NOT260705867K</span><span aria-hidden="true">0% Alkohol</span><span aria-hidden="true">0% Paraben</span><span aria-hidden="true">0% Aluminium</span><span aria-hidden="true">Cepat Kering, Tak Melekit</span><span aria-hidden="true">COD Tersedia</span><span aria-hidden="true">Free Postage 2 Botol (Semenanjung)</span><span aria-hidden="true">Jaminan 7 Hari</span>
+    <span>Bernotifikasi KKM NOT260705867K</span><span>0% Alkohol</span><span>0% Paraben</span><span>Cepat Kering, Tak Melekit</span><span>COD Tersedia</span><span>Free Postage 2 Botol (Semenanjung)</span><span>Jaminan 7 Hari</span>
+    <span aria-hidden="true">Bernotifikasi KKM NOT260705867K</span><span aria-hidden="true">0% Alkohol</span><span aria-hidden="true">0% Paraben</span><span aria-hidden="true">Cepat Kering, Tak Melekit</span><span aria-hidden="true">COD Tersedia</span><span aria-hidden="true">Free Postage 2 Botol (Semenanjung)</span><span aria-hidden="true">Jaminan 7 Hari</span>
   </div>
 </div>
 
@@ -433,7 +453,7 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
         <p style="color:var(--muted)">Roll, tunggu kering, teruskan hari anda.</p>
         <div class="photo"><img src="img/rutin-cermin.jpg" alt="Wanita bertudung tersenyum di depan cermin memegang Firea" width="1100" height="614" loading="lazy"></div>
         <ul class="plain">
-          <li class="ok">0% alkohol, 0% paraben, 0% aluminium</li>
+          <li class="ok">0% alkohol, 0% paraben</li>
           <li class="ok">Selesa dari pagi sampai malam</li>
           <li class="ok">Cepat kering, tak melekit</li>
           <li class="ok">Tak tinggal kesan pada baju putih atau hitam</li>
@@ -499,7 +519,7 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
         <div class="spec"><b>50ml</b><span>roll-on, tahan 40–45 hari</span></div>
         <div class="spec"><b>Celeste Musk</b><span>wangian lembut</span></div>
         <div class="spec"><b>0% Alkohol</b><span>tak pedih pada kulit</span></div>
-        <div class="spec"><b>0% Paraben</b><span>&amp; 0% aluminium</span></div>
+        <div class="spec"><b>0% Paraben</b><span>lembut pada kulit</span></div>
       </div>
       <p><b>Apa yang anda dapat:</b></p>
       <ul class="plain">
@@ -560,21 +580,47 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
   </div>
 </section>
 
-<!--
-  ============ TESTIMONI ============
-  Buang tanda komen ini bila dah ada screenshot testimoni sebenar (letak dalam folder img/).
-<section>
+<!-- ============ TESTIMONI ============ -->
+<section id="testimoni">
   <div class="wrap center">
-    <p class="eyebrow">Apa kata pengguna</p>
-    <h2>Mereka Dah Rasa <span class="hl">Bezanya</span></h2>
-    <div class="pain">
-      <div class="photo"><img src="img/testimoni-1.jpg" alt="Testimoni pelanggan Firea" loading="lazy"></div>
-      <div class="photo"><img src="img/testimoni-2.jpg" alt="Testimoni pelanggan Firea" loading="lazy"></div>
-      <div class="photo"><img src="img/testimoni-3.jpg" alt="Testimoni pelanggan Firea" loading="lazy"></div>
+    <p class="eyebrow">Bukan kami yang cakap</p>
+    <h2>Apa Kata <span class="hl">Pengguna Firea</span></h2>
+    <p class="lead" style="margin-top:12px">Dengar sendiri pengalaman mereka yang dah guna. Tekan video untuk tonton.</p>
+    <div class="tv-row">
+      <figure class="tv">
+        <video controls playsinline preload="none" poster="img/testimoni-1-poster.jpg" src="media/testimoni-1.mp4" aria-label="Video testimoni Ayu"></video>
+        <figcaption><b>Ayu</b><span>Kerja seharian, dulu pedih lepas cukur · 2:12</span></figcaption>
+      </figure>
+      <figure class="tv">
+        <video controls playsinline preload="none" poster="img/testimoni-2-poster.jpg" src="media/testimoni-2.mp4" aria-label="Video testimoni seorang ibu dari Perlis"></video>
+        <figcaption><b>Seorang ibu, Perlis</b><span>Hantar anak, kenduri tengah hari panas · 1:28</span></figcaption>
+      </figure>
+      <figure class="tv">
+        <video controls playsinline preload="none" poster="img/testimoni-3-poster.jpg" src="media/testimoni-3.mp4" aria-label="Video testimoni Alia"></video>
+        <figcaption><b>Alia</b><span>Kulit sensitif, kerja dalam cuaca panas · 2:51</span></figcaption>
+      </figure>
     </div>
+
+    <h3 class="wa-h">Mesej WhatsApp dari pelanggan</h3>
+    <p class="micro" style="margin-top:4px">Tekan mesej untuk besarkan.</p>
+    <div class="wa-row" id="waRow">
+      <button type="button" class="wa-card"><img src="img/wa/wa-1.jpg" alt="Mesej pelanggan: bau wangi, tak menyucuk, tahan dari mandi pagi sampai petang" width="720" height="256" loading="lazy"></button>
+      <button type="button" class="wa-card"><img src="img/wa/wa-2.jpg" alt="Mesej pelanggan: dari pagi sampai pukul 11 malam badan tak berbau" width="720" height="543" loading="lazy"></button>
+      <button type="button" class="wa-card"><img src="img/wa/wa-3.jpg" alt="Mesej pelanggan: tak melekit, tahan dari 5 pagi sampai 7 malam" width="720" height="687" loading="lazy"></button>
+      <button type="button" class="wa-card"><img src="img/wa/wa-4.jpg" alt="Mesej pelanggan: pakai 7 hingga 8 jam ketiak tak basah atau berbau" width="720" height="244" loading="lazy"></button>
+      <button type="button" class="wa-card"><img src="img/wa/wa-5.jpg" alt="Mesej pelanggan: rakan sekerja tanya pakai minyak wangi apa" width="720" height="292" loading="lazy"></button>
+      <button type="button" class="wa-card"><img src="img/wa/wa-6.jpg" alt="Mesej pelanggan: cepat kering, tak melekit, sesuai untuk wanita berhijab" width="720" height="734" loading="lazy"></button>
+      <button type="button" class="wa-card"><img src="img/wa/wa-7.jpg" alt="Mesej pelanggan: ketiak tak berlecak walaupun kenduri panas terik" width="720" height="1056" loading="lazy"></button>
+      <button type="button" class="wa-card"><img src="img/wa/wa-8.jpg" alt="Mesej pelanggan: tak berpeluh dan tak melekat pada baju masa kenduri" width="720" height="263" loading="lazy"></button>
+      <button type="button" class="wa-card"><img src="img/wa/wa-9.jpg" alt="Mesej pelanggan: tak melekit, tiada warna putih pada baju, ada bau wangi" width="720" height="408" loading="lazy"></button>
+      <button type="button" class="wa-card"><img src="img/wa/wa-10.jpg" alt="Mesej pelanggan: ketiak tak rasa berlengas, kering, dan lebih wangi" width="720" height="375" loading="lazy"></button>
+      <button type="button" class="wa-card"><img src="img/wa/wa-11.jpg" alt="Mesej pelanggan: tak pedih atau gatal walaupun lepas cukur" width="720" height="259" loading="lazy"></button>
+    </div>
+    <button type="button" class="wa-more" id="waMore">Lihat semua 11 mesej ⌄</button>
+    <p class="micro">Video dan mesej sebenar dari pengguna Firea. Keputusan berbeza mengikut individu.</p>
   </div>
 </section>
--->
+<div class="lb" id="lb" hidden><button type="button" class="lb-x" id="lbX" aria-label="Tutup">✕</button><img id="lbImg" alt=""></div>
 
 <!-- ============ PAKEJ ============ -->
 <section class="dark" id="pakej" style="margin-top:clamp(48px,8vw,88px)">
@@ -843,7 +889,7 @@ $("#pill").addEventListener("click", () => { $("#promo").hidden = false; $("#pil
   let userPaused = false, started = false;
   const tryStart = e => {
     if (started || userPaused) return;
-    if (e && e.target && e.target.closest && e.target.closest("#vo")) return; // butang sendiri urus
+    if (e && e.target && e.target.closest && e.target.closest("#vo, .tv, video")) return; // butang sendiri / video urus
     a.play().then(() => { started = true; box.classList.add("played"); unhook(); }).catch(() => {});
   };
   const evs = ["pointerdown", "touchend", "click", "keydown", "scroll"];
@@ -860,6 +906,25 @@ $("#pill").addEventListener("click", () => { $("#promo").hidden = false; $("#pil
   a.addEventListener("timeupdate", () => { time.textContent = fmt(a.duration - a.currentTime); });
   a.addEventListener("ended", () => { a.currentTime = 0; time.textContent = fmt(a.duration); sync(); });
   document.addEventListener("visibilitychange", () => { if (document.hidden && !a.paused) a.pause(); });
+  window.pauseVO = () => { userPaused = true; started = true; unhook(); a.pause(); };
+})();
+
+/* ===== video testimoni & lightbox WhatsApp ===== */
+(function () {
+  const vids = [...document.querySelectorAll(".tv video")];
+  vids.forEach(v => v.addEventListener("play", () => {
+    if (window.pauseVO) window.pauseVO();
+    vids.forEach(o => { if (o !== v && !o.paused) o.pause(); });
+  }));
+  $("#waMore").addEventListener("click", () => { $("#waRow").classList.add("all"); $("#waMore").hidden = true; });
+  const lb = $("#lb"), lbImg = $("#lbImg");
+  document.querySelectorAll(".wa-card").forEach(b => b.addEventListener("click", () => {
+    const im = b.querySelector("img"); lbImg.src = im.src; lbImg.alt = im.alt; lb.hidden = false; $("#lbX").focus();
+  }));
+  const close = () => { lb.hidden = true; lbImg.src = ""; };
+  $("#lbX").addEventListener("click", close);
+  lb.addEventListener("click", e => { if (e.target === lb) close(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && !lb.hidden) close(); });
 })();
 
 /* ===== scroll motion ===== */
@@ -868,7 +933,7 @@ $("#pill").addEventListener("click", () => { $("#promo").hidden = false; $("#pil
   const bar = $("#progress");
   const pick = [
     ["section:not(.hero) h2, section:not(.hero) .eyebrow, .callout, .lead:not(.hero .lead), .micro:not(.hero .micro)", "up"],
-    [".pcard, .fcard, .after .s, .spec, .badge", "pop"],
+    [".pcard, .fcard, .after .s, .spec, .badge, .tv, .wa-card", "pop"],
     [".steps li, .rstep, .plain li, .faq details", "left"],
     [".vs > .a", "left"], [".vs > .b", "right"],
     [".photo, .skin", "clip"],
