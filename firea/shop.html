@@ -415,6 +415,13 @@ const CONFIG = {
 /* ======================== */
 
 const $ = s => document.querySelector(s);
+/* ===== Meta Pixel events (fbq dipasang oleh build.py; selamat jika tiada) ===== */
+const track = (ev, data, once) => {
+  try {
+    if (once) { track.done = track.done || {}; if (track.done[once]) return; track.done[once] = 1; }
+    if (window.fbq) window.fbq("track", ev, data || {});
+  } catch (e) {}
+};
 const rm = n => "RM" + (Number.isInteger(n) ? n : n.toFixed(2));
 $("#yr").textContent = new Date().getFullYear();
 const wa = t => "https://wa.me/" + CONFIG.whatsapp + (t ? "?text=" + encodeURIComponent(t) : "");
@@ -492,6 +499,7 @@ render();
 // buka/tutup sheet
 const sheet = $("#sheet"), scrim = $("#scrim"); let lastFocus = null;
 function openSheet() {
+  { const { p } = calc(); track("InitiateCheckout", { value: p.price, currency: "MYR", content_name: p.name, num_items: p.qty }, "ic"); }
   lastFocus = document.activeElement; sheet.hidden = scrim.hidden = false;
   requestAnimationFrame(() => { sheet.classList.add("on"); scrim.classList.add("on"); });
   document.body.style.overflow = "hidden"; $("#closeSheet").focus();
@@ -518,6 +526,7 @@ $("#orderForm").addEventListener("submit", e => {
     `Bayaran: ${document.querySelector('input[name="pay"]:checked').value}`, "", `Nama: ${v("f-name")}`, `Tel: ${v("f-phone")}`,
     `Alamat: ${v("f-addr")}, ${v("f-post")} ${v("f-city")}, ${v("f-state")}`].join("\n");
   $("#msg").textContent = msg; $("#walink").href = wa(msg); $("#done").hidden = false;
+  track("Lead", { value: total, currency: "MYR", content_name: p.name, num_items: p.qty }, "lead:" + msg);
   $("#done").scrollIntoView({ behavior: "smooth", block: "center" });
 });
 $("#copy").addEventListener("click", () => {
@@ -526,7 +535,11 @@ $("#copy").addEventListener("click", () => {
 });
 // video & lightbox ulasan
 const vids = [...document.querySelectorAll(".tv video")];
-vids.forEach(v => v.addEventListener("play", () => vids.forEach(o => { if (o !== v && !o.paused) o.pause(); })));
+vids.forEach(v => v.addEventListener("play", () => {
+  track("ViewContent", { content_name: v.getAttribute("aria-label"), content_type: "video" }, "vc:" + v.src);
+  vids.forEach(o => { if (o !== v && !o.paused) o.pause(); });
+}));
+["#chatBar", "#chatStore"].forEach(id => $(id).addEventListener("click", () => track("Contact", {}, "contact")));
 const lb = $("#lb"), lbImg = $("#lbImg");
 document.querySelectorAll(".wa-card").forEach(b => b.addEventListener("click", () => { lbImg.src = b.querySelector("img").src; lb.hidden = false; $("#lbX").focus(); }));
 const lbClose = () => { lb.hidden = true; lbImg.src = ""; };

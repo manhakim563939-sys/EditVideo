@@ -12,6 +12,23 @@
 <meta property="og:description" content="Deodoran roll-on 0% alkohol untuk wanita bertudung yang aktif. Kering dari pagi sampai malam. COD tersedia.">
 <meta property="og:image" content="https://fireadeodorant.com/img/produk-pink.jpg">
 <meta name="theme-color" content="#5a1531">
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2090608328226528');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2090608328226528&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -816,6 +833,13 @@ const CONFIG = {
 /* ========================================================= */
 
 const $ = s => document.querySelector(s);
+/* ===== Meta Pixel events (fbq dipasang oleh build.py; selamat jika tiada) ===== */
+const track = (ev, data, once) => {
+  try {
+    if (once) { track.done = track.done || {}; if (track.done[once]) return; track.done[once] = 1; }
+    if (window.fbq) window.fbq("track", ev, data || {});
+  } catch (e) {}
+};
 const rm = n => "RM" + (Number.isInteger(n) ? n : n.toFixed(2));
 $("#yr").textContent = new Date().getFullYear();
 const waUrl = t => "https://wa.me/" + CONFIG.whatsapp + (t ? "?text=" + encodeURIComponent(t) : "");
@@ -834,7 +858,10 @@ CONFIG.packages.forEach(p => {
     `<span class="now-p">${rm(p.price)}</span><span class="per">${rm(Math.round(p.price / p.qty * 100) / 100)} sebotol · ${p.qty * 40}–${p.qty * 45} hari</span>` +
     (save > 0 ? `<span class="save">Jimat ${rm(save)}</span>` : "") +
     (p.qty >= CONFIG.freeShipFrom ? '<span class="ship">✓ Free postage Semenanjung</span>' : '<span class="per">+ postage</span>');
-  b.addEventListener("click", () => { pick(p.id); $("#order").scrollIntoView({ behavior: "smooth" }); });
+  b.addEventListener("click", () => {
+    pick(p.id); $("#order").scrollIntoView({ behavior: "smooth" });
+    track("InitiateCheckout", { value: p.price, currency: "MYR", content_name: p.kind, num_items: p.qty }, "ic");
+  });
   grid.appendChild(b);
   const o = document.createElement("option"); o.value = p.id; o.textContent = `${p.kind}: ${p.qty} botol, ${rm(p.price)}`; sel.appendChild(o);
 });
@@ -859,6 +886,10 @@ sel.addEventListener("change", e => pick(e.target.value));
 $("#f-state").addEventListener("change", render);
 render();
 
+$("#orderForm").addEventListener("focusin", () => {
+  const { p } = calc(); track("InitiateCheckout", { value: p.price, currency: "MYR", content_name: p.kind, num_items: p.qty }, "ic");
+});
+$("#wa").addEventListener("click", () => track("Contact", {}, "contact"));
 $("#orderForm").addEventListener("submit", e => {
   e.preventDefault();
   const f = e.target, err = $("#err");
@@ -884,6 +915,7 @@ $("#orderForm").addEventListener("submit", e => {
   $("#walink").href = waUrl(msg);
   $("#wanum").textContent = "Kalau WhatsApp tak terbuka, salin mesej dan hantar ke 014-352 0164.";
   $("#done").hidden = false;
+  track("Lead", { value: total, currency: "MYR", content_name: p.kind, num_items: p.qty }, "lead:" + msg);
   $("#done").scrollIntoView({ behavior: "smooth", block: "center" });
 });
 $("#copy").addEventListener("click", () => {
@@ -936,6 +968,7 @@ $("#pill").addEventListener("click", () => { $("#promo").hidden = false; $("#pil
 (function () {
   const vids = [...document.querySelectorAll(".tv video")];
   vids.forEach(v => v.addEventListener("play", () => {
+    track("ViewContent", { content_name: v.getAttribute("aria-label"), content_type: "video" }, "vc:" + v.src);
     if (window.pauseVO) window.pauseVO();
     vids.forEach(o => { if (o !== v && !o.paused) o.pause(); });
   }));
