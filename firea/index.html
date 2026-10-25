@@ -250,7 +250,7 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
 
 /* testimoni video + whatsapp */
 .tv-row{display:grid;grid-auto-flow:column;grid-auto-columns:min(72vw,300px);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 4px 14px;margin-top:28px;text-align:left}
-@media (min-width:980px){.tv-row{grid-auto-flow:row;grid-template-columns:repeat(3,1fr);overflow:visible}}
+@media (min-width:980px){.tv-row{grid-auto-flow:row;grid-template-columns:repeat(5,1fr);overflow:visible}}
 .tv{margin:0;scroll-snap-align:center;background:var(--paper);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);border:2px solid var(--petal)}
 .tv video{display:block;width:100%;aspect-ratio:9/16;height:auto;background:#000;object-fit:cover}
 .tv figcaption{padding:12px 14px;display:grid;gap:2px}
@@ -600,7 +600,7 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
   <div class="wrap center">
     <p class="eyebrow">Bukan kami yang cakap</p>
     <h2>Apa Kata <span class="hl">Pengguna Firea</span></h2>
-    <p class="lead" style="margin-top:12px">Dengar sendiri pengalaman mereka yang dah guna. Tekan video untuk tonton.</p>
+    <p class="lead" style="margin-top:12px">Dengar sendiri pengalaman 5 pengguna Firea. Swipe dan tekan video untuk tonton.</p>
     <div class="tv-row">
       <figure class="tv">
         <video controls playsinline preload="none" poster="img/testimoni-1-poster.jpg" src="media/testimoni-1.mp4" aria-label="Video testimoni Ayu"></video>
@@ -613,6 +613,14 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
       <figure class="tv">
         <video controls playsinline preload="none" poster="img/testimoni-3-poster.jpg" src="media/testimoni-3.mp4" aria-label="Video testimoni Alia"></video>
         <figcaption><b>Alia</b><span>Kulit sensitif, kerja dalam cuaca panas · 2:51</span></figcaption>
+      </figure>
+      <figure class="tv">
+        <video controls playsinline preload="none" poster="img/testimoni-4-poster.jpg" src="media/testimoni-4.mp4" aria-label="Video testimoni Mira"></video>
+        <figcaption><b>Mira</b><span>Pagi sampai malam, banyak bergerak · 1:13</span></figcaption>
+      </figure>
+      <figure class="tv">
+        <video controls playsinline preload="none" poster="img/testimoni-5-poster.jpg" src="media/testimoni-5.mp4" aria-label="Video testimoni Ilah"></video>
+        <figcaption><b>Ilah</b><span>Seharian di dapur, keluar dengan family · 1:46</span></figcaption>
       </figure>
     </div>
 
@@ -795,7 +803,7 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
 <script>
 /* ===== EDIT DI SINI: harga, nombor WhatsApp, postage ===== */
 const CONFIG = {
-  whatsapp: "601158839835",          // 011-5883 9835
+  whatsapp: "60143520164",           // 014-352 0164
   shipping: { semenanjung: 8, sabahSarawak: 15 },
   freeShipFrom: 2,                   // free postage Semenanjung bila beli >= 2 botol
   unitPrice: 28,
@@ -874,7 +882,7 @@ $("#orderForm").addEventListener("submit", e => {
   ].join("\n");
   $("#msg").textContent = msg;
   $("#walink").href = waUrl(msg);
-  $("#wanum").textContent = "Kalau WhatsApp tak terbuka, salin mesej dan hantar ke 011-5883 9835.";
+  $("#wanum").textContent = "Kalau WhatsApp tak terbuka, salin mesej dan hantar ke 014-352 0164.";
   $("#done").hidden = false;
   $("#done").scrollIntoView({ behavior: "smooth", block: "center" });
 });
