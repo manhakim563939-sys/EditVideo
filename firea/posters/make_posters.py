@@ -188,6 +188,75 @@ def poster_cara_order():
     footer(base)
     save(base, "3-cara-order")
 
+
+def draw_bottle(base, x, y, h=150):
+    """Ikon botol roll-on Firea: penutup putih tinggi, badan pink dengan label."""
+    w = int(h * 0.44)
+    lay = Image.new("RGBA", (w + 30, h + 30), (0, 0, 0, 0)); d = ImageDraw.Draw(lay)
+    cap_h = int(h * 0.48); ox, oy = 8, 6
+    # bayang
+    sh = Image.new("RGBA", lay.size, (0, 0, 0, 0))
+    ImageDraw.Draw(sh).rounded_rectangle((ox + 4, oy + 8, ox + w + 4, oy + h + 8), w // 5, fill=(90, 21, 49, 70))
+    lay.alpha_composite(sh.filter(ImageFilter.GaussianBlur(6)))
+    # badan
+    d.rounded_rectangle((ox, oy + cap_h - 6, ox + w, oy + h), w // 6, fill=(244, 184, 204))
+    d.rectangle((ox + 5, oy + cap_h + 8, ox + w - 5, oy + h - 14), fill=(252, 230, 238))
+    d.text((ox + w / 2, oy + cap_h + 26), "Firea", font=F("Bricolage800", max(12, h // 10)), fill=BERRY, anchor="mm")
+    d.line((ox + 10, oy + cap_h + 44, ox + w - 10, oy + cap_h + 44), fill=(240, 170, 195), width=3)
+    d.line((ox + 10, oy + cap_h + 54, ox + w - 18, oy + cap_h + 54), fill=(240, 170, 195), width=3)
+    # penutup
+    d.rounded_rectangle((ox - 1, oy, ox + w + 1, oy + cap_h), w // 3, fill=(255, 255, 255), outline=(232, 212, 220), width=2)
+    d.rectangle((ox - 1, oy + cap_h - 14, ox + w + 1, oy + cap_h), fill=(255, 255, 255))
+    d.line((ox - 1, oy + cap_h, ox + w + 1, oy + cap_h), fill=(232, 212, 220), width=2)
+    d.line((ox + 8, oy + 14, ox + 8, oy + cap_h - 12), fill=(244, 238, 241), width=6)
+    base.alpha_composite(lay, (int(x) - ox, int(y) - oy))
+
+def poster_harga_sahaja():
+    base = bg_blush(); d = ImageDraw.Draw(base)
+    brand_header(base)
+    hl_text(base, W / 2, 150, [("Harga ", False), ("Pakej", True), (" Firea", False)], 92)
+    text(d, (W / 2, 290), "Celeste Musk Deodorant Roll-on 50ml", F("Figtree700", 36), MUTED, "mm")
+    cards = [(1, "1 BOTOL", "RM28", "RM28 sebotol", None, [], False),
+             (2, "2 BOTOL", "RM50", "RM25 sebotol", "RM56", ["Jimat RM6", "FREE POS"], False),
+             (3, "3 BOTOL", "RM65", "RM21.67 sebotol", "RM84", ["Jimat RM19", "FREE POS"], True)]
+    y = 350
+    for n, name, price, per, old, tags, feat in cards:
+        h = 270 if feat else 240
+        x0, x1 = 60, 1020
+        bgc = BERRY if feat else PAPER
+        card = Image.new("RGBA", (x1 - x0, h), (0, 0, 0, 0)); cd = ImageDraw.Draw(card)
+        cd.rounded_rectangle((0, 0, card.width - 1, h - 1), 36, fill=bgc + (255,), outline=(PETAL if feat else (240, 213, 223)) + (255,), width=5 if feat else 3)
+        shadow_paste(base, card, (x0, y), op=90 if feat else 60)
+        # botol
+        bh = 150; bw = int(bh * 0.46); gap = 14
+        bx = x0 + 50; by = y + (h - bh) // 2
+        for k in range(n):
+            draw_bottle(base, bx + k * (bw + gap), by, bh)
+        # teks
+        tx = x0 + 300
+        nc, sc, pc = (WHITE, (245, 205, 220), PETAL) if feat else (INK, MUTED, ROSE)
+        text(d, (tx, y + h / 2 - 40), name, F("Bricolage800", 56), nc, "lm")
+        text(d, (tx, y + h / 2 + 16), per, F("Figtree700", 30), sc, "lm")
+        tx2 = tx
+        for t in tags:
+            f = F("Figtree800", 24); w = f.getlength(t)
+            bgp = (ROSE if feat else BERRY) if t.startswith("FREE") else (PETAL if feat else (255, 226, 236))
+            fgp = WHITE if t.startswith("FREE") else BERRY
+            d.rounded_rectangle((tx2, y + h / 2 + 46, tx2 + w + 28, y + h / 2 + 86), 20, fill=bgp)
+            d.text((tx2 + 14 + w / 2, y + h / 2 + 66), t, font=f, fill=fgp, anchor="mm")
+            tx2 += w + 40
+        text(d, (x1 - 40, y + h / 2 + (14 if old else 0)), price, F("Bricolage800", 104 if feat else 92), pc, "rm")
+        if old:
+            fo = F("Figtree800", 34); ow = fo.getlength(old); ox = x1 - 40 - ow; oy = y + h / 2 - 62
+            d.text((ox, oy), old, font=fo, fill=(225, 175, 195) if feat else MUTED, anchor="lm")
+            d.line((ox, oy + 2, ox + ow, oy + 2), fill=(225, 175, 195) if feat else MUTED, width=4)
+        if feat:
+            pill(d, x0 + 170, y, "PALING JIMAT", F("Figtree800", 28), ROSE, WHITE, 22, 10)
+        y += h + 40
+    text(d, (W / 2, 1255), "FREE POS untuk Semenanjung · 1 botol + postage RM8 · Sabah & Sarawak RM15", F("Figtree700", 25), MUTED, "mm")
+    footer(base)
+    save(base, "8-harga-pakej")
+
 # ---------------------------------------------------------------- FEEDBACK
 def chat_stack(base, files, top, bottom, width=900, gap=26, tilt=(-1.5, 1.2, -0.8, 1.0)):
     ims = [rounded(fit(load(os.path.join("wa", f)), width), 22) for f in files]
@@ -260,5 +329,5 @@ def poster_video_faces():
     save(base, "7-video-testimoni")
 
 if __name__ == "__main__":
-    poster_harga(); poster_3botol(); poster_cara_order()
+    poster_harga(); poster_3botol(); poster_cara_order(); poster_harga_sahaja()
     poster_feedback_chat(); poster_feedback_quote(); poster_feedback_kulit(); poster_video_faces()
