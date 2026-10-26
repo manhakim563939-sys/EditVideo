@@ -228,12 +228,16 @@ def poster_harga_sahaja():
         cd.rounded_rectangle((0, 0, card.width - 1, h - 1), 36, fill=bgc + (255,), outline=(PETAL if feat else (240, 213, 223)) + (255,), width=5 if feat else 3)
         shadow_paste(base, card, (x0, y), op=90 if feat else 60)
         # botol
-        bh = 150; bw = int(bh * 0.46); gap = 14
-        bx = x0 + 50; by = y + (h - bh) // 2
+        bh = h - 30
+        bot = Image.open(os.path.join(IMG, "botol-cutout.png")).convert("RGBA")
+        bot = bot.resize((int(bot.width * bh / bot.height), bh), Image.LANCZOS)
+        step = {1: 0, 2: 78, 3: 70}[n]
+        bx = x0 + 40 + (0 if n == 3 else (70 if n == 1 else 35)); by = y + (h - bh) // 2 + 4
         for k in range(n):
-            draw_bottle(base, bx + k * (bw + gap), by, bh)
+            b = bot.rotate((-4, 3, -2)[k], resample=Image.BICUBIC, expand=True)
+            shadow_paste(base, b, (bx + k * step, by - (8 if k == 1 else 0)), blur=10, off=6, op=70)
         # teks
-        tx = x0 + 300
+        tx = x0 + 310
         nc, sc, pc = (WHITE, (245, 205, 220), PETAL) if feat else (INK, MUTED, ROSE)
         text(d, (tx, y + h / 2 - 40), name, F("Bricolage800", 56), nc, "lm")
         text(d, (tx, y + h / 2 + 16), per, F("Figtree700", 30), sc, "lm")
@@ -251,7 +255,7 @@ def poster_harga_sahaja():
             d.text((ox, oy), old, font=fo, fill=(225, 175, 195) if feat else MUTED, anchor="lm")
             d.line((ox, oy + 2, ox + ow, oy + 2), fill=(225, 175, 195) if feat else MUTED, width=4)
         if feat:
-            pill(d, x0 + 170, y, "PALING JIMAT", F("Figtree800", 28), ROSE, WHITE, 22, 10)
+            pill(d, x1 - 150, y, "PALING JIMAT", F("Figtree800", 28), ROSE, WHITE, 22, 10)
         y += h + 40
     text(d, (W / 2, 1255), "FREE POS untuk Semenanjung · 1 botol + postage RM8 · Sabah & Sarawak RM15", F("Figtree700", 25), MUTED, "mm")
     footer(base)
