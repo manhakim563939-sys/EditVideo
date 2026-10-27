@@ -885,6 +885,7 @@ form.addEventListener("submit", e => {
 *Telefon:* ${tel}
 *Alamat:* ${alamat}, ${poskod} ${negeri}`;
   const url = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(msg);
+  track("InitiateCheckout", { content_name: p.nama, currency: "MYR", value: PAKEJ[id].harga + posRM(id), num_items: Number(id) });
   track("Contact", { content_name: p.nama, currency: "MYR", value: PAKEJ[id].harga + posRM(id) });
   waLink.href = url;
   waFallback.hidden = false;
