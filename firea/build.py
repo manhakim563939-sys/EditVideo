@@ -8,7 +8,7 @@ Jalankan: python3 build.py  ->  ../output/fireadeodorant-website.zip (folder "fi
 import pathlib, re, shutil, zipfile
 
 here = pathlib.Path(__file__).parent
-PIXEL_ID = "2090608328226528"   # Firea Pixel (Meta). Kosongkan "" untuk matikan.
+PIXEL_ID = "1727644342009474"   # Firea Pixel (Meta, ditukar 27 Okt). Kosongkan "" untuk matikan.
 PIXEL = f'''<!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
