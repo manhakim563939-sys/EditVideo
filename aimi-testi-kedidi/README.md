@@ -1,5 +1,7 @@
 # Aimi Curtain — Review Pelanggan Taman Kedidi (TikTok / Reels)
 
+
+**FINAL:** `AimiCurtain_TamanKedidi_Final_9x16.mp4` — 1080×1920, 30fps, 63.3s, CRF 17, AAC 256k.
 `preview_v1.mp4` — 1080×1920, 30fps, 63.3s (60.9s testimoni + 2.4s end card). **Belum final export.**
 
 Konsep sama dengan siri sebelum ini (Gold Kinetic Luxe): teks kinetik emas untuk setiap point pelanggan, animasi
