@@ -1,5 +1,7 @@
 # Aimi Curtain — Projek Pelanggan Depan Badlishah (TikTok / Reels)
 
+
+**FINAL:** `AimiCurtain_Badlishah_Final_9x16.mp4` — 1080×1920, 30fps, 43.4s, CRF 17, AAC 256k, −17.7 LUFS.
 `preview_v1.mp4` — 1080×1920, 30fps, 43.4s. **Belum final export.**
 
 Pelanggan bercakap sekejap (9s), jadi video dibina sebagai cerita projek menggunakan SEMUA footage & gambar:
