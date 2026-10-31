@@ -1,0 +1,99 @@
+<title>Firea Quick Replies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;700;800&display=swap">
+<style>
+/* Layout: satu kolum senarai mesej berkumpulan, setiap kad ada shortcut + butang Salin (untuk telefon) */
+:root{
+  --bg:#fdf2f5; --card:#ffffff; --ink:#3a1424; --muted:#7a5867; --line:#f0d5df;
+  --berry:#5a1531; --rose:#c2185b; --petal:#ffc9da; --ok:#1f8a4c; --okbg:#eaf6ee;
+  --f:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1c1116; --card:#26171e; --ink:#f8e9ef; --muted:#c9a7b6; --line:#43283a;
+  --berry:#ffb3cc; --rose:#ff5c93; --petal:#4d1430; --ok:#4cc47e; --okbg:#16301f; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1c1116; --card:#26171e; --ink:#f8e9ef; --muted:#c9a7b6; --line:#43283a;
+  --berry:#ffb3cc; --rose:#ff5c93; --petal:#4d1430; --ok:#4cc47e; --okbg:#16301f; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:500 16px/1.55 var(--f)}
+.wrap{max-width:680px;margin:0 auto;padding-inline:16px;padding-block:20px 60px}
+h1{font-size:1.6rem;font-weight:800;color:var(--berry);margin:0}
+.lead{color:var(--muted);margin:6px 0 16px}
+.how{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:.92rem}
+.how ol{margin:6px 0 0;padding-left:20px}
+.how li{margin:3px 0}
+.how b{color:var(--berry)}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;gap:8px;overflow-x:auto;padding:12px 0;margin-top:8px}
+nav a{flex:0 0 auto;text-decoration:none;color:var(--berry);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-weight:700;font-size:.85rem}
+h2{font-size:1.1rem;font-weight:800;margin:22px 0 10px;color:var(--ink);scroll-margin-top:64px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+.top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.code{font-family:ui-monospace,Menlo,monospace;font-weight:700;background:var(--petal);color:var(--berry);border-radius:8px;padding:3px 9px}
+.note{color:var(--muted);font-size:.85rem;flex:1;min-width:0}
+.msg{white-space:pre-wrap;margin:10px 0 0;background:var(--bg);border-radius:10px;padding:10px 12px;font-size:.95rem}
+.tip{margin-top:8px;color:var(--rose);font-size:.85rem;font-weight:700}
+.row{display:flex;gap:8px;margin-top:10px}
+button{font:inherit;font-weight:800;border:0;border-radius:10px;padding:10px 14px;cursor:pointer}
+.copy{flex:1;background:var(--rose);color:#fff}
+.copy.done{background:var(--ok)}
+.code-btn{background:var(--card);color:var(--berry);border:1.5px solid var(--line)}
+button:focus-visible,a:focus-visible{outline:3px solid var(--rose);outline-offset:2px}
+.rules{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px;font-size:.9rem;margin-top:22px}
+.rules ul{margin:6px 0 0;padding-left:20px}
+</style>
+
+<div class="wrap">
+  <h1>Firea Quick Replies</h1>
+  <p class="lead">22 mesej WhatsApp siap guna. Tekan <b>Salin mesej</b>, kemudian tampal.</p>
+  <div class="how">
+    <b>Cara simpan sebagai Quick Reply (sekali sahaja):</b>
+    <ol>
+      <li>Tekan <b>Salin mesej</b> pada kad di bawah.</li>
+      <li>Buka <b>WhatsApp Business</b>, kemudian <b>⋮ menu</b>, <b>Business tools</b>, <b>Quick replies</b>, dan tekan <b>+</b>.</li>
+      <li>Di ruang <b>Message</b>, tekan lama dan pilih <b>Paste</b>.</li>
+      <li>Di ruang <b>Shortcut</b>, taip kod pada kad (contohnya <b>fu1</b>), kemudian <b>Save</b>.</li>
+      <li>Lepas ni, dalam chat, taip <b>/fu1</b> dan mesej terus keluar.</li>
+    </ol>
+  </div>
+  <nav id="nav"></nav>
+  <div id="list"></div>
+  <div class="rules">
+    <b>Peraturan ringkas</b>
+    <ul>
+      <li>Maksimum <b>satu mesej sehari</b> semasa follow-up 5 hari.</li>
+      <li>Follow-up bulanan <b>sekali sebulan</b>, dan mesti ada sebab yang betul. Kalau 2 bulan tiada balasan, berhenti.</li>
+      <li>Kalau pelanggan kata tak berminat, berhenti terus dan balas dengan sopan.</li>
+      <li>Hantar pukul 12–2 tengah hari atau 8–10 malam.</li>
+      <li>Tukar "akak" kepada nama pelanggan bila boleh.</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+const DATA = [{"title": "A. Jawapan biasa (pelanggan baru tanya)", "items": [{"code": "harga", "note": "", "text": "Hai kak 😊 Terima kasih sudi tanya pasal Firea Celeste Musk (deodoran roll-on 50ml, 0% alkohol & 0% paraben).\n\nHarga pakej:\n• 1 botol: RM28 (+ postage)\n• 2 botol: RM50 (FREE POS Semenanjung)\n• 3 botol: RM65 (FREE POS Semenanjung) ⭐ paling jimat\n\nPostage: Semenanjung RM8 (percuma 2 botol ke atas), Sabah & Sarawak RM15.\nAkak nak ambil pakej yang mana? 🌸", "tip": ""}, {"code": "order", "note": "", "text": "Baik kak 😊 Boleh isi maklumat ni untuk saya proses order:\n\nNama penerima:\nNo. telefon:\nAlamat penuh (dengan poskod):\nPakej (1 / 2 / 3 botol):\nBayaran (COD / online transfer):", "tip": ""}, {"code": "cod", "note": "", "text": "Ada kak, COD tersedia 😊 Caj COD sama seperti postage biasa: Semenanjung RM8 (percuma untuk 2 botol ke atas), Sabah & Sarawak RM15. Akak bayar bila barang sampai.", "tip": ""}, {"code": "pos", "note": "", "text": "Kami pos guna J&T kak 😊\n• Semenanjung: 2–3 hari\n• Sabah & Sarawak: 5–6 hari\nNombor tracking akan saya bagi lepas barang dipos.", "tip": ""}, {"code": "carapakai", "note": "", "text": "Cara pakai Firea 😊\n1. Pastikan ketiak bersih dan kering (paling baik lepas mandi).\n2. Roll 3–4 kali pada setiap ketiak.\n3. Tunggu sekejap sampai kering, baru pakai baju.\nSebotol 50ml boleh tahan lebih kurang 40–45 hari 🌸", "tip": ""}, {"code": "jaminan", "note": "", "text": "Firea ada jaminan 7 hari penggunaan kak 😊 Kalau kulit rasa gatal atau panas, atau botol rosak semasa sampai, akak WhatsApp je kami dalam tempoh 7 hari bersama gambar produk, kami uruskan.", "tip": ""}, {"code": "terimakasih", "note": "", "text": "Terima kasih kak atas order Firea 🌸 Saya akan pos dalam masa terdekat dan bagi nombor tracking. Kalau ada apa-apa soalan, WhatsApp je ya 😊", "tip": ""}]}, {"title": "B. Follow-up pelanggan yang dah bluetick tapi tak balas", "items": [{"code": "fu1", "note": "Hari 0, 2–4 jam selepas bluetick", "text": "Hai kak 😊 Saya nampak akak dah baca. Akak ada nak tanya apa-apa pasal Firea? Saya boleh bantu terangkan.", "tip": ""}, {"code": "fu1b", "note": "Hari 0, versi pilihan nombor", "text": "Kak, boleh saya tahu akak lebih risau pasal yang mana?\n1️⃣ Bau badan\n2️⃣ Ketiak cepat basah\n3️⃣ Kulit sensitif / pedih lepas cukur\nBalas nombor je, saya terangkan yang sesuai untuk akak 🌸", "tip": ""}, {"code": "fu2", "note": "Hari 1, hantar bersama poster feedback", "text": "Kak, ni antara feedback pelanggan kami 😊 Ramai yang pakai tudung dan kerja luar, Alhamdulillah selesa sampai malam.", "tip": ""}, {"code": "fu3kulit", "note": "Hari 2, kalau risau kulit sensitif", "text": "Kak, nak kongsi sikit. Firea ni 0% alkohol dan 0% paraben, sebab tu ramai yang dulu pedih lepas cukur rasa selesa bila guna. Ada juga Bisabolol yang bantu tenangkan kulit 🌸", "tip": ""}, {"code": "fu3baju", "note": "Hari 2, kalau risau kesan pada baju", "text": "Ramai tanya pasal kesan kuning atau putih pada baju. Alhamdulillah Firea cepat kering dan tak melekit, jadi tak tinggal kesan walaupun pada baju hitam atau putih 😊", "tip": ""}, {"code": "fu3video", "note": "Hari 2, kalau ragu \"betul ke tahan\"", "text": "Kak, ada video testimoni dari 5 pengguna kat sini. Akak boleh tengok sendiri pengalaman mereka:\n👉 fireadeodorant.com", "tip": ""}, {"code": "fu4tips", "note": "Hari 3, maklumat berguna", "text": "Tips kecil untuk akak 😊 Deodoran paling berkesan bila dipakai pada ketiak yang bersih dan kering, contohnya lepas mandi pagi. Tunggu sekejap sampai kering baru pakai baju, barulah tahan lama.", "tip": ""}, {"code": "fu5rehat", "note": "Hari 5, rehat, bukan penutup", "text": "Hai kak 😊 Saya tak nak ganggu akak selalu. Kalau akak perlukan apa-apa pasal Firea, balas je mesej ni bila-bila masa ya.\nNanti kalau ada info atau update baru, saya kongsikan dengan akak 🌸", "tip": ""}]}, {"title": "C. Offer follow-up (guna bersama poster offer)", "items": [{"code": "cuba1", "note": "hantar bersama poster \"Masih Fikir-Fikir?\"", "text": "Hai kak 😊 Saya faham kalau akak masih fikir-fikir. Ramai pelanggan kami pun mula dengan 1 botol dulu untuk cuba.\nKalau kulit tak serasi atau botol rosak, akak WhatsApp je dalam 7 hari, kami uruskan.\nNak saya sediakan 1 botol untuk akak? 🌸", "tip": ""}, {"code": "offer24", "note": "hantar bersama poster \"1 Botol, FREE POS!\"", "text": "Hai kak 🌸 Khas untuk akak yang dah tanya, kalau ambil 1 botol Firea dalam 24 jam ni, postage saya tanggung (Semenanjung).\nJadi cuma RM28 je, sampai depan rumah 😊", "tip": "tepati 24 jam. Selepas tempoh tu, caj postage RM8 seperti biasa."}]}, {"title": "D. Follow-up bulanan (3–4 minggu kemudian, pilih SATU sahaja)", "items": [{"code": "bln1", "note": "ada feedback baru", "text": "Hai kak, lama tak dengar khabar 😊 Saya nak kongsi feedback terbaru dari pelanggan Firea bulan ni. Ramai yang kongsi pengalaman pakai masa cuaca panas.", "tip": ""}, {"code": "bln2", "note": "ikut musim", "text": "Hai kak 🌸 Musim panas sekarang ni, ramai yang mula risau ketiak cepat basah bila keluar rumah. Kalau akak masih cari deodoran yang selesa sampai petang, Firea masih ada untuk akak 😊", "tip": ""}, {"code": "bln3", "note": "ada promosi betul", "text": "Hai kak 😊 Bulan ni ada promosi untuk Firea. Saya teringat akak pernah tanya, jadi saya kongsikan dulu sebelum promosi tamat.", "tip": ""}, {"code": "bln4", "note": "tanya khabar", "text": "Hai kak, harap akak sihat 😊 Saya cuma nak tanya, akak dah jumpa deodoran yang sesuai? Kalau masih cari, saya boleh bantu.", "tip": ""}]}, {"title": "E. Pelanggan ulangan", "items": [{"code": "ulang", "note": "sekitar hari ke-35 selepas barang sampai", "text": "Hai kak 😊 Firea akak mungkin dah hampir habis. Nak saya sediakan stok baru supaya tak terputus?\nPakej 3 botol RM65 FREE POS (Semenanjung), cukup lebih kurang 4 bulan 🌸", "tip": ""}]}];
+const list = document.getElementById("list"), nav = document.getElementById("nav");
+const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+DATA.forEach((g, gi) => {
+  const id = "g" + gi, short = g.title.split("(")[0].replace(/^[A-E]\.\s*/, "").trim();
+  nav.insertAdjacentHTML("beforeend", `<a href="#${id}">${esc(short)}</a>`);
+  list.insertAdjacentHTML("beforeend", `<h2 id="${id}">${esc(g.title)}</h2>`);
+  g.items.forEach(it => {
+    list.insertAdjacentHTML("beforeend", `<div class="card">
+      <div class="top"><span class="code">/${esc(it.code)}</span><span class="note">${esc(it.note)}</span></div>
+      <div class="msg">${esc(it.text)}</div>
+      ${it.tip ? `<div class="tip">⚠ ${esc(it.tip)}</div>` : ""}
+      <div class="row"><button class="copy" data-t="${esc(it.text)}">Salin mesej</button><button class="code-btn" data-t="${esc(it.code)}">Salin shortcut</button></div>
+    </div>`);
+  });
+});
+function selectNode(el) { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+list.addEventListener("click", e => {
+  const b = e.target.closest("button[data-t]"); if (!b) return;
+  const label = b.textContent, t = b.dataset.t;
+  const ok = () => { b.textContent = "Disalin ✓"; b.classList.add("done"); setTimeout(() => { b.textContent = label; b.classList.remove("done"); }, 1600); };
+  const fail = () => { const m = b.closest(".card").querySelector(b.classList.contains("copy") ? ".msg" : ".code"); selectNode(m); b.textContent = "Teks dipilih, tekan Copy"; setTimeout(() => b.textContent = label, 2500); };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok, fail); else fail();
+});
+</script>
