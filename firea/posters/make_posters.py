@@ -305,8 +305,7 @@ def poster_followup_cuba():
     chat = rounded(fit(load("wa/wa-11.jpg"), rx1 - rx0), 20)
     shadow_paste(base, chat.rotate(1.2, resample=Image.BICUBIC, expand=True), (rx0 - 4, 820))
     # CTA
-    pill(d, W / 2, 1200, "Balas 'NAK' untuk cuba 1 botol", F("Figtree800", 40), ROSE, WHITE, 46, 22)
-    text(d, (W / 2, 1270), "COD tersedia  ·  0% Alkohol  ·  0% Paraben", F("Figtree700", 28), MUTED, "mm")
+    text(d, (W / 2, 1230), "0% Alkohol  ·  0% Paraben  ·  Cepat Kering", F("Figtree800", 32), BERRY2, "mm")
     footer(base, "Bernotifikasi KKM NOT260705867K  ·  Keputusan berbeza mengikut individu")
     save(base, "9-followup-cuba-1-botol")
 
