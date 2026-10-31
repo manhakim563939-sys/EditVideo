@@ -16,47 +16,8 @@ Tukar **"akak"** kepada nama pelanggan bila boleh, supaya nampak lebih peribadi.
 
 ## A. Jawapan biasa (pelanggan baru tanya)
 
-### `/harga`
-Hai kak 😊 Terima kasih sudi tanya pasal Firea Celeste Musk (deodoran roll-on 50ml, 0% alkohol & 0% paraben).
-
-Harga pakej:
-• 1 botol: RM28 (+ postage)
-• 2 botol: RM50 (FREE POS Semenanjung)
-• 3 botol: RM65 (FREE POS Semenanjung) ⭐ paling jimat
-
-Postage: Semenanjung RM8 (percuma 2 botol ke atas), Sabah & Sarawak RM15.
-Akak nak ambil pakej yang mana? 🌸
-
-### `/order`
-Baik kak 😊 Boleh isi maklumat ni untuk saya proses order:
-
-Nama penerima:
-No. telefon:
-Alamat penuh (dengan poskod):
-Pakej (1 / 2 / 3 botol):
-Bayaran (COD / online transfer):
-
-### `/cod`
-Ada kak, COD tersedia 😊 Caj COD sama seperti postage biasa: Semenanjung RM8 (percuma untuk 2 botol ke atas), Sabah & Sarawak RM15. Akak bayar bila barang sampai.
-
-### `/pos`
-Kami pos guna J&T kak 😊
-• Semenanjung: 2–3 hari
-• Sabah & Sarawak: 5–6 hari
-Nombor tracking akan saya bagi lepas barang dipos.
-
-### `/carapakai`
-Cara pakai Firea 😊
-1. Pastikan ketiak bersih dan kering (paling baik lepas mandi).
-2. Roll 3–4 kali pada setiap ketiak.
-3. Tunggu sekejap sampai kering, baru pakai baju.
-Sebotol 50ml boleh tahan lebih kurang 40–45 hari 🌸
-
 ### `/jaminan`
 Firea ada jaminan 7 hari penggunaan kak 😊 Kalau kulit rasa gatal atau panas, atau botol rosak semasa sampai, akak WhatsApp je kami dalam tempoh 7 hari bersama gambar produk, kami uruskan.
-
-### `/terimakasih`
-Terima kasih kak atas order Firea 🌸 Saya akan pos dalam masa terdekat dan bagi nombor tracking. Kalau ada apa-apa soalan, WhatsApp je ya 😊
 
 ---
 
