@@ -261,6 +261,55 @@ def poster_harga_sahaja():
     footer(base)
     save(base, "8-harga-pakej")
 
+def poster_followup_cuba():
+    """Follow-up tanpa diskaun: cuba 1 botol dengan jaminan 7 hari."""
+    base = bg_blush(); d = ImageDraw.Draw(base)
+    brand_header(base)
+    hl_text(base, W / 2, 140, [("Masih ", False), ("Fikir-Fikir?", True)], 92)
+    text(d, (W / 2, 278), "Cuba 1 botol dulu. Tak serasi? Kami uruskan.", F("Figtree800", 38), BERRY2, "mm")
+    # botol besar kiri
+    bot = Image.open(os.path.join(IMG, "botol-cutout.png")).convert("RGBA")
+    bh = 600; bot = bot.resize((int(bot.width * bh / bot.height), bh), Image.LANCZOS).rotate(-5, resample=Image.BICUBIC, expand=True)
+    glow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    ImageDraw.Draw(glow).ellipse((40, 400, 500, 900), fill=(255, 222, 233, 230))
+    base.alpha_composite(glow.filter(ImageFilter.GaussianBlur(60)))
+    shadow_paste(base, bot, (120, 335), blur=14, off=10, op=35)
+    # harga bawah botol
+    card = Image.new("RGBA", (400, 130), (0, 0, 0, 0)); cd = ImageDraw.Draw(card)
+    cd.rounded_rectangle((0, 0, 399, 129), 30, fill=BERRY + (255,))
+    cd.text((200, 50), "1 BOTOL RM28", font=F("Bricolage800", 46), fill=WHITE, anchor="mm")
+    cd.text((200, 98), "+ postage RM8 (Semenanjung)", font=F("Figtree700", 24), fill=(245, 205, 220), anchor="mm")
+    shadow_paste(base, card, (70, 965))
+    # kanan: jaminan
+    rx0, rx1 = 520, 1020
+    box = Image.new("RGBA", (rx1 - rx0, 400), (0, 0, 0, 0)); bd = ImageDraw.Draw(box)
+    bd.rounded_rectangle((0, 0, box.width - 1, 399), 32, fill=PAPER + (255,), outline=(240, 213, 223, 255), width=3)
+    # cop
+    cx, cy = 95, 105
+    bd.ellipse((cx - 72, cy - 72, cx + 72, cy + 72), fill=ROSE + (255,))
+    bd.ellipse((cx - 60, cy - 60, cx + 60, cy + 60), outline=(255, 255, 255, 200), width=3)
+    bd.text((cx, cy - 12), "7", font=F("Bricolage800", 64), fill=WHITE, anchor="mm")
+    bd.text((cx, cy + 36), "HARI", font=F("Figtree800", 24), fill=WHITE, anchor="mm")
+    bd.text((190, 78), "Jaminan", font=F("Bricolage800", 44), fill=INK, anchor="lm")
+    bd.text((190, 128), "7 hari penggunaan", font=F("Figtree700", 28), fill=MUTED, anchor="lm")
+    yy = 220
+    for t in ("Kulit rasa gatal atau panas", "Botol rosak semasa sampai"):
+        bd.ellipse((30, yy - 18, 66, yy + 18), fill=(234, 246, 238, 255))
+        bd.line([(38, yy + 1), (45, yy + 9), (59, yy - 8)], fill=GOOD + (255,), width=5, joint="curve")
+        bd.text((84, yy), t, font=F("Figtree700", 28), fill=INK, anchor="lm")
+        yy += 56
+    bd.text((30, 345), "WhatsApp kami, kami uruskan.", font=F("Figtree800", 28), fill=ROSE, anchor="lm")
+    shadow_paste(base, box, (rx0, 340))
+    # bukti chat
+    text(d, (rx0 + 10, 790), "Kata pelanggan:", F("Figtree800", 28), BERRY, "lm")
+    chat = rounded(fit(load("wa/wa-11.jpg"), rx1 - rx0), 20)
+    shadow_paste(base, chat.rotate(1.2, resample=Image.BICUBIC, expand=True), (rx0 - 4, 820))
+    # CTA
+    pill(d, W / 2, 1200, "Balas 'NAK' untuk cuba 1 botol", F("Figtree800", 40), ROSE, WHITE, 46, 22)
+    text(d, (W / 2, 1270), "COD tersedia  ·  0% Alkohol  ·  0% Paraben", F("Figtree700", 28), MUTED, "mm")
+    footer(base, "Bernotifikasi KKM NOT260705867K  ·  Keputusan berbeza mengikut individu")
+    save(base, "9-followup-cuba-1-botol")
+
 # ---------------------------------------------------------------- FEEDBACK
 def chat_stack(base, files, top, bottom, width=900, gap=26, tilt=(-1.5, 1.2, -0.8, 1.0)):
     ims = [rounded(fit(load(os.path.join("wa", f)), width), 22) for f in files]
@@ -333,5 +382,5 @@ def poster_video_faces():
     save(base, "7-video-testimoni")
 
 if __name__ == "__main__":
-    poster_harga(); poster_3botol(); poster_cara_order(); poster_harga_sahaja()
+    poster_harga(); poster_3botol(); poster_cara_order(); poster_harga_sahaja(); poster_followup_cuba()
     poster_feedback_chat(); poster_feedback_quote(); poster_feedback_kulit(); poster_video_faces()
