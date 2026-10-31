@@ -309,6 +309,54 @@ def poster_followup_cuba():
     footer(base, "Bernotifikasi KKM NOT260705867K  ·  Keputusan berbeza mengikut individu")
     save(base, "9-followup-cuba-1-botol")
 
+def draw_clock(d, cx, cy, r, col):
+    d.ellipse((cx - r, cy - r, cx + r, cy + r), outline=col, width=6)
+    d.line([(cx, cy), (cx, cy - r * 0.6)], fill=col, width=6)
+    d.line([(cx, cy), (cx + r * 0.45, cy + r * 0.2)], fill=col, width=6)
+    d.ellipse((cx - 6, cy - 6, cx + 6, cy + 6), fill=col)
+
+def poster_followup_freepos():
+    """Follow-up offer A: 1 botol free pos (Semenanjung), sah 24 jam."""
+    base = bg_berry(); d = ImageDraw.Draw(base)
+    brand_header(base, dark=True)
+    pill(d, W / 2, 175, "OFFER KHAS 24 JAM SAHAJA", F("Figtree800", 34), PETAL, BERRY, 32, 14)
+    text(d, (W / 2, 290), "1 Botol, FREE POS!", F("Bricolage800", 96), WHITE, "mm")
+    text(d, (W / 2, 375), "Khas untuk akak yang dah tanya pasal Firea", F("Figtree700", 34), (240, 205, 218), "mm")
+    # botol kiri
+    glow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    ImageDraw.Draw(glow).ellipse((30, 470, 510, 1010), fill=(255, 150, 190, 120))
+    base.alpha_composite(glow.filter(ImageFilter.GaussianBlur(80)))
+    bot = Image.open(os.path.join(IMG, "botol-cutout.png")).convert("RGBA")
+    bh = 560; bot = bot.resize((int(bot.width * bh / bot.height), bh), Image.LANCZOS).rotate(-6, resample=Image.BICUBIC, expand=True)
+    shadow_paste(base, bot, (110, 450), blur=16, off=12, op=90)
+    # kanan: kad harga
+    rx0, rx1 = 540, 1020
+    card = Image.new("RGBA", (rx1 - rx0, 520), (0, 0, 0, 0)); cd = ImageDraw.Draw(card)
+    cd.rounded_rectangle((0, 0, card.width - 1, 519), 36, fill=PAPER + (255,), outline=PETAL + (255,), width=5)
+    cw = card.width
+    cd.text((cw / 2, 60), "Celeste Musk 50ml", font=F("Figtree800", 30), fill=MUTED, anchor="mm")
+    cd.text((cw / 2, 160), "RM28", font=F("Bricolage800", 128), fill=ROSE, anchor="mm")
+    cd.line((40, 250, cw - 40, 250), fill=(240, 213, 223), width=3)
+    cd.text((40, 300), "Postage biasa", font=F("Figtree700", 30), fill=MUTED, anchor="lm")
+    fo = F("Figtree800", 32); ow = fo.getlength("RM8"); ox = cw - 40 - ow
+    cd.text((ox, 300), "RM8", font=fo, fill=MUTED, anchor="lm")
+    cd.line((ox - 2, 302, ox + ow + 2, 302), fill=MUTED, width=4)
+    cd.text((40, 360), "Hari ini", font=F("Figtree800", 32), fill=INK, anchor="lm")
+    cd.text((cw - 40, 360), "PERCUMA", font=F("Bricolage800", 36), fill=GOOD, anchor="rm")
+    cd.rounded_rectangle((40, 410, cw - 40, 480), 22, fill=(255, 226, 236, 255))
+    cd.text((cw / 2, 445), "Jimat RM8", font=F("Bricolage800", 40), fill=BERRY, anchor="mm")
+    shadow_paste(base, card, (rx0, 460), op=120)
+    text(d, ((rx0 + rx1) / 2, 1012), "Penghantaran Semenanjung", F("Figtree700", 28), (240, 205, 218), "mm")
+    # jalur masa
+    band = (60, 1075, 1020, 1200)
+    d.rounded_rectangle(band, 32, fill=PETAL)
+    draw_clock(d, 140, 1137, 38, BERRY)
+    text(d, (200, 1115), "Sah 24 jam dari mesej ini", F("Bricolage800", 46), BERRY, "lm")
+    text(d, (200, 1166), "Selepas itu, postage RM8 seperti biasa", F("Figtree700", 28), BERRY2, "lm")
+    text(d, (W / 2, 1250), "0% Alkohol  ·  0% Paraben  ·  Cepat Kering", F("Figtree800", 30), WHITE, "mm")
+    footer(base, "Bernotifikasi KKM NOT260705867K", dark=True)
+    save(base, "10-followup-free-pos-24jam")
+
 # ---------------------------------------------------------------- FEEDBACK
 def chat_stack(base, files, top, bottom, width=900, gap=26, tilt=(-1.5, 1.2, -0.8, 1.0)):
     ims = [rounded(fit(load(os.path.join("wa", f)), width), 22) for f in files]
@@ -381,5 +429,5 @@ def poster_video_faces():
     save(base, "7-video-testimoni")
 
 if __name__ == "__main__":
-    poster_harga(); poster_3botol(); poster_cara_order(); poster_harga_sahaja(); poster_followup_cuba()
+    poster_harga(); poster_3botol(); poster_cara_order(); poster_harga_sahaja(); poster_followup_cuba(); poster_followup_freepos()
     poster_feedback_chat(); poster_feedback_quote(); poster_feedback_kulit(); poster_video_faces()
