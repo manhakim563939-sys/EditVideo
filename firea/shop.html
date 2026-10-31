@@ -230,7 +230,7 @@ details p{color:var(--muted);font-size:.88rem;margin-top:6px}
     </div>
     <div class="row">
       <span class="k">Postage</span>
-      <span class="v">Semenanjung RM8, <b style="color:var(--good)">PERCUMA 2 botol+</b><small>Sabah &amp; Sarawak RM15</small></span><span></span>
+      <span class="v">Semenanjung RM8, <b style="color:var(--good)">PERCUMA 2 botol+</b><small>Sabah &amp; Sarawak RM15 untuk semua pakej (tiada free pos)</small></span><span></span>
     </div>
     <div class="row">
       <span class="k">Bayaran</span>
@@ -382,6 +382,7 @@ details p{color:var(--muted);font-size:.88rem;margin-top:6px}
     <div class="sum" aria-live="polite">
       <div><span id="s-item">Pakej</span><span id="s-sub"></span></div>
       <div><span id="s-ship-l">Postage</span><span id="s-ship"></span></div>
+      <div id="s-east" style="color:var(--muted);font-size:.78rem" hidden>Sabah, Sarawak &amp; Labuan: postage RM15 untuk semua pakej (free pos hanya untuk Semenanjung).</div>
       <div class="t"><span>Jumlah</span><span id="s-total"></span></div>
     </div>
     <p class="err" id="err" hidden></p>
@@ -404,7 +405,7 @@ const CONFIG = {
   freeShipFrom: 2,
   packages: [
     { id: "p1", name: "1 Botol", qty: 1, price: 28 },
-    { id: "p2", name: "2 Botol", qty: 2, price: 50, tag: "Free Pos" },
+    { id: "p2", name: "2 Botol", qty: 2, price: 50, tag: "Free Pos SM" },
     { id: "p3", name: "3 Botol", qty: 3, price: 65, tag: "Paling Jimat", featured: true }
   ],
   // Isi dengan angka SEBENAR dari TikTok Shop anda. Biar null untuk sorok.
@@ -488,6 +489,7 @@ function render() {
   $("#s-sub").textContent = rm(p.price);
   $("#s-ship-l").textContent = "Postage J&T" + ($("#f-state").value ? (isEast() ? " (Sabah/Sarawak)" : " (Semenanjung)") : "");
   $("#s-ship").textContent = ship ? rm(ship) : "PERCUMA";
+  $("#s-east").hidden = !isEast();
   $("#s-total").textContent = rm(total);
   // harga coret di blok atas ikut pakej dipilih
   if (full > p.price) { $("#strikeTxt").textContent = rm(full); $("#offTxt").textContent = "-" + Math.round((1 - p.price / full) * 100) + "%"; $("#strikeTxt").hidden = $("#offTxt").hidden = false; }

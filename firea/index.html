@@ -703,6 +703,7 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
       <div class="summary" aria-live="polite">
         <div><span id="s-item">Pakej</span><span id="s-sub">RM0</span></div>
         <div><span id="s-ship-l">Penghantaran J&amp;T</span><span id="s-ship">RM0</span></div>
+        <div id="s-east" class="micro" style="margin:0" hidden>Sabah, Sarawak &amp; Labuan: postage RM15 untuk semua pakej (free pos hanya untuk Semenanjung).</div>
         <div class="total"><span>Jumlah</span><span id="s-total">RM0</span></div>
       </div>
       <p class="err" id="err" hidden></p>
@@ -778,7 +779,7 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
       <details><summary>Boleh pakai lepas cukur?</summary><p>Boleh. Firea tanpa alkohol, jadi tak pedih seperti kebanyakan deodoran biasa. Elakkan sapu pada kulit yang luka.</p></details>
       <details><summary>Ada kesan pada baju?</summary><p>Tiada. Firea tak meninggalkan kesan walaupun pada baju putih atau hitam.</p></details>
       <details><summary>Berapa lama barang sampai?</summary><p>Kami pos dengan J&amp;T. Semenanjung 2–3 hari, Sabah dan Sarawak 5–6 hari.</p></details>
-      <details><summary>Ada COD? Berapa cajnya?</summary><p>Ada. Caj COD sama seperti postage biasa: Semenanjung RM8 (percuma untuk 2 botol ke atas), Sabah &amp; Sarawak RM15.</p></details>
+      <details><summary>Ada COD? Berapa cajnya?</summary><p>Ada. Caj COD sama seperti postage biasa: Semenanjung RM8 (percuma untuk 2 botol ke atas). Sabah &amp; Sarawak RM15 untuk semua pakej.</p></details>
       <details><summary>Firea ada dijual di TikTok Shop?</summary><p>Ada, di akaun rasmi <a class="link" href="https://www.tiktok.com/@firea.hq" target="_blank" rel="noopener">@firea.hq</a>.</p></details>
       <details><summary>Macam mana kalau tak serasi?</summary><p>Kalau rasa gatal atau panas, atau botol rosak, WhatsApp kami dalam tempoh 7 hari penggunaan. Rujuk Jaminan 7 Hari di atas.</p></details>
     </div>
@@ -844,7 +845,7 @@ const rm = n => "RM" + (Number.isInteger(n) ? n : n.toFixed(2));
 $("#yr").textContent = new Date().getFullYear();
 const waUrl = t => "https://wa.me/" + CONFIG.whatsapp + (t ? "?text=" + encodeURIComponent(t) : "");
 $("#wa").href = waUrl("Hai Firea, saya nak tanya pasal deodoran Celeste Musk.");
-$("#shipnote").textContent = `Postage J&T: Semenanjung ${rm(CONFIG.shipping.semenanjung)} (PERCUMA untuk ${CONFIG.freeShipFrom} botol ke atas) · Sabah & Sarawak ${rm(CONFIG.shipping.sabahSarawak)}. COD tersedia, caj sama seperti postage.`;
+$("#shipnote").textContent = `Postage J&T: Semenanjung ${rm(CONFIG.shipping.semenanjung)} (PERCUMA untuk ${CONFIG.freeShipFrom} botol ke atas) · Sabah & Sarawak ${rm(CONFIG.shipping.sabahSarawak)} untuk semua pakej (tiada free pos). COD tersedia, caj sama seperti postage.`;
 
 let selected = (CONFIG.packages.find(p => p.featured) || CONFIG.packages[0]).id;
 const grid = $("#pkgs"), sel = $("#f-pkg");
@@ -879,6 +880,7 @@ function render() {
   $("#s-sub").textContent = rm(p.price);
   $("#s-ship-l").textContent = "Penghantaran J&T" + ($("#f-state").value ? (isEast() ? " (Sabah/Sarawak)" : " (Semenanjung)") : "");
   $("#s-ship").textContent = ship ? rm(ship) : "PERCUMA";
+  $("#s-east").hidden = !isEast();
   $("#s-total").textContent = rm(total);
 }
 function pick(id) { selected = id; render(); }
