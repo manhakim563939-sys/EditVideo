@@ -119,7 +119,7 @@ export const EndCard: React.FC = () => {
   const sparks = Array.from({ length: 22 }, (_, i) => i);
   return (
     <AbsoluteFill style={{ opacity: out, overflow: "hidden", backgroundColor: "#000" }}>
-      <OffthreadVideo src={staticFile("broll/b1.mp4")} startFrom={Math.round(5.2 * FPS)} muted style={{ width: 1080, height: 1920, objectFit: "cover", transform: `scale(${1.06 + t * 0.05})`, filter: "saturate(1.15) brightness(0.9)" }} />
+      <OffthreadVideo src={staticFile("broll/b4.mp4")} startFrom={Math.round(2.0 * FPS)} muted style={{ width: 1080, height: 1920, objectFit: "cover", transform: `scale(${1.06 + t * 0.05})`, filter: "saturate(1.15) brightness(0.9)" }} />
       <AbsoluteFill style={{ background: "linear-gradient(180deg, rgba(8,38,30,0.55) 0%, rgba(0,0,0,0.05) 30%, rgba(0,0,0,0.1) 55%, rgba(8,38,30,0.85) 100%)" }} />
       {sparks.map((i) => {
         const x = (i * 211) % 1080;
