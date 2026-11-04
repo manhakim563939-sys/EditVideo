@@ -1,0 +1,518 @@
+{
+ "fps": 30,
+ "dialogEnd": 34.7,
+ "endCard": 2.4,
+ "musicLift": 8.45,
+ "segs": [
+  {
+   "s": 0.0,
+   "e": 1.45,
+   "kind": "video",
+   "src": "broll/b2.mp4",
+   "in": 1.5,
+   "zoom": [
+    1.0,
+    1.06
+   ]
+  },
+  {
+   "s": 1.45,
+   "e": 4.45,
+   "kind": "main",
+   "zoom": [
+    1.75,
+    1.85
+   ],
+   "ox": 0.45,
+   "oy": 0.62
+  },
+  {
+   "s": 4.45,
+   "e": 6.75,
+   "kind": "video",
+   "src": "broll/b3.mp4",
+   "in": 0.0,
+   "zoom": [
+    1.0,
+    1.06
+   ]
+  },
+  {
+   "s": 6.75,
+   "e": 8.45,
+   "kind": "main",
+   "zoom": [
+    1.95,
+    1.9
+   ],
+   "ox": 0.45,
+   "oy": 0.64
+  },
+  {
+   "s": 8.45,
+   "e": 10.9,
+   "kind": "video",
+   "src": "broll/b4.mp4",
+   "in": 0.0,
+   "zoom": [
+    1.0,
+    1.06
+   ]
+  },
+  {
+   "s": 10.9,
+   "e": 13.9,
+   "kind": "video",
+   "src": "broll/b4.mp4",
+   "in": 5.0,
+   "zoom": [
+    1.06,
+    1.0
+   ]
+  },
+  {
+   "s": 13.9,
+   "e": 17.0,
+   "kind": "video",
+   "src": "broll/b1.mp4",
+   "in": 2.2,
+   "zoom": [
+    1.0,
+    1.06
+   ]
+  },
+  {
+   "s": 17.0,
+   "e": 18.45,
+   "kind": "video",
+   "src": "broll/b1.mp4",
+   "in": 5.5,
+   "zoom": [
+    1.04,
+    1.0
+   ]
+  },
+  {
+   "s": 18.45,
+   "e": 21.0,
+   "kind": "image",
+   "src": "img/p1.jpg",
+   "zoom": [
+    1.0,
+    1.08
+   ]
+  },
+  {
+   "s": 21.0,
+   "e": 25.0,
+   "kind": "video",
+   "src": "broll/b2.mp4",
+   "in": 0.0,
+   "zoom": [
+    1.0,
+    1.05
+   ]
+  },
+  {
+   "s": 25.0,
+   "e": 30.0,
+   "kind": "split",
+   "top": {
+    "src": "broll/b1.mp4",
+    "in": 2.6
+   }
+  },
+  {
+   "s": 30.0,
+   "e": 34.7,
+   "kind": "video",
+   "src": "broll/b1.mp4",
+   "in": 9.0,
+   "zoom": [
+    1.0,
+    1.08
+   ]
+  }
+ ],
+ "beats": [
+  {
+   "s": 0.0,
+   "e": 1.42,
+   "lines": [
+    {
+     "t": "SO FAR OKEY,",
+     "at": 0.0
+    },
+    {
+     "t": "*CEPAT*",
+     "at": 0.5,
+     "big": true
+    }
+   ]
+  },
+  {
+   "s": 1.5,
+   "e": 3.95,
+   "lines": [
+    {
+     "t": "PEMASANG TU AGAK",
+     "at": 1.5
+    },
+    {
+     "t": "*EXPERIENCE*",
+     "at": 2.0,
+     "big": true
+    },
+    {
+     "t": "DEPA TAHU APA DEPA BUAT",
+     "at": 2.6
+    }
+   ]
+  },
+  {
+   "s": 4.0,
+   "e": 6.45,
+   "lines": [
+    {
+     "t": "AMBIL MASA LEBIH KURANG",
+     "at": 4.0
+    },
+    {
+     "t": "*2, 3 JAM*",
+     "at": 4.9,
+     "big": true
+    }
+   ]
+  },
+  {
+   "s": 6.5,
+   "e": 8.4,
+   "lines": [
+    {
+     "t": "YANG PENTING DIA",
+     "at": 6.5
+    },
+    {
+     "t": "*FAHAM* APA DIA NAK BUAT",
+     "at": 7.0
+    }
+   ]
+  },
+  {
+   "s": 8.5,
+   "e": 10.85,
+   "lines": [
+    {
+     "t": "PEMASANGAN",
+     "at": 8.5
+    },
+    {
+     "t": "*CEPAT, TANGKAS*",
+     "at": 9.0,
+     "big": true
+    }
+   ]
+  },
+  {
+   "s": 11.0,
+   "e": 13.85,
+   "lines": [
+    {
+     "t": "PRODUK PUN ADA *KUALITI*",
+     "at": 11.0
+    },
+    {
+     "t": "JAHITAN ADA *KUALITI*",
+     "at": 12.5
+    }
+   ]
+  },
+  {
+   "s": 14.0,
+   "e": 16.95,
+   "lines": [
+    {
+     "t": "*SERVIS BAGUS*",
+     "at": 14.0,
+     "big": true
+    },
+    {
+     "t": "PILIHAN KITA BANYAK",
+     "at": 15.2
+    }
+   ]
+  },
+  {
+   "s": 17.0,
+   "e": 20.95,
+   "lines": [
+    {
+     "t": "AIMI PASANG CURTAIN TU",
+     "at": 17.0
+    },
+    {
+     "t": "*NAMPAK CANTIK*",
+     "at": 17.6,
+     "big": true
+    }
+   ]
+  },
+  {
+   "s": 21.0,
+   "e": 24.95,
+   "lines": [
+    {
+     "t": "KAMI LAKI BINI RASA",
+     "at": 21.0
+    },
+    {
+     "t": "MACAM ADA JARAK ANTARA",
+     "at": 22.0
+    },
+    {
+     "t": "*BUMI* DENGAN *LANGIT*",
+     "at": 23.2,
+     "big": true
+    }
+   ]
+  },
+  {
+   "s": 30.0,
+   "e": 31.95,
+   "lines": [
+    {
+     "t": "SINI MACAM",
+     "at": 30.0
+    },
+    {
+     "t": "*MARHAEN*",
+     "at": 30.6,
+     "big": true
+    }
+   ]
+  },
+  {
+   "s": 32.0,
+   "e": 34.7,
+   "style": "stamp",
+   "lines": [
+    {
+     "t": "*SANA MEMANG CANTIK!*",
+     "at": 33.0,
+     "big": true
+    }
+   ]
+  }
+ ],
+ "split": {
+  "kayangan": 25.0,
+  "marhaen": 27.0,
+  "kaya": 28.2
+ },
+ "viz": [
+  {
+   "type": "clock",
+   "s": 4.0,
+   "e": 6.45,
+   "at": 4.9
+  },
+  {
+   "type": "speed",
+   "s": 8.5,
+   "e": 10.85,
+   "at": 9.0
+  },
+  {
+   "type": "quality",
+   "s": 11.0,
+   "e": 13.85,
+   "items": [
+    [
+     "PRODUK",
+     11.4
+    ],
+    [
+     "JAHITAN",
+     12.8
+    ]
+   ]
+  },
+  {
+   "type": "swatches",
+   "s": 14.0,
+   "e": 16.95,
+   "at": 15.2
+  },
+  {
+   "type": "meter",
+   "s": 21.0,
+   "e": 24.95,
+   "at": 23.2
+  },
+  {
+   "type": "stars",
+   "s": 33.0,
+   "e": 34.7
+  }
+ ],
+ "sfx": [
+  {
+   "t": 0.0,
+   "k": "whoosh_s",
+   "g": 0.3
+  },
+  {
+   "t": 0.5,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 1.45,
+   "k": "whoosh_s",
+   "g": 0.25
+  },
+  {
+   "t": 2.0,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 4.45,
+   "k": "whoosh_s",
+   "g": 0.25
+  },
+  {
+   "t": 4.9,
+   "k": "ticks",
+   "g": 0.2,
+   "d": 1.2
+  },
+  {
+   "t": 6.2,
+   "k": "ding",
+   "g": 0.3
+  },
+  {
+   "t": 6.75,
+   "k": "whoosh_s",
+   "g": 0.2
+  },
+  {
+   "t": 8.45,
+   "k": "whoosh",
+   "g": 0.35
+  },
+  {
+   "t": 9.0,
+   "k": "impact_s",
+   "g": 0.35
+  },
+  {
+   "t": 10.9,
+   "k": "whoosh_s",
+   "g": 0.2
+  },
+  {
+   "t": 11.4,
+   "k": "click",
+   "g": 0.35
+  },
+  {
+   "t": 12.8,
+   "k": "click",
+   "g": 0.35
+  },
+  {
+   "t": 13.9,
+   "k": "whoosh_s",
+   "g": 0.25
+  },
+  {
+   "t": 14.0,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 15.2,
+   "k": "ticks",
+   "g": 0.15,
+   "d": 0.5
+  },
+  {
+   "t": 17.0,
+   "k": "whoosh_s",
+   "g": 0.2
+  },
+  {
+   "t": 17.6,
+   "k": "shimmer",
+   "g": 0.3
+  },
+  {
+   "t": 18.45,
+   "k": "whoosh_s",
+   "g": 0.2
+  },
+  {
+   "t": 21.0,
+   "k": "whoosh_s",
+   "g": 0.25
+  },
+  {
+   "t": 22.2,
+   "k": "riser",
+   "g": 0.3,
+   "d": 1.0
+  },
+  {
+   "t": 23.2,
+   "k": "impact_s",
+   "g": 0.4
+  },
+  {
+   "t": 25.0,
+   "k": "whoosh",
+   "g": 0.35
+  },
+  {
+   "t": 25.1,
+   "k": "shimmer",
+   "g": 0.3
+  },
+  {
+   "t": 27.0,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 28.2,
+   "k": "ding",
+   "g": 0.3
+  },
+  {
+   "t": 30.0,
+   "k": "whoosh_s",
+   "g": 0.25
+  },
+  {
+   "t": 30.6,
+   "k": "pop",
+   "g": 0.3
+  },
+  {
+   "t": 33.0,
+   "k": "impact_s",
+   "g": 0.45
+  },
+  {
+   "t": 33.1,
+   "k": "shimmer",
+   "g": 0.35
+  },
+  {
+   "t": 34.7,
+   "k": "whoosh",
+   "g": 0.35
+  }
+ ]
+}
