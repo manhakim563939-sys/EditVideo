@@ -105,26 +105,47 @@ const Sheen: React.FC<{ t: number; at: number; size: number }> = ({ t, at, size 
   return <div style={{ position: "absolute", inset: "15%", borderRadius: "50%", overflow: "hidden", mixBlendMode: "screen" }}><div style={{ position: "absolute", top: -size, left: x * size - 80, width: 160, height: size * 3, transform: "rotate(22deg)", background: "linear-gradient(90deg, rgba(255,244,210,0), rgba(255,244,210,0.6), rgba(255,244,210,0))" }} /></div>;
 };
 
+// Closing shot: full-screen finished-curtain B-roll with animated logo, sparkles and the closing line.
 const EndCard: React.FC = () => {
-  const t = useCurrentFrame() / FPS;
-  const a = interpolate(t, [0, 0.4], [0, 1], { easing: Easing.out(Easing.back(1.5)), ...clamp });
-  const b = interpolate(t, [0.3, 0.6], [0, 1], clamp);
-  const out = interpolate(t, [tl.endCard - 0.3, tl.endCard], [1, 0], clamp);
+  const f = useCurrentFrame();
+  const t = f / FPS;
+  const pop = (at: number, d = 0.35) => interpolate(t, [at, at + d], [0, 1], { easing: Easing.out(Easing.back(1.8)), ...clamp });
+  const logo = pop(0.05, 0.45);
+  const rays = interpolate(t, [0.2, 0.9], [0, 1], { easing: Easing.out(Easing.cubic), ...clamp });
+  const l1 = pop(0.45);
+  const l2 = pop(0.7);
+  const cta = pop(0.95, 0.4);
+  const out = interpolate(t, [tl.endCard - 0.25, tl.endCard], [1, 0], clamp);
+  const sparks = Array.from({ length: 22 }, (_, i) => i);
   return (
-    <AbsoluteFill style={{ opacity: out }}>
-      <Emerald />
-      <div style={{ position: "absolute", left: 240, top: 300, width: 600, height: 600, transform: `scale(${0.7 + 0.3 * a})`, opacity: Math.min(1, a * 1.5) }}>
-        <Img src={staticFile("img/logo.png")} style={{ width: 600, height: 600, WebkitMaskImage: "radial-gradient(circle at 50% 48%, #000 52%, transparent 70%)" }} />
-        <Sheen t={t} at={0.5} size={600} />
+    <AbsoluteFill style={{ opacity: out, overflow: "hidden", backgroundColor: "#000" }}>
+      <OffthreadVideo src={staticFile("broll/b1.mp4")} startFrom={Math.round(5.2 * FPS)} muted style={{ width: 1080, height: 1920, objectFit: "cover", transform: `scale(${1.06 + t * 0.05})`, filter: "saturate(1.15) brightness(0.9)" }} />
+      <AbsoluteFill style={{ background: "linear-gradient(180deg, rgba(8,38,30,0.55) 0%, rgba(0,0,0,0.05) 30%, rgba(0,0,0,0.1) 55%, rgba(8,38,30,0.85) 100%)" }} />
+      {sparks.map((i) => {
+        const x = (i * 211) % 1080;
+        const y = 1700 - ((t * (260 + (i % 5) * 60) + i * 137) % 1500);
+        const o = (0.4 + 0.6 * Math.abs(Math.sin(t * 5 + i))) * interpolate(t, [0.1, 0.4], [0, 1], clamp);
+        return <div key={i} style={{ position: "absolute", left: x, top: y, width: 8 + (i % 3) * 4, height: 8 + (i % 3) * 4, borderRadius: 2, background: C.goldLight, opacity: o, transform: `rotate(45deg)`, boxShadow: `0 0 12px ${C.gold}` }} />;
+      })}
+      <div style={{ position: "absolute", left: 340, top: 260, width: 400, height: 400 }}>
+        {Array.from({ length: 16 }, (_, i) => {
+          const ang = (i / 16) * Math.PI * 2;
+          const r = 150 + 120 * rays;
+          return <div key={i} style={{ position: "absolute", left: 200 + Math.cos(ang) * r - 4, top: 200 + Math.sin(ang) * r - 22, width: 8, height: 44, borderRadius: 4, background: C.goldLight, opacity: (1 - rays) * 0.9, transform: `rotate(${(ang * 180) / Math.PI + 90}deg)` }} />;
+        })}
+        <div style={{ position: "absolute", inset: 0, borderRadius: 200, overflow: "hidden", border: `6px solid ${C.gold}`, boxShadow: "0 20px 50px rgba(0,0,0,0.55)", transform: `scale(${logo}) rotate(${(1 - logo) * -60}deg)`, opacity: Math.min(1, logo * 1.5) }}>
+          <Img src={staticFile("img/logo.png")} style={{ width: 400, height: 400, transform: "scale(1.05)" }} />
+          <Sheen t={t} at={0.6} size={400} />
+        </div>
       </div>
-      <div style={{ position: "absolute", top: 960, left: 0, right: 0, textAlign: "center", opacity: b }}>
-        <div style={{ fontFamily: F.kin, fontWeight: 900, fontSize: 60, color: "#fff" }}>DARI BUMI KE LANGIT</div>
-        <div style={{ fontFamily: F.kin, fontWeight: 700, fontSize: 38, color: C.goldLight, marginTop: 12 }}>Servis bagus · Pemasangan tangkas</div>
+      <div style={{ position: "absolute", top: 1010, left: 0, right: 0, textAlign: "center" }}>
+        <div style={{ fontFamily: F.kin, fontWeight: 900, fontSize: 76, color: "#fff", textShadow: "0 6px 18px rgba(0,0,0,0.6)", transform: `translateY(${(1 - l1) * 60}px) scale(${0.8 + 0.2 * l1})`, opacity: Math.min(1, l1 * 1.5) }}>DARI BUMI KE LANGIT</div>
+        <div style={{ fontFamily: F.kin, fontWeight: 800, fontSize: 40, color: C.goldLight, marginTop: 14, textShadow: "0 4px 12px rgba(0,0,0,0.6)", transform: `translateY(${(1 - l2) * 40}px)`, opacity: Math.min(1, l2 * 1.5) }}>Servis bagus · Pemasangan tangkas</div>
       </div>
-      {/* closing line instead of a WhatsApp button */}
-      <div style={{ position: "absolute", top: 1180, left: 0, right: 0, display: "flex", justifyContent: "center", transform: `scale(${interpolate(t, [0.4, 0.75], [0, 1], { easing: Easing.out(Easing.back(1.8)), ...clamp }) * (1 + 0.03 * Math.max(0, Math.sin((t - 0.4) * 6)))})` }}>
-        <div style={{ background: goldGrad, borderRadius: 999, padding: "22px 54px", border: "5px solid #fff", boxShadow: "0 16px 40px rgba(0,0,0,0.45)" }}>
-          <span style={{ fontFamily: F.kin, fontWeight: 900, fontSize: 60, color: C.ink }}>JOM, AIMI CURTAIN BANTU!</span>
+      <div style={{ position: "absolute", top: 1250, left: 0, right: 0, display: "flex", justifyContent: "center", transform: `scale(${cta * (1 + 0.035 * Math.max(0, Math.sin((t - 0.95) * 7)))})`, opacity: Math.min(1, cta * 1.5) }}>
+        <div style={{ position: "relative", background: goldGrad, borderRadius: 999, padding: "24px 56px", border: "5px solid #fff", boxShadow: "0 16px 40px rgba(0,0,0,0.5)", overflow: "hidden" }}>
+          <span style={{ position: "relative", fontFamily: F.kin, fontWeight: 900, fontSize: 60, color: C.ink }}>JOM, AIMI CURTAIN BANTU!</span>
+          <div style={{ position: "absolute", top: -40, bottom: -40, width: 90, left: interpolate(t, [1.3, 2.0], [-120, 1000], clamp), transform: "rotate(20deg)", background: "linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.7), rgba(255,255,255,0))" }} />
         </div>
       </div>
     </AbsoluteFill>
