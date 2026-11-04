@@ -1,5 +1,7 @@
 # Aimi Curtain — Review Pelanggan KTC 02 (TikTok / Reels)
 
+
+**FINAL:** `AimiCurtain_KTC02_Final_2K_9x16.mp4` — 1440×2560 (2K), 30fps, 37.1s, CRF 17, AAC 256k, −17 LUFS.
 `preview_v6.mp4` — 1080×1920, 30fps, 37.1s (34.7s suara pelanggan + 2.4s end card). **Belum final export.**
 
 Video utama tidak menunjukkan muka pelanggan (kamera merakam bilik semasa pemasangan), jadi suara pelanggan
