@@ -119,7 +119,6 @@ const EndCard: React.FC = () => {
         <Sheen t={t} at={0.5} size={600} />
       </div>
       <div style={{ position: "absolute", top: 960, left: 0, right: 0, textAlign: "center", opacity: b }}>
-        <div style={{ fontFamily: F.kin, fontWeight: 900, fontSize: 60, color: "#fff" }}>DARI BUMI KE LANGIT</div>
         <div style={{ fontFamily: F.kin, fontWeight: 700, fontSize: 38, color: C.goldLight, marginTop: 12 }}>Servis bagus · Pemasangan tangkas</div>
       </div>
       <div style={{ position: "absolute", top: 1180, left: 0, right: 0, display: "flex", justifyContent: "center", transform: `scale(${cta})` }}>
