@@ -106,7 +106,7 @@ const Sheen: React.FC<{ t: number; at: number; size: number }> = ({ t, at, size 
 };
 
 // Closing shot: full-screen finished-curtain B-roll with animated logo, sparkles and the closing line.
-const EndCard: React.FC = () => {
+export const EndCard: React.FC = () => {
   const f = useCurrentFrame();
   const t = f / FPS;
   const pop = (at: number, d = 0.35) => interpolate(t, [at, at + d], [0, 1], { easing: Easing.out(Easing.back(1.8)), ...clamp });
@@ -168,7 +168,6 @@ export const Main: React.FC = () => {
         <VizLayer />
       </Sequence>
       <Kinetic />
-      <Sequence from={END}><EndCard /></Sequence>
       <Audio src={staticFile("dialog.wav")} />
       <Audio src={staticFile("music.wav")} />
       <Audio src={staticFile("sfx.wav")} />
