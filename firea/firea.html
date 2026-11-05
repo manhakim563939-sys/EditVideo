@@ -324,7 +324,8 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
   <span class="vo-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
   <span id="vo-time">0:00</span>
 </div>
-<audio id="vo-audio" src="audio/voiceover-48k.mp3" preload="metadata"></audio>
+<!-- Voice over dimatikan (harga lama dalam audio). Untuk hidupkan semula: letak semula atribut src (fail audio/voiceover-48k.mp3) pada tag audio di bawah. -->
+<audio id="vo-audio" preload="none"></audio>
 <section class="dark hero">
   <div class="floaties" aria-hidden="true"><i>♥</i><i>✦</i><i>♥</i><i>✧</i><i>♥</i><i>✦</i><i>♥</i><i>✧</i><i>♥</i><i>✦</i></div>
   <div class="wrap center">
@@ -896,6 +897,7 @@ $("#pill").addEventListener("click", () => { $("#promo").hidden = false; $("#pil
 /* ===== voice-over player (fail: audio/voiceover.mp3) ===== */
 (function () {
   const a = $("#vo-audio"), box = $("#vo"), btn = $("#vo-btn"), time = $("#vo-time");
+  if (!a.getAttribute("src")) return; // voice over dimatikan
   const fmt = s => { s = Math.max(0, Math.round(s || 0)); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
   const show = () => { box.hidden = false; time.textContent = fmt(a.duration); };
   if (a.readyState >= 1) show(); else a.addEventListener("loadedmetadata", show);
