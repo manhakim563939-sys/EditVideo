@@ -399,6 +399,41 @@ def poster_1botol_freepos():
     footer(base, "Bernotifikasi KKM NOT260705867K  ·  Sabah & Sarawak tambah RM15")
     save(base, "10-1-botol-free-pos")
 
+def poster_offer_29():
+    """Offer follow-up untuk yang dah WhatsApp tapi belum bayar: 1 botol RM29, free pos Semenanjung."""
+    base = bg_berry(); d = ImageDraw.Draw(base)
+    brand_header(base, dark=True)
+    pill(d, W / 2, 178, "HARGA KHAS UNTUK AKAK", F("Figtree800", 34), PETAL, BERRY, 32, 14)
+    text(d, (W / 2, 290), "Akak dah tanya,", F("Bricolage800", 80), WHITE, "mm")
+    text(d, (W / 2, 380), "kami bagi harga istimewa", F("Bricolage800", 62), PETAL, "mm")
+    glow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    ImageDraw.Draw(glow).ellipse((20, 470, 520, 1060), fill=(255, 150, 190, 120))
+    base.alpha_composite(glow.filter(ImageFilter.GaussianBlur(80)))
+    bot = Image.open(os.path.join(IMG, "botol-cutout.png")).convert("RGBA")
+    bh = 580; bot = bot.resize((int(bot.width * bh / bot.height), bh), Image.LANCZOS).rotate(-6, resample=Image.BICUBIC, expand=True)
+    shadow_paste(base, bot, (100, 470), blur=16, off=12, op=90)
+    # kad harga kanan
+    rx0, rx1 = 540, 1020
+    card = Image.new("RGBA", (rx1 - rx0, 560), (0, 0, 0, 0)); cd = ImageDraw.Draw(card)
+    cd.rounded_rectangle((0, 0, card.width - 1, 559), 36, fill=PAPER + (255,), outline=PETAL + (255,), width=5)
+    cw = card.width
+    cd.text((cw / 2, 58), "1 botol Celeste Musk 50ml", font=F("Figtree800", 28), fill=MUTED, anchor="mm")
+    fo = F("Bricolage800", 56); ow = fo.getlength("RM35"); ox = cw / 2 - ow / 2
+    cd.text((cw / 2, 128), "RM35", font=fo, fill=(190, 160, 172), anchor="mm")
+    cd.line((ox - 6, 132, ox + ow + 6, 120), fill=ROSE, width=6)
+    cd.text((cw / 2, 255), "RM29", font=F("Bricolage800", 150), fill=ROSE, anchor="mm")
+    cd.rounded_rectangle((60, 350, cw - 60, 420), 22, fill=(255, 226, 236, 255))
+    cd.text((cw / 2, 385), "Jimat RM6", font=F("Bricolage800", 40), fill=BERRY, anchor="mm")
+    draw_truck(cd, cw / 2 - 150, 452, 78, GOOD + (255,))
+    cd.text((cw / 2 + 40, 475), "FREE POS", font=F("Bricolage800", 44), fill=GOOD, anchor="mm")
+    cd.text((cw / 2 + 40, 518), "Semenanjung", font=F("Figtree800", 24), fill=MUTED, anchor="mm")
+    shadow_paste(base, card, (rx0, 470), op=120)
+    d.rounded_rectangle((60, 1090, 1020, 1190), 30, fill=PETAL)
+    text(d, (W / 2, 1140), "Balas mesej ni untuk claim harga RM29", F("Bricolage800", 42), BERRY, "mm")
+    text(d, (W / 2, 1250), "0% Alkohol  ·  0% Paraben  ·  Cepat Kering  ·  Jaminan 7 hari", F("Figtree800", 28), WHITE, "mm")
+    footer(base, "Bernotifikasi KKM NOT260705867K  ·  Sabah & Sarawak tambah RM15", dark=True)
+    save(base, "11-offer-rm29")
+
 # ---------------------------------------------------------------- FEEDBACK
 def chat_stack(base, files, top, bottom, width=900, gap=26, tilt=(-1.5, 1.2, -0.8, 1.0)):
     ims = [rounded(fit(load(os.path.join("wa", f)), width), 22) for f in files]
@@ -471,5 +506,5 @@ def poster_video_faces():
     save(base, "7-video-testimoni")
 
 if __name__ == "__main__":
-    poster_harga(); poster_3botol(); poster_cara_order(); poster_harga_sahaja(); poster_followup_cuba(); poster_1botol_freepos()  # poster_followup_freepos() tak relevan lagi: semua pakej dah free pos
+    poster_harga(); poster_3botol(); poster_cara_order(); poster_harga_sahaja(); poster_followup_cuba(); poster_1botol_freepos(); poster_offer_29()  # poster_followup_freepos() tak relevan lagi: semua pakej dah free pos
     poster_feedback_chat(); poster_feedback_quote(); poster_feedback_kulit(); poster_video_faces()
