@@ -62,12 +62,6 @@ Hai kak 😊 Saya faham kalau akak masih fikir-fikir. Ramai pelanggan kami pun m
 Kalau kulit tak serasi atau botol rosak, akak WhatsApp je dalam 7 hari, kami uruskan.
 Nak saya sediakan 1 botol untuk akak? 🌸
 
-### `/offer24` (hantar bersama poster "1 Botol, FREE POS!")
-Hai kak 🌸 Khas untuk akak yang dah tanya, kalau ambil 1 botol Firea dalam 24 jam ni, postage saya tanggung (Semenanjung).
-Jadi cuma RM28 je, sampai depan rumah 😊
-
-> Nota: tepati 24 jam. Selepas tempoh tu, caj postage RM8 seperti biasa.
-
 ---
 
 ## D. Follow-up bulanan (3–4 minggu kemudian, pilih SATU sahaja)
@@ -90,7 +84,7 @@ Hai kak, harap akak sihat 😊 Saya cuma nak tanya, akak dah jumpa deodoran yang
 
 ### `/ulang` (sekitar hari ke-35 selepas barang sampai)
 Hai kak 😊 Firea akak mungkin dah hampir habis. Nak saya sediakan stok baru supaya tak terputus?
-Pakej 3 botol RM65 FREE POS (Semenanjung), cukup lebih kurang 4 bulan 🌸
+Pakej 3 botol RM69 FREE POS (Semenanjung), cukup lebih kurang 4 bulan 🌸
 
 ---
 

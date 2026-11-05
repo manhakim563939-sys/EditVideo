@@ -78,11 +78,11 @@ Sebab tu kami bagi jaminan tujuh hari. Kalau rasa gatal atau panas, atau botol r
 
 **[Offer: jelas, yakin, sedikit laju]**
 
-Satu botol lima puluh ml boleh tahan empat puluh hingga empat puluh lima hari. Dua puluh lapan ringgit sahaja.
-Ambil dua botol, postage percuma untuk Semenanjung.
+Satu botol lima puluh ml boleh tahan empat puluh hingga empat puluh lima hari. Tiga puluh lima ringgit, terus free pos untuk Semenanjung.
+Ambil dua botol, lima puluh lima ringgit sahaja.
 
-Tapi kalau awak nak yang paling berbaloi… ambil tiga botol. Enam puluh lima ringgit.
-Lebih kurang lima puluh sen sehari… untuk rasa yakin dari pagi sampai malam.
+Tapi kalau awak nak yang paling berbaloi… ambil tiga botol. Enam puluh sembilan ringgit.
+Bawah enam puluh sen sehari… untuk rasa yakin dari pagi sampai malam.
 
 Bernotifikasi KKM. COD pun ada.
 

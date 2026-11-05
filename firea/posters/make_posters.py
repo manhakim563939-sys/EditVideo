@@ -107,9 +107,9 @@ def poster_harga():
     prod = rounded(cover(load("produk-pink.jpg"), 330, 430, 0.42), 34, 6)
     shadow_paste(base, prod, (60, 340))
     # kad pakej
-    rows = [("1 BOTOL", "RM28", "+ postage", None, False),
-            ("2 BOTOL", "RM50", "Jimat RM6 · Free pos (SM)", None, False),
-            ("3 BOTOL", "RM65", "Jimat RM19 · Free pos (SM)", "PALING JIMAT", True)]
+    rows = [("1 BOTOL", "RM35", "Free pos (SM)", None, False),
+            ("2 BOTOL", "RM55", "Jimat RM15 · Free pos (SM)", None, False),
+            ("3 BOTOL", "RM69", "Jimat RM36 · Free pos (SM)", "PALING JIMAT", True)]
     x0, x1, y = 430, 1020, 340
     for name, price, sub, tag, feat in rows:
         h = 150 if feat else 126
@@ -126,8 +126,8 @@ def poster_harga():
     # info postage
     box = (60, 830, 1020, 1185)
     d.rounded_rectangle(box, 30, fill=PAPER, outline=(240, 213, 223), width=3)
-    lines = [("Postage J&T", "Semenanjung RM8 · PERCUMA 2 botol ke atas"),
-             ("", "Sabah & Sarawak RM15"),
+    lines = [("Postage J&T", "Semenanjung PERCUMA untuk semua pakej"),
+             ("", "Sabah & Sarawak tambah RM15"),
              ("Sampai", "Semenanjung 2–3 hari · Sabah & Sarawak 5–6 hari"),
              ("Bayaran", "COD atau online transfer"),
              ("Jaminan", "7 hari: kulit tak serasi atau botol rosak")]
@@ -149,18 +149,18 @@ def poster_3botol():
     shadow_paste(base, ph, (W // 2 - ph.width // 2 - 230, 270), op=120)
     rx = 640
     text(d, (rx, 330), "3 BOTOL", F("Bricolage800", 92), WHITE, "lm")
-    text(d, (rx, 465), "RM65", F("Bricolage800", 128), PETAL, "lm")
-    f = F("Figtree800", 44); text(d, (rx, 590), "RM84", f, (220, 170, 190), "lm")
-    sw = f.getlength("RM84"); d.line((rx, 592, rx + sw, 592), fill=(220, 170, 190), width=5)
-    pill(d, rx + sw + 120, 592, "Jimat RM19", F("Figtree800", 32), ROSE, WHITE, 20, 10)
-    for i, s in enumerate(["RM21.67 sebotol", "Cukup 4 bulan", "(sebotol 40–45 hari)"]):
+    text(d, (rx, 465), "RM69", F("Bricolage800", 128), PETAL, "lm")
+    f = F("Figtree800", 44); text(d, (rx, 590), "RM105", f, (220, 170, 190), "lm")
+    sw = f.getlength("RM105"); d.line((rx, 592, rx + sw, 592), fill=(220, 170, 190), width=5)
+    pill(d, rx + sw + 120, 592, "Jimat RM36", F("Figtree800", 32), ROSE, WHITE, 20, 10)
+    for i, s in enumerate(["RM23 sebotol", "Cukup 4 bulan", "(sebotol 40–45 hari)"]):
         text(d, (rx, 680 + i * 50), s, F("Figtree700", 34 if i < 2 else 28), WHITE if i < 2 else (230, 190, 205), "lm")
     # jalur free pos
     d.rounded_rectangle((60, 930, 1020, 1060), 30, fill=PETAL)
     text(d, (W / 2, 975), "FREE POSTAGE SEMENANJUNG", F("Bricolage800", 56), BERRY, "mm")
     text(d, (W / 2, 1028), "COD tersedia · Sampai dalam 2–3 hari (J&T)", F("Figtree700", 30), BERRY2, "mm")
-    text(d, (W / 2, 1130), "Beli satu-satu: 3 x RM28 + postage RM8 = RM92.", F("Figtree700", 32), (240, 210, 222), "mm")
-    text(d, (W / 2, 1175), "Ambil pakej 3 botol: RM65 sahaja, terus free pos.", F("Figtree700", 32), (240, 210, 222), "mm")
+    text(d, (W / 2, 1130), "Beli satu-satu: 3 x RM35 = RM105.", F("Figtree700", 32), (240, 210, 222), "mm")
+    text(d, (W / 2, 1175), "Ambil pakej 3 botol: RM69 sahaja. Jimat RM36.", F("Figtree700", 32), (240, 210, 222), "mm")
     pill(d, W / 2, 1260, "Balas '3' untuk order sekarang", F("Figtree800", 36), WHITE, BERRY, 40, 20)
     save(base, "2-pakej-3-botol")
 
@@ -169,7 +169,7 @@ def poster_cara_order():
     brand_header(base)
     hl_text(base, W / 2, 150, [("Cara ", False), ("Order", True), (" Firea", False)], 88)
     text(d, (W / 2, 285), "Senang je. 4 langkah, terus sampai depan rumah.", F("Figtree700", 34), MUTED, "mm")
-    steps = [("Pilih pakej", "1 botol RM28 · 2 botol RM50 · 3 botol RM65"),
+    steps = [("Pilih pakej", "1 botol RM35 · 2 botol RM55 · 3 botol RM69"),
              ("Hantar maklumat", "Nama, nombor telefon dan alamat penuh"),
              ("Pilih cara bayar", "COD (bayar bila barang sampai) atau online transfer"),
              ("Barang dipos", "J&T: Semenanjung 2–3 hari · Sabah & Sarawak 5–6 hari")]
@@ -184,7 +184,7 @@ def poster_cara_order():
         shadow_paste(base, card, (60, y)); y += 195
     d.rounded_rectangle((60, 1150, 1020, 1235), 26, fill=BERRY)
     text(d, (W / 2, 1192), "Jaminan 7 hari: kulit tak serasi atau botol rosak, WhatsApp kami", F("Figtree800", 28), WHITE, "mm")
-    text(d, (W / 2, 1282), "Postage Semenanjung RM8, PERCUMA untuk 2 botol ke atas · Sabah & Sarawak RM15", F("Figtree700", 24), MUTED, "mm")
+    text(d, (W / 2, 1282), "Postage Semenanjung PERCUMA untuk semua pakej · Sabah & Sarawak tambah RM15", F("Figtree700", 24), MUTED, "mm")
     footer(base)
     save(base, "3-cara-order")
 
@@ -216,9 +216,9 @@ def poster_harga_sahaja():
     brand_header(base)
     hl_text(base, W / 2, 150, [("Harga ", False), ("Pakej", True), (" Firea", False)], 92)
     text(d, (W / 2, 290), "Celeste Musk Deodorant Roll-on 50ml", F("Figtree700", 36), MUTED, "mm")
-    cards = [(1, "1 BOTOL", "RM28", "RM28 sebotol", None, [], False),
-             (2, "2 BOTOL", "RM50", "RM25 sebotol", "RM56", ["Jimat RM6", "FREE POS"], False),
-             (3, "3 BOTOL", "RM65", "RM21.67 sebotol", "RM84", ["Jimat RM19", "FREE POS"], True)]
+    cards = [(1, "1 BOTOL", "RM35", "RM35 sebotol", None, ["FREE POS"], False),
+             (2, "2 BOTOL", "RM55", "RM27.50 sebotol", "RM70", ["Jimat RM15", "FREE POS"], False),
+             (3, "3 BOTOL", "RM69", "RM23 sebotol", "RM105", ["Jimat RM36", "FREE POS"], True)]
     y = 350
     for n, name, price, per, old, tags, feat in cards:
         h = 270 if feat else 240
@@ -257,7 +257,7 @@ def poster_harga_sahaja():
         if feat:
             pill(d, x1 - 150, y, "PALING JIMAT", F("Figtree800", 28), ROSE, WHITE, 22, 10)
         y += h + 40
-    text(d, (W / 2, 1255), "FREE POS untuk Semenanjung · 1 botol + postage RM8 · Sabah & Sarawak RM15", F("Figtree700", 25), MUTED, "mm")
+    text(d, (W / 2, 1255), "FREE POS untuk Semenanjung (semua pakej) · Sabah & Sarawak tambah RM15", F("Figtree700", 25), MUTED, "mm")
     footer(base)
     save(base, "8-harga-pakej")
 
@@ -277,8 +277,8 @@ def poster_followup_cuba():
     # harga bawah botol
     card = Image.new("RGBA", (400, 130), (0, 0, 0, 0)); cd = ImageDraw.Draw(card)
     cd.rounded_rectangle((0, 0, 399, 129), 30, fill=BERRY + (255,))
-    cd.text((200, 50), "1 BOTOL RM28", font=F("Bricolage800", 46), fill=WHITE, anchor="mm")
-    cd.text((200, 98), "+ postage RM8 (Semenanjung)", font=F("Figtree700", 24), fill=(245, 205, 220), anchor="mm")
+    cd.text((200, 50), "1 BOTOL RM35", font=F("Bricolage800", 46), fill=WHITE, anchor="mm")
+    cd.text((200, 98), "FREE POS (Semenanjung)", font=F("Figtree700", 24), fill=(245, 205, 220), anchor="mm")
     shadow_paste(base, card, (70, 965))
     # kanan: jaminan
     rx0, rx1 = 520, 1020
@@ -392,7 +392,7 @@ def poster_feedback_quote():
     shot = rounded(fit(load("wa/wa-8.jpg"), 820), 24, 4, PETAL)
     shadow_paste(base, shot.rotate(-2, resample=Image.BICUBIC, expand=True), (W // 2 - 420, 760), op=130)
     pill(d, W / 2, 1150, "Celeste Musk · 0% Alkohol · Cepat Kering", F("Figtree800", 32), PETAL, BERRY, 34, 16)
-    text(d, (W / 2, 1235), "1 botol RM28  ·  3 botol RM65 FREE POS (Semenanjung)", F("Figtree800", 32), WHITE, "mm")
+    text(d, (W / 2, 1235), "1 botol RM35  ·  3 botol RM69  ·  FREE POS (Semenanjung)", F("Figtree800", 32), WHITE, "mm")
     footer(base, "Screenshot sebenar · Keputusan berbeza mengikut individu", dark=True)
     save(base, "5-feedback-petikan")
 
@@ -429,5 +429,5 @@ def poster_video_faces():
     save(base, "7-video-testimoni")
 
 if __name__ == "__main__":
-    poster_harga(); poster_3botol(); poster_cara_order(); poster_harga_sahaja(); poster_followup_cuba(); poster_followup_freepos()
+    poster_harga(); poster_3botol(); poster_cara_order(); poster_harga_sahaja(); poster_followup_cuba()  # poster_followup_freepos() tak relevan lagi: semua pakej dah free pos
     poster_feedback_chat(); poster_feedback_quote(); poster_feedback_kulit(); poster_video_faces()
