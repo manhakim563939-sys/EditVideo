@@ -114,7 +114,7 @@
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0.0" data-duration="56.01" data-width="1080" data-height="1350">
+    <div id="root" data-composition-id="main" data-start="0.0" data-duration="58.16" data-width="1080" data-height="1350">
       <div id="redglow" class="clip" data-start="0.0" data-duration="28.0" data-track-index="0"></div>
 
       <!-- S1 hook (0–4) -->
@@ -179,7 +179,7 @@
       </div>
 
       <!-- S5 testimoni (32–37.5) -->
-      <div id="s5" class="scene clip" data-start="39.3" data-duration="3.0" data-track-index="1">
+      <div id="s5" class="scene clip" data-start="39.3" data-duration="3.01" data-track-index="1">
         <div class="center loud h">Yang dah <span class="r">lalui</span></div>
         <div class="center sub">Komen sebenar pembeli · keputusan berbeza mengikut individu</div>
         <div class="card" id="t1"><img src="assets/testi-kail.jpg" alt="" /><div class="cap">★★★★★ kail</div></div>
@@ -188,7 +188,7 @@
       </div>
 
       <!-- S6 tawaran (37.5–41.5) -->
-      <div id="s6" class="scene clip" data-start="42.3" data-duration="8.01" data-track-index="1">
+      <div id="s6" class="scene clip" data-start="42.31" data-duration="10.15" data-track-index="1">
         <div class="center loud h">Mula <span class="g">hari ini</span></div>
         <div class="price"><div class="was">RM35</div><div class="now">RM30</div><div class="per">sebotol + RM8 pos</div></div>
         <div class="best"><div class="rib">★ PALING BERBALOI ★</div><div class="t">3 BOTOL RM69</div><div class="s">+ POS PERCUMA SEMENANJUNG</div></div>
@@ -196,7 +196,7 @@
       </div>
 
       <!-- S7 CTA (41.5–45) -->
-      <div id="s7" class="scene clip" data-start="50.31" data-duration="5.7" data-track-index="1">
+      <div id="s7" class="scene clip" data-start="52.46" data-duration="5.7" data-track-index="1">
         <div class="center loud q1">Hari pertama<br />memang berat.</div>
         <div class="center script q2">Jangan lalui<br />seorang diri.</div>
         <div class="btn">TEMPAH SEKARANG<small>WhatsApp 017-963 7611 · COD ada</small></div>
@@ -204,9 +204,9 @@
         <div class="center fine">Produk tradisional, bukan pengganti rawatan perubatan. Keputusan berbeza mengikut individu.</div>
       </div>
 
-      <div id="brandbar" class="clip" data-start="0.0" data-duration="56.01" data-track-index="2">Jus Bidara Hitam <i>◆</i> Mbah Lanang</div>
-      <div id="progress" class="clip" data-start="0.0" data-duration="56.01" data-track-index="3"></div>
-      <audio id="vo" src="assets/vo2.mp3" data-start="0" data-duration="54.99" data-track-index="4" data-volume="1"></audio>
+      <div id="brandbar" class="clip" data-start="0.0" data-duration="58.16" data-track-index="2">Jus Bidara Hitam <i>◆</i> Mbah Lanang</div>
+      <div id="progress" class="clip" data-start="0.0" data-duration="58.16" data-track-index="3"></div>
+      <audio id="vo" src="assets/vo3.mp3" data-start="0" data-duration="57.13" data-track-index="4" data-volume="1"></audio>
     </div>
 
     <script>
@@ -214,7 +214,7 @@
       const tl = gsap.timeline({ paused: true });
       const E = "power3.out";
       // Masa disegerakkan dengan VO (assets/vo.mp3, 52.43s)
-      tl.fromTo("#progress", { scaleX: 0 }, { scaleX: 1, duration: 56.01, ease: "none" }, 0.0);
+      tl.fromTo("#progress", { scaleX: 0 }, { scaleX: 1, duration: 58.16, ease: "none" }, 0.0);
 
       // S1 0–3.9 "Hari pertama berhenti ketum. Kenapa ramai kalah di sini?"
       tl.from("#s1 .tag span", { y: -60, opacity: 0, duration: 0.4, ease: "back.out(2)" }, 0.05);
@@ -280,20 +280,20 @@
       tl.to("#s5", { opacity: 0, duration: 0.2 }, 42.1);
 
       // S6 42.3–47.8 "Dua puluh empat ringgit sebotol. Tiga botol enam puluh ringgit, pos percuma. COD ada."
-      tl.from("#s6 .h", { y: -60, opacity: 0, duration: 0.35, ease: E }, 42.35);
-      tl.from("#s6 .price", { scale: 0.5, opacity: 0, duration: 0.35, ease: "back.out(1.8)" }, 42.35);
-      tl.fromTo("#s6 .price .now", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2.5)" }, 42.5);
-      tl.from("#s6 .best", { y: 300, opacity: 0, duration: 0.5, ease: "back.out(1.5)" }, 46.3);
-      tl.from("#s6 .tick", { scale: 0, opacity: 0, duration: 0.3, stagger: 0.9, ease: "back.out(2.5)" }, 48.0);
-      tl.to("#s6", { opacity: 0, duration: 0.2 }, 50.11);
+      tl.from("#s6 .h", { y: -60, opacity: 0, duration: 0.35, ease: E }, 42.383);
+      tl.from("#s6 .price", { scale: 0.5, opacity: 0, duration: 0.35, ease: "back.out(1.8)" }, 42.383);
+      tl.fromTo("#s6 .price .now", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2.5)" }, 42.603);
+      tl.from("#s6 .best", { y: 300, opacity: 0, duration: 0.5, ease: "back.out(1.5)" }, 48.044);
+      tl.from("#s6 .tick", { scale: 0, opacity: 0, duration: 0.3, stagger: 0.9, ease: "back.out(2.5)" }, 49.766);
+      tl.to("#s6", { opacity: 0, duration: 0.2 }, 52.214);
 
       // S7 47.8–53.5 "Hari pertama memang berat. Jangan lalui seorang diri. Tempah sekarang."
-      tl.from("#s7 .q1", { opacity: 0, y: 40, duration: 0.45, ease: E }, 50.46);
-      tl.from("#s7 .q2", { opacity: 0, y: 30, duration: 0.45, ease: E }, 52.36);
-      tl.from("#s7 .mini", { y: 200, opacity: 0, duration: 0.45, ease: E }, 53.11);
-      tl.from("#s7 .btn", { scale: 0.3, opacity: 0, duration: 0.4, ease: "back.out(2)" }, 54.01);
-      tl.to("#s7 .btn", { scale: 1.06, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" }, 54.46);
-      tl.from("#s7 .fine", { opacity: 0, duration: 0.4 }, 54.11);
+      tl.from("#s7 .q1", { opacity: 0, y: 40, duration: 0.45, ease: E }, 52.61);
+      tl.from("#s7 .q2", { opacity: 0, y: 30, duration: 0.45, ease: E }, 54.51);
+      tl.from("#s7 .mini", { y: 200, opacity: 0, duration: 0.45, ease: E }, 55.26);
+      tl.from("#s7 .btn", { scale: 0.3, opacity: 0, duration: 0.4, ease: "back.out(2)" }, 56.16);
+      tl.to("#s7 .btn", { scale: 1.06, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" }, 56.61);
+      tl.from("#s7 .fine", { opacity: 0, duration: 0.4 }, 56.26);
 
       window.__timelines["main"] = tl;
       tl.seek(0);

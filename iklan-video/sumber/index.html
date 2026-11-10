@@ -131,7 +131,7 @@
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0.0" data-duration="47.51" data-width="1080" data-height="1350">
+    <div id="root" data-composition-id="main" data-start="0.0" data-duration="49.66" data-width="1080" data-height="1350">
 
       <!-- S1: Hook (0–4.5s) -->
       <div id="s1" class="scene clip" data-start="0.0" data-duration="4.4" data-track-index="1">
@@ -194,7 +194,7 @@
       </div>
 
       <!-- S6: Testimoni (24–31.5s) -->
-      <div id="s6" class="scene clip" data-start="27.1" data-duration="6.15" data-track-index="1">
+      <div id="s6" class="scene clip" data-start="27.1" data-duration="6.19" data-track-index="1">
         <div class="center loud h">Komen sebenar <span class="gold">pembeli</span></div>
         <div class="center sub">Mereka pun pernah rasa apa yang kau rasa</div>
         <div class="stack">
@@ -206,7 +206,7 @@
       </div>
 
       <!-- S7: Tawaran (31.5–36s) -->
-      <div id="s7" class="scene clip" data-start="33.25" data-duration="8.01" data-track-index="1">
+      <div id="s7" class="scene clip" data-start="33.29" data-duration="10.12" data-track-index="1">
         <div class="center loud h">Harga promo <span class="gold">hari ini</span></div>
         <div class="price">
           <div class="was">RM35</div>
@@ -227,7 +227,7 @@
       </div>
 
       <!-- S8: CTA (36–40s) -->
-      <div id="s8" class="scene clip" data-start="41.26" data-duration="6.25" data-track-index="1">
+      <div id="s8" class="scene clip" data-start="43.41" data-duration="6.25" data-track-index="1">
         <img class="bgimg" src="assets/poster-koyak.jpg" alt="" />
         <div class="shade"></div>
         <div class="center script l0">Anak kau tunggu ayah dia balik…</div>
@@ -238,9 +238,9 @@
       </div>
 
       <!-- Jalur jenama & progress sepanjang video -->
-      <div id="brandbar" class="clip" data-start="0.0" data-duration="47.51" data-track-index="2">Jus Bidara Hitam <i>◆</i> Mbah Lanang</div>
-      <div id="progress" class="clip" data-start="0.0" data-duration="47.51" data-track-index="3"></div>
-      <audio id="vo" src="assets/vo2.mp3" data-start="0" data-duration="46.21" data-track-index="4" data-volume="1"></audio>
+      <div id="brandbar" class="clip" data-start="0.0" data-duration="49.66" data-track-index="2">Jus Bidara Hitam <i>◆</i> Mbah Lanang</div>
+      <div id="progress" class="clip" data-start="0.0" data-duration="49.66" data-track-index="3"></div>
+      <audio id="vo" src="assets/vo3.mp3" data-start="0" data-duration="48.35" data-track-index="4" data-volume="1"></audio>
     </div>
 
     <script>
@@ -248,7 +248,7 @@
       const tl = gsap.timeline({ paused: true });
       const E = "power3.out";
       // Masa disegerakkan dengan VO (assets/vo.mp3, 43.65s)
-      tl.fromTo("#progress", { scaleX: 0 }, { scaleX: 1, duration: 47.51, ease: "none" }, 0.0);
+      tl.fromTo("#progress", { scaleX: 0 }, { scaleX: 1, duration: 49.66, ease: "none" }, 0.0);
 
       // S1 0–4.4  "Berapa kali dah kau janji… esok aku berhenti?"
       tl.fromTo("#s1 .bgimg", { scale: 1.18 }, { scale: 1, duration: 4.4, ease: "none" }, 0.0);
@@ -318,22 +318,22 @@
       tl.to("#s6", { opacity: 0, duration: 0.25 }, 33.0);
 
       // S7 33.25–38.75  "Mulakan dengan dua puluh empat ringgit. Tiga botol enam puluh ringgit, pos percuma. COD ada."
-      tl.from("#s7 .h", { y: -60, opacity: 0, duration: 0.4, ease: E }, 33.3);
-      tl.from("#s7 .price", { scale: 0.5, opacity: 0, duration: 0.45, ease: "back.out(1.8)" }, 33.35);
-      tl.fromTo("#s7 .price .now", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2.5)" }, 34.3);
-      tl.from("#s7 .best", { y: 300, opacity: 0, duration: 0.5, ease: "back.out(1.5)" }, 37.17);
-      tl.to("#s7 .best", { scale: 1.04, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" }, 38.67);
-      tl.from("#s7 .tick", { scale: 0, opacity: 0, duration: 0.3, stagger: 0.25, ease: "back.out(2.5)" }, 39.52);
-      tl.to("#s7", { opacity: 0, duration: 0.74 }, 40.52);
+      tl.from("#s7 .h", { y: -60, opacity: 0, duration: 0.4, ease: E }, 33.361);
+      tl.from("#s7 .price", { scale: 0.5, opacity: 0, duration: 0.45, ease: "back.out(1.8)" }, 33.434);
+      tl.fromTo("#s7 .price .now", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2.5)" }, 34.827);
+      tl.from("#s7 .best", { y: 300, opacity: 0, duration: 0.5, ease: "back.out(1.5)" }, 38.914);
+      tl.to("#s7 .best", { scale: 1.04, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" }, 40.433);
+      tl.from("#s7 .tick", { scale: 0, opacity: 0, duration: 0.3, stagger: 0.25, ease: "back.out(2.5)" }, 41.339);
+      tl.to("#s7", { opacity: 0, duration: 0.74 }, 42.514);
 
       // S8 38.75–45  "Anak kau tunggu ayah dia balik… Hari ini, berhenti. Tempah sekarang."
-      tl.fromTo("#s8 .bgimg", { scale: 1.15 }, { scale: 1, duration: 6.25, ease: "none" }, 41.26);
-      tl.from("#s8 .l0", { y: 30, opacity: 0, duration: 0.6, ease: E }, 41.36);
-      tl.from("#s8 .l1", { scale: 1.6, opacity: 0, duration: 0.45, ease: "power4.out" }, 43.46);
-      tl.from("#s8 .l2", { y: 40, opacity: 0, duration: 0.5, ease: E }, 44.31);
-      tl.from("#s8 .btn", { scale: 0.3, opacity: 0, duration: 0.45, ease: "back.out(2)" }, 45.11);
-      tl.to("#s8 .btn", { scale: 1.06, duration: 0.35, yoyo: true, repeat: 5, ease: "sine.inOut" }, 45.61);
-      tl.from("#s8 .fine", { opacity: 0, duration: 0.4 }, 45.51);
+      tl.fromTo("#s8 .bgimg", { scale: 1.15 }, { scale: 1, duration: 6.25, ease: "none" }, 43.41);
+      tl.from("#s8 .l0", { y: 30, opacity: 0, duration: 0.6, ease: E }, 43.51);
+      tl.from("#s8 .l1", { scale: 1.6, opacity: 0, duration: 0.45, ease: "power4.out" }, 45.61);
+      tl.from("#s8 .l2", { y: 40, opacity: 0, duration: 0.5, ease: E }, 46.46);
+      tl.from("#s8 .btn", { scale: 0.3, opacity: 0, duration: 0.45, ease: "back.out(2)" }, 47.26);
+      tl.to("#s8 .btn", { scale: 1.06, duration: 0.35, yoyo: true, repeat: 5, ease: "sine.inOut" }, 47.76);
+      tl.from("#s8 .fine", { opacity: 0, duration: 0.4 }, 47.66);
 
       window.__timelines["main"] = tl;
       tl.seek(0);

@@ -137,7 +137,7 @@
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0.0" data-duration="45.33" data-width="1080" data-height="1350">
+    <div id="root" data-composition-id="main" data-start="0.0" data-duration="47.48" data-width="1080" data-height="1350">
 
       <!-- S1: Hook (0–4.5s) -->
       <div id="s1" class="scene clip" data-start="0.0" data-duration="3.2" data-track-index="1">
@@ -213,7 +213,7 @@
       </div>
 
       <!-- S7: Tawaran (31.5–36s) -->
-      <div id="s7" class="scene clip" data-start="32.05" data-duration="8.08" data-track-index="1">
+      <div id="s7" class="scene clip" data-start="32.05" data-duration="10.23" data-track-index="1">
         <div class="center loud h">Harga promo <span class="gold">hari ini</span></div>
         <div class="price">
           <div class="was">RM35</div>
@@ -234,7 +234,7 @@
       </div>
 
       <!-- S8: CTA (36–40s) -->
-      <div id="s8" class="scene clip" data-start="40.13" data-duration="5.2" data-track-index="1">
+      <div id="s8" class="scene clip" data-start="42.28" data-duration="5.2" data-track-index="1">
         <div class="bgimg s8bg"></div>
         <img class="famtop" src="assets/keluarga-tingkap.jpg" alt="" />
         <div class="shade"></div>
@@ -246,9 +246,9 @@
       </div>
 
       <!-- Jalur jenama & progress sepanjang video -->
-      <div id="brandbar" class="clip" data-start="0.0" data-duration="45.33" data-track-index="2">Jus Bidara Hitam <i>◆</i> Mbah Lanang</div>
-      <div id="progress" class="clip" data-start="0.0" data-duration="45.33" data-track-index="3"></div>
-      <audio id="vo" src="assets/vo2.mp3" data-start="0" data-duration="44.25" data-track-index="4" data-volume="1"></audio>
+      <div id="brandbar" class="clip" data-start="0.0" data-duration="47.48" data-track-index="2">Jus Bidara Hitam <i>◆</i> Mbah Lanang</div>
+      <div id="progress" class="clip" data-start="0.0" data-duration="47.48" data-track-index="3"></div>
+      <audio id="vo" src="assets/vo3.mp3" data-start="0" data-duration="46.39" data-track-index="4" data-volume="1"></audio>
     </div>
 
     <script>
@@ -256,7 +256,7 @@
       const tl = gsap.timeline({ paused: true });
       const E = "power3.out";
       // Masa disegerakkan dengan VO selamat (assets/vo.mp3, 41.87s)
-      tl.fromTo("#progress", { scaleX: 0 }, { scaleX: 1, duration: 45.33, ease: "none" }, 0.0);
+      tl.fromTo("#progress", { scaleX: 0 }, { scaleX: 1, duration: 47.48, ease: "none" }, 0.0);
 
       // S1 0–3.2 "Kenapa ramai susah sangat… nak berhenti ketum?"
       tl.fromTo("#s1 .bgimg", { scale: 1.18 }, { scale: 1, duration: 3.2, ease: "none" }, 0.0);
@@ -327,21 +327,21 @@
 
       // S7 32.05–37.8 "Mulakan dengan dua puluh empat ringgit. Tiga botol enam puluh ringgit, pos percuma. COD ada."
       tl.from("#s7 .h", { y: -60, opacity: 0, duration: 0.4, ease: E }, 32.1);
-      tl.from("#s7 .price", { scale: 0.5, opacity: 0, duration: 0.4, ease: "back.out(1.8)" }, 32.15);
-      tl.fromTo("#s7 .price .now", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2.5)" }, 33.0);
-      tl.from("#s7 .best", { y: 300, opacity: 0, duration: 0.5, ease: "back.out(1.5)" }, 36.09);
-      tl.to("#s7 .best", { scale: 1.04, duration: 0.3, yoyo: true, repeat: 1, ease: "sine.inOut" }, 37.74);
-      tl.from("#s7 .tick", { scale: 0, opacity: 0, duration: 0.3, stagger: 0.3, ease: "back.out(2.5)" }, 37.79);
-      tl.to("#s7", { opacity: 0, duration: 0.2 }, 39.93);
+      tl.from("#s7 .price", { scale: 0.5, opacity: 0, duration: 0.4, ease: "back.out(1.8)" }, 32.173);
+      tl.fromTo("#s7 .price .now", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2.5)" }, 33.42);
+      tl.from("#s7 .best", { y: 300, opacity: 0, duration: 0.5, ease: "back.out(1.5)" }, 37.833);
+      tl.to("#s7 .best", { scale: 1.04, duration: 0.3, yoyo: true, repeat: 1, ease: "sine.inOut" }, 39.505);
+      tl.from("#s7 .tick", { scale: 0, opacity: 0, duration: 0.3, stagger: 0.3, ease: "back.out(2.5)" }, 39.556);
+      tl.to("#s7", { opacity: 0, duration: 0.2 }, 42.034);
 
       // S8 37.8–43 "Demi keluarga yang menunggu… mula hari ini. Tempah sekarang."
-      tl.fromTo("#s8 .famtop", { scale: 1.12 }, { scale: 1, duration: 5.2, ease: "none" }, 40.13);
-      tl.from("#s8 .l0", { y: 30, opacity: 0, duration: 0.5, ease: E }, 40.28);
-      tl.from("#s8 .l1", { scale: 1.6, opacity: 0, duration: 0.4, ease: "power4.out" }, 42.03);
-      tl.from("#s8 .l2", { y: 40, opacity: 0, duration: 0.45, ease: E }, 42.58);
-      tl.from("#s8 .btn", { scale: 0.3, opacity: 0, duration: 0.4, ease: "back.out(2)" }, 43.13);
-      tl.to("#s8 .btn", { scale: 1.06, duration: 0.35, yoyo: true, repeat: 3, ease: "sine.inOut" }, 43.58);
-      tl.from("#s8 .fine", { opacity: 0, duration: 0.4 }, 43.33);
+      tl.fromTo("#s8 .famtop", { scale: 1.12 }, { scale: 1, duration: 5.2, ease: "none" }, 42.28);
+      tl.from("#s8 .l0", { y: 30, opacity: 0, duration: 0.5, ease: E }, 42.43);
+      tl.from("#s8 .l1", { scale: 1.6, opacity: 0, duration: 0.4, ease: "power4.out" }, 44.18);
+      tl.from("#s8 .l2", { y: 40, opacity: 0, duration: 0.45, ease: E }, 44.73);
+      tl.from("#s8 .btn", { scale: 0.3, opacity: 0, duration: 0.4, ease: "back.out(2)" }, 45.28);
+      tl.to("#s8 .btn", { scale: 1.06, duration: 0.35, yoyo: true, repeat: 3, ease: "sine.inOut" }, 45.73);
+      tl.from("#s8 .fine", { opacity: 0, duration: 0.4 }, 45.48);
 
       window.__timelines["main"] = tl;
       tl.seek(0);

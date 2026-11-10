@@ -36,7 +36,7 @@ PHRASES = [
 SCENES = [("s0", 0), ("s1", 2), ("s2", 10), ("s3", 13), ("s4", 15), ("s5", 18), ("s6", 20), ("s7", 22)]
 GAP_AFTER = 19      # jeda senyap selepas frasa ini supaya dinding testimoni lebih lama
 GAP = 2.5
-MUTE_END = None    # (tidak dipakai lagi: harga baru disambung dalam assets/vo2.mp3)
+MUTE_END = None    # (tidak dipakai lagi: harga baru disambung dalam assets/vo3.mp3)
 TAIL = 3.0          # kad CTA kekal selepas suara tamat
 
 
@@ -72,8 +72,8 @@ def main():
                 .replace("{PHRASES_JSON}", json.dumps([[a, b, p] for (a, b), p in zip(T, PHRASES)], ensure_ascii=False)))
     if len(sys.argv) > 3 and sys.argv[3] == "audio":
         html = html.replace("<!--AUDIO-->",
-            '<audio id="voA" src="assets/vo2.mp3" data-start="0" data-duration="%s" data-media-start="0" data-track-index="5" data-volume="1"></audio>\n'
-            '      <audio id="voB" src="assets/vo2.mp3" data-start="%s" data-duration="%s" data-media-start="%s" data-track-index="5" data-volume="1"></audio>'
+            '<audio id="voA" src="assets/vo3.mp3" data-start="0" data-duration="%s" data-media-start="0" data-track-index="5" data-volume="1"></audio>\n'
+            '      <audio id="voB" src="assets/vo3.mp3" data-start="%s" data-duration="%s" data-media-start="%s" data-track-index="5" data-volume="1"></audio>'
             % (gap_at, sh(MUTE_END or gap_at), round(vo_end - (MUTE_END or gap_at) + 0.3, 2), MUTE_END or gap_at))
     open(out_dir + "/index.html", "w").write(html)
     print("durasi", D, "potong audio pada", gap_at)
