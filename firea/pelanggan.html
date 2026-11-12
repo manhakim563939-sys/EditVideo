@@ -28,25 +28,35 @@ body{margin:0;background:var(--bg);color:var(--ink);font:500 15px/1.5 var(--f)}
 button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
 button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--rose);outline-offset:2px}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-h1{margin:0;font-size:1.45rem;font-weight:800;color:var(--berry)}
+.hero{background:linear-gradient(135deg,#7d1f45,#4a0f28 70%);color:#fff;border-radius:22px;padding:18px 18px 14px;position:relative;overflow:hidden;box-shadow:0 14px 30px -18px rgba(74,15,40,.8)}
+.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(255,201,218,.35),transparent 70%)}
+.brand{display:flex;align-items:center;gap:14px;position:relative;z-index:1}
+.logo{width:96px;height:auto;flex:0 0 auto}
+.brand h1{margin:0;font-size:1.3rem;font-weight:800;color:#fff;line-height:1.2}
+.hero .sub{color:#f3c9d8;font-size:.85rem;margin:2px 0 0}
+.hero-foot{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.18);font-size:.8rem;color:#f3c9d8;position:relative;z-index:1}
+.hero .status{color:#f3c9d8}
 .sub{color:var(--muted);font-size:.88rem;margin:2px 0 0}
 .status{font-size:.82rem;color:var(--muted)}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:16px 0}
 @media (max-width:520px){.stats{grid-template-columns:repeat(2,1fr)}}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
-.stat b{display:block;font-size:1.5rem;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.1}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;position:relative;box-shadow:0 6px 16px -14px rgba(90,21,49,.6)}
+.stat i{font-style:normal;position:absolute;right:10px;top:9px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:.95rem;background:var(--bg)}
+.stat.late i{background:var(--latebg)} .stat.today i{background:var(--todaybg)} .stat.pel i{background:var(--petal)} .stat.btl i{background:var(--okbg)}
+.stat b{display:block;font-size:1.6rem;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.1}
 .stat span{font-size:.78rem;color:var(--muted)}
 .stat.late b{color:var(--late)} .stat.today b{color:var(--today)}
 .tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
 .tab{flex:0 0 auto;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 14px;font-weight:700;font-size:.88rem}
-.tab[aria-selected="true"]{background:var(--berry);border-color:var(--berry);color:var(--bg)}
+.tab[aria-selected="true"]{background:var(--rose);border-color:var(--rose);color:#fff}
 .tab .n{opacity:.75;margin-left:4px;font-variant-numeric:tabular-nums}
 .tools{display:flex;gap:8px;margin:10px 0 14px;flex-wrap:wrap}
 .tools input,.tools select{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 12px}
 .tools input{flex:1 1 200px;min-width:0}
 .list{display:grid;gap:10px}
-.cust{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--line);border-radius:14px;padding:12px 14px}
+.cust{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--line);border-radius:16px;padding:12px 14px;box-shadow:0 6px 16px -14px rgba(90,21,49,.6)}
+.who{display:flex;align-items:center;gap:10px;min-width:0}
+.av{flex:0 0 38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#ffc9da,#f48fb1);color:#4a0f28;font-weight:800;font-size:.9rem;display:grid;place-items:center}
 .cust.late{border-left-color:var(--late)} .cust.today{border-left-color:var(--today)} .cust.soon{border-left-color:var(--soon)} .cust.done{border-left-color:var(--ok)}
 .row1{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
 .name{font-weight:800;font-size:1.05rem;min-width:0;overflow-wrap:anywhere}
@@ -63,10 +73,10 @@ h1{margin:0;font-size:1.45rem;font-weight:800;color:var(--berry)}
 .btn.danger{color:var(--late)}
 .empty{text-align:center;color:var(--muted);background:var(--card);border:1px dashed var(--line);border-radius:14px;padding:28px 16px}
 .empty b{display:block;color:var(--ink);font-size:1.05rem;margin-bottom:4px}
-.fab{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:20;border:0;border-radius:999px;background:var(--rose);color:var(--onrose);font-weight:800;padding:14px 26px;white-space:nowrap;box-shadow:0 10px 24px -8px rgba(0,0,0,.45);font-size:1rem}
+.fab{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:20;border:0;border-radius:999px;background:linear-gradient(135deg,#d81b60,#7d1f45);color:var(--onrose);font-weight:800;padding:14px 26px;white-space:nowrap;box-shadow:0 10px 24px -8px rgba(0,0,0,.45);font-size:1rem}
 .scrim{position:fixed;inset:0;background:var(--scrim);z-index:30}
 .sheet{position:fixed;left:0;right:0;bottom:0;z-index:31;max-width:640px;margin:0 auto;background:var(--card);border-radius:18px 18px 0 0;max-height:92vh;overflow-y:auto;padding:16px 16px calc(18px + env(safe-area-inset-bottom,0px))}
-.sheet h2{margin:0 0 4px;font-size:1.15rem}
+.sheet h2{margin:0 0 4px;font-size:1.15rem;color:var(--berry)}
 .sheet .x{float:right;border:0;background:var(--bg);width:34px;height:34px;border-radius:50%}
 .form{display:grid;gap:10px;margin-top:10px}
 .form label{display:grid;gap:4px;font-size:.8rem;font-weight:700;color:var(--muted)}
@@ -87,19 +97,22 @@ h1{margin:0;font-size:1.45rem;font-weight:800;color:var(--berry)}
 </style>
 
 <div class="wrap">
-  <header>
-    <div>
-      <h1>Firea Pelanggan</h1>
-      <p class="sub">Rekod pembeli &amp; jadual follow-up repeat order</p>
+  <header class="hero">
+    <div class="brand">
+      <img src="img/logo-firea-white.png" alt="Firea" class="logo" width="121" height="79">
+      <div>
+        <h1>Rekod Pelanggan</h1>
+        <p class="sub">Pembeli &amp; jadual follow-up repeat order</p>
+      </div>
     </div>
-    <span class="status" id="status">Memuatkan…</span>
+    <div class="hero-foot"><span id="today"></span><span class="status" id="status">Memuatkan…</span></div>
   </header>
 
   <div class="stats" id="stats">
-    <div class="stat late"><b id="st-late">0</b><span>Lewat follow-up</span></div>
-    <div class="stat today"><b id="st-today">0</b><span>Follow-up hari ini</span></div>
-    <div class="stat"><b id="st-cust">0</b><span>Pelanggan</span></div>
-    <div class="stat"><b id="st-btl">0</b><span>Botol terjual</span></div>
+    <div class="stat late"><i>⏰</i><b id="st-late">0</b><span>Lewat follow-up</span></div>
+    <div class="stat today"><i>🔔</i><b id="st-today">0</b><span>Follow-up hari ini</span></div>
+    <div class="stat pel"><i>👩</i><b id="st-cust">0</b><span>Pelanggan</span></div>
+    <div class="stat btl"><i>🧴</i><b id="st-btl">0</b><span>Botol terjual</span></div>
   </div>
 
   <div class="tabs" role="tablist" id="tabs">
@@ -174,6 +187,7 @@ const todayStr = () => { const d = new Date(); return `${d.getFullYear()}-${pad(
 const dayNum = s => { const [y, m, d] = s.split("-").map(Number); return Date.UTC(y, m - 1, d) / 864e5; };
 const addDays = (s, n) => { const t = new Date((dayNum(s) + n) * 864e5); return `${t.getUTCFullYear()}-${pad(t.getUTCMonth() + 1)}-${pad(t.getUTCDate())}`; };
 const fmt = s => { if (!s) return "-"; const [y, m, d] = s.split("-"); return `${+d} ${["Jan","Feb","Mac","Apr","Mei","Jun","Jul","Ogo","Sep","Okt","Nov","Dis"][+m - 1]} ${y}`; };
+const initials = n => String(n || "?").trim().split(/\s+/).filter(w => !/^(bin|binti|bt|bte|b\.?)$/i.test(w)).slice(0, 2).map(w => w[0]).join("").toUpperCase() || "?";
 const fuDays = q => FU_DAYS[q] ?? Math.max(20, q * 40 - 10);
 const normTel = t => { let d = String(t || "").replace(/\D/g, ""); if (d.startsWith("0")) d = "6" + d; else if (d && !d.startsWith("6")) d = "60" + d; return d; };
 
@@ -226,7 +240,7 @@ function render() {
   }
   list.innerHTML = shown.map(({ r, i }) => `
     <article class="cust ${i.cls}" data-id="${esc(r.id)}">
-      <div class="row1"><div class="name">${esc(r.nama)}</div>${i.badge}</div>
+      <div class="row1"><div class="who"><span class="av">${esc(initials(r.nama))}</span><div class="name">${esc(r.nama)}</div></div>${i.badge}</div>
       <div class="meta">
         <span>📍 <b>${esc([r.bandar, r.negeri].filter(Boolean).join(", ") || "-")}</b></span>
         <span>🧴 <b>${esc(r.botol)} botol</b>${r.harga ? " · RM" + esc(r.harga) : ""}</span>
@@ -363,6 +377,7 @@ function errMsg(err) {
 }
 
 /* ===== mula ===== */
+$("#today").textContent = new Date().toLocaleDateString("ms-MY", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
 render();
 (async () => {
   const claude = window.claude;
