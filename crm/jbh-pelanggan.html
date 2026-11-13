@@ -42,7 +42,7 @@ h1{margin:2px 0 0;font:400 1.7rem/1.02 var(--fd);letter-spacing:.5px;text-transf
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:16px 0}
 @media (max-width:520px){.stats{grid-template-columns:repeat(2,1fr)}}
 .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;border-top:3px solid var(--line)}
-.stat.late{border-top-color:var(--late)} .stat.today{border-top-color:var(--today)} .stat.s-c,.stat.s-b{border-top-color:var(--gold)}
+.stat.s-c,.stat.s-o,.stat.s-b,.stat.s-r{border-top-color:var(--gold)}
 .stat b{display:block;font:400 1.7rem/1.1 var(--fd);font-variant-numeric:tabular-nums}
 .stat span{font-size:.78rem;color:var(--muted)}
 .stat.late b{color:var(--late)} .stat.today b{color:var(--today)}
@@ -108,17 +108,16 @@ h1{margin:2px 0 0;font:400 1.7rem/1.02 var(--fd);letter-spacing:.5px;text-transf
 <div class="wrap">
 
   <div class="stats" id="stats">
-    <div class="stat late"><b id="st-late">0</b><span>Lewat follow-up</span></div>
-    <div class="stat today"><b id="st-today">0</b><span>Follow-up hari ini</span></div>
     <div class="stat s-c"><b id="st-cust">0</b><span>Pelanggan</span></div>
+    <div class="stat s-o"><b id="st-ord">0</b><span>Order</span></div>
     <div class="stat s-b"><b id="st-btl">0</b><span>Botol terjual</span></div>
+    <div class="stat s-r"><b id="st-rm">RM0</b><span>Jumlah jualan</span></div>
   </div>
 
   <div class="tabs" role="tablist" id="tabs">
-    <button class="tab" role="tab" data-tab="due" aria-selected="true">Perlu follow-up<span class="n" id="n-due"></span></button>
-    <button class="tab" role="tab" data-tab="soon" aria-selected="false">3 hari akan datang<span class="n" id="n-soon"></span></button>
-    <button class="tab" role="tab" data-tab="all" aria-selected="false">Semua<span class="n" id="n-all"></span></button>
-    <button class="tab" role="tab" data-tab="done" aria-selected="false">Selesai<span class="n" id="n-done"></span></button>
+    <button class="tab" role="tab" data-tab="all" aria-selected="true">Semua<span class="n" id="n-all"></span></button>
+    <button class="tab" role="tab" data-tab="month" aria-selected="false">Bulan ini<span class="n" id="n-month"></span></button>
+    <button class="tab" role="tab" data-tab="repeat" aria-selected="false">Beli lebih sekali<span class="n" id="n-repeat"></span></button>
   </div>
   <div class="tools">
     <input id="q" type="search" placeholder="Cari nama, telefon atau bandar" aria-label="Cari pelanggan">
@@ -128,7 +127,6 @@ h1{margin:2px 0 0;font:400 1.7rem/1.02 var(--fd);letter-spacing:.5px;text-transf
 
   <div class="list" id="list"></div>
   <div class="locked" id="locked" hidden>Rekod pelanggan hanya boleh dilihat oleh pemilik dan Editor page ini.</div>
-  <p class="rule">Follow-up = sehari sebelum stok habis. 1 botol cukup ±3 hari, jadi dari tarikh barang sampai: 1 botol = hari ke-2, 2 botol = hari ke-5, 3 botol = hari ke-8. Anggaran sampai: Semenanjung 3 hari, Sabah/Sarawak/Labuan 5 hari selepas beli (boleh ubah).</p>
 </div>
 
 <button class="fab" id="addBtn" type="button" hidden>+ Tambah pembelian</button>
@@ -137,7 +135,7 @@ h1{margin:2px 0 0;font:400 1.7rem/1.02 var(--fd);letter-spacing:.5px;text-transf
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" hidden>
   <button class="x" type="button" id="closeSheet" aria-label="Tutup">✕</button>
   <h2 id="sheetTitle">Tambah pembelian</h2>
-  <p class="sub" id="sheetSub">Isi maklumat pembeli. Tarikh follow-up dikira automatik.</p>
+  <p class="sub" id="sheetSub">Isi maklumat pembeli yang dah sahkan order.</p>
   <form class="form" id="form" novalidate>
     <details class="paste" id="pasteBox">
       <summary>Tampal mesej order dari website (auto isi)</summary>
@@ -164,12 +162,7 @@ h1{margin:2px 0 0;font:400 1.7rem/1.02 var(--fd);letter-spacing:.5px;text-transf
       <label for="f-harga">Jumlah bayaran (RM)<input id="f-harga" type="number" inputmode="decimal" min="0" step="0.01"></label>
       <label for="f-bayar">Bayaran<select id="f-bayar"><option>COD</option><option>Online Transfer</option></select></label>
     </div>
-    <div class="two">
-      <label for="f-tarikh">Tarikh beli<input id="f-tarikh" type="date" required></label>
-      <label for="f-sampai">Tarikh barang sampai<input id="f-sampai" type="date"></label>
-    </div>
-    <p class="hint" id="sampaiHint"></p>
-    <div class="fu" id="fuPreview"></div>
+    <label for="f-tarikh">Tarikh beli<input id="f-tarikh" type="date" required></label>
     <label for="f-nota">Nota (pilihan)<textarea id="f-nota" rows="2" placeholder="cth. dah 10 tahun minum, isteri yang order"></textarea></label>
     <p class="err" id="formErr" hidden></p>
     <button class="btn pri" type="submit" id="saveBtn" style="justify-content:center;padding:12px">Simpan</button>
@@ -178,12 +171,10 @@ h1{margin:2px 0 0;font:400 1.7rem/1.02 var(--fd);letter-spacing:.5px;text-transf
 
 <script>
 /* ===== tetapan ===== */
-const DAYS_PER_BOTTLE = 3;                       // 1 botol cukup lebih kurang 3 hari
 const PRICE = { 1: 30, 2: 58, 3: 69 };           // harga pakej
 const POS_SEMENANJUNG = { 1: 8, 2: 0, 3: 0 };    // 2 & 3 botol pos percuma Semenanjung
 const POS_TIMUR = 18;                            // Sabah / Sarawak / Labuan, semua pakej
 const EAST = ["Sabah", "Sarawak", "W.P. Labuan"];
-const SHIP_DAYS = { semenanjung: 3, timur: 5 };  // anggaran barang sampai selepas beli
 const STATES = ["Johor","Kedah","Kelantan","Melaka","Negeri Sembilan","Pahang","Perak","Perlis","Pulau Pinang","Selangor","Terengganu","W.P. Kuala Lumpur","W.P. Putrajaya","Sabah","Sarawak","W.P. Labuan"];
 const COL = "customers";
 
@@ -195,93 +186,71 @@ const dayNum = s => { const [y, m, d] = s.split("-").map(Number); return Date.UT
 const addDays = (s, n) => { const t = new Date((dayNum(s) + n) * 864e5); return `${t.getUTCFullYear()}-${pad(t.getUTCMonth() + 1)}-${pad(t.getUTCDate())}`; };
 const fmt = s => { if (!s) return "-"; const [y, m, d] = s.split("-"); return `${+d} ${["Jan","Feb","Mac","Apr","Mei","Jun","Jul","Ogo","Sep","Okt","Nov","Dis"][+m - 1]} ${y}`; };
 const isEast = n => EAST.includes(n);
-const shipDays = n => isEast(n) ? SHIP_DAYS.timur : SHIP_DAYS.semenanjung;
-const fuOffset = q => Math.max(1, q * DAYS_PER_BOTTLE - 1);          // sehari sebelum stok habis
 const total = (q, n) => (PRICE[q] ?? 0) + (isEast(n) ? POS_TIMUR : (POS_SEMENANJUNG[q] ?? 0));
 const normTel = t => { let d = String(t || "").replace(/\D/g, ""); if (d.startsWith("0")) d = "6" + d; else if (d && !d.startsWith("6")) d = "60" + d; return d; };
 
 for (const s of STATES) { $("#f-negeri").insertAdjacentHTML("beforeend", `<option>${s}</option>`); $("#fstate").insertAdjacentHTML("beforeend", `<option>${s}</option>`); }
 $("#f-negeri").insertAdjacentHTML("afterbegin", `<option value="">Pilih negeri</option>`); $("#f-negeri").value = "";
 
-let db = null, rows = [], tab = "due", editing = null, writable = true, downloads = null;
-
-/* ===== klasifikasi ===== */
-function info(r) {
-  const diff = dayNum(r.followUpDate) - dayNum(todayStr());
-  if (r.status !== "menunggu") {
-    const lbl = { dihubungi: "Dah follow-up", beli_semula: "Dah beli semula", tak_berminat: "Tak berminat" }[r.status] || r.status;
-    return { cls: "done", badge: `<span class="badge ${r.status === "tak_berminat" ? "b-mute" : "b-done"}">${lbl}</span>`, diff };
-  }
-  if (diff < 0) return { cls: "late", badge: `<span class="badge b-late">Lewat ${-diff} hari</span>`, diff };
-  if (diff === 0) return { cls: "today", badge: `<span class="badge b-today">Hari ini</span>`, diff };
-  return { cls: diff <= 3 ? "soon" : "", badge: `<span class="badge ${diff <= 3 ? "b-soon" : "b-mute"}">${diff} hari lagi</span>`, diff };
-}
-function waMsg(r) {
-  const first = String(r.nama || "").trim().split(/\s+/)[0] || "";
-  const pos = isEast(r.negeri) ? "(pos RM18 ke Sabah/Sarawak)" : "pos percuma Semenanjung";
-  return `Assalamualaikum ${first} 😊 Jus Bidara Hitam tu mungkin tinggal sikit lagi kan. Nak saya sediakan stok baru supaya tak terputus di tengah jalan?\n\nPakej 3 botol RM69 ${pos}, cukup lebih kurang 9 hari. Boleh COD.`;
-}
+let db = null, rows = [], tab = "all", editing = null, writable = true, downloads = null;
 
 /* ===== paparan ===== */
+const custKey = r => normTel(r.tel) || String(r.nama || "").trim().toLowerCase();
+const rm = n => "RM" + (Math.round(n * 100) / 100).toLocaleString("en-MY");
 function render() {
   const q = $("#q").value.trim().toLowerCase(), fs = $("#fstate").value;
-  const all = rows.map(r => ({ r, i: info(r) }));
-  const waiting = all.filter(x => x.r.status === "menunggu");
-  const due = waiting.filter(x => x.i.diff <= 0).sort((a, b) => a.i.diff - b.i.diff);
-  const soon = waiting.filter(x => x.i.diff > 0 && x.i.diff <= 3).sort((a, b) => a.i.diff - b.i.diff);
-  const done = all.filter(x => x.r.status !== "menunggu").sort((a, b) => (b.r.updatedAt || "").localeCompare(a.r.updatedAt || ""));
-  const every = [...all].sort((a, b) => (b.r.tarikhBeli || "").localeCompare(a.r.tarikhBeli || ""));
-  $("#st-late").textContent = waiting.filter(x => x.i.diff < 0).length;
-  $("#st-today").textContent = waiting.filter(x => x.i.diff === 0).length;
-  $("#st-cust").textContent = new Set(rows.map(r => normTel(r.tel) || r.nama)).size;
+  const counts = {}; rows.forEach(r => { const k = custKey(r); counts[k] = (counts[k] || 0) + 1; });
+  const ym = todayStr().slice(0, 7);
+  const every = [...rows].sort((a, b) => (b.tarikhBeli || "").localeCompare(a.tarikhBeli || "") || (b.createdAt || "").localeCompare(a.createdAt || ""));
+  const month = every.filter(r => (r.tarikhBeli || "").startsWith(ym));
+  const repeat = every.filter(r => counts[custKey(r)] > 1);
+  $("#st-cust").textContent = Object.keys(counts).length;
+  $("#st-ord").textContent = rows.length;
   $("#st-btl").textContent = rows.reduce((s, r) => s + (+r.botol || 0), 0);
-  $("#n-due").textContent = due.length; $("#n-soon").textContent = soon.length; $("#n-all").textContent = all.length; $("#n-done").textContent = done.length;
-  const pick = { due, soon, all: every, done }[tab];
-  const shown = pick.filter(({ r }) => (!fs || r.negeri === fs) && (!q || [r.nama, r.tel, r.bandar, r.negeri, r.nota].join(" ").toLowerCase().includes(q)));
+  $("#st-rm").textContent = rm(rows.reduce((s, r) => s + (+r.harga || 0), 0));
+  $("#n-all").textContent = every.length; $("#n-month").textContent = month.length; $("#n-repeat").textContent = repeat.length;
+  const pick = { all: every, month, repeat }[tab];
+  const shown = pick.filter(r => (!fs || r.negeri === fs) && (!q || [r.nama, r.tel, r.bandar, r.negeri, r.alamat, r.nota].join(" ").toLowerCase().includes(q)));
   const list = $("#list");
   if (!rows.length) {
-    list.innerHTML = `<div class="empty"><b>Belum ada pelanggan</b>Tekan <b style="display:inline">+ Tambah pembelian</b> selepas setiap order disahkan, atau tampal terus mesej order dari website. Sistem kira tarikh follow-up sendiri.</div>`;
+    list.innerHTML = `<div class="empty"><b>Belum ada pelanggan</b>Tekan <b style="display:inline">+ Tambah pembelian</b> selepas setiap order disahkan, atau tampal terus mesej order dari website.</div>`;
     return;
   }
   if (!shown.length) {
-    const msg = { due: "Tiada pelanggan perlu di-follow-up hari ini. 🎉", soon: "Tiada follow-up dalam 3 hari akan datang.", all: "Tiada padanan.", done: "Belum ada follow-up yang selesai." }[tab];
+    const msg = { all: "Tiada padanan.", month: "Belum ada order bulan ini.", repeat: "Belum ada pelanggan yang beli lebih sekali." }[tab];
     list.innerHTML = `<div class="empty">${q || fs ? "Tiada padanan untuk carian ini." : msg}</div>`;
     return;
   }
-  list.innerHTML = shown.map(({ r, i }) => `
-    <article class="cust ${i.cls}" data-id="${esc(r.id)}">
-      <div class="row1"><div class="name">${esc(r.nama)}</div>${i.badge}</div>
+  list.innerHTML = shown.map(r => {
+    const n = counts[custKey(r)];
+    return `
+    <article class="cust" data-id="${esc(r.id)}">
+      <div class="row1"><div class="name">${esc(r.nama)}</div>${n > 1 ? `<span class="badge b-done">Beli ${n} kali</span>` : `<span class="badge b-mute">${esc(r.bayaran || "COD")}</span>`}</div>
       <div class="meta">
-        <span>📍 <b>${esc([r.bandar, r.negeri].filter(Boolean).join(", ") || "-")}</b></span>
+        <span>🛒 <b>${fmt(r.tarikhBeli)}</b></span>
         <span>🧴 <b>${esc(r.botol)} botol</b>${r.harga != null && r.harga !== "" ? " · RM" + esc(r.harga) : ""}</span>
-        <span>🛒 Beli <b>${fmt(r.tarikhBeli)}</b></span>
-        <span>📦 Sampai <b>${fmt(r.tarikhSampai)}</b></span>
-        <span>🔔 Follow-up <b>${fmt(r.followUpDate)}</b></span>
+        <span>📍 <b>${esc([r.bandar, r.negeri].filter(Boolean).join(", ") || "-")}</b></span>
         <span>📞 <b>${esc(r.tel)}</b></span>
       </div>
+      ${r.alamat ? `<div class="note">🏠 ${esc(r.alamat)}</div>` : ""}
       ${r.nota ? `<div class="note">${esc(r.nota)}</div>` : ""}
       ${writable ? `<div class="acts">
-        ${r.status === "menunggu" ? `<a class="btn wa" href="https://wa.me/${normTel(r.tel)}?text=${encodeURIComponent(waMsg(r))}" target="_blank" rel="noopener">WhatsApp</a>
-        <button class="btn" type="button" data-act="done">✓ Dah follow-up</button>
-        <button class="btn pri" type="button" data-act="rebuy">Beli semula</button>
-        <button class="btn ghost" type="button" data-act="no">Tak berminat</button>` : `<button class="btn" type="button" data-act="reopen">Buka semula</button>
-        <button class="btn pri" type="button" data-act="rebuy">Beli semula</button>`}
+        <a class="btn wa" href="https://wa.me/${normTel(r.tel)}" target="_blank" rel="noopener">WhatsApp</a>
+        <button class="btn pri" type="button" data-act="rebuy">+ Order lagi</button>
         <button class="btn ghost" type="button" data-act="edit">Edit</button>
         <button class="btn danger" type="button" data-act="del">Padam</button>
       </div><div class="confirm" data-confirm hidden>Padam rekod ${esc(r.nama)}? <button class="btn danger" type="button" data-act="del-yes">Ya, padam</button><button class="btn" type="button" data-act="del-no">Batal</button></div>` : ""}
-    </article>`).join("");
+    </article>`;
+  }).join("");
 }
 
 /* ===== tindakan pada kad ===== */
 $("#list").addEventListener("click", async e => {
   const b = e.target.closest("[data-act]"); if (!b || !db) return;
   const card = b.closest(".cust"), id = card.dataset.id, r = rows.find(x => x.id === id); if (!r) return;
-  const ref = db.collection(COL).doc(id), now = new Date().toISOString();
+  const ref = db.collection(COL).doc(id);
   const act = b.dataset.act;
   try {
-    if (act === "done") await ref.update({ status: "dihubungi", followedAt: todayStr(), updatedAt: now });
-    if (act === "no") await ref.update({ status: "tak_berminat", followedAt: todayStr(), updatedAt: now });
-    if (act === "reopen") await ref.update({ status: "menunggu", updatedAt: now });
     if (act === "edit") openSheet(r, "edit");
     if (act === "rebuy") openSheet(r, "rebuy");
     if (act === "del") card.querySelector("[data-confirm]").hidden = false;
@@ -291,43 +260,30 @@ $("#list").addEventListener("click", async e => {
 });
 
 /* ===== borang ===== */
-let qty = 1, priceTouched = false, sampaiTouched = false;
+let qty = 1, priceTouched = false;
 function autoFill() {
-  const n = $("#f-negeri").value, t = $("#f-tarikh").value;
-  if (!priceTouched) $("#f-harga").value = total(qty, n);
-  if (!sampaiTouched && t) $("#f-sampai").value = addDays(t, shipDays(n));
-  $("#sampaiHint").textContent = sampaiTouched ? "Tarikh sampai diubah sendiri." : `Anggaran: ${shipDays(n)} hari selepas beli (${isEast(n) ? "Sabah/Sarawak/Labuan" : "Semenanjung"}). Tukar kalau tahu tarikh sebenar.`;
-  preview();
+  if (!priceTouched) $("#f-harga").value = total(qty, $("#f-negeri").value);
 }
 function setQty(n) {
   qty = n;
   document.querySelectorAll(".pk").forEach(p => p.setAttribute("aria-pressed", +p.dataset.q === n));
   autoFill();
 }
-function preview() {
-  const s = $("#f-sampai").value; if (!s) { $("#fuPreview").textContent = ""; return; }
-  const d = fuOffset(qty);
-  $("#fuPreview").textContent = `🔔 Follow-up: ${fmt(addDays(s, d))} (hari ke-${d} selepas sampai, stok ${qty} botol cukup ±${qty * DAYS_PER_BOTTLE} hari)`;
-}
 document.querySelectorAll(".pk").forEach(p => p.addEventListener("click", () => { priceTouched = false; setQty(+p.dataset.q); }));
 $("#f-negeri").addEventListener("change", autoFill);
-$("#f-tarikh").addEventListener("change", autoFill);
-$("#f-sampai").addEventListener("change", () => { sampaiTouched = !!$("#f-sampai").value; autoFill(); });
 $("#f-harga").addEventListener("input", () => { priceTouched = true; });
 
 function openSheet(r, mode) {
   editing = mode === "edit" ? r.id : null;
   $("#sheetTitle").textContent = mode === "edit" ? "Edit rekod" : mode === "rebuy" ? "Pembelian semula" : "Tambah pembelian";
-  $("#sheetSub").textContent = mode === "rebuy" ? `Order baru untuk ${r.nama}. Rekod lama akan ditanda "Dah beli semula".` : "Isi maklumat pembeli. Tarikh follow-up dikira automatik.";
+  $("#sheetSub").textContent = mode === "rebuy" ? `Order baru untuk ${r.nama}. Rekod lama kekal sebagai sejarah.` : "Isi maklumat pembeli yang dah sahkan order.";
   $("#pasteBox").hidden = mode === "edit" || mode === "rebuy"; $("#pasteBox").open = false; $("#pasteTxt").value = ""; $("#pasteErr").hidden = true;
   $("#f-nama").value = r?.nama || ""; $("#f-tel").value = r?.tel || ""; $("#f-negeri").value = r?.negeri || ""; $("#f-bandar").value = r?.bandar || "";
   $("#f-alamat").value = r?.alamat || ""; $("#f-bayar").value = r?.bayaran || "COD"; $("#f-nota").value = r?.nota || "";
   $("#f-tarikh").value = mode === "edit" ? r.tarikhBeli : todayStr();
-  priceTouched = mode === "edit"; sampaiTouched = mode === "edit" && !!r.tarikhSampai;
-  $("#f-sampai").value = mode === "edit" ? (r.tarikhSampai || "") : "";
+  priceTouched = mode === "edit";
   if (mode === "edit") $("#f-harga").value = r.harga ?? "";
   setQty(mode === "edit" ? (+r.botol || 1) : 1);
-  $("#sheet").dataset.rebuyOf = mode === "rebuy" ? r.id : "";
   $("#formErr").hidden = true;
   $("#sheet").hidden = $("#scrim").hidden = false; document.body.style.overflow = "hidden";
   setTimeout(() => $("#f-nama").focus(), 50);
@@ -364,18 +320,15 @@ $("#form").addEventListener("submit", async e => {
   const v = id => $(id).value.trim();
   const miss = [["#f-nama", "nama"], ["#f-tel", "telefon"], ["#f-negeri", "negeri"], ["#f-tarikh", "tarikh beli"]].filter(([id]) => !v(id));
   if (miss.length) { $("#formErr").textContent = "Sila isi " + miss.map(m => m[1]).join(", ") + "."; $("#formErr").hidden = false; $(miss[0][0]).focus(); return; }
-  const now = new Date().toISOString(), tarikh = v("#f-tarikh"), sampai = v("#f-sampai") || addDays(tarikh, shipDays(v("#f-negeri")));
+  const now = new Date().toISOString(), tarikh = v("#f-tarikh");
   const body = { nama: v("#f-nama"), tel: v("#f-tel"), negeri: v("#f-negeri"), bandar: v("#f-bandar"), alamat: v("#f-alamat"), botol: qty,
-    harga: $("#f-harga").value === "" ? null : +$("#f-harga").value, bayaran: v("#f-bayar"), tarikhBeli: tarikh, tarikhSampai: sampai,
-    followUpDate: addDays(sampai, fuOffset(qty)), nota: v("#f-nota"), updatedAt: now };
+    harga: $("#f-harga").value === "" ? null : +$("#f-harga").value, bayaran: v("#f-bayar"), tarikhBeli: tarikh, nota: v("#f-nota"), updatedAt: now };
   $("#saveBtn").disabled = true;
   try {
     if (editing) {
       await db.collection(COL).doc(editing).update(body);
     } else {
-      await db.collection(COL).doc().set({ ...body, status: "menunggu", followedAt: null, createdAt: now });
-      const prev = $("#sheet").dataset.rebuyOf;
-      if (prev) await db.collection(COL).doc(prev).update({ status: "beli_semula", followedAt: todayStr(), updatedAt: now });
+      await db.collection(COL).doc().set({ ...body, createdAt: now });
     }
     closeSheet();
   } catch (err) { $("#formErr").textContent = errMsg(err); $("#formErr").hidden = false; }
@@ -388,7 +341,7 @@ $("#q").addEventListener("input", render); $("#fstate").addEventListener("change
 
 /* ===== eksport CSV ===== */
 $("#exportBtn").addEventListener("click", async () => {
-  const cols = ["nama","tel","negeri","bandar","alamat","botol","harga","bayaran","tarikhBeli","tarikhSampai","followUpDate","status","followedAt","nota"];
+  const cols = ["nama","tel","negeri","bandar","alamat","botol","harga","bayaran","tarikhBeli","nota"];
   const q = s => `"${String(s ?? "").replace(/"/g, '""')}"`;
   const csv = [cols.join(","), ...rows.map(r => cols.map(c => q(r[c])).join(","))].join("\n");
   try { await downloads.save({ filename: `jus-bidara-hitam-pelanggan-${todayStr()}.csv`, data: "﻿" + csv }); } catch (_) { setStatus("Muat turun dibatalkan."); }
