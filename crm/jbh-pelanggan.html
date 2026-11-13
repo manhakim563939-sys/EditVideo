@@ -92,6 +92,18 @@ h1{margin:2px 0 0;font:400 1.7rem/1.02 var(--fd);letter-spacing:.5px;text-transf
 .err{color:var(--late);font-size:.85rem;font-weight:700}
 .confirm{background:var(--latebg);border-radius:10px;padding:8px 10px;margin-top:8px;font-size:.85rem;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .rule{font-size:.8rem;color:var(--muted);margin-top:18px;text-align:center}
+.vchk{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:0 0 14px}
+.vchk .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.vchk label{font-weight:800;font-size:.9rem;flex:1 1 100%}
+.vchk input{flex:1 1 160px;min-width:0;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 12px;text-transform:uppercase;letter-spacing:1px;font-weight:700}
+.vres{margin-top:10px;border-radius:10px;padding:10px 12px;font-size:.9rem;display:grid;gap:6px}
+.vres.ok{background:var(--okbg);color:var(--ok)} .vres.bad{background:var(--latebg);color:var(--late)} .vres.used{background:var(--todaybg);color:var(--today)}
+.vres b{color:inherit}
+.code{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:800;letter-spacing:1px;color:var(--ink);background:var(--goldsoft);border-radius:6px;padding:1px 7px}
+.vstate{font-size:.8rem;font-weight:700}
+.vstate.u{color:var(--today)} .vstate.f{color:var(--ok)}
+.vhint{font-size:.8rem;font-weight:700;margin-top:2px}
+.vhint.ok{color:var(--ok)} .vhint.bad{color:var(--late)}
 .locked{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;text-align:center;color:var(--muted);margin-top:16px}
 </style>
 
@@ -125,6 +137,14 @@ h1{margin:2px 0 0;font:400 1.7rem/1.02 var(--fd);letter-spacing:.5px;text-transf
     <button class="btn" id="exportBtn" type="button" hidden>Muat turun CSV</button>
   </div>
 
+  <div class="vchk" id="vchk" hidden>
+    <div class="row">
+      <label for="vq">🎟️ Semak kod voucher (diskaun RM5 order kedua)</label>
+      <input id="vq" placeholder="cth. JBH-7K4P" autocomplete="off" autocapitalize="characters">
+      <button class="btn pri" type="button" id="vgo">Semak</button>
+    </div>
+    <div id="vres" hidden></div>
+  </div>
   <div class="list" id="list"></div>
   <div class="locked" id="locked" hidden>Rekod pelanggan hanya boleh dilihat oleh pemilik dan Editor page ini.</div>
 </div>
@@ -163,6 +183,10 @@ h1{margin:2px 0 0;font:400 1.7rem/1.02 var(--fd);letter-spacing:.5px;text-transf
       <label for="f-bayar">Bayaran<select id="f-bayar"><option>COD</option><option>Online Transfer</option></select></label>
     </div>
     <label for="f-tarikh">Tarikh beli<input id="f-tarikh" type="date" required></label>
+    <div id="vfield">
+      <label for="f-voucher">Kod voucher yang pelanggan guna (pilihan)<input id="f-voucher" autocomplete="off" autocapitalize="characters" placeholder="cth. JBH-7K4P" style="text-transform:uppercase;letter-spacing:1px"></label>
+      <p class="vhint" id="vhint"></p>
+    </div>
     <label for="f-nota">Nota (pilihan)<textarea id="f-nota" rows="2" placeholder="cth. dah 10 tahun minum, isteri yang order"></textarea></label>
     <p class="err" id="formErr" hidden></p>
     <button class="btn pri" type="submit" id="saveBtn" style="justify-content:center;padding:12px">Simpan</button>
@@ -177,6 +201,8 @@ const POS_TIMUR = 18;                            // Sabah / Sarawak / Labuan, se
 const EAST = ["Sabah", "Sarawak", "W.P. Labuan"];
 const STATES = ["Johor","Kedah","Kelantan","Melaka","Negeri Sembilan","Pahang","Perak","Perlis","Pulau Pinang","Selangor","Terengganu","W.P. Kuala Lumpur","W.P. Putrajaya","Sabah","Sarawak","W.P. Labuan"];
 const COL = "customers";
+const VOUCHER_RM = 5;                            // diskaun voucher pembelian kedua
+const CODE_CHARS = "ACDEFGHJKMNPQRTUVWXY34679"; // tiada huruf/nombor yang mudah keliru bila ditulis tangan
 
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -195,6 +221,26 @@ $("#f-negeri").insertAdjacentHTML("afterbegin", `<option value="">Pilih negeri</
 let db = null, rows = [], tab = "all", editing = null, writable = true, downloads = null;
 
 /* ===== paparan ===== */
+const normCode = c => { let x = String(c || "").toUpperCase().replace(/[^A-Z0-9]/g, ""); if (x.startsWith("JBH")) x = x.slice(3); return x.length === 4 ? "JBH-" + x : ""; };
+function newCode() {
+  const used = new Set(rows.map(r => r.kodVoucher));
+  for (let i = 0; i < 200; i++) {
+    const a = new Uint32Array(4); crypto.getRandomValues(a);
+    const c = "JBH-" + [...a].map(n => CODE_CHARS[n % CODE_CHARS.length]).join("");
+    if (!used.has(c)) return c;
+  }
+  return "JBH-" + Date.now().toString(36).slice(-4).toUpperCase();
+}
+const findCode = c => rows.find(r => r.kodVoucher && r.kodVoucher === normCode(c));
+function voucherInfo(code, selfId) {
+  const c = normCode(code);
+  if (!c) return { st: "bad", msg: "Format kod tak betul. Kod ada 4 huruf/nombor selepas JBH-, cth. JBH-7K4P." };
+  const r = findCode(c);
+  if (!r) return { st: "bad", msg: `Kod ${c} tiada dalam rekod. Jangan beri diskaun.` };
+  if (r.id === selfId) return { st: "bad", msg: "Ini kod untuk order ini sendiri, bukan kod order sebelumnya." };
+  if (r.voucherDigunakan) return { st: "used", r, msg: `Kod ${c} SUDAH DIGUNAKAN pada ${fmt(r.voucherDigunakan)}${r.voucherDigunakanOleh ? " oleh " + r.voucherDigunakanOleh : ""}. Jangan beri diskaun lagi.` };
+  return { st: "ok", r, msg: `Kod ${c} SAH dan belum digunakan. Diskaun RM${VOUCHER_RM} boleh diberi.` };
+}
 const custKey = r => normTel(r.tel) || String(r.nama || "").trim().toLowerCase();
 const rm = n => "RM" + (Math.round(n * 100) / 100).toLocaleString("en-MY");
 function render() {
@@ -210,7 +256,7 @@ function render() {
   $("#st-rm").textContent = rm(rows.reduce((s, r) => s + (+r.harga || 0), 0));
   $("#n-all").textContent = every.length; $("#n-month").textContent = month.length; $("#n-repeat").textContent = repeat.length;
   const pick = { all: every, month, repeat }[tab];
-  const shown = pick.filter(r => (!fs || r.negeri === fs) && (!q || [r.nama, r.tel, r.bandar, r.negeri, r.alamat, r.nota].join(" ").toLowerCase().includes(q)));
+  const shown = pick.filter(r => (!fs || r.negeri === fs) && (!q || [r.nama, r.tel, r.bandar, r.negeri, r.alamat, r.nota, r.kodVoucher, r.voucherDipakai].join(" ").toLowerCase().includes(q)));
   const list = $("#list");
   if (!rows.length) {
     list.innerHTML = `<div class="empty"><b>Belum ada pelanggan</b>Tekan <b style="display:inline">+ Tambah pembelian</b> selepas setiap order disahkan, atau tampal terus mesej order dari website.</div>`;
@@ -233,6 +279,8 @@ function render() {
         <span>📞 <b>${esc(r.tel)}</b></span>
       </div>
       ${r.alamat ? `<div class="note">🏠 ${esc(r.alamat)}</div>` : ""}
+      <div class="meta">${r.kodVoucher ? `<span>🎟️ Kod untuk kad: <span class="code">${esc(r.kodVoucher)}</span> ${r.voucherDigunakan ? `<span class="vstate u">· dah digunakan ${fmt(r.voucherDigunakan)}</span>` : `<span class="vstate f">· belum guna</span>`}</span>` : (writable ? `<button class="btn ghost" type="button" data-act="gencode">🎟️ Jana kod voucher</button>` : "")}
+      ${r.voucherDipakai ? `<span>✂️ Order ini guna voucher <span class="code">${esc(r.voucherDipakai)}</span> (−RM${VOUCHER_RM})</span>` : ""}</div>
       ${r.nota ? `<div class="note">${esc(r.nota)}</div>` : ""}
       ${writable ? `<div class="acts">
         <a class="btn wa" href="https://wa.me/${normTel(r.tel)}" target="_blank" rel="noopener">WhatsApp</a>
@@ -251,6 +299,7 @@ $("#list").addEventListener("click", async e => {
   const ref = db.collection(COL).doc(id);
   const act = b.dataset.act;
   try {
+    if (act === "gencode") await ref.update({ kodVoucher: newCode(), updatedAt: new Date().toISOString() });
     if (act === "edit") openSheet(r, "edit");
     if (act === "rebuy") openSheet(r, "rebuy");
     if (act === "del") card.querySelector("[data-confirm]").hidden = false;
@@ -262,7 +311,7 @@ $("#list").addEventListener("click", async e => {
 /* ===== borang ===== */
 let qty = 1, priceTouched = false;
 function autoFill() {
-  if (!priceTouched) $("#f-harga").value = total(qty, $("#f-negeri").value);
+  if (!priceTouched) $("#f-harga").value = total(qty, $("#f-negeri").value) - (vState && vState.st === "ok" ? VOUCHER_RM : 0);
 }
 function setQty(n) {
   qty = n;
@@ -273,6 +322,16 @@ document.querySelectorAll(".pk").forEach(p => p.addEventListener("click", () => 
 $("#f-negeri").addEventListener("change", autoFill);
 $("#f-harga").addEventListener("input", () => { priceTouched = true; });
 
+let vState = null;
+function checkVoucherField() {
+  const raw = $("#f-voucher").value.trim(), h = $("#vhint");
+  if (!raw) { vState = null; h.textContent = ""; h.className = "vhint"; autoFill(); return; }
+  vState = voucherInfo(raw, editing);
+  h.textContent = (vState.st === "ok" ? "✓ " : "✕ ") + vState.msg + (vState.st === "ok" ? ` Jumlah ditolak RM${VOUCHER_RM}.` : "");
+  h.className = "vhint " + (vState.st === "ok" ? "ok" : "bad");
+  autoFill();
+}
+$("#f-voucher").addEventListener("input", checkVoucherField);
 function openSheet(r, mode) {
   editing = mode === "edit" ? r.id : null;
   $("#sheetTitle").textContent = mode === "edit" ? "Edit rekod" : mode === "rebuy" ? "Pembelian semula" : "Tambah pembelian";
@@ -283,6 +342,7 @@ function openSheet(r, mode) {
   $("#f-tarikh").value = mode === "edit" ? r.tarikhBeli : todayStr();
   priceTouched = mode === "edit";
   if (mode === "edit") $("#f-harga").value = r.harga ?? "";
+  $("#vfield").hidden = mode === "edit"; $("#f-voucher").value = ""; vState = null; $("#vhint").textContent = "";
   setQty(mode === "edit" ? (+r.botol || 1) : 1);
   $("#formErr").hidden = true;
   $("#sheet").hidden = $("#scrim").hidden = false; document.body.style.overflow = "hidden";
@@ -302,15 +362,14 @@ function parseOrder(t) {
   const segs = alamat.replace(/,?\s*\d{5}\s+[^,]*$/, "").split(",").map(s => s.trim()).filter(Boolean);
   const bandar = segs.length > 1 ? segs[segs.length - 1] : "";
   const q = +(pakej.match(/(\d)\s*botol/i) || [])[1] || 1;
-  return { nama, tel, alamat, negeri: st, bandar, qty: q, jumlah: jum, bayar };
+  return { nama, tel, alamat, negeri: st, bandar, qty: q, jumlah: jum, bayar, voucher: g("Kod voucher") };
 }
 $("#pasteBtn").addEventListener("click", () => {
   const o = parseOrder($("#pasteTxt").value);
   if (!o.nama && !o.tel) { $("#pasteErr").textContent = "Format mesej tak dikenali. Pastikan ada baris Nama: dan Telefon:"; $("#pasteErr").hidden = false; return; }
   $("#pasteErr").hidden = true;
   $("#f-nama").value = o.nama; $("#f-tel").value = o.tel; $("#f-negeri").value = o.negeri; $("#f-bandar").value = o.bandar; $("#f-alamat").value = o.alamat;
-  priceTouched = false; setQty(o.qty);
-  if (o.jumlah) { $("#f-harga").value = o.jumlah; priceTouched = true; }
+  priceTouched = false; $("#f-voucher").value = o.voucher || ""; checkVoucherField(); setQty(o.qty);
   if (/transfer/i.test(o.bayar)) $("#f-bayar").value = "Online Transfer"; else if (/cod/i.test(o.bayar)) $("#f-bayar").value = "COD";
   $("#pasteBox").open = false;
 });
@@ -320,6 +379,7 @@ $("#form").addEventListener("submit", async e => {
   const v = id => $(id).value.trim();
   const miss = [["#f-nama", "nama"], ["#f-tel", "telefon"], ["#f-negeri", "negeri"], ["#f-tarikh", "tarikh beli"]].filter(([id]) => !v(id));
   if (miss.length) { $("#formErr").textContent = "Sila isi " + miss.map(m => m[1]).join(", ") + "."; $("#formErr").hidden = false; $(miss[0][0]).focus(); return; }
+  if (!editing && v("#f-voucher") && (!vState || vState.st !== "ok")) { $("#formErr").textContent = "Kod voucher tak sah atau dah digunakan. Padam kod tu atau semak semula sebelum simpan."; $("#formErr").hidden = false; $("#f-voucher").focus(); return; }
   const now = new Date().toISOString(), tarikh = v("#f-tarikh");
   const body = { nama: v("#f-nama"), tel: v("#f-tel"), negeri: v("#f-negeri"), bandar: v("#f-bandar"), alamat: v("#f-alamat"), botol: qty,
     harga: $("#f-harga").value === "" ? null : +$("#f-harga").value, bayaran: v("#f-bayar"), tarikhBeli: tarikh, nota: v("#f-nota"), updatedAt: now };
@@ -328,11 +388,31 @@ $("#form").addEventListener("submit", async e => {
     if (editing) {
       await db.collection(COL).doc(editing).update(body);
     } else {
-      await db.collection(COL).doc().set({ ...body, createdAt: now });
+      const used = vState && vState.st === "ok" ? vState.r : null;
+      await db.collection(COL).doc().set({ ...body, kodVoucher: newCode(), voucherDigunakan: null, voucherDipakai: used ? used.kodVoucher : null, createdAt: now });
+      if (used) await db.collection(COL).doc(used.id).update({ voucherDigunakan: tarikh, voucherDigunakanOleh: `${body.nama} (${body.tel})`, updatedAt: now });
     }
     closeSheet();
   } catch (err) { $("#formErr").textContent = errMsg(err); $("#formErr").hidden = false; }
   finally { $("#saveBtn").disabled = false; }
+});
+
+/* ===== semak voucher ===== */
+function showVoucher() {
+  const raw = $("#vq").value.trim(), box = $("#vres");
+  if (!raw) { box.hidden = true; return; }
+  const i = voucherInfo(raw, null);
+  box.className = "vres " + i.st; box.hidden = false;
+  box.innerHTML = `<div><b>${i.st === "ok" ? "✓" : "✕"} ${esc(i.msg)}</b></div>` + (i.r ? `<div>Pemilik kod: <b>${esc(i.r.nama)}</b> · ${esc(i.r.tel)} · ${esc([i.r.bandar, i.r.negeri].filter(Boolean).join(", "))}<br>Order asal: ${fmt(i.r.tarikhBeli)} · ${esc(i.r.botol)} botol. Pastikan nama &amp; alamat pembeli sama dengan pemilik kod.</div>` : "") +
+    (i.st === "ok" && writable ? `<div><button class="btn" type="button" id="vmark">Tandakan dah digunakan</button></div>` : "");
+}
+$("#vgo").addEventListener("click", showVoucher);
+$("#vq").addEventListener("keydown", e => { if (e.key === "Enter") showVoucher(); });
+$("#vres").addEventListener("click", async e => {
+  if (e.target.id !== "vmark" || !db) return;
+  const i = voucherInfo($("#vq").value, null); if (i.st !== "ok") return;
+  try { await db.collection(COL).doc(i.r.id).update({ voucherDigunakan: todayStr(), voucherDigunakanOleh: "ditanda manual", updatedAt: new Date().toISOString() }); }
+  catch (err) { setStatus(errMsg(err)); }
 });
 
 /* ===== tab, carian ===== */
@@ -341,7 +421,7 @@ $("#q").addEventListener("input", render); $("#fstate").addEventListener("change
 
 /* ===== eksport CSV ===== */
 $("#exportBtn").addEventListener("click", async () => {
-  const cols = ["nama","tel","negeri","bandar","alamat","botol","harga","bayaran","tarikhBeli","nota"];
+  const cols = ["nama","tel","negeri","bandar","alamat","botol","harga","bayaran","tarikhBeli","kodVoucher","voucherDigunakan","voucherDigunakanOleh","voucherDipakai","nota"];
   const q = s => `"${String(s ?? "").replace(/"/g, '""')}"`;
   const csv = [cols.join(","), ...rows.map(r => cols.map(c => q(r[c])).join(","))].join("\n");
   try { await downloads.save({ filename: `jus-bidara-hitam-pelanggan-${todayStr()}.csv`, data: "﻿" + csv }); } catch (_) { setStatus("Muat turun dibatalkan."); }
@@ -366,12 +446,12 @@ render();
   db = dbNs;
   const canEdit = user ? await user.canEdit() : null;
   if (canEdit === false) { writable = false; $("#locked").hidden = false; setStatus(""); render(); return; }
-  $("#addBtn").hidden = false;
+  $("#addBtn").hidden = false; $("#vchk").hidden = false;
   const timer = setTimeout(() => setStatus("Rekod belum dapat dicapai. Semak sambungan internet."), 10000);
   db.collection(COL).onSnapshot(snap => {
     rows = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     if (!snap.metadata.fromCache) { clearTimeout(timer); setStatus(`${rows.length} rekod · dikemas kini ${new Date().toLocaleTimeString("ms-MY", { hour: "2-digit", minute: "2-digit" })}`); }
-    render();
+    render(); if (!$("#vres").hidden) showVoucher();
   }, err => { clearTimeout(timer); setStatus(err.code === "revoked" ? "" : "Rekod tak dapat dimuatkan."); });
 })();
 </script>

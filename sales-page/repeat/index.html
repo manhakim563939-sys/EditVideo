@@ -83,6 +83,12 @@ h2{font-family:Anton,Impact,sans-serif;font-weight:400;font-size:26px;text-trans
 .sum div{display:flex;justify-content:space-between;gap:10px}
 .sum .tot{font-weight:800;font-size:18px}
 .sum .tot b{font-family:Anton,Impact,sans-serif;font-weight:400;font-size:30px;color:var(--red);line-height:1}
+.vc{display:grid;gap:6px;background:#fdf3dc;border:1.5px dashed var(--gold);border-radius:14px;padding:12px}
+.vc label{font-size:14px;font-weight:800;color:var(--ink)}
+.vc input{text-transform:uppercase;letter-spacing:2px;font-weight:800;background:#fff}
+.vc small{font-size:12.5px;color:var(--muted)}
+.vc .ok{color:var(--ok);font-weight:800;font-size:13.5px}
+.vc .bad{color:var(--red);font-weight:800;font-size:13.5px}
 .err{display:none;color:var(--red);font-weight:700;font-size:14px;margin-top:10px}
 .btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border:0;cursor:pointer;background:linear-gradient(180deg,#34c86b,var(--wa));color:#fff;font-weight:800;font-size:19px;padding:16px;border-radius:14px;box-shadow:0 6px 0 #127a3a;margin-top:16px;text-transform:uppercase}
 .btn:active{transform:translateY(3px);box-shadow:0 3px 0 #127a3a}
@@ -156,12 +162,19 @@ footer a{color:var(--muted)}
             <label><input type="radio" name="bayar" value="Online Transfer"> Online Transfer</label>
           </div>
         </div>
+        <div class="vc">
+          <label for="voucher">🎟️ Ada kod voucher? Jimat RM5</label>
+          <input id="voucher" name="voucher" autocomplete="off" autocapitalize="characters" placeholder="cth. JBH-7K4P" maxlength="9">
+          <span id="vmsg"></span>
+          <small>Kod ditulis pada Kad Terima Kasih dalam parcel order anda yang lepas. Satu kod untuk satu order. Staff kami akan sahkan kod di WhatsApp.</small>
+        </div>
         <label for="nota">Nota (pilihan)<input id="nota" name="nota" placeholder="cth. hantar lepas pukul 5 petang"></label>
       </div>
 
       <div class="sum" aria-live="polite">
         <div><span id="sPkg">3 Botol</span><span id="sHarga">RM69</span></div>
         <div><span>Penghantaran</span><span id="sPos">PERCUMA</span></div>
+        <div id="sVc" hidden><span>Voucher <span id="sVcCode"></span></span><span>−RM5</span></div>
         <div class="tot"><span>Jumlah</span><b id="sTot">RM69</b></div>
       </div>
       <p class="err" id="err" role="alert"></p>
@@ -192,12 +205,15 @@ const WA_NUMBER = "60179637611";
 const PAKEJ = { 1: { nama: "1 Botol", harga: 30, pos: 8 }, 2: { nama: "2 Botol", harga: 58, pos: 0 }, 3: { nama: "3 Botol", harga: 69, pos: 0 } };
 const EAST = ["Sabah", "Sarawak", "W.P. Labuan"], POS_EAST = 18;
 const KEY = "jbh-repeat-info";
+const VOUCHER_RM = 5;
+const normCode = c => { const x = String(c || "").toUpperCase(); const m = x.match(/JBH[\s\-]*([A-Z0-9]{4})(?![A-Z0-9])/) || x.trim().match(/^([A-Z0-9]{4})$/); return m ? "JBH-" + m[1] : ""; };
+const code = () => normCode($("voucher").value);
 const form = document.getElementById("order"), $ = id => document.getElementById(id);
 
 function track(ev, data) { try { if (window.fbq) fbq("track", ev, data || {}); } catch (_) {} }
 const pkg = () => (form.querySelector('input[name="pkg"]:checked') || {}).value || "3";
 const pos = id => EAST.includes($("negeri").value) ? POS_EAST : PAKEJ[id].pos;
-const total = id => PAKEJ[id].harga + pos(id);
+const total = id => PAKEJ[id].harga + pos(id) - (code() ? VOUCHER_RM : 0);
 function posText(id) { const p = pos(id); return EAST.includes($("negeri").value) ? "RM" + p + " (Sabah/Sarawak/Labuan)" : p ? "RM" + p : "PERCUMA (Semenanjung)"; }
 
 function render() {
@@ -205,8 +221,12 @@ function render() {
   $("sPkg").textContent = PAKEJ[id].nama; $("sHarga").textContent = "RM" + PAKEJ[id].harga;
   $("sPos").textContent = posText(id).replace(/ \(.*\)$/, "");
   $("sTot").textContent = $("barTot").textContent = "RM" + total(id);
+  const c = code(), raw = $("voucher").value.trim();
+  $("sVc").hidden = !c; $("sVcCode").textContent = c;
+  $("vmsg").className = c ? "ok" : raw ? "bad" : ""; $("vmsg").textContent = c ? "✓ Kod " + c + " dimasukkan. Diskaun RM5 tertakluk pengesahan." : raw ? "Kod ada 4 huruf/nombor selepas JBH-, cth. JBH-7K4P" : "";
 }
 form.addEventListener("change", render);
+document.getElementById("voucher").addEventListener("input", render);
 
 /* isi semula maklumat order lepas (disimpan dalam telefon pelanggan sahaja) */
 try {
@@ -233,6 +253,7 @@ form.addEventListener("submit", e => {
   if (!v("alamat")) miss.push("alamat");
   if (!/^[0-9]{5}$/.test(v("poskod"))) miss.push("poskod 5 digit");
   if (!v("negeri")) miss.push("negeri");
+  if (v("voucher") && !code()) miss.push("kod voucher yang betul (atau kosongkan)");
   if (miss.length) { $("err").textContent = "Sila lengkapkan: " + miss.join(", ") + "."; $("err").style.display = "block"; return; }
   $("err").style.display = "none";
   const id = pkg(), p = PAKEJ[id], bayar = (form.querySelector('input[name="bayar"]:checked') || {}).value || "COD";
@@ -241,7 +262,8 @@ form.addEventListener("submit", e => {
 
 *Pakej:* ${p.nama}
 *Harga:* RM${p.harga}
-*Penghantaran:* ${posText(id)}
+*Penghantaran:* ${posText(id)}` + (code() ? `
+*Kod voucher:* ${code()} (−RM${VOUCHER_RM})` : "") + `
 *Jumlah:* RM${total(id)}
 *Bayaran:* ${bayar}
 
