@@ -1,6 +1,6 @@
 // GET /api/telegram-test?bot=<nombor ID bot>
 // Bantu tetapan: tanpa TELEGRAM_CHAT_ID -> senaraikan chat ID yang dah mesej bot.
-// Dengan TELEGRAM_CHAT_ID -> hantar mesej ujian. "bot" mesti sama dengan nombor di depan token bot (perlindungan ringan).
+// Dengan TELEGRAM_CHAT_ID -> hantar mesej ujian. Tambah &senarai untuk senaraikan chat (cth. group staff) bila-bila masa. "bot" mesti sama dengan nombor di depan token bot (perlindungan ringan).
 import { tg, tgToken, tgChat, tgBotId, notify } from "../../lib/telegram.mjs";
 import { json } from "../../lib/billplz.mjs";
 
@@ -9,7 +9,7 @@ export default async (req) => {
   const bot = new URL(req.url).searchParams.get("bot") || "";
   if (bot !== tgBotId()) return json({ error: "Nombor bot tak sepadan. Guna nombor di depan tanda : dalam token bot." }, 403);
 
-  if (!tgChat()) {
+  if (!tgChat() || new URL(req.url).searchParams.has("senarai")) {
     const r = await tg("getUpdates", { limit: 50 });
     const chats = {};
     for (const u of r.result || []) {
@@ -18,7 +18,8 @@ export default async (req) => {
     }
     const list = Object.values(chats);
     return json({
-      langkah: list.length ? "Salin chat_id anda di bawah dan masukkan sebagai TELEGRAM_CHAT_ID dalam Netlify, kemudian Trigger deploy." : "Belum ada mesej. Buka bot anda di Telegram, tekan Start / hantar 'hai', kemudian muat semula halaman ini.",
+      langkah: list.length ? "Salin chat_id di bawah dan masukkan dalam TELEGRAM_CHAT_ID di Netlify (lebih dari satu: pisahkan dengan koma), kemudian Trigger deploy." : "Belum ada mesej baru. Hantar mesej kepada bot (atau masukkan bot ke group dan hantar mesej dalam group), kemudian muat semula halaman ini.",
+      chat_id_sekarang: tgChat() || undefined,
       chats: list,
     });
   }
