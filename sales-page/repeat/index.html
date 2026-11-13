@@ -75,7 +75,7 @@ h2{font-family:Anton,Impact,sans-serif;font-weight:400;font-size:26px;text-trans
 .f input,.f select,.f textarea{width:100%;background:var(--cream);border:1.5px solid var(--line);border-radius:12px;padding:12px 13px;font-size:16px;font-weight:500;color:var(--ink)}
 .f input:focus,.f select:focus,.f textarea:focus{border-color:var(--gold);outline:none}
 .two{display:grid;grid-template-columns:1fr 1.3fr;gap:10px}
-.pay{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pay{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
 .pay label{display:flex;align-items:center;gap:8px;background:var(--cream);border:1.5px solid var(--line);border-radius:12px;padding:11px 12px;font-size:15px;font-weight:700;color:var(--ink);cursor:pointer}
 .pay label:has(input:checked){border-color:var(--gold);background:#fdf3dc}
 .pay input{accent-color:var(--gold-deep)}
