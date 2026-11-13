@@ -27,3 +27,16 @@ window.JBH_bayarOnline = async function (order, btn) {
     .catch(() => ({ online: false }))
     .then(s => { if (s && s.online) opts.forEach(l => { if (l) l.hidden = false; }); });
 })();
+
+/* Order COD: maklumkan group Telegram (sekali sahaja untuk order yang sama dalam 5 minit). */
+window.JBH_notifyCOD = function (order) {
+  try {
+    const key = "jbh-cod-" + [order.pkg, order.tel, order.alamat].join("|");
+    const lastAt = Number(sessionStorage.getItem(key) || 0);
+    if (Date.now() - lastAt < 5 * 60 * 1000) return;
+    sessionStorage.setItem(key, String(Date.now()));
+  } catch (_) {}
+  try {
+    fetch("/api/order-notify", { method: "POST", keepalive: true, headers: { "Content-Type": "application/json" }, body: JSON.stringify(order) }).catch(() => {});
+  } catch (_) {}
+};

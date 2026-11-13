@@ -263,6 +263,7 @@ form.addEventListener("submit", e => {
   track("InitiateCheckout", { content_name: "Repeat " + p.nama, currency: "MYR", value: total(id), num_items: Number(id) });
   track("Contact", { content_name: "Repeat " + p.nama, currency: "MYR", value: total(id) });
   const url = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(msg);
+  if (window.JBH_notifyCOD) window.JBH_notifyCOD({ pkg: Number(id), negeri: v("negeri"), nama: v("nama"), tel: v("tel"), alamat: v("alamat"), poskod: v("poskod"), sumber: "repeat" });
   $("waLink").href = url; $("fallback").hidden = false;
   $("waLink").click();
 });
