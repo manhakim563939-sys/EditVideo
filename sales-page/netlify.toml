@@ -1,0 +1,8 @@
+# Netlify: tapak statik (folder ini) + fungsi bayaran Billplz.
+# Tetapan Netlify: Base directory = sales-page, Build command kosong, Publish directory = sales-page.
+[build]
+  publish = "."
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"

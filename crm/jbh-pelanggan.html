@@ -180,7 +180,7 @@ h1{margin:2px 0 0;font:400 1.7rem/1.02 var(--fd);letter-spacing:.5px;text-transf
     </div>
     <div class="two">
       <label for="f-harga">Jumlah bayaran (RM)<input id="f-harga" type="number" inputmode="decimal" min="0" step="0.01"></label>
-      <label for="f-bayar">Bayaran<select id="f-bayar"><option>COD</option><option>Online Transfer</option></select></label>
+      <label for="f-bayar">Bayaran<select id="f-bayar"><option>COD</option><option>Online (Billplz)</option><option>Online Transfer</option></select></label>
     </div>
     <label for="f-tarikh">Tarikh beli<input id="f-tarikh" type="date" required></label>
     <div id="vfield">
@@ -221,7 +221,7 @@ $("#f-negeri").insertAdjacentHTML("afterbegin", `<option value="">Pilih negeri</
 let db = null, rows = [], tab = "all", editing = null, writable = true, downloads = null;
 
 /* ===== paparan ===== */
-const normCode = c => { let x = String(c || "").toUpperCase().replace(/[^A-Z0-9]/g, ""); if (x.startsWith("JBH")) x = x.slice(3); return x.length === 4 ? "JBH-" + x : ""; };
+const normCode = c => { const x = String(c || "").toUpperCase(); const m = x.match(/JBH[\s\-]*([A-Z0-9]{4})(?![A-Z0-9])/) || x.trim().match(/^([A-Z0-9]{4})$/); return m ? "JBH-" + m[1] : ""; };
 function newCode() {
   const used = new Set(rows.map(r => r.kodVoucher));
   for (let i = 0; i < 200; i++) {
@@ -362,7 +362,7 @@ function parseOrder(t) {
   const segs = alamat.replace(/,?\s*\d{5}\s+[^,]*$/, "").split(",").map(s => s.trim()).filter(Boolean);
   const bandar = segs.length > 1 ? segs[segs.length - 1] : "";
   const q = +(pakej.match(/(\d)\s*botol/i) || [])[1] || 1;
-  return { nama, tel, alamat, negeri: st, bandar, qty: q, jumlah: jum, bayar, voucher: g("Kod voucher") };
+  return { nama, tel, alamat, negeri: st, bandar, qty: q, jumlah: jum, bayar, voucher: g("Kod voucher"), bil: g("ID Bil") };
 }
 $("#pasteBtn").addEventListener("click", () => {
   const o = parseOrder($("#pasteTxt").value);
@@ -370,7 +370,8 @@ $("#pasteBtn").addEventListener("click", () => {
   $("#pasteErr").hidden = true;
   $("#f-nama").value = o.nama; $("#f-tel").value = o.tel; $("#f-negeri").value = o.negeri; $("#f-bandar").value = o.bandar; $("#f-alamat").value = o.alamat;
   priceTouched = false; $("#f-voucher").value = o.voucher || ""; checkVoucherField(); setQty(o.qty);
-  if (/transfer/i.test(o.bayar)) $("#f-bayar").value = "Online Transfer"; else if (/cod/i.test(o.bayar)) $("#f-bayar").value = "COD";
+  if (/billplz/i.test(o.bayar)) $("#f-bayar").value = "Online (Billplz)"; else if (/transfer/i.test(o.bayar)) $("#f-bayar").value = "Online Transfer"; else if (/cod/i.test(o.bayar)) $("#f-bayar").value = "COD";
+  if (o.bil) { $("#f-nota").value = ("Billplz ID Bil: " + o.bil + (/dibayar/i.test(o.bayar) ? " (DIBAYAR)" : "") + "\n" + $("#f-nota").value).trim(); if (o.jumlah) { $("#f-harga").value = o.jumlah; priceTouched = true; } }
   $("#pasteBox").open = false;
 });
 

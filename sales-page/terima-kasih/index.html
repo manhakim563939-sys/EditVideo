@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Status Bayaran Jus Bidara Hitam</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#14120e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2090608328226528');
+fbq('track', 'PageView');
+</script>
+<!-- End Meta Pixel Code -->
+<style>
+:root{--ink:#14120e;--char:#211d16;--gold:#e3a92f;--gold-hi:#f4c65a;--cream:#faf6ec;--line:#e6dcc6;--muted:#6e6555;--red:#c8322a;--wa:#1fae55;--ok:#2d7a3e}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+body{font-family:Poppins,system-ui,sans-serif;background:var(--cream);color:var(--ink);font-size:16px;line-height:1.5}
+.top{background:radial-gradient(ellipse at 50% 0%,#3a3124 0%,var(--char) 55%,var(--ink) 100%);border-bottom:4px solid var(--gold);padding:22px 0 26px;text-align:center}
+.top img{width:84px;height:84px;margin:0 auto;border-radius:50%;box-shadow:0 0 0 4px var(--gold);display:block}
+.wrap{max-width:520px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px 18px;margin-top:-18px;position:relative;text-align:center;box-shadow:0 14px 30px rgba(40,25,5,.08)}
+.ic{width:72px;height:72px;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:38px;font-weight:800;color:#fff;background:var(--muted)}
+.ok .ic{background:var(--ok)} .bad .ic{background:var(--red)}
+h1{font-family:Anton,Impact,sans-serif;font-weight:400;font-size:34px;line-height:1.05;text-transform:uppercase}
+.ok h1{color:var(--ok)} .bad h1{color:var(--red)}
+.card p{color:var(--muted);margin-top:8px;font-size:15px}
+.det{margin:16px 0 4px;text-align:left;background:var(--cream);border-radius:12px;padding:12px 14px;display:grid;gap:4px;font-size:14.5px}
+.det div{display:flex;justify-content:space-between;gap:12px}
+.det b{text-align:right}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border:0;cursor:pointer;background:linear-gradient(180deg,#34c86b,var(--wa));color:#fff;font:800 18px Poppins,sans-serif;padding:15px;border-radius:14px;box-shadow:0 6px 0 #127a3a;margin-top:16px;text-decoration:none;text-transform:uppercase}
+.btn.alt{background:var(--ink);box-shadow:0 6px 0 #000}
+.small{font-size:13px;color:var(--muted);margin-top:12px}
+</style>
+</head>
+<body>
+<div class="top"><img src="/img/logo-mbah.png" alt="Mbah Lanang" width="84" height="84"></div>
+<main class="wrap">
+  <div class="card" id="card">
+    <div class="ic" id="ic">…</div>
+    <h1 id="title">Menyemak bayaran</h1>
+    <p id="text">Sebentar, kami sedang sahkan status bayaran anda.</p>
+    <div class="det" id="det" hidden></div>
+    <a class="btn" id="waBtn" href="https://wa.me/60179637611" target="_blank" rel="noopener" hidden>Hantar butiran order ke WhatsApp</a>
+    <a class="btn alt" id="retry" href="/" hidden>Cuba lagi</a>
+    <p class="small" id="small">Ada masalah? WhatsApp kami: <b>017-963 7611</b></p>
+  </div>
+</main>
+<script>
+const WA = "60179637611";
+const $ = id => document.getElementById(id);
+let order = null;
+try { order = JSON.parse(localStorage.getItem("jbh-pending-order") || "null"); } catch (_) {}
+const PAKEJ = { 1: "Pakej Cuba - 1 Botol", 2: "Pakej Usaha - 2 Botol", 3: "Pakej Bebas - 3 Botol" };
+
+function show(state, title, text) {
+  $("card").className = "card " + state;
+  $("ic").textContent = state === "ok" ? "✓" : state === "bad" ? "!" : "…";
+  $("title").textContent = title; $("text").textContent = text;
+}
+function waMsg(id, amount) {
+  const o = order || {};
+  const lines = [
+    `Assalamualaikum, saya dah *BAYAR ONLINE* untuk ${o.sumber === "repeat" ? "*REPEAT ORDER* " : ""}Jus Bidara Hitam.`, "",
+    `*Pakej:* ${PAKEJ[o.pkg] || "-"}`,
+    `*Jumlah:* RM${amount ?? o.jumlah ?? "-"}`,
+    `*Bayaran:* Online (Billplz) - DIBAYAR`,
+    `*ID Bil:* ${id}`, "",
+    `*Nama:* ${o.nama || "-"}`,
+    `*Telefon:* ${o.tel || "-"}`,
+    `*Alamat:* ${[o.alamat, [o.poskod, o.negeri].filter(Boolean).join(" ")].filter(Boolean).join(", ") || "-"}`
+  ];
+  return "https://wa.me/" + WA + "?text=" + encodeURIComponent(lines.join("\n"));
+}
+
+(async () => {
+  const qs = location.search;
+  if (!/billplz%5Bid%5D|billplz\[id\]/.test(qs)) {
+    show("bad", "Tiada maklumat bayaran", "Halaman ini dibuka selepas bayaran online. Kalau anda dah bayar, WhatsApp kami dengan resit.");
+    $("retry").hidden = false; return;
+  }
+  let r = null;
+  try { r = await (await fetch("/api/billplz-verify" + qs)).json(); } catch (_) {}
+  if (!r || !r.valid) {
+    show("bad", "Tak dapat sahkan", "Kami tak dapat sahkan bayaran ini. Kalau duit dah ditolak, WhatsApp kami dengan resit dan kami akan semak.");
+    $("waBtn").hidden = false; $("waBtn").textContent = "WhatsApp kami";
+    return;
+  }
+  if (r.paid) {
+    show("ok", "Bayaran berjaya!", "Terima kasih. Tekan butang di bawah untuk hantar butiran order kepada kami supaya kami boleh pos dengan segera.");
+    const amt = r.amount ?? (order && order.jumlah);
+    $("det").hidden = false;
+    $("det").innerHTML = `<div><span>ID Bil</span><b>${r.id}</b></div>` + (amt != null ? `<div><span>Jumlah dibayar</span><b>RM${amt}</b></div>` : "") + (order ? `<div><span>Pakej</span><b>${PAKEJ[order.pkg] || "-"}</b></div><div><span>Nama</span><b>${(order.nama || "").replace(/[<>&]/g, "")}</b></div>` : "");
+    $("waBtn").href = waMsg(r.id, amt); $("waBtn").hidden = false;
+    try {
+      const key = "jbh-purchase-" + r.id;
+      if (!localStorage.getItem(key)) { localStorage.setItem(key, "1"); if (window.fbq) fbq("track", "Purchase", { currency: "MYR", value: Number(amt) || 0 }); }
+      localStorage.removeItem("jbh-pending-order");
+    } catch (_) {}
+  } else {
+    show("bad", "Bayaran tak berjaya", "Bayaran belum diterima atau dibatalkan. Tiada caj dibuat. Anda boleh cuba lagi atau pilih COD.");
+    $("retry").hidden = false; $("retry").href = order && order.sumber === "repeat" ? "/repeat/" : "/#tempah";
+  }
+})();
+</script>
+</body>
+</html>

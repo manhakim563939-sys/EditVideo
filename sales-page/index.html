@@ -684,12 +684,12 @@ src="https://www.facebook.com/tr?id=2090608328226528&ev=PageView&noscript=1"
         <label>Cara bayaran</label>
         <div class="opts">
           <label class="opt"><input type="radio" name="bayar" value="COD (Bayar Bila Barang Sampai)" checked> COD, bayar bila barang sampai</label>
-          <label class="opt"><input type="radio" name="bayar" value="Online Transfer"> Online transfer</label>
+          <label class="opt"><input type="radio" name="bayar" value="ONLINE"> Bayar online sekarang <small>FPX · DuitNow QR · Kad</small></label>
         </div>
 
         <div class="summary" id="summary"></div>
 
-        <button type="submit" class="btn wa">Hantar pesanan via WhatsApp<small>Kami akan sahkan pesanan anda</small></button>
+        <button type="submit" class="btn wa" id="submitBtn">Hantar pesanan via WhatsApp<small>Kami akan sahkan pesanan anda</small></button>
         <div class="err" id="err"></div>
         <p class="wa-fallback" id="waFallback" hidden>WhatsApp tak terbuka? <a id="waLink" href="https://wa.me/60179637611" target="_blank" rel="noopener">Tekan sini</a> atau mesej terus <b>017-963 7611</b>.</p>
         <p class="note">🔒 Maklumat anda hanya digunakan untuk penghantaran.</p>
@@ -828,7 +828,11 @@ function posText(id){
   return rm ? "RM" + rm : "PERCUMA (Semenanjung)";
 }
 function totalText(id){ return "RM" + (PAKEJ[id].harga + posRM(id)); }
+const BTN_WA = 'Hantar pesanan via WhatsApp<small>Kami akan sahkan pesanan anda</small>';
+const BTN_PAY = 'Bayar online sekarang<small>Selamat melalui Billplz · FPX, DuitNow QR, kad</small>';
+const isOnline = () => ((form.querySelector('input[name="bayar"]:checked')||{}).value === "ONLINE");
 function renderSummary(){
+  const sb = document.getElementById("submitBtn"); if (sb && !sb.disabled) sb.innerHTML = isOnline() ? BTN_PAY : BTN_WA;
   const id = selectedPkg(), p = PAKEJ[id];
   summary.innerHTML =
     `<div><span>${p.nama}</span><span>RM${p.harga}</span></div>` +
@@ -872,6 +876,12 @@ form.addEventListener("submit", e => {
   err.style.display = "none";
   const id = selectedPkg(), p = PAKEJ[id];
   const bayar = (form.querySelector('input[name="bayar"]:checked')||{}).value || "COD";
+  if (bayar === "ONLINE") {
+    track("InitiateCheckout", { content_name: p.nama, currency: "MYR", value: PAKEJ[id].harga + posRM(id), num_items: Number(id) });
+    window.JBH_bayarOnline({ pkg: Number(id), negeri, nama, tel, alamat, poskod, sumber: "main" }, document.getElementById("submitBtn"))
+      .catch(e => { err.textContent = e.message; err.style.display = "block"; });
+    return;
+  }
   const msg =
 `Assalamualaikum, saya nak tempah *Jus Bidara Hitam*.
 
@@ -892,5 +902,6 @@ form.addEventListener("submit", e => {
   waLink.click();
 });
 </script>
+<script src="/js/bayar-online.js"></script>
 </body>
 </html>
