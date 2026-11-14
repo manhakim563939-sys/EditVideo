@@ -360,6 +360,7 @@ details p{color:var(--muted);font-size:.88rem;margin-top:6px}
   <div class="opts" id="opts"></div>
 
   <form class="form" id="orderForm" novalidate>
+    <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <div class="opt-t" style="margin-bottom:0">Penghantaran</div>
     <label for="f-name">Nama penerima<input id="f-name" autocomplete="name" placeholder="cth. Nur Aisyah binti Ahmad"></label>
     <label for="f-phone">No. telefon (WhatsApp)<input id="f-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="cth. 012 345 6789"></label>
@@ -515,6 +516,14 @@ $("#closeSheet").addEventListener("click", closeSheet); scrim.addEventListener("
 document.addEventListener("keydown", e => { if (e.key === "Escape" && !sheet.hidden) closeSheet(); });
 
 // hantar order
+/* hantar order ke group Telegram (fungsi Netlify /api/order-notify); senyap jika gagal */
+const notifySent = new Set();
+function notifyOrder(qty, payment, source) {
+  const v = id => (document.getElementById(id)?.value || "").trim();
+  const body = { qty, negeri: v("f-state"), nama: v("f-name"), tel: v("f-phone"), alamat: v("f-addr"), poskod: v("f-post"), bandar: v("f-city"), bayaran: payment, sumber: source, website: v("f-website") };
+  const key = JSON.stringify(body); if (notifySent.has(key)) return; notifySent.add(key);
+  try { fetch("/api/order-notify", { method: "POST", headers: { "Content-Type": "application/json" }, body: key, keepalive: true }).catch(() => {}); } catch (_) {}
+}
 $("#orderForm").addEventListener("submit", e => {
   e.preventDefault();
   const v = id => document.getElementById(id).value.trim(), err = $("#err");
@@ -528,6 +537,7 @@ $("#orderForm").addEventListener("submit", e => {
     `Bayaran: ${document.querySelector('input[name="pay"]:checked').value}`, "", `Nama: ${v("f-name")}`, `Tel: ${v("f-phone")}`,
     `Alamat: ${v("f-addr")}, ${v("f-post")} ${v("f-city")}, ${v("f-state")}`].join("\n");
   $("#msg").textContent = msg; $("#walink").href = wa(msg); $("#done").hidden = false;
+  notifyOrder(p.qty, document.querySelector('input[name="pay"]:checked').value, "shop");
   track("Lead", { value: total, currency: "MYR", content_name: p.name, num_items: p.qty }, "lead:" + msg);
   $("#done").scrollIntoView({ behavior: "smooth", block: "center" });
 });

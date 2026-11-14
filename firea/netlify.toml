@@ -1,0 +1,11 @@
+# Netlify (deploy dari GitHub): website Firea + fungsi notifikasi Telegram.
+# Tetapan projek Netlify: Base directory = firea. Build command & publish diambil dari fail ini.
+[build]
+  command = "python3 build.py --site"
+  publish = "site"
+  # Langkau build (jimat kredit) bila commit tak ubah website atau fungsi.
+  ignore = "[ \"$CACHED_COMMIT_REF\" = \"$COMMIT_REF\" ] && exit 1; git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- firea.html shop.html build.py netlify.toml img/*.jpg img/wa media netlify lib"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"

@@ -3,9 +3,10 @@
 firea.html -> index.html        (fireadeodorant.com)
 shop.html  -> shop/index.html   (fireadeodorant.com/shop/)
 Gambar, suara dan video kekal sebagai fail berasingan (img/, audio/, media/) supaya page ringan.
-Jalankan: python3 build.py  ->  ../output/fireadeodorant-website.zip (folder "fireadeodorant")
+Jalankan: python3 build.py         ->  ../output/fireadeodorant-website.zip (upload manual / Netlify Drop)
+          python3 build.py --site  ->  site/ (dipakai Netlify bila deploy dari GitHub, lihat netlify.toml)
 """
-import pathlib, re, shutil, zipfile
+import pathlib, re, shutil, sys, zipfile
 
 here = pathlib.Path(__file__).parent
 PIXEL_ID = "1727644342009474"   # Firea Pixel (Meta, ditukar 27 Okt). Kosongkan "" untuk matikan.
@@ -64,9 +65,9 @@ if __name__ == "__main__":
                  url="https://fireadeodorant.com/", og_title="Firea Celeste Musk | Ketiak Berpeluh, Dah Tak Risau Lagi",
                  og_desc="Deodoran roll-on 0% alkohol untuk wanita bertudung yang aktif. Kering dari pagi sampai malam. COD tersedia.")
     shop = page("shop.html", "../",
-                desc="Firea Celeste Musk Deodorant Roll-on 50ml. 0% alkohol, cepat kering, tahan pagi sampai malam. COD & free pos 2 botol (Semenanjung).",
-                url="https://fireadeodorant.com/shop/", og_title="Firea Celeste Musk Deodorant Roll-on 50ml | Dari RM28",
-                og_desc="0% alkohol, cepat kering, tak melekit. COD tersedia. Free pos 2 botol ke atas (Semenanjung).",
+                desc="Firea Celeste Musk Deodorant Roll-on 50ml. 0% alkohol, cepat kering, tahan pagi sampai malam. COD & free pos Semenanjung.",
+                url="https://fireadeodorant.com/shop/", og_title="Firea Celeste Musk Deodorant Roll-on 50ml | RM35 Free Pos",
+                og_desc="0% alkohol, cepat kering, tak melekit. COD tersedia. Free pos semua pakej (Semenanjung).",
                 og_type="product", color="#7d1f45")
     (here / "index.html").write_text(index)
     (here / "shop").mkdir(exist_ok=True)
@@ -76,6 +77,17 @@ if __name__ == "__main__":
     missing = [f for f in files if not (here / f).exists()]
     if missing:
         raise SystemExit("Fail tiada: " + ", ".join(missing))
+    if "--site" in sys.argv:
+        site = here / "site"
+        shutil.rmtree(site, ignore_errors=True)
+        (site / "shop").mkdir(parents=True)
+        (site / "index.html").write_text(index)
+        (site / "shop" / "index.html").write_text(shop)
+        for f in files:
+            (site / f).parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(here / f, site / f)
+        print(f"site/: index.html, shop/index.html, {len(files)} fail aset")
+        sys.exit(0)
     OUT_ZIP.parent.mkdir(exist_ok=True)
     with zipfile.ZipFile(OUT_ZIP, "w", zipfile.ZIP_DEFLATED) as z:
         z.write(here / "index.html", "fireadeodorant/index.html")

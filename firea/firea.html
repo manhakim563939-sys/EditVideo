@@ -647,6 +647,7 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
   <div class="wrap">
     <div class="center"><h2>Borang <span class="hl">Order</span></h2></div>
     <form class="order" id="orderForm" novalidate>
+      <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <h3>Butiran anda</h3>
       <div class="field"><label for="f-name">Nama penerima <i>*</i></label><input id="f-name" name="name" autocomplete="name" placeholder="cth. Nur Aisyah binti Ahmad" required></div>
       <div class="field"><label for="f-phone">No. telefon (WhatsApp) <i>*</i></label><input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="cth. 012 345 6789" required></div>
@@ -857,6 +858,14 @@ render();
 $("#orderForm").addEventListener("focusin", () => {
   const { p } = calc(); track("InitiateCheckout", { value: p.price, currency: "MYR", content_name: p.kind, num_items: p.qty }, "ic");
 });
+/* hantar order ke group Telegram (fungsi Netlify /api/order-notify); senyap jika gagal */
+const notifySent = new Set();
+function notifyOrder(qty, payment, source) {
+  const v = id => (document.getElementById(id)?.value || "").trim();
+  const body = { qty, negeri: v("f-state"), nama: v("f-name"), tel: v("f-phone"), alamat: v("f-addr"), poskod: v("f-post"), bandar: v("f-city"), bayaran: payment, sumber: source, website: v("f-website") };
+  const key = JSON.stringify(body); if (notifySent.has(key)) return; notifySent.add(key);
+  try { fetch("/api/order-notify", { method: "POST", headers: { "Content-Type": "application/json" }, body: key, keepalive: true }).catch(() => {}); } catch (_) {}
+}
 $("#orderForm").addEventListener("submit", e => {
   e.preventDefault();
   const f = e.target, err = $("#err");
@@ -882,6 +891,7 @@ $("#orderForm").addEventListener("submit", e => {
   $("#walink").href = waUrl(msg);
   $("#wanum").textContent = "Kalau WhatsApp tak terbuka, salin mesej dan hantar ke 014-352 0164.";
   $("#done").hidden = false;
+  notifyOrder(p.qty, f.pay.value, "sales");
   track("Lead", { value: total, currency: "MYR", content_name: p.kind, num_items: p.qty }, "lead:" + msg);
   $("#done").scrollIntoView({ behavior: "smooth", block: "center" });
 });
