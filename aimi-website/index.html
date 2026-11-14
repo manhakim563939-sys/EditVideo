@@ -263,31 +263,9 @@ footer.site b{font-family:var(--f-disp);font-weight:400;font-size:20px;letter-sp
 .areas li::before{content:"";width:12px;height:16px;background:var(--gold);clip-path:path("M6 0C2.7 0 0 2.6 0 5.8 0 10.2 6 16 6 16s6-5.8 6-10.2C12 2.6 9.3 0 6 0z")}
 .areas.pre li{opacity:0;transform:translateY(-18px) scale(.9)}
 @media (max-width:760px){.trust{grid-template-columns:1fr;gap:20px}}
-/* calculator */
-.calc{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:28px;align-items:start}
-.calc .fields{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.calc label,.book label{display:grid;gap:6px;font-weight:700;font-size:14.5px;min-width:0}
-.calc input,.calc select,.book input,.book textarea{font:inherit;font-size:16px;padding:12px 14px;border-radius:12px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);width:100%}
-.band .calc input,.band .calc select{border-color:rgba(255,255,255,.25)}
-.calc label:first-child{grid-column:1/-1}
-.seg{grid-column:1/-1;border:0;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:8px}
-.seg legend{font-weight:700;font-size:14.5px;margin-bottom:8px}
+.book label{display:grid;gap:6px;font-weight:700;font-size:14.5px;min-width:0}
+.book input,.book textarea{font:inherit;font-size:16px;padding:12px 14px;border-radius:12px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);width:100%}
 [hidden]{display:none!important}
-.calc .seg label{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);padding:10px 14px;border-radius:999px;cursor:pointer;font-weight:600}
-.seg label:has(input:checked){background:var(--gold-2);color:#14241F;border-color:var(--gold-2)}
-.calc .seg input{accent-color:#14241F;width:auto;padding:0;margin:0}
-#c-extra-l{grid-column:1/-1}
-.result{background:var(--paper);color:var(--ink);border-radius:var(--r);padding:26px;display:grid;gap:14px;box-shadow:0 24px 50px -24px rgba(0,0,0,.5)}
-.result .nums{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.result .nums div{border:1px solid var(--rule);border-radius:14px;padding:14px;display:grid}
-.result .nums b{font-family:var(--f-disp);font-weight:400;font-size:46px;color:var(--emerald);line-height:1.1;font-variant-numeric:tabular-nums}
-:root[data-theme="dark"] .result .nums b{color:var(--gold-2)}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .result .nums b{color:var(--gold-2)}}
-.result .nums span{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-.result small,.rnote{color:var(--muted);font-size:14px}
-.result .eyebrow{color:var(--gold)}
-@media (max-width:860px){.calc{grid-template-columns:1fr}}
-@media (max-width:420px){.calc .fields{grid-template-columns:1fr}}
 /* booking form */
 .book{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:860px;background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);padding:26px}
 .book .full,.book .chips{grid-column:1/-1}
@@ -312,7 +290,7 @@ html,body{overflow-x:clip}
   <div class="wrap">
     <a class="brand" href="#utama"><img src="img/logo.png" alt="Logo Aimi Curtain"><div><b>AIMI CURTAIN</b><small>Aimi Home Decor · Kulim</small></div></a>
     <nav class="links" aria-label="Menu">
-      <a href="#servis">Servis</a><a href="#proses">Proses</a><a href="#hasil">Hasil kerja</a><a href="#sebelum-selepas">Sebelum/Selepas</a><a href="#testimoni">Testimoni</a><a href="#kalkulator">Kalkulator</a><a href="#tempah">Tempah</a><a href="#lokasi">Lokasi</a>
+      <a href="#servis">Servis</a><a href="#proses">Proses</a><a href="#hasil">Hasil kerja</a><a href="#sebelum-selepas">Sebelum/Selepas</a><a href="#testimoni">Testimoni</a><a href="#tempah">Tempah</a><a href="#lokasi">Lokasi</a>
     </nav>
     <a class="btn btn-wa" href="https://wa.me/60133416415?text=Salam%20Aimi%20Curtain%2C%20saya%20nak%20tanya%20pasal%20langsir." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg><span>WhatsApp</span></a>
   </div>
@@ -467,33 +445,6 @@ html,body{overflow-x:clip}
   </section>
 
 
-  <section id="kalkulator" class="band">
-    <div class="wrap">
-      <div class="head"><span class="eyebrow">Kalkulator ukuran</span><h2>Kira saiz langsir anda</h2><p class="lede">Masukkan ukuran bingkai tingkap. Kami kira guna cara Aimi: tambah 5 inci kiri dan kanan, dan labuh ikut pilihan anda.</p></div>
-      <form class="calc" id="calc" novalidate>
-        <div class="fields">
-          <label>Unit
-            <select id="c-unit"><option value="in">Inci</option><option value="cm">Sentimeter</option></select></label>
-          <label>Lebar bingkai tingkap<input id="c-w" type="number" inputmode="decimal" min="1" step="any" value="48"></label>
-          <label>Tinggi bingkai tingkap<input id="c-h" type="number" inputmode="decimal" min="1" step="any" value="60"></label>
-          <fieldset class="seg"><legend>Labuh langsir</legend>
-            <label><input type="radio" name="c-drop" value="window" checked> Lepas bingkai</label>
-            <label><input type="radio" name="c-drop" value="floor"> Sampai lantai</label>
-            <label><input type="radio" name="c-drop" value="ceiling"> Siling ke lantai</label>
-          </fieldset>
-          <label id="c-extra-l" hidden><span id="c-extra-t">Jarak atas bingkai ke lantai</span><input id="c-extra" type="number" inputmode="decimal" min="1" step="any" value="90"></label>
-        </div>
-        <div class="result" aria-live="polite">
-          <span class="eyebrow">Anggaran saiz langsir</span>
-          <div class="nums"><div><b id="r-w">58"</b><span>Lebar</span></div><div><b id="r-h">65"</b><span>Labuh</span></div></div>
-          <p id="r-note" class="rnote"></p>
-          <a class="btn btn-wa" id="r-wa" href="https://wa.me/60133416415" target="_blank" rel="noopener">Hantar ukuran ke WhatsApp</a>
-          <small>Anggaran sahaja. Saiz sebenar disahkan semasa team kami datang ukur tanpa caj.</small>
-        </div>
-      </form>
-    </div>
-  </section>
-
   <section id="dipercayai">
     <div class="wrap trust">
       <div class="count"><b data-count="500">500</b><b>+</b><span>buah rumah siap dipasang</span></div>
@@ -636,7 +587,7 @@ document.getElementById("copy").addEventListener("click", async (e) => {
   if (reduce || !("IntersectionObserver" in window)) return;
 
   const groups = [
-    [".head", ""], [".card", "zoom"], [".steps li", ""], [".slider", "curtain"], [".ba-stage", "zoom"], [".ba-side", "right"], [".result", "zoom"], [".calc .fields", "left"], [".book", ""], [".count", "zoom"], [".measure", "zoom"],
+    [".head", ""], [".card", "zoom"], [".steps li", ""], [".slider", "curtain"], [".ba-stage", "zoom"], [".ba-side", "right"], [".book", ""], [".count", "zoom"], [".measure", "zoom"],
     ["blockquote", "alt"], [".vids figure", "zoom"], [".pay", "zoom"], ["details", ""], [".visit img", "curtain"], [".info", "right"], ["footer.site .wrap > div", ""]
   ];
   const els = [];
@@ -729,37 +680,6 @@ document.getElementById("copy").addEventListener("click", async (e) => {
     (function tick(now){ const p = Math.min(1, (now - t0) / 1600); el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(tick); })(t0);
   }, { threshold: 0.5 });
   io.observe(el);
-})();
-
-// ---------- size calculator ----------
-(() => {
-  const f = document.getElementById("calc"); if (!f) return;
-  const $ = (id) => document.getElementById(id);
-  const unit = () => $("c-unit").value;
-  const pad = () => (unit() === "cm" ? 12.7 : 5);
-  const fmt = (v) => (Math.round(v * 10) / 10) + (unit() === "cm" ? " cm" : "\"");
-  function calc(){
-    const w = parseFloat($("c-w").value), h = parseFloat($("c-h").value), x = parseFloat($("c-extra").value);
-    const mode = f.querySelector('input[name="c-drop"]:checked').value;
-    $("c-extra-l").hidden = mode === "window";
-    $("c-extra-t").textContent = mode === "ceiling" ? "Tinggi siling ke lantai" : "Jarak atas bingkai ke lantai";
-    let lw = w > 0 ? w + 2 * pad() : NaN, lh;
-    if (mode === "window") lh = h > 0 ? h + pad() : NaN;
-    else if (mode === "floor") lh = x > 0 ? x + pad() * 0.4 : NaN;
-    else lh = x > 0 ? x : NaN;
-    $("r-w").textContent = isNaN(lw) ? "–" : fmt(lw);
-    $("r-h").textContent = isNaN(lh) ? "–" : fmt(lh);
-    $("r-note").textContent = mode === "window" ? "Labuh = tinggi bingkai + 5 inci di bawah bingkai." : mode === "floor" ? "Labuh hingga lantai, rel dipasang sedikit di atas bingkai." : "Siling ke lantai menjadikan dinding nampak lebih tinggi.";
-    const m = { window: "lepas bingkai", floor: "sampai lantai", ceiling: "siling ke lantai" }[mode];
-    const msg = "Salam Aimi Curtain, saya kira guna kalkulator di website:\n- Lebar bingkai: " + ($("c-w").value || "-") + " " + (unit() === "cm" ? "cm" : "inci") + "\n- Tinggi bingkai: " + ($("c-h").value || "-") + "\n- Labuh: " + m + "\n- Anggaran langsir: lebar " + $("r-w").textContent + ", labuh " + $("r-h").textContent + "\nBoleh datang ukur dan beri sebut harga?";
-    $("r-wa").href = "https://wa.me/60133416415?text=" + encodeURIComponent(msg);
-  }
-  $("c-unit").addEventListener("change", () => {
-    const k = unit() === "cm" ? 2.54 : 1 / 2.54;
-    ["c-w", "c-h", "c-extra"].forEach((id) => { const v = parseFloat($(id).value); if (v > 0) $(id).value = Math.round(v * k * 10) / 10; });
-    calc();
-  });
-  f.addEventListener("input", calc); f.addEventListener("submit", (e) => e.preventDefault()); calc();
 })();
 
 // ---------- booking form -> WhatsApp ----------
