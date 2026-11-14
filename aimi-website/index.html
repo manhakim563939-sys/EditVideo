@@ -1,0 +1,359 @@
+<title>Aimi Curtain Kulim</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Kedai langsir & hiasan dalaman di Kulim. Langsir tempahan khas, ukur percuma di rumah, jahit dan pasang. 100% Bumiputera.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Figtree:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: long single page, sections separated by a pleated-fabric band; content column max 1120px; hero = text + tall photo */
+:root{
+  --linen:#F6F1E7; --paper:#FFFDF8; --ink:#14241F; --muted:#5B6862; --rule:#E2D9C6;
+  --emerald:#0F3D30; --emerald-2:#185C48; --gold:#B88A2E; --gold-2:#E2C27A; --on-emerald:#F4EBD6; --wa:#1F9D55;
+  --f-disp:'Marcellus', 'Trajan Pro', Georgia, serif; --f-body:'Figtree', system-ui, -apple-system, sans-serif;
+  --max:1120px; --r:18px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --linen:#0B1915; --paper:#11231D; --ink:#EEF1EC; --muted:#A3B2AB; --rule:#24413A;
+  --emerald:#0A2C23; --emerald-2:#1F6A54; --gold:#D9B160; --gold-2:#EBD08F; --on-emerald:#F4EBD6; --wa:#2DB86A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --linen:#0B1915; --paper:#11231D; --ink:#EEF1EC; --muted:#A3B2AB; --rule:#24413A;
+  --emerald:#0A2C23; --emerald-2:#1F6A54; --gold:#D9B160; --gold-2:#EBD08F; --on-emerald:#F4EBD6; --wa:#2DB86A; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--linen);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--emerald)}
+img,video{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-disp);font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h2{font-size:clamp(30px,4.2vw,44px)}
+h3{font-size:22px}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+p{margin:0}
+.lede{color:var(--muted);max-width:62ch}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:6px}
+
+/* pleated fabric divider: the shop's own material */
+.pleat{height:22px;background:repeating-linear-gradient(90deg,var(--emerald) 0 14px,var(--emerald-2) 14px 22px,var(--emerald) 22px 30px);opacity:.95}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--emerald);color:var(--on-emerald)}
+.top .wrap{display:flex;align-items:center;gap:16px;padding-block:10px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0}
+.brand img{width:46px;height:46px;border-radius:50%}
+.brand b{font-family:var(--f-disp);font-weight:400;font-size:20px;letter-spacing:.06em;white-space:nowrap}
+.brand small{display:block;font-size:11px;letter-spacing:.14em;color:var(--gold-2);text-transform:uppercase}
+nav.links{margin-left:auto;display:flex;gap:22px;font-size:15px;font-weight:600}
+nav.links a{text-decoration:none;opacity:.9}
+nav.links a:hover{opacity:1;text-decoration:underline;text-underline-offset:4px}
+.btn{display:inline-flex;align-items:center;gap:10px;font-weight:800;font-size:16px;text-decoration:none;border-radius:999px;padding:13px 22px;border:2px solid transparent;white-space:nowrap}
+.btn-wa{background:var(--wa);color:#fff}
+.btn-wa:hover{filter:brightness(1.08)}
+.btn-ghost{border-color:currentColor}
+.btn svg{width:20px;height:20px;flex:none}
+.top .btn{padding:9px 16px;font-size:14px}
+@media (max-width:900px){nav.links{display:none}.top .btn{margin-left:auto}}
+@media (max-width:420px){.brand small{display:none}.top .btn span{display:none}}
+
+/* hero */
+.hero{padding-block:56px 64px}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(38px,5.6vw,64px);color:var(--emerald)}
+:root[data-theme="dark"] .hero h1{color:var(--gold-2)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .hero h1{color:var(--gold-2)}}
+.hero .copy{display:grid;gap:22px;min-width:0}
+.hero .actions{display:flex;flex-wrap:wrap;gap:12px}
+.facts{display:flex;flex-wrap:wrap;gap:10px 26px;padding-top:6px;border-top:1px solid var(--rule)}
+.facts div{display:flex;flex-direction:column;padding-top:12px}
+.facts b{font-family:var(--f-disp);font-weight:400;font-size:30px;color:var(--gold);line-height:1.1;font-variant-numeric:tabular-nums}
+.facts span{font-size:14px;color:var(--muted)}
+.hero figure{margin:0;position:relative}
+.hero figure img{border-radius:var(--r);aspect-ratio:4/5;object-fit:cover;width:100%;box-shadow:0 30px 60px -30px rgba(10,30,24,.45)}
+.hero figcaption{position:absolute;left:16px;bottom:16px;background:var(--paper);color:var(--ink);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}.hero figure img{aspect-ratio:4/3}}
+
+section{padding-block:72px}
+.head{display:grid;gap:12px;margin-bottom:36px;max-width:720px}
+
+/* services */
+.svc{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.card img{aspect-ratio:4/3;object-fit:cover;width:100%}
+.card .body{padding:18px 18px 22px;display:grid;gap:8px}
+.card p{color:var(--muted);font-size:15.5px}
+.card .noimg{aspect-ratio:4/3;background:repeating-linear-gradient(135deg,var(--emerald) 0 18px,var(--emerald-2) 18px 36px);display:grid;place-items:center;color:var(--on-emerald);font-family:var(--f-disp);font-size:22px}
+@media (max-width:980px){.svc{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.svc{grid-template-columns:1fr}}
+
+/* process */
+.band{background:var(--emerald);color:var(--on-emerald)}
+.band .lede{color:#CFDCD4}
+.band .eyebrow{color:var(--gold-2)}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;counter-reset:s}
+.steps li{border-top:2px solid var(--gold-2);padding-top:18px;display:grid;gap:8px;counter-increment:s}
+.steps li::before{content:counter(s);font-family:var(--f-disp);font-size:40px;color:var(--gold-2);line-height:1}
+.steps h3{color:#fff}
+.steps p{color:#CFDCD4;font-size:15.5px}
+.note{margin-top:30px;padding:16px 18px;border-radius:14px;background:rgba(255,255,255,.07);font-size:15.5px;max-width:760px}
+@media (max-width:860px){.steps{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:480px){.steps{grid-template-columns:1fr}}
+
+/* gallery */
+.gal{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:210px;gap:12px}
+.gal figure{margin:0;position:relative;border-radius:14px;overflow:hidden;background:var(--rule)}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.gal figure:hover img{transform:scale(1.04)}
+.gal figcaption{position:absolute;left:10px;bottom:10px;background:rgba(10,30,24,.78);color:#fff;font-size:13px;font-weight:600;border-radius:999px;padding:5px 12px}
+.gal .tall{grid-row:span 2}
+@media (max-width:860px){.gal{grid-template-columns:repeat(2,1fr);grid-auto-rows:180px}}
+@media (prefers-reduced-motion:reduce){.gal img{transition:none}html{scroll-behavior:auto}}
+
+/* blackout guide */
+.guide{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.meter{background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);padding:24px;display:grid;gap:18px}
+.row{display:grid;grid-template-columns:110px 1fr 54px;gap:12px;align-items:center;font-weight:700}
+.row .bar{height:16px;border-radius:9px;background:var(--rule);overflow:hidden}
+.row .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-2))}
+.row.dark .bar i{background:var(--ink)}
+.row em{font-style:normal;text-align:right;font-variant-numeric:tabular-nums}
+.meter small{color:var(--muted);font-size:14px}
+.measure svg{width:100%;height:auto;background:var(--paper);border:1px solid var(--rule);border-radius:var(--r)}
+.measure p{color:var(--muted);font-size:15.5px;margin-top:12px}
+@media (max-width:860px){.guide{grid-template-columns:1fr}}
+
+/* testimonials */
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+blockquote{margin:0;background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;gap:14px}
+blockquote p{font-size:17px}
+blockquote footer{margin-top:auto;font-size:14px;color:var(--muted);font-weight:600}
+blockquote footer b{color:var(--gold);font-weight:800}
+.vids{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+.vids figure{margin:0;display:grid;gap:8px}
+.vids video{width:100%;aspect-ratio:9/16;border-radius:14px;background:#000;object-fit:cover}
+.vids figcaption{font-size:14px;color:var(--muted);font-weight:600}
+@media (max-width:860px){.quotes{grid-template-columns:1fr}.vids{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}}
+@media (max-width:520px){.vids{grid-template-columns:1fr 1fr}}
+
+/* payment */
+.pay{display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);padding:28px}
+.pay .big{font-family:var(--f-disp);font-size:72px;line-height:1;color:var(--gold)}
+@media (max-width:760px){.pay{grid-template-columns:1fr}}
+
+/* faq */
+.faq{display:grid;gap:10px;max-width:860px}
+details{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:4px 20px}
+summary{cursor:pointer;font-weight:700;font-size:17.5px;padding:16px 0;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:24px;line-height:1;color:var(--gold)}
+details[open] summary::after{content:"–"}
+details p{color:var(--muted);padding-bottom:18px}
+
+/* visit */
+.visit{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center}
+.visit img{border-radius:var(--r);aspect-ratio:3/4;object-fit:cover;object-position:50% 20%;width:100%;max-height:560px}
+.info{display:grid;gap:18px}
+.info dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:10px 18px}
+.info dt{font-weight:800;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold)}
+.info dd{margin:0}
+.copyrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.copyrow button{font:inherit;font-size:14px;font-weight:700;border:1px solid var(--rule);background:var(--paper);color:var(--ink);border-radius:999px;padding:8px 14px;cursor:pointer}
+@media (max-width:860px){.visit{grid-template-columns:1fr}}
+
+footer.site{background:var(--emerald);color:var(--on-emerald);padding-block:36px calc(36px + env(safe-area-inset-bottom,0px));font-size:14.5px}
+footer.site .wrap{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between}
+footer.site b{font-family:var(--f-disp);font-weight:400;font-size:20px;letter-spacing:.06em}
+
+.float{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:25;box-shadow:0 10px 26px rgba(0,0,0,.28)}
+@media (min-width:901px){.float{display:none}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#utama"><img src="img/logo.png" alt="Logo Aimi Curtain"><div><b>AIMI CURTAIN</b><small>Aimi Home Decor · Kulim</small></div></a>
+    <nav class="links" aria-label="Menu">
+      <a href="#servis">Servis</a><a href="#proses">Proses</a><a href="#hasil">Hasil kerja</a><a href="#testimoni">Testimoni</a><a href="#soalan">Soalan</a><a href="#lokasi">Lokasi</a>
+    </nav>
+    <a class="btn btn-wa" href="https://wa.me/60194001924?text=Salam%20Aimi%20Curtain%2C%20saya%20nak%20tanya%20pasal%20langsir." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg><span>WhatsApp</span></a>
+  </div>
+</header>
+
+<main id="utama">
+  <section class="hero">
+    <div class="wrap">
+      <div class="copy">
+        <span class="eyebrow">Kedai langsir &amp; hiasan dalaman · Kulim</span>
+        <h1>Langsir tempahan khas, diukur, dijahit &amp; dipasang di rumah anda.</h1>
+        <p class="lede">Baru dapat kunci rumah atau nak ceriakan ruang tamu? Team Aimi Curtain datang ukur di rumah anda tanpa caj, bawa sampel kain, jahit ikut ukuran sebenar dan pasang sampai siap.</p>
+        <div class="actions">
+          <a class="btn btn-wa" href="https://wa.me/60194001924?text=Salam%20Aimi%20Curtain%2C%20saya%20nak%20tempah%20ukur%20langsir%20di%20rumah." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>Tempah ukur percuma</a>
+          <a class="btn btn-ghost" href="#hasil">Lihat hasil kerja</a>
+        </div>
+        <div class="facts">
+          <div><b>500+</b><span>buah rumah siap</span></div>
+          <div><b>100%</b><span>syarikat Bumiputera</span></div>
+          <div><b>A–Z</b><span>ukur, jahit, pasang</span></div>
+        </div>
+      </div>
+      <figure>
+        <img src="img/hero.jpg" alt="Ruang tamu dengan langsir krim tempahan Aimi Curtain" fetchpriority="high">
+        <figcaption>Hasil pemasangan Aimi Curtain</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <div class="pleat" role="presentation"></div>
+
+  <section id="servis">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">Servis kami</span><h2>Semua untuk tingkap anda, dari kain sampai rel</h2><p class="lede">Seperti di papan tanda kedai kami: jahit langsir, pemasangan railing, rod, blind dan wallpaper Korea.</p></div>
+      <div class="svc">
+        <article class="card"><img src="img/g-ruangtamu.jpg" alt="Langsir krim tempahan di ruang tamu" loading="lazy"><div class="body"><h3>Jahit langsir</h3><p>Langsir tempahan khas ikut ukuran tingkap: blackout (basic, standard, premium), sheer dan dua lapis.</p></div></article>
+        <article class="card"><img src="img/g-coklat2.jpg" alt="Rel dan langsir coklat siap dipasang" loading="lazy"><div class="body"><h3>Railing &amp; rod</h3><p>Pemasangan rel dan batang langsir, termasuk siling ke lantai untuk rupa lebih tinggi dan kemas.</p></div></article>
+        <article class="card"><img src="img/g-zebra.jpg" alt="Bidai zebra di dapur" loading="lazy"><div class="body"><h3>Blind / bidai</h3><p>Bidai zebra dan bidai kayu untuk dapur, bilik dan pejabat. Mudah dibersih dan dilaras.</p></div></article>
+        <article class="card"><div class="noimg">Wallpaper Korea</div><div class="body"><h3>Wallpaper Korea</h3><p>Ceriakan dinding sekali dengan langsir. WhatsApp kami untuk lihat corak dan sebut harga.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="proses" class="band">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">Cara tempah</span><h2>Anda tunggu siap je</h2><p class="lede">Tak perlu panjat tangga atau pening fikir ukuran. Kami uruskan dari mula sampai langsir tergantung.</p></div>
+      <ol class="steps">
+        <li><h3>WhatsApp kami</h3><p>Beritahu lokasi rumah dan bilik yang nak dipasang langsir.</p></li>
+        <li><h3>Ukur di rumah</h3><p>Team kami datang ukur tanpa caj dan bawa sampel material kain &amp; warna.</p></li>
+        <li><h3>Jahit kemas</h3><p>Langsir dijahit ikut ukuran sebenar dan konsep rumah anda.</p></li>
+        <li><h3>Pasang &amp; siap</h3><p>Kami pasang rel, langsir dan kemaskan, ikut masa yang anda pilih.</p></li>
+      </ol>
+      <p class="note"><b>Tempoh siap:</b> biasanya dalam 2 minggu selepas pengesahan, bergantung pada tempahan semasa. Ada pelanggan yang perlu segera dan langsir mereka siap keesokan harinya, jadi beritahu kami jika anda dalam keadaan kelam-kabut nak pindah.</p>
+    </div>
+  </section>
+
+  <section id="hasil">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">Hasil kerja</span><h2>Rumah pelanggan di Kulim &amp; sekitar</h2><p class="lede">Gambar sebenar daripada pemasangan kami.</p></div>
+      <div class="gal">
+        <figure class="tall"><img src="img/g-teal.jpg" alt="Langsir teal dengan sheer putih" loading="lazy"><figcaption>Langsir teal + sheer</figcaption></figure>
+        <figure><img src="img/g-coklat.jpg" alt="Langsir coklat di ruang tamu" loading="lazy"><figcaption>Ruang tamu</figcaption></figure>
+        <figure><img src="img/g-krim.jpg" alt="Langsir krim berlapis" loading="lazy"><figcaption>Siling ke lantai</figcaption></figure>
+        <figure class="tall"><img src="img/g-grey.jpg" alt="Langsir kelabu dengan siling berlampu" loading="lazy"><figcaption>Langsir kelabu</figcaption></figure>
+        <figure class="tall"><img src="img/g-aimi.jpg" alt="Puan Aimi melaras langsir di rumah pelanggan" loading="lazy"><figcaption>Puan Aimi turun padang</figcaption></figure>
+        <figure><img src="img/g-bidaikayu.jpg" alt="Bidai kayu di bilik tidur" loading="lazy"><figcaption>Bidai kayu</figcaption></figure>
+        <figure><img src="img/g-pink.jpg" alt="Langsir pink di bilik" loading="lazy"><figcaption>Bilik anak</figcaption></figure>
+        <figure><img src="img/g-aimi2.jpg" alt="Melaras langsir beige" loading="lazy"><figcaption>Kemaskan lipatan</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <div class="pleat" role="presentation"></div>
+
+  <section id="panduan">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">Panduan ringkas</span><h2>Rumah panas? Pilih blackout yang sesuai</h2><p class="lede">Untuk ruang tamu yang kena matahari petang, kain blackout membantu sekat haba dan cahaya supaya rumah lebih redup dan aircond cepat sejuk.</p></div>
+      <div class="guide">
+        <div class="meter" role="group" aria-label="Anggaran sekatan cahaya kain blackout">
+          <div class="row"><span>Basic</span><span class="bar"><i style="width:60%"></i></span><em>± 60%</em></div>
+          <div class="row"><span>Premium</span><span class="bar"><i style="width:80%"></i></span><em>± 80%</em></div>
+          <div class="row dark"><span>Gelap total</span><span class="bar"><i style="width:100%"></i></span><em>100%</em></div>
+          <small>Kain premium lebih flowy dan cantik. Ramai pelanggan pilih sekitar 80% kerana cahaya masih masuk sedikit, jadi rumah tak terlalu gelap. Peratus ialah anggaran.</small>
+        </div>
+        <div class="measure">
+          <svg viewBox="0 0 520 300" role="img" aria-label="Contoh ukuran lebar: bingkai 48 inci tambah 5 inci kiri dan kanan jadi 58 inci">
+            <rect x="140" y="80" width="240" height="160" fill="none" stroke="currentColor" stroke-width="5" style="color:var(--ink)"/>
+            <line x1="260" y1="80" x2="260" y2="240" stroke="currentColor" stroke-width="3" style="color:var(--muted)"/>
+            <rect x="90" y="60" width="50" height="200" fill="var(--gold-2)" opacity=".55"/>
+            <rect x="380" y="60" width="50" height="200" fill="var(--gold-2)" opacity=".55"/>
+            <line x1="90" y1="34" x2="430" y2="34" stroke="var(--gold)" stroke-width="4"/>
+            <line x1="90" y1="24" x2="90" y2="44" stroke="var(--gold)" stroke-width="4"/><line x1="430" y1="24" x2="430" y2="44" stroke="var(--gold)" stroke-width="4"/>
+            <text x="260" y="26" text-anchor="middle" font-family="Figtree, sans-serif" font-weight="800" font-size="20" fill="var(--gold)">58"</text>
+            <text x="260" y="170" text-anchor="middle" font-family="Figtree, sans-serif" font-weight="700" font-size="20" fill="var(--ink)">bingkai 48"</text>
+            <text x="115" y="285" text-anchor="middle" font-family="Figtree, sans-serif" font-weight="800" font-size="18" fill="var(--gold)">+5"</text>
+            <text x="405" y="285" text-anchor="middle" font-family="Figtree, sans-serif" font-weight="800" font-size="18" fill="var(--gold)">+5"</text>
+          </svg>
+          <p><b>Nak ukur sendiri?</b> Ukur lebar bingkai tingkap, kemudian tambah 5 inci kiri dan 5 inci kanan. Contoh: bingkai 48" jadi 58". Untuk labuh, pastikan sekurang-kurangnya 5 inci lebih daripada bingkai, atau ukur dari siling ke lantai untuk rupa lebih cantik. Kalau tak pasti, biar kami datang ukur.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimoni" class="band">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">Kata pelanggan</span><h2>Dari mulut pelanggan sendiri</h2><p class="lede">Petikan daripada video testimoni pelanggan kami di sekitar Kulim.</p></div>
+      <div class="quotes">
+        <blockquote><p>“Semalam saya deal, hari ni dah siap. Selalunya 2 minggu, tapi bila kita request nak cepat, dia faham.”</p><footer><b>Pelanggan</b> · Kulim Utama</footer></blockquote>
+        <blockquote><p>“Saya nak yang perempuan sebab saya sorang kat rumah. Dia janji 2 minggu, siap sebelum 2 minggu. Datang pasang ikut masa saya.”</p><footer><b>Pelanggan</b> · Perda</footer></blockquote>
+        <blockquote><p>“Very soft, tak banyak songeh. Walaupun dah habis kontrak, senget sikit pun dia datang perbetulkan. Pricing pun worth it.”</p><footer><b>Pelanggan</b> · Taman Kedidi</footer></blockquote>
+        <blockquote><p>“Pemasangan cepat, tangkas. Produk ada kualiti, jahitan ada kualiti. Servis bagus, pilihan kita banyak.”</p><footer><b>Pelanggan</b> · KTC</footer></blockquote>
+        <blockquote><p>“Saya text hari ni, datang rumah ukur terus, seminggu kemudian langsir dah siap. Rate 10 per 10.”</p><footer><b>Pelanggan</b> · Taman Seroja</footer></blockquote>
+        <blockquote><p>“Rasanya kali ke-3 dah ni. Pernah survey, tapi berkenan dengan hasil kerja Kak Aimi. Saya rekomen untuk semua orang Kulim.”</p><footer><b>Pelanggan</b> · Kulim Utama</footer></blockquote>
+      </div>
+      <div class="vids">
+        <figure><video src="vid/kulim-utama.mp4" poster="img/poster-kulim-utama.jpg" controls preload="none" playsinline></video><figcaption>Pelanggan kali ke-3 · Kulim Utama</figcaption></figure>
+        <figure><video src="vid/perda.mp4" poster="img/poster-perda.jpg" controls preload="none" playsinline></video><figcaption>Siap sebelum 2 minggu · Perda</figcaption></figure>
+        <figure><video src="vid/seroja.mp4" poster="img/poster-seroja.jpg" controls preload="none" playsinline></video><figcaption>10 per 10 · Taman Seroja</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="bayaran">
+    <div class="wrap">
+      <div class="pay">
+        <div class="big">0%</div>
+        <div><span class="eyebrow">Bayaran mudah</span><h3 style="margin:6px 0 8px">Pelan ansuran 0% faedah</h3><p class="lede">Ansuran tersedia untuk tempoh 6 hingga 60 bulan melalui kad kredit bank yang terlibat. Tanya kami bank mana yang layak.</p></div>
+        <a class="btn btn-wa" href="https://wa.me/60194001924?text=Salam%20Aimi%20Curtain%2C%20saya%20nak%20tanya%20pasal%20ansuran%200%25." target="_blank" rel="noopener">Tanya ansuran</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="soalan">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">Soalan lazim</span><h2>Yang selalu orang tanya</h2></div>
+      <div class="faq">
+        <details><summary>Langsir custom-made ni mahal ke? Takut bajet lari.</summary><p>Kami cadangkan pilihan ikut bajet anda. Contohnya, guna kain premium untuk ruang tamu dan kain lebih jimat untuk bilik. Harga tepat bergantung pada ukuran tingkap, jadi kami perlu ukur dulu sebelum beri sebut harga.</p></details>
+        <details><summary>Saya tak pandai ukur. Macam mana?</summary><p>Tak perlu risau. Team kami datang ukur di rumah anda tanpa caj. Kalau nak ukur sendiri, tambah 5 inci kiri dan kanan bingkai untuk lebar, dan pastikan labuh sekurang-kurangnya 5 inci lebih daripada bingkai.</p></details>
+        <details><summary>Ruang tamu panas waktu petang. Kain apa yang sesuai?</summary><p>Kain blackout. Ada basic, standard dan premium. Basic sekat sekitar 60% cahaya, premium boleh sampai 80%, dan ada yang 100% tetapi bilik akan gelap sepenuhnya.</p></details>
+        <details><summary>Berapa lama nak siap?</summary><p>Biasanya dalam 2 minggu selepas sah tempahan. Jika tempahan bersusun ia mungkin lebih lama, tetapi kalau anda perlu segera, beritahu kami dan kami cuba percepatkan.</p></details>
+        <details><summary>Saya buntu nak pilih warna supaya sepadan dengan perabot.</summary><p>Kami tengok keadaan rumah anda dulu (warna cat, lantai, sofa dan perabot), baru cadangkan warna yang sepadan. Kami juga bawa sampel kain dan warna ke rumah anda.</p></details>
+        <details><summary>Kawasan mana yang kami servis?</summary><p>Kulim dan kawasan sekitar. WhatsApp kami dengan lokasi anda untuk sahkan.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <div class="pleat" role="presentation"></div>
+
+  <section id="lokasi">
+    <div class="wrap visit">
+      <img src="img/kedai.jpg" alt="Kedai Aimi Home Decor di tingkat atas deretan kedai Kelang Lama Square, Kulim" loading="lazy">
+      <div class="info">
+        <span class="eyebrow">Jumpa kami</span>
+        <h2>Datang tengok sampel kain di kedai</h2>
+        <dl>
+          <dt>Kedai</dt><dd>Aimi Home Decor (Aimi Curtain)</dd>
+          <dt>Lokasi</dt><dd>Kelang Lama Square, Kulim, Kedah · tingkat atas</dd>
+          <dt>WhatsApp</dt><dd><span id="phone">019-400 1924</span></dd>
+          <dt>Facebook</dt><dd>Aimi Curtain</dd>
+        </dl>
+        <div class="copyrow">
+          <a class="btn btn-wa" href="https://wa.me/60194001924" target="_blank" rel="noopener">WhatsApp sekarang</a>
+          <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Aimi+Home+Decor+Kelang+Lama+Square+Kulim" target="_blank" rel="noopener">Buka peta</a>
+          <button type="button" id="copy">Salin nombor</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div><b>AIMI CURTAIN</b><br>Kedai langsir &amp; hiasan dalaman · Kulim, Kedah · 100% Bumiputera</div>
+    <div>WhatsApp 019-400 1924 · Facebook: Aimi Curtain</div>
+  </div>
+</footer>
+
+<a class="btn btn-wa float" href="https://wa.me/60194001924?text=Salam%20Aimi%20Curtain%2C%20saya%20nak%20tanya%20pasal%20langsir." target="_blank" rel="noopener" aria-label="WhatsApp Aimi Curtain">WhatsApp</a>
+
+<script>
+document.getElementById("copy").addEventListener("click", async (e) => {
+  const b = e.currentTarget;
+  try { await navigator.clipboard.writeText("0194001924"); b.textContent = "Nombor disalin"; }
+  catch (err) { const r = document.createRange(); r.selectNodeContents(document.getElementById("phone")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = "Nombor dipilih, tekan salin"; }
+  setTimeout(() => { b.textContent = "Salin nombor"; }, 2500);
+});
+</script>
