@@ -107,7 +107,7 @@ section{padding-block:72px}
 @media (prefers-reduced-motion:reduce){.gal img{transition:none}html{scroll-behavior:auto}}
 
 /* blackout guide */
-.guide{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.guide{display:grid;grid-template-columns:minmax(0,760px);gap:28px;align-items:start}
 .meter{background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);padding:24px;display:grid;gap:18px}
 .row{display:grid;grid-template-columns:110px 1fr 54px;gap:12px;align-items:center;font-weight:700}
 .row .bar{height:16px;border-radius:9px;background:var(--rule);overflow:hidden}
@@ -332,14 +332,8 @@ footer.site b{font-family:var(--f-disp);font-weight:400;font-size:20px;letter-sp
 
   <section id="panduan">
     <div class="wrap">
-      <div class="head"><span class="eyebrow">Panduan ringkas</span><h2>Rumah panas? Pilih blackout yang sesuai</h2><p class="lede">Untuk ruang tamu yang kena matahari petang, kain blackout membantu sekat haba dan cahaya supaya rumah lebih redup dan aircond cepat sejuk.</p></div>
+      <div class="head"><span class="eyebrow">Panduan ringkas</span><h2>Nak ukur tingkap sendiri?</h2><p class="lede">Cara mudah anggar saiz langsir sebelum tempah. Kalau tak pasti, team kami datang ukur tanpa caj.</p></div>
       <div class="guide">
-        <div class="meter" role="group" aria-label="Anggaran sekatan cahaya kain blackout">
-          <div class="row"><span>Basic</span><span class="bar"><i style="width:60%"></i></span><em>± 60%</em></div>
-          <div class="row"><span>Premium</span><span class="bar"><i style="width:80%"></i></span><em>± 80%</em></div>
-          <div class="row dark"><span>Gelap total</span><span class="bar"><i style="width:100%"></i></span><em>100%</em></div>
-          <small>Kain premium lebih flowy dan cantik. Ramai pelanggan pilih sekitar 80% kerana cahaya masih masuk sedikit, jadi rumah tak terlalu gelap. Peratus ialah anggaran.</small>
-        </div>
         <div class="measure">
           <svg viewBox="0 0 520 300" role="img" aria-label="Contoh ukuran lebar: bingkai 48 inci tambah 5 inci kiri dan kanan jadi 58 inci">
             <rect data-draw x="140" y="80" width="240" height="160" fill="none" stroke-dasharray="600" stroke="currentColor" stroke-width="5" style="color:var(--ink)"/>
@@ -467,7 +461,7 @@ document.getElementById("copy").addEventListener("click", async (e) => {
   if (reduce || !("IntersectionObserver" in window)) return;
 
   const groups = [
-    [".head", ""], [".card", "zoom"], [".steps li", ""], [".slider", "curtain"], [".meter", "left"], [".measure", "right"],
+    [".head", ""], [".card", "zoom"], [".steps li", ""], [".slider", "curtain"], [".measure", "zoom"],
     ["blockquote", "alt"], [".vids figure", "zoom"], [".pay", "zoom"], ["details", ""], [".visit img", "curtain"], [".info", "right"], ["footer.site .wrap > div", ""]
   ];
   const els = [];
