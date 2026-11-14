@@ -121,16 +121,16 @@ section{padding-block:72px}
 
 /* testimonials */
 .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-blockquote{margin:0;background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;gap:14px}
-blockquote p{font-size:17px}
-blockquote footer{margin-top:auto;font-size:14px;color:var(--muted);font-weight:600}
-blockquote footer b{color:var(--gold);font-weight:800}
-.vids{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
-.vids figure{margin:0;display:grid;gap:8px}
+blockquote{margin:0;background:#FFFDF8;color:#14241F;border:1px solid #E2D9C6;border-radius:var(--r);padding:22px;display:flex;flex-direction:column;gap:14px}
+blockquote p{font-size:17.5px;font-weight:500;color:#14241F}
+blockquote footer{margin-top:auto;font-size:14.5px;color:#3E4A44;font-weight:600}
+blockquote footer b{color:#0F3D30;font-weight:800}
+.vids{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:28px}
+.vids figure{margin:0;display:grid;gap:8px;min-width:0}
 .vids video{width:100%;aspect-ratio:9/16;border-radius:14px;background:#000;object-fit:cover}
-.vids figcaption{font-size:14px;color:var(--muted);font-weight:600}
-@media (max-width:860px){.quotes{grid-template-columns:1fr}.vids{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}}
-@media (max-width:520px){.vids{grid-template-columns:1fr 1fr}}
+.vids figcaption{font-size:14px;color:#E6EEE9;font-weight:600}
+@media (max-width:860px){.quotes{grid-template-columns:1fr}.vids{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding-bottom:8px}.vids figure{flex:0 0 46%;scroll-snap-align:start}}
+@media (max-width:520px){.vids figure{flex-basis:62%}}
 
 /* payment */
 .pay{display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);padding:28px}
@@ -323,7 +323,7 @@ footer.site b{font-family:var(--f-disp);font-weight:400;font-size:20px;letter-sp
 
   <section id="testimoni" class="band">
     <div class="wrap">
-      <div class="head"><span class="eyebrow">Kata pelanggan</span><h2>Dari mulut pelanggan sendiri</h2><p class="lede">Petikan daripada video testimoni pelanggan kami di sekitar Kulim.</p></div>
+      <div class="head"><span class="eyebrow">Kata pelanggan</span><h2>Dari mulut pelanggan sendiri</h2><p class="lede">Petikan daripada video testimoni pelanggan kami di sekitar Kulim. Tonton 5 video di bawah.</p></div>
       <div class="quotes">
         <blockquote><p>“Semalam saya deal, hari ni dah siap. Selalunya 2 minggu, tapi bila kita request nak cepat, dia faham.”</p><footer><b>Pelanggan</b> · Kulim Utama</footer></blockquote>
         <blockquote><p>“Saya nak yang perempuan sebab saya sorang kat rumah. Dia janji 2 minggu, siap sebelum 2 minggu. Datang pasang ikut masa saya.”</p><footer><b>Pelanggan</b> · Perda</footer></blockquote>
@@ -336,6 +336,8 @@ footer.site b{font-family:var(--f-disp);font-weight:400;font-size:20px;letter-sp
         <figure><video src="vid/kulim-utama.mp4" poster="img/poster-kulim-utama.jpg" controls preload="none" playsinline></video><figcaption>Pelanggan kali ke-3 · Kulim Utama</figcaption></figure>
         <figure><video src="vid/perda.mp4" poster="img/poster-perda.jpg" controls preload="none" playsinline></video><figcaption>Siap sebelum 2 minggu · Perda</figcaption></figure>
         <figure><video src="vid/seroja.mp4" poster="img/poster-seroja.jpg" controls preload="none" playsinline></video><figcaption>10 per 10 · Taman Seroja</figcaption></figure>
+        <figure><video src="vid/kedidi.mp4" poster="img/poster-kedidi.jpg" controls preload="none" playsinline></video><figcaption>Pricing worth it · Taman Kedidi</figcaption></figure>
+        <figure><video src="vid/ktc.mp4" poster="img/poster-ktc.jpg" controls preload="none" playsinline></video><figcaption>Dari bumi ke langit · KTC</figcaption></figure>
       </div>
     </div>
   </section>
