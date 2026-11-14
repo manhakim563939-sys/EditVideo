@@ -207,6 +207,26 @@ footer.site b{font-family:var(--f-disp);font-weight:400;font-size:20px;letter-sp
   .ribbon .track,.btn-wa.pulse{animation:none}
   .hero figure img{transform:scale(1.06)!important}
 }
+
+/* slider */
+.slider{display:grid;gap:18px}
+.slides{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:2px;outline:none}
+.slides::-webkit-scrollbar{display:none}
+.slide{flex:0 0 calc((100% - 28px) / 3);margin:0;position:relative;border-radius:16px;overflow:hidden;scroll-snap-align:start;aspect-ratio:3/4;background:var(--rule)}
+.slide img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.slide:hover img{transform:scale(1.05)}
+.slide figcaption{position:absolute;left:12px;right:12px;bottom:12px;background:rgba(10,30,24,.8);color:#fff;font-size:14px;font-weight:700;border-radius:999px;padding:7px 14px;width:max-content;max-width:calc(100% - 24px)}
+.sl-ctrl{display:flex;align-items:center;gap:14px}
+.sl-btn{flex:none;width:48px;height:48px;border-radius:50%;border:2px solid var(--emerald);background:var(--paper);color:var(--emerald);font-size:22px;font-weight:800;cursor:pointer;transition:background .2s,color .2s,transform .2s}
+.sl-btn:hover{background:var(--emerald);color:#fff;transform:translateY(-2px)}
+:root[data-theme="dark"] .sl-btn{border-color:var(--gold-2);color:var(--gold-2)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .sl-btn{border-color:var(--gold-2);color:var(--gold-2)}}
+.sl-bar{flex:1;height:4px;border-radius:2px;background:var(--rule);overflow:hidden}
+.sl-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-2));transition:width .3s}
+.sl-count{font-weight:800;font-variant-numeric:tabular-nums;min-width:62px;text-align:center}
+@media (max-width:860px){.slide{flex-basis:calc((100% - 14px) / 2)}}
+@media (max-width:520px){.slide{flex-basis:84%}}
+@media (prefers-reduced-motion:reduce){.slides{scroll-behavior:auto}.slide img{transition:none}}
 </style>
 
 <header class="top" id="top">
@@ -276,16 +296,34 @@ footer.site b{font-family:var(--f-disp);font-weight:400;font-size:20px;letter-sp
 
   <section id="hasil">
     <div class="wrap">
-      <div class="head"><span class="eyebrow">Hasil kerja</span><h2>Rumah pelanggan di Kulim &amp; sekitar</h2><p class="lede">Gambar sebenar daripada pemasangan kami.</p></div>
-      <div class="gal">
-        <figure class="tall"><img src="img/g-teal.jpg" alt="Langsir teal dengan sheer putih" loading="lazy"><figcaption>Langsir teal + sheer</figcaption></figure>
-        <figure><img src="img/g-coklat.jpg" alt="Langsir coklat di ruang tamu" loading="lazy"><figcaption>Ruang tamu</figcaption></figure>
-        <figure><img src="img/g-krim.jpg" alt="Langsir krim berlapis" loading="lazy"><figcaption>Siling ke lantai</figcaption></figure>
-        <figure class="tall"><img src="img/g-grey.jpg" alt="Langsir kelabu dengan siling berlampu" loading="lazy"><figcaption>Langsir kelabu</figcaption></figure>
-        <figure class="tall"><img src="img/g-aimi.jpg" alt="Puan Aimi melaras langsir di rumah pelanggan" loading="lazy"><figcaption>Puan Aimi turun padang</figcaption></figure>
-        <figure><img src="img/g-bidaikayu.jpg" alt="Bidai kayu di bilik tidur" loading="lazy"><figcaption>Bidai kayu</figcaption></figure>
-        <figure><img src="img/g-pink.jpg" alt="Langsir pink di bilik" loading="lazy"><figcaption>Bilik anak</figcaption></figure>
-        <figure><img src="img/g-aimi2.jpg" alt="Melaras langsir beige" loading="lazy"><figcaption>Kemaskan lipatan</figcaption></figure>
+      <div class="head"><span class="eyebrow">Hasil kerja</span><h2>Rumah pelanggan di Kulim &amp; sekitar</h2><p class="lede">Gambar sebenar daripada pemasangan kami. Leret atau tekan anak panah untuk lihat lagi.</p></div>
+      <div class="slider" aria-roledescription="carousel" aria-label="Galeri hasil pemasangan">
+        <div class="slides" id="slides" tabindex="0">
+          <figure class="slide"><img src="img/g-teal.jpg" alt="Langsir teal + sheer" loading="lazy"><figcaption>Langsir teal + sheer</figcaption></figure>
+          <figure class="slide"><img src="img/s-biru.jpg" alt="Langsir biru · Taman Kedidi" loading="lazy"><figcaption>Langsir biru · Taman Kedidi</figcaption></figure>
+          <figure class="slide"><img src="img/g-coklat.jpg" alt="Ruang tamu langsir coklat" loading="lazy"><figcaption>Ruang tamu langsir coklat</figcaption></figure>
+          <figure class="slide"><img src="img/g-krim.jpg" alt="Siling ke lantai" loading="lazy"><figcaption>Siling ke lantai</figcaption></figure>
+          <figure class="slide"><img src="img/g-grey.jpg" alt="Langsir kelabu" loading="lazy"><figcaption>Langsir kelabu</figcaption></figure>
+          <figure class="slide"><img src="img/g-aimi.jpg" alt="Puan Aimi turun padang" loading="lazy"><figcaption>Puan Aimi turun padang</figcaption></figure>
+          <figure class="slide"><img src="img/s-ruangtamu-lebar.jpg" alt="Ruang tamu · Kulim Utama" loading="lazy"><figcaption>Ruang tamu · Kulim Utama</figcaption></figure>
+          <figure class="slide"><img src="img/g-ruangtamu.jpg" alt="Langsir krim berlipat" loading="lazy"><figcaption>Langsir krim berlipat</figcaption></figure>
+          <figure class="slide"><img src="img/s-teal-pasang.jpg" alt="Proses pemasangan" loading="lazy"><figcaption>Proses pemasangan</figcaption></figure>
+          <figure class="slide"><img src="img/g-bidaikayu.jpg" alt="Bidai kayu · Perda" loading="lazy"><figcaption>Bidai kayu · Perda</figcaption></figure>
+          <figure class="slide"><img src="img/s-bilik-perda.jpg" alt="Bilik tidur · Perda" loading="lazy"><figcaption>Bilik tidur · Perda</figcaption></figure>
+          <figure class="slide"><img src="img/s-tieback.jpg" alt="Tieback kemas" loading="lazy"><figcaption>Tieback kemas</figcaption></figure>
+          <figure class="slide"><img src="img/g-pink.jpg" alt="Bilik anak" loading="lazy"><figcaption>Bilik anak</figcaption></figure>
+          <figure class="slide"><img src="img/s-tinggi.jpg" alt="Tingkap tinggi" loading="lazy"><figcaption>Tingkap tinggi</figcaption></figure>
+          <figure class="slide"><img src="img/g-zebra.jpg" alt="Bidai zebra dapur" loading="lazy"><figcaption>Bidai zebra dapur</figcaption></figure>
+          <figure class="slide"><img src="img/s-zebra-laras.jpg" alt="Laras bidai zebra" loading="lazy"><figcaption>Laras bidai zebra</figcaption></figure>
+          <figure class="slide"><img src="img/g-aimi2.jpg" alt="Kemaskan lipatan" loading="lazy"><figcaption>Kemaskan lipatan</figcaption></figure>
+          <figure class="slide"><img src="img/s-bidai-bilik.jpg" alt="Bidai & langsir bilik" loading="lazy"><figcaption>Bidai & langsir bilik</figcaption></figure>
+        </div>
+        <div class="sl-ctrl">
+          <button type="button" class="sl-btn" id="sl-prev" aria-label="Gambar sebelum">&#8592;</button>
+          <div class="sl-bar"><i id="sl-fill"></i></div>
+          <span class="sl-count" id="sl-count">1 / 18</span>
+          <button type="button" class="sl-btn" id="sl-next" aria-label="Gambar seterusnya">&#8594;</button>
+        </div>
       </div>
     </div>
   </section>
@@ -429,7 +467,7 @@ document.getElementById("copy").addEventListener("click", async (e) => {
   if (reduce || !("IntersectionObserver" in window)) return;
 
   const groups = [
-    [".head", ""], [".card", "zoom"], [".steps li", ""], [".gal figure", "curtain"], [".meter", "left"], [".measure", "right"],
+    [".head", ""], [".card", "zoom"], [".steps li", ""], [".slider", "curtain"], [".meter", "left"], [".measure", "right"],
     ["blockquote", "alt"], [".vids figure", "zoom"], [".pay", "zoom"], ["details", ""], [".visit img", "curtain"], [".info", "right"], ["footer.site .wrap > div", ""]
   ];
   const els = [];
@@ -450,5 +488,30 @@ document.getElementById("copy").addEventListener("click", async (e) => {
     if (el.getBoundingClientRect().top > innerHeight * 0.95) { el.classList.add("pre"); io.observe(el); }
     else el.classList.add("in");
   });
+})();
+
+// ---------- gallery slider ----------
+(() => {
+  const track = document.getElementById("slides"); if (!track) return;
+  const slides = [...track.children], count = document.getElementById("sl-count"), fill = document.getElementById("sl-fill");
+  const step = () => slides[0].getBoundingClientRect().width + 14;
+  const idx = () => Math.round(track.scrollLeft / step());
+  const maxIdx = () => Math.max(0, Math.round((track.scrollWidth - track.clientWidth) / step()));
+  function update(){ const i = Math.min(idx(), slides.length - 1); count.textContent = (i + 1) + " / " + slides.length; const m = maxIdx(); fill.style.width = (m ? (Math.min(i, m) / m) * 100 : 100) + "%"; }
+  function go(d){ const m = maxIdx(); let i = idx() + d; if (i > m) i = 0; if (i < 0) i = m; track.scrollTo({ left: i * step() }); }
+  document.getElementById("sl-next").addEventListener("click", () => { stop(); go(1); });
+  document.getElementById("sl-prev").addEventListener("click", () => { stop(); go(-1); });
+  track.addEventListener("keydown", (e) => { if (e.key === "ArrowRight") { stop(); go(1); } if (e.key === "ArrowLeft") { stop(); go(-1); } });
+  let raf = 0; track.addEventListener("scroll", () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(update); }, { passive: true });
+  ["pointerdown", "wheel", "touchstart"].forEach((ev) => track.addEventListener(ev, stop, { passive: true }));
+  // gentle autoplay while visible, until the visitor takes over
+  let timer = null, stopped = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function stop(){ stopped = true; clearInterval(timer); }
+  if (!stopped && "IntersectionObserver" in window) {
+    new IntersectionObserver(([e]) => { clearInterval(timer); if (e.isIntersecting && !stopped) timer = setInterval(() => go(1), 3500); }, { threshold: 0.4 }).observe(track);
+    track.addEventListener("mouseenter", () => clearInterval(timer));
+    track.addEventListener("mouseleave", () => { if (!stopped) { clearInterval(timer); timer = setInterval(() => go(1), 3500); } });
+  }
+  update();
 })();
 </script>
