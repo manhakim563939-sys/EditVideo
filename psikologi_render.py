@@ -162,6 +162,17 @@ def bw_dramatic(rgb):
     return np.repeat(g[..., None], 3, axis=2)
 
 
+def colour_grade(rgb):
+    """Gentle punch: local contrast on luminance, a touch more saturation, slight warmth."""
+    lab = cv2.cvtColor(rgb.astype(np.uint8), cv2.COLOR_RGB2LAB)
+    lab[..., 0] = cv2.createCLAHE(clipLimit=1.6, tileGridSize=(8, 8)).apply(lab[..., 0])
+    out = cv2.cvtColor(lab, cv2.COLOR_LAB2RGB).astype(np.float32)
+    g = out.mean(axis=2, keepdims=True)
+    out = g + (out - g) * 1.12
+    out *= np.array([1.03, 1.0, 0.97], np.float32)
+    return np.clip(out, 0, 255)
+
+
 def narrator(name, target_w=660, max_h=700):
     im = np.asarray(Image.open(f"{WD}/pose/{name}.jpg").convert("RGB")).astype(np.float32)
     m = np.asarray(Image.open(f"{WD}/pose/{name}_mask.png").convert("L")).astype(np.float32) / 255
@@ -173,7 +184,7 @@ def narrator(name, target_w=660, max_h=700):
     ys, xs = np.where(m > 0.5)
     y0, x0, x1 = ys.min(), xs.min(), xs.max()
     im, m = im[y0:, x0:x1 + 1], m[y0:, x0:x1 + 1]
-    s = bw_dramatic(im)
+    s = colour_grade(im)
     pad = 30
     m = cv2.copyMakeBorder(m, pad, 0, pad, pad, cv2.BORDER_CONSTANT, value=0)
     s = cv2.copyMakeBorder(s, pad, 0, pad, pad, cv2.BORDER_CONSTANT, value=0)
@@ -193,7 +204,7 @@ def narrator(name, target_w=660, max_h=700):
     return out.crop((0, 0, out.width, min(out.height, max_h)))
 
 
-POSE = {n: narrator(n) for n in ["senyum", "senyum2", "neutral", "serius", "serius2", "sisi"]}
+POSE = {n: narrator(n) for n in ["kejut", "teruja", "senyum", "garu", "tunjuk", "fikir", "sinis", "risau"]}
 
 
 # ---------------------------------------------------------------- icons (cut from the sprite sheet)
@@ -216,13 +227,13 @@ ICONS = load_icons()
 
 # ---------------------------------------------------------------- timeline (VO seconds)
 POINTS = [  # (start, number-call time, headline, sub, sub_time, pose)
-    (6.7, 6.84, "SEMAKIN SUSAH, SEMAKIN JUJUR", "Setiap sen hasil titik peluh", 12.2, "neutral"),
-    (15.3, 15.48, "SEMAKIN KAYA, SEMAKIN BERKIRA", "Bukan semua... tapi ramai", 20.19, "serius"),
-    (22.0, 22.21, "SEMAKIN PENDIAM, SEMAKIN BIJAK", "Dia banyak memerhati", 26.15, "sisi"),
-    (30.1, 30.30, "SEMAKIN CANTIK, SEMAKIN SOMBONG", "Cermin dah jadi kawan baik", 35.07, "senyum2"),
-    (37.85, 38.0, "SEMAKIN MANIS MULUT, SEMAKIN BAHAYA", "Manis tak semestinya ikhlas", 42.15, "serius2"),
-    (44.85, 45.0, "SEMAKIN MENGELUH, SEMAKIN LEMAH", "Tenaga habis untuk merungut", 49.03, "neutral"),
-    (52.05, 52.24, "MENGEJEK KEMISKINAN = HATI KOTOR", "Yang miskin sebenarnya hati dia", 55.2, "serius"),
+    (6.7, 6.84, "SEMAKIN SUSAH, SEMAKIN JUJUR", "Setiap sen hasil titik peluh", 12.2, "senyum"),
+    (15.3, 15.48, "SEMAKIN KAYA, SEMAKIN BERKIRA", "Bukan semua... tapi ramai", 20.19, "garu"),
+    (22.0, 22.21, "SEMAKIN PENDIAM, SEMAKIN BIJAK", "Dia banyak memerhati", 26.15, "fikir"),
+    (30.1, 30.30, "SEMAKIN CANTIK, SEMAKIN SOMBONG", "Cermin dah jadi kawan baik", 35.07, "sinis"),
+    (37.85, 38.0, "SEMAKIN MANIS MULUT, SEMAKIN BAHAYA", "Manis tak semestinya ikhlas", 42.15, "tunjuk"),
+    (44.85, 45.0, "SEMAKIN MENGELUH, SEMAKIN LEMAH", "Tenaga habis untuk merungut", 49.03, "risau"),
+    (52.05, 52.24, "MENGEJEK KEMISKINAN = HATI KOTOR", "Yang miskin sebenarnya hati dia", 55.2, "kejut"),
 ]
 CTA_T = 57.3
 
@@ -263,9 +274,9 @@ SMALL = [badge(i + 1, 40) for i in range(7)]
 
 def pose_at(t):
     if t < POINTS[0][0]:
-        return "senyum"
+        return "kejut" if t < 4.1 else "teruja"
     if t >= CTA_T:
-        return "senyum2" if t > CTA_T + 2.2 else "senyum"
+        return "tunjuk" if t > CTA_T + 2.2 else "teruja"
     for p in reversed(POINTS):
         if t >= p[0]:
             return p[5]
@@ -275,7 +286,7 @@ def pose_at(t):
 def pose_start(t):
     if t >= CTA_T:
         return CTA_T if t < CTA_T + 2.2 else CTA_T + 2.2
-    starts = [0.0] + [p[0] for p in POINTS]
+    starts = [0.0, 4.1] + [p[0] for p in POINTS]
     return max(s for s in starts if s <= t)
 
 
