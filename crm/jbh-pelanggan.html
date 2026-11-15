@@ -4,7 +4,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@500;600;700;800&display=swap">
 <style>
-/* Layout: alat CRM satu kolum untuk telefon — ringkasan atas, tab follow-up, senarai kad pelanggan, borang tambah dalam panel bawah */
+/* Layout: alat rekod satu kolum untuk telefon — ringkasan atas, tab (order / prospek), senarai kad, borang dalam panel bawah */
 :root{
   --bg:#f3f1ec; --card:#ffffff; --ink:#1d1a14; --muted:#6e6555; --line:#e3dccd;
   --brand:#1d1a14; --gold:#b77f0f; --goldsoft:#f6e7c4; --ongold:#1d1a14;
@@ -92,18 +92,15 @@ h1{margin:2px 0 0;font:400 1.7rem/1.02 var(--fd);letter-spacing:.5px;text-transf
 .err{color:var(--late);font-size:.85rem;font-weight:700}
 .confirm{background:var(--latebg);border-radius:10px;padding:8px 10px;margin-top:8px;font-size:.85rem;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .rule{font-size:.8rem;color:var(--muted);margin-top:18px;text-align:center}
-.vchk{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:0 0 14px}
-.vchk .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.vchk label{font-weight:800;font-size:.9rem;flex:1 1 100%}
-.vchk input{flex:1 1 160px;min-width:0;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 12px;text-transform:uppercase;letter-spacing:1px;font-weight:700}
-.vres{margin-top:10px;border-radius:10px;padding:10px 12px;font-size:.9rem;display:grid;gap:6px}
-.vres.ok{background:var(--okbg);color:var(--ok)} .vres.bad{background:var(--latebg);color:var(--late)} .vres.used{background:var(--todaybg);color:var(--today)}
-.vres b{color:inherit}
-.code{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:800;letter-spacing:1px;color:var(--ink);background:var(--goldsoft);border-radius:6px;padding:1px 7px}
-.vstate{font-size:.8rem;font-weight:700}
-.vstate.u{color:var(--today)} .vstate.f{color:var(--ok)}
-.vhint{font-size:.8rem;font-weight:700;margin-top:2px}
-.vhint.ok{color:var(--ok)} .vhint.bad{color:var(--late)}
+.stat.s-c,.stat.s-o,.stat.s-r{border-top-color:var(--gold)} .stat.s-p{border-top-color:var(--soon);cursor:pointer}
+.stat small{display:block;font-size:.72rem;color:var(--muted)}
+.cust.lead{border-left-color:var(--soon)} .cust.rep{border-left-color:var(--ok)} .cust.won{border-left-color:var(--ok);opacity:.85}
+.b-lead{background:var(--soonbg);color:var(--soon)}
+.match{border-radius:10px;padding:8px 12px;font-size:.86rem;font-weight:700}
+.match.rep{background:var(--okbg);color:var(--ok)} .match.new{background:var(--bg);color:var(--muted)} .match.warn{background:var(--todaybg);color:var(--today)}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:6px 12px;font-weight:700;font-size:.82rem}
+.seg button[aria-pressed="true"]{border-color:var(--gold);background:var(--goldsoft)}
 .locked{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;text-align:center;color:var(--muted);margin-top:16px}
 </style>
 
@@ -121,30 +118,23 @@ h1{margin:2px 0 0;font:400 1.7rem/1.02 var(--fd);letter-spacing:.5px;text-transf
 
   <div class="stats" id="stats">
     <div class="stat s-c"><b id="st-cust">0</b><span>Pelanggan</span></div>
-    <div class="stat s-o"><b id="st-ord">0</b><span>Order</span></div>
-    <div class="stat s-b"><b id="st-btl">0</b><span>Botol terjual</span></div>
+    <div class="stat s-o"><b id="st-ord">0</b><span>Order</span><small id="st-btl">0 botol</small></div>
     <div class="stat s-r"><b id="st-rm">RM0</b><span>Jumlah jualan</span></div>
+    <button class="stat s-p" type="button" id="st-lead-btn" style="text-align:left;font:inherit;color:inherit"><b id="st-lead">0</b><span>Prospek belum beli</span></button>
   </div>
 
   <div class="tabs" role="tablist" id="tabs">
-    <button class="tab" role="tab" data-tab="all" aria-selected="true">Semua<span class="n" id="n-all"></span></button>
+    <button class="tab" role="tab" data-tab="all" aria-selected="true">Semua order<span class="n" id="n-all"></span></button>
     <button class="tab" role="tab" data-tab="month" aria-selected="false">Bulan ini<span class="n" id="n-month"></span></button>
-    <button class="tab" role="tab" data-tab="repeat" aria-selected="false">Beli lebih sekali<span class="n" id="n-repeat"></span></button>
+    <button class="tab" role="tab" data-tab="repeat" aria-selected="false">Repeat order<span class="n" id="n-repeat"></span></button>
+    <button class="tab" role="tab" data-tab="lead" aria-selected="false">Prospek (belum beli)<span class="n" id="n-lead"></span></button>
   </div>
   <div class="tools">
-    <input id="q" type="search" placeholder="Cari nama, telefon atau bandar" aria-label="Cari pelanggan">
+    <input id="q" type="search" placeholder="Cari nama, telefon atau bandar" aria-label="Cari">
     <select id="fstate" aria-label="Tapis negeri"><option value="">Semua negeri</option></select>
     <button class="btn" id="exportBtn" type="button" hidden>Muat turun CSV</button>
   </div>
 
-  <div class="vchk" id="vchk" hidden>
-    <div class="row">
-      <label for="vq">🎟️ Semak kod voucher (diskaun RM5 order kedua)</label>
-      <input id="vq" placeholder="cth. JBH-7K4P" autocomplete="off" autocapitalize="characters">
-      <button class="btn pri" type="button" id="vgo">Semak</button>
-    </div>
-    <div id="vres" hidden></div>
-  </div>
   <div class="list" id="list"></div>
   <div class="locked" id="locked" hidden>Rekod pelanggan hanya boleh dilihat oleh pemilik dan Editor page ini.</div>
 </div>
@@ -170,6 +160,7 @@ h1{margin:2px 0 0;font:400 1.7rem/1.02 var(--fd);letter-spacing:.5px;text-transf
       <label for="f-bandar">Bandar<input id="f-bandar"></label>
     </div>
     <label for="f-alamat">Alamat (pilihan)<textarea id="f-alamat" rows="2"></textarea></label>
+    <div class="match" id="matchBox" hidden></div>
     <div>
       <div style="font-size:.8rem;font-weight:700;color:var(--muted);margin-bottom:4px">Pakej</div>
       <div class="pkgs" id="pkgs">
@@ -183,13 +174,37 @@ h1{margin:2px 0 0;font:400 1.7rem/1.02 var(--fd);letter-spacing:.5px;text-transf
       <label for="f-bayar">Bayaran<select id="f-bayar"><option>COD</option><option>Online (Billplz)</option><option>Online Transfer</option></select></label>
     </div>
     <label for="f-tarikh">Tarikh beli<input id="f-tarikh" type="date" required></label>
-    <div id="vfield">
-      <label for="f-voucher">Kod voucher yang pelanggan guna (pilihan)<input id="f-voucher" autocomplete="off" autocapitalize="characters" placeholder="cth. JBH-7K4P" style="text-transform:uppercase;letter-spacing:1px"></label>
-      <p class="vhint" id="vhint"></p>
-    </div>
     <label for="f-nota">Nota (pilihan)<textarea id="f-nota" rows="2" placeholder="cth. dah 10 tahun minum, isteri yang order"></textarea></label>
     <p class="err" id="formErr" hidden></p>
     <button class="btn pri" type="submit" id="saveBtn" style="justify-content:center;padding:12px">Simpan</button>
+  </form>
+</div>
+
+<div class="sheet" id="lsheet" role="dialog" aria-modal="true" aria-labelledby="lTitle" hidden>
+  <button class="x" type="button" id="closeL" aria-label="Tutup">✕</button>
+  <h2 id="lTitle">Tambah prospek</h2>
+  <p class="sub">Orang yang dah WhatsApp atau bertanya, tapi belum beli.</p>
+  <form class="form" id="lform" novalidate>
+    <label for="l-tel">No. telefon (WhatsApp)<input id="l-tel" type="tel" inputmode="tel" placeholder="cth. 012 345 6789 atau tampal +60 12-345 6789" required></label>
+    <label for="l-nama">Nama (pilihan)<input id="l-nama" autocomplete="off" placeholder="cth. Abang Ali / Kak Siti"></label>
+    <div class="match" id="lMatch" hidden></div>
+    <div>
+      <div style="font-size:.8rem;font-weight:700;color:var(--muted);margin-bottom:4px">Datang dari</div>
+      <div class="seg" id="lSumber">
+        <button type="button" data-v="Iklan Facebook">Iklan Facebook</button>
+        <button type="button" data-v="TikTok">TikTok</button>
+        <button type="button" data-v="Website">Website</button>
+        <button type="button" data-v="Kawan / rujukan">Kawan / rujukan</button>
+        <button type="button" data-v="Lain-lain">Lain-lain</button>
+      </div>
+    </div>
+    <div class="two">
+      <label for="l-minat">Berminat pakej<select id="l-minat"><option value="">Belum tahu</option><option value="1">1 botol</option><option value="2">2 botol</option><option value="3">3 botol</option></select></label>
+      <label for="l-tarikh">Tarikh mula WhatsApp<input id="l-tarikh" type="date" required></label>
+    </div>
+    <label for="l-nota">Nota (pilihan)<textarea id="l-nota" rows="2" placeholder="cth. tanya harga, nak fikir dulu, gaji hujung bulan"></textarea></label>
+    <p class="err" id="lErr" hidden></p>
+    <button class="btn pri" type="submit" id="lSave" style="justify-content:center;padding:12px">Simpan prospek</button>
   </form>
 </div>
 
@@ -200,119 +215,166 @@ const POS_SEMENANJUNG = { 1: 8, 2: 0, 3: 0 };    // 2 & 3 botol pos percuma Seme
 const POS_TIMUR = 18;                            // Sabah / Sarawak / Labuan, semua pakej
 const EAST = ["Sabah", "Sarawak", "W.P. Labuan"];
 const STATES = ["Johor","Kedah","Kelantan","Melaka","Negeri Sembilan","Pahang","Perak","Perlis","Pulau Pinang","Selangor","Terengganu","W.P. Kuala Lumpur","W.P. Putrajaya","Sabah","Sarawak","W.P. Labuan"];
-const COL = "customers";
-const VOUCHER_RM = 5;                            // diskaun voucher pembelian kedua
-const CODE_CHARS = "ACDEFGHJKMNPQRTUVWXY34679"; // tiada huruf/nombor yang mudah keliru bila ditulis tangan
+const COL = "customers";                         // order dan prospek (jenis: "prospek") dalam koleksi yang sama
 
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const pad = n => String(n).padStart(2, "0");
 const todayStr = () => { const d = new Date(); return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`; };
-const dayNum = s => { const [y, m, d] = s.split("-").map(Number); return Date.UTC(y, m - 1, d) / 864e5; };
-const addDays = (s, n) => { const t = new Date((dayNum(s) + n) * 864e5); return `${t.getUTCFullYear()}-${pad(t.getUTCMonth() + 1)}-${pad(t.getUTCDate())}`; };
 const fmt = s => { if (!s) return "-"; const [y, m, d] = s.split("-"); return `${+d} ${["Jan","Feb","Mac","Apr","Mei","Jun","Jul","Ogo","Sep","Okt","Nov","Dis"][+m - 1]} ${y}`; };
 const isEast = n => EAST.includes(n);
 const total = (q, n) => (PRICE[q] ?? 0) + (isEast(n) ? POS_TIMUR : (POS_SEMENANJUNG[q] ?? 0));
 const normTel = t => { let d = String(t || "").replace(/\D/g, ""); if (d.startsWith("0")) d = "6" + d; else if (d && !d.startsWith("6")) d = "60" + d; return d; };
+const normName = s => String(s || "").toLowerCase().replace(/\b(bin|binti|bt|bte|a\/l|a\/p)\b/g, " ").replace(/[^a-z0-9]+/g, " ").trim();
+const normAddr = s => String(s || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+const rm = n => "RM" + (Math.round(n * 100) / 100).toLocaleString("en-MY");
 
 for (const s of STATES) { $("#f-negeri").insertAdjacentHTML("beforeend", `<option>${s}</option>`); $("#fstate").insertAdjacentHTML("beforeend", `<option>${s}</option>`); }
 $("#f-negeri").insertAdjacentHTML("afterbegin", `<option value="">Pilih negeri</option>`); $("#f-negeri").value = "";
 
-let db = null, rows = [], tab = "all", editing = null, writable = true, downloads = null;
+let db = null, rows = [], tab = "all", editing = null, lEditing = null, writable = true, downloads = null, fromLead = null;
+const isLead = r => r.jenis === "prospek";
+
+/* ===== kenal pasti pelanggan yang sama =====
+   Order dikira milik pelanggan yang sama jika nombor telefon sama, ATAU nama + alamat sama (walaupun nombor lain). */
+function groupOrders(orders) {
+  const parent = new Map(orders.map(o => [o.id, o.id]));
+  const find = x => { while (parent.get(x) !== x) { parent.set(x, parent.get(parent.get(x))); x = parent.get(x); } return x; };
+  const join = (a, b) => { const ra = find(a), rb = find(b); if (ra !== rb) parent.set(ra, rb); };
+  const byKey = new Map();
+  for (const o of orders) {
+    const keys = [];
+    const t = normTel(o.tel); if (t.length >= 10) keys.push("t:" + t);
+    const n = normName(o.nama), a = normAddr(o.alamat); if (n && a.length >= 8) keys.push("na:" + n + "|" + a);
+    for (const k of keys) { if (byKey.has(k)) join(o.id, byKey.get(k)); else byKey.set(k, o.id); }
+  }
+  const groups = new Map();
+  for (const o of orders) { const g = find(o.id); if (!groups.has(g)) groups.set(g, []); groups.get(g).push(o); }
+  const info = new Map();
+  for (const list of groups.values()) {
+    list.sort((a, b) => (a.tarikhBeli || "").localeCompare(b.tarikhBeli || "") || (a.createdAt || "").localeCompare(b.createdAt || ""));
+    list.forEach((o, i) => info.set(o.id, { ke: i + 1, jumlah: list.length, list }));
+  }
+  return { info, groups: [...groups.values()] };
+}
+// cari pelanggan sedia ada yang sepadan dengan maklumat dalam borang
+function matchCustomer({ tel, nama, alamat }, exceptId) {
+  const orders = rows.filter(r => !isLead(r) && r.id !== exceptId);
+  const t = normTel(tel), n = normName(nama), a = normAddr(alamat);
+  const hits = orders.filter(o => (t.length >= 10 && normTel(o.tel) === t) || (n && a.length >= 8 && normName(o.nama) === n && normAddr(o.alamat) === a));
+  if (!hits.length) return null;
+  const { info } = groupOrders(orders);
+  const list = info.get(hits[0].id).list;
+  return { list, last: list[list.length - 1], byTel: hits.some(o => t.length >= 10 && normTel(o.tel) === t) };
+}
+const leadFor = tel => { const t = normTel(tel); return t.length >= 10 ? rows.find(r => isLead(r) && normTel(r.tel) === t) : null; };
 
 /* ===== paparan ===== */
-const normCode = c => { const x = String(c || "").toUpperCase(); const m = x.match(/JBH[\s\-]*([A-Z0-9]{4})(?![A-Z0-9])/) || x.trim().match(/^([A-Z0-9]{4})$/); return m ? "JBH-" + m[1] : ""; };
-function newCode() {
-  const used = new Set(rows.map(r => r.kodVoucher));
-  for (let i = 0; i < 200; i++) {
-    const a = new Uint32Array(4); crypto.getRandomValues(a);
-    const c = "JBH-" + [...a].map(n => CODE_CHARS[n % CODE_CHARS.length]).join("");
-    if (!used.has(c)) return c;
-  }
-  return "JBH-" + Date.now().toString(36).slice(-4).toUpperCase();
-}
-const findCode = c => rows.find(r => r.kodVoucher && r.kodVoucher === normCode(c));
-function voucherInfo(code, selfId) {
-  const c = normCode(code);
-  if (!c) return { st: "bad", msg: "Format kod tak betul. Kod ada 4 huruf/nombor selepas JBH-, cth. JBH-7K4P." };
-  const r = findCode(c);
-  if (!r) return { st: "bad", msg: `Kod ${c} tiada dalam rekod. Jangan beri diskaun.` };
-  if (r.id === selfId) return { st: "bad", msg: "Ini kod untuk order ini sendiri, bukan kod order sebelumnya." };
-  if (r.voucherDigunakan) return { st: "used", r, msg: `Kod ${c} SUDAH DIGUNAKAN pada ${fmt(r.voucherDigunakan)}${r.voucherDigunakanOleh ? " oleh " + r.voucherDigunakanOleh : ""}. Jangan beri diskaun lagi.` };
-  return { st: "ok", r, msg: `Kod ${c} SAH dan belum digunakan. Diskaun RM${VOUCHER_RM} boleh diberi.` };
-}
-const custKey = r => normTel(r.tel) || String(r.nama || "").trim().toLowerCase();
-const rm = n => "RM" + (Math.round(n * 100) / 100).toLocaleString("en-MY");
 function render() {
   const q = $("#q").value.trim().toLowerCase(), fs = $("#fstate").value;
-  const counts = {}; rows.forEach(r => { const k = custKey(r); counts[k] = (counts[k] || 0) + 1; });
+  const orders = rows.filter(r => !isLead(r)), leads = rows.filter(isLead);
+  const { info, groups } = groupOrders(orders);
+  const boughtTel = new Set(orders.map(o => normTel(o.tel)).filter(t => t.length >= 10));
   const ym = todayStr().slice(0, 7);
-  const every = [...rows].sort((a, b) => (b.tarikhBeli || "").localeCompare(a.tarikhBeli || "") || (b.createdAt || "").localeCompare(a.createdAt || ""));
+  const every = [...orders].sort((a, b) => (b.tarikhBeli || "").localeCompare(a.tarikhBeli || "") || (b.createdAt || "").localeCompare(a.createdAt || ""));
   const month = every.filter(r => (r.tarikhBeli || "").startsWith(ym));
-  const repeat = every.filter(r => counts[custKey(r)] > 1);
-  $("#st-cust").textContent = Object.keys(counts).length;
-  $("#st-ord").textContent = rows.length;
-  $("#st-btl").textContent = rows.reduce((s, r) => s + (+r.botol || 0), 0);
-  $("#st-rm").textContent = rm(rows.reduce((s, r) => s + (+r.harga || 0), 0));
-  $("#n-all").textContent = every.length; $("#n-month").textContent = month.length; $("#n-repeat").textContent = repeat.length;
-  const pick = { all: every, month, repeat }[tab];
-  const shown = pick.filter(r => (!fs || r.negeri === fs) && (!q || [r.nama, r.tel, r.bandar, r.negeri, r.alamat, r.nota, r.kodVoucher, r.voucherDipakai].join(" ").toLowerCase().includes(q)));
+  const repeat = every.filter(r => info.get(r.id).jumlah > 1);
+  const openLeads = leads.filter(l => !boughtTel.has(normTel(l.tel))).sort((a, b) => (b.tarikh || "").localeCompare(a.tarikh || "") || (b.createdAt || "").localeCompare(a.createdAt || ""));
+  const wonLeads = leads.filter(l => boughtTel.has(normTel(l.tel)));
+  $("#st-cust").textContent = groups.length;
+  $("#st-ord").textContent = orders.length;
+  $("#st-btl").textContent = orders.reduce((s, r) => s + (+r.botol || 0), 0) + " botol";
+  $("#st-rm").textContent = rm(orders.reduce((s, r) => s + (+r.harga || 0), 0));
+  $("#st-lead").textContent = openLeads.length;
+  $("#n-all").textContent = every.length; $("#n-month").textContent = month.length; $("#n-repeat").textContent = repeat.length; $("#n-lead").textContent = openLeads.length;
+  $("#addBtn").textContent = tab === "lead" ? "+ Tambah prospek" : "+ Tambah pembelian";
   const list = $("#list");
-  if (!rows.length) {
-    list.innerHTML = `<div class="empty"><b>Belum ada pelanggan</b>Tekan <b style="display:inline">+ Tambah pembelian</b> selepas setiap order disahkan, atau tampal terus mesej order dari website.</div>`;
+  const hit = r => (!fs || r.negeri === fs) && (!q || [r.nama, r.tel, normTel(r.tel), r.bandar, r.negeri, r.alamat, r.nota, r.sumber].join(" ").toLowerCase().includes(q));
+
+  if (tab === "lead") {
+    const shown = openLeads.filter(hit);
+    const conv = leads.length ? Math.round(wonLeads.length / leads.length * 100) : 0;
+    if (!leads.length) { list.innerHTML = `<div class="empty"><b>Belum ada prospek</b>Simpan nombor orang yang WhatsApp tapi belum beli. Tekan <b style="display:inline">+ Tambah prospek</b>. Bila mereka beli nanti, sistem tanda sendiri.</div>`; return; }
+    list.innerHTML = `<p class="sub" style="margin:0 0 2px">${leads.length} prospek direkod · ${wonLeads.length} dah jadi pembeli (${conv}%)</p>` +
+      (shown.length ? shown.map(leadCard).join("") : `<div class="empty">${q || fs ? "Tiada padanan untuk carian ini." : "Semua prospek dah beli. 🎉"}</div>`);
     return;
   }
-  if (!shown.length) {
-    const msg = { all: "Tiada padanan.", month: "Belum ada order bulan ini.", repeat: "Belum ada pelanggan yang beli lebih sekali." }[tab];
-    list.innerHTML = `<div class="empty">${q || fs ? "Tiada padanan untuk carian ini." : msg}</div>`;
-    return;
-  }
-  list.innerHTML = shown.map(r => {
-    const n = counts[custKey(r)];
-    return `
-    <article class="cust" data-id="${esc(r.id)}">
-      <div class="row1"><div class="name">${esc(r.nama)}</div>${n > 1 ? `<span class="badge b-done">Beli ${n} kali</span>` : `<span class="badge b-mute">${esc(r.bayaran || "COD")}</span>`}</div>
+  const pick = { all: every, month, repeat }[tab];
+  const shown = pick.filter(hit);
+  if (!orders.length) { list.innerHTML = `<div class="empty"><b>Belum ada pelanggan</b>Tekan <b style="display:inline">+ Tambah pembelian</b> selepas setiap order disahkan, atau tampal terus mesej order dari website.</div>`; return; }
+  if (!shown.length) { list.innerHTML = `<div class="empty">${q || fs ? "Tiada padanan untuk carian ini." : { all: "Tiada padanan.", month: "Belum ada order bulan ini.", repeat: "Belum ada pelanggan repeat order." }[tab]}</div>`; return; }
+  list.innerHTML = shown.map(r => orderCard(r, info.get(r.id))).join("");
+}
+function orderCard(r, g) {
+  const rep = g.ke > 1;
+  const badge = rep ? `<span class="badge b-done">🔁 Order ke-${g.ke}</span>` : g.jumlah > 1 ? `<span class="badge b-mute">Order pertama</span>` : `<span class="badge b-mute">Pelanggan baru</span>`;
+  const prev = rep ? g.list[g.ke - 2] : null;
+  return `
+    <article class="cust ${rep ? "rep" : ""}" data-id="${esc(r.id)}">
+      <div class="row1"><div class="name">${esc(r.nama)}</div>${badge}</div>
       <div class="meta">
         <span>🛒 <b>${fmt(r.tarikhBeli)}</b></span>
-        <span>🧴 <b>${esc(r.botol)} botol</b>${r.harga != null && r.harga !== "" ? " · RM" + esc(r.harga) : ""}</span>
+        <span>🧴 <b>${esc(r.botol)} botol</b>${r.harga != null && r.harga !== "" ? " · RM" + esc(r.harga) : ""} · ${esc(r.bayaran || "COD")}</span>
         <span>📍 <b>${esc([r.bandar, r.negeri].filter(Boolean).join(", ") || "-")}</b></span>
         <span>📞 <b>${esc(r.tel)}</b></span>
       </div>
+      ${g.jumlah > 1 ? `<div class="meta"><span>Jumlah ${g.jumlah} order oleh pelanggan ini${prev ? ` · sebelum ini ${fmt(prev.tarikhBeli)} (${esc(prev.botol)} botol)` : ""}</span></div>` : ""}
       ${r.alamat ? `<div class="note">🏠 ${esc(r.alamat)}</div>` : ""}
-      <div class="meta">${r.kodVoucher ? `<span>🎟️ Kod untuk kad: <span class="code">${esc(r.kodVoucher)}</span> ${r.voucherDigunakan ? `<span class="vstate u">· dah digunakan ${fmt(r.voucherDigunakan)}</span>` : `<span class="vstate f">· belum guna</span>`}</span>` : (writable ? `<button class="btn ghost" type="button" data-act="gencode">🎟️ Jana kod voucher</button>` : "")}
-      ${r.voucherDipakai ? `<span>✂️ Order ini guna voucher <span class="code">${esc(r.voucherDipakai)}</span> (−RM${VOUCHER_RM})</span>` : ""}</div>
       ${r.nota ? `<div class="note">${esc(r.nota)}</div>` : ""}
       ${writable ? `<div class="acts">
         <a class="btn wa" href="https://wa.me/${normTel(r.tel)}" target="_blank" rel="noopener">WhatsApp</a>
         <button class="btn pri" type="button" data-act="rebuy">+ Order lagi</button>
         <button class="btn ghost" type="button" data-act="edit">Edit</button>
         <button class="btn danger" type="button" data-act="del">Padam</button>
-      </div><div class="confirm" data-confirm hidden>Padam rekod ${esc(r.nama)}? <button class="btn danger" type="button" data-act="del-yes">Ya, padam</button><button class="btn" type="button" data-act="del-no">Batal</button></div>` : ""}
+      </div><div class="confirm" data-confirm hidden>Padam order ${esc(r.nama)} (${fmt(r.tarikhBeli)})? <button class="btn danger" type="button" data-act="del-yes">Ya, padam</button><button class="btn" type="button" data-act="del-no">Batal</button></div>` : ""}
     </article>`;
-  }).join("");
+}
+function leadCard(r) {
+  const st = { dihubungi: `<span class="badge b-soon">Dah follow-up</span>`, tak_berminat: `<span class="badge b-mute">Tak berminat</span>` }[r.status] || `<span class="badge b-lead">Belum beli</span>`;
+  return `
+    <article class="cust lead" data-id="${esc(r.id)}">
+      <div class="row1"><div class="name">${esc(r.nama || r.tel)}</div>${st}</div>
+      <div class="meta">
+        <span>📞 <b>${esc(r.tel)}</b></span>
+        <span>💬 Mula WhatsApp <b>${fmt(r.tarikh)}</b></span>
+        ${r.sumber ? `<span>📣 <b>${esc(r.sumber)}</b></span>` : ""}
+        ${r.minat ? `<span>🧴 Minat <b>${esc(r.minat)} botol</b></span>` : ""}
+      </div>
+      ${r.nota ? `<div class="note">${esc(r.nota)}</div>` : ""}
+      ${writable ? `<div class="acts">
+        <a class="btn wa" href="https://wa.me/${normTel(r.tel)}" target="_blank" rel="noopener">WhatsApp</a>
+        <button class="btn pri" type="button" data-act="lbuy">✓ Dah beli → rekod order</button>
+        ${r.status === "dihubungi" ? "" : `<button class="btn" type="button" data-act="lcontact">Dah follow-up</button>`}
+        ${r.status === "tak_berminat" ? `<button class="btn" type="button" data-act="lreopen">Buka semula</button>` : `<button class="btn ghost" type="button" data-act="lno">Tak berminat</button>`}
+        <button class="btn ghost" type="button" data-act="ledit">Edit</button>
+        <button class="btn danger" type="button" data-act="del">Padam</button>
+      </div><div class="confirm" data-confirm hidden>Padam prospek ${esc(r.nama || r.tel)}? <button class="btn danger" type="button" data-act="del-yes">Ya, padam</button><button class="btn" type="button" data-act="del-no">Batal</button></div>` : ""}
+    </article>`;
 }
 
 /* ===== tindakan pada kad ===== */
 $("#list").addEventListener("click", async e => {
   const b = e.target.closest("[data-act]"); if (!b || !db) return;
   const card = b.closest(".cust"), id = card.dataset.id, r = rows.find(x => x.id === id); if (!r) return;
-  const ref = db.collection(COL).doc(id);
+  const ref = db.collection(COL).doc(id), now = new Date().toISOString();
   const act = b.dataset.act;
   try {
-    if (act === "gencode") await ref.update({ kodVoucher: newCode(), updatedAt: new Date().toISOString() });
     if (act === "edit") openSheet(r, "edit");
     if (act === "rebuy") openSheet(r, "rebuy");
+    if (act === "ledit") openLead(r);
+    if (act === "lbuy") openSheet({ nama: r.nama, tel: r.tel, nota: r.nota, minat: r.minat }, "fromlead");
+    if (act === "lcontact") await ref.update({ status: "dihubungi", updatedAt: now });
+    if (act === "lno") await ref.update({ status: "tak_berminat", updatedAt: now });
+    if (act === "lreopen") await ref.update({ status: "baru", updatedAt: now });
     if (act === "del") card.querySelector("[data-confirm]").hidden = false;
     if (act === "del-no") card.querySelector("[data-confirm]").hidden = true;
     if (act === "del-yes") await ref.delete();
   } catch (err) { setStatus(errMsg(err)); }
 });
 
-/* ===== borang ===== */
+/* ===== borang pembelian ===== */
 let qty = 1, priceTouched = false;
-function autoFill() {
-  if (!priceTouched) $("#f-harga").value = total(qty, $("#f-negeri").value) - (vState && vState.st === "ok" ? VOUCHER_RM : 0);
-}
+function autoFill() { if (!priceTouched) $("#f-harga").value = total(qty, $("#f-negeri").value); }
 function setQty(n) {
   qty = n;
   document.querySelectorAll(".pk").forEach(p => p.setAttribute("aria-pressed", +p.dataset.q === n));
@@ -322,36 +384,42 @@ document.querySelectorAll(".pk").forEach(p => p.addEventListener("click", () => 
 $("#f-negeri").addEventListener("change", autoFill);
 $("#f-harga").addEventListener("input", () => { priceTouched = true; });
 
-let vState = null;
-function checkVoucherField() {
-  const raw = $("#f-voucher").value.trim(), h = $("#vhint");
-  if (!raw) { vState = null; h.textContent = ""; h.className = "vhint"; autoFill(); return; }
-  vState = voucherInfo(raw, editing);
-  h.textContent = (vState.st === "ok" ? "✓ " : "✕ ") + vState.msg + (vState.st === "ok" ? ` Jumlah ditolak RM${VOUCHER_RM}.` : "");
-  h.className = "vhint " + (vState.st === "ok" ? "ok" : "bad");
-  autoFill();
+function showMatch() {
+  const box = $("#matchBox"), v = { tel: $("#f-tel").value, nama: $("#f-nama").value, alamat: $("#f-alamat").value };
+  if (!normTel(v.tel) && !v.nama.trim()) { box.hidden = true; return; }
+  const m = matchCustomer(v, editing), lead = leadFor(v.tel);
+  if (m) {
+    const ke = editing ? null : m.list.length + 1;
+    box.className = "match rep"; box.hidden = false;
+    box.textContent = `🔁 Pelanggan lama${m.byTel ? "" : " (nama & alamat sama)"}: ` + (ke ? `ini order ke-${ke}. ` : "") + `Order terakhir ${fmt(m.last.tarikhBeli)}, ${m.last.botol} botol.`;
+  } else if (editing) { box.hidden = true; }
+  else {
+    box.className = "match new"; box.hidden = false;
+    box.textContent = "🆕 Pelanggan baru (order pertama)." + (lead ? ` Prospek sejak ${fmt(lead.tarikh)} akan ditanda dah beli.` : "");
+  }
 }
-$("#f-voucher").addEventListener("input", checkVoucherField);
+["#f-tel", "#f-nama", "#f-alamat"].forEach(s => $(s).addEventListener("input", showMatch));
+
 function openSheet(r, mode) {
   editing = mode === "edit" ? r.id : null;
-  $("#sheetTitle").textContent = mode === "edit" ? "Edit rekod" : mode === "rebuy" ? "Pembelian semula" : "Tambah pembelian";
-  $("#sheetSub").textContent = mode === "rebuy" ? `Order baru untuk ${r.nama}. Rekod lama kekal sebagai sejarah.` : "Isi maklumat pembeli yang dah sahkan order.";
+  $("#sheetTitle").textContent = mode === "edit" ? "Edit order" : mode === "rebuy" ? "Repeat order" : mode === "fromlead" ? "Prospek dah beli" : "Tambah pembelian";
+  $("#sheetSub").textContent = mode === "rebuy" ? `Order baru untuk ${r.nama}. Order lama kekal sebagai sejarah.` : mode === "fromlead" ? "Lengkapkan alamat dan pakej. Prospek akan ditanda dah beli." : "Isi maklumat pembeli yang dah sahkan order.";
   $("#pasteBox").hidden = mode === "edit" || mode === "rebuy"; $("#pasteBox").open = false; $("#pasteTxt").value = ""; $("#pasteErr").hidden = true;
   $("#f-nama").value = r?.nama || ""; $("#f-tel").value = r?.tel || ""; $("#f-negeri").value = r?.negeri || ""; $("#f-bandar").value = r?.bandar || "";
-  $("#f-alamat").value = r?.alamat || ""; $("#f-bayar").value = r?.bayaran || "COD"; $("#f-nota").value = r?.nota || "";
+  $("#f-alamat").value = r?.alamat || ""; $("#f-bayar").value = r?.bayaran || "COD"; $("#f-nota").value = mode === "rebuy" ? "" : (r?.nota || "");
   $("#f-tarikh").value = mode === "edit" ? r.tarikhBeli : todayStr();
   priceTouched = mode === "edit";
   if (mode === "edit") $("#f-harga").value = r.harga ?? "";
-  $("#vfield").hidden = mode === "edit"; $("#f-voucher").value = ""; vState = null; $("#vhint").textContent = "";
-  setQty(mode === "edit" ? (+r.botol || 1) : 1);
+  setQty(mode === "edit" ? (+r.botol || 1) : (+r?.minat || 1));
   $("#formErr").hidden = true;
+  showMatch();
   $("#sheet").hidden = $("#scrim").hidden = false; document.body.style.overflow = "hidden";
-  setTimeout(() => $("#f-nama").focus(), 50);
+  setTimeout(() => $(mode === "fromlead" ? "#f-alamat" : "#f-nama").focus(), 50);
 }
-function closeSheet() { $("#sheet").hidden = $("#scrim").hidden = true; document.body.style.overflow = ""; }
-$("#addBtn").addEventListener("click", () => openSheet(null, "new"));
-$("#closeSheet").addEventListener("click", closeSheet); $("#scrim").addEventListener("click", closeSheet);
-document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("#sheet").hidden) closeSheet(); });
+function closeSheets() { $("#sheet").hidden = $("#lsheet").hidden = $("#scrim").hidden = true; document.body.style.overflow = ""; }
+$("#addBtn").addEventListener("click", () => tab === "lead" ? openLead(null) : openSheet(null, "new"));
+$("#closeSheet").addEventListener("click", closeSheets); $("#closeL").addEventListener("click", closeSheets); $("#scrim").addEventListener("click", closeSheets);
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeSheets(); });
 
 /* tampal mesej order website (format butang tempah jusbidarahitam.com) */
 function parseOrder(t) {
@@ -362,17 +430,19 @@ function parseOrder(t) {
   const segs = alamat.replace(/,?\s*\d{5}\s+[^,]*$/, "").split(",").map(s => s.trim()).filter(Boolean);
   const bandar = segs.length > 1 ? segs[segs.length - 1] : "";
   const q = +(pakej.match(/(\d)\s*botol/i) || [])[1] || 1;
-  return { nama, tel, alamat, negeri: st, bandar, qty: q, jumlah: jum, bayar, voucher: g("Kod voucher"), bil: g("ID Bil") };
+  return { nama, tel, alamat, negeri: st, bandar, qty: q, jumlah: jum, bayar, bil: g("ID Bil") };
 }
 $("#pasteBtn").addEventListener("click", () => {
   const o = parseOrder($("#pasteTxt").value);
   if (!o.nama && !o.tel) { $("#pasteErr").textContent = "Format mesej tak dikenali. Pastikan ada baris Nama: dan Telefon:"; $("#pasteErr").hidden = false; return; }
   $("#pasteErr").hidden = true;
   $("#f-nama").value = o.nama; $("#f-tel").value = o.tel; $("#f-negeri").value = o.negeri; $("#f-bandar").value = o.bandar; $("#f-alamat").value = o.alamat;
-  priceTouched = false; $("#f-voucher").value = o.voucher || ""; checkVoucherField(); setQty(o.qty);
+  priceTouched = false; setQty(o.qty);
+  if (o.jumlah) { $("#f-harga").value = o.jumlah; priceTouched = true; }
   if (/billplz/i.test(o.bayar)) $("#f-bayar").value = "Online (Billplz)"; else if (/transfer/i.test(o.bayar)) $("#f-bayar").value = "Online Transfer"; else if (/cod/i.test(o.bayar)) $("#f-bayar").value = "COD";
-  if (o.bil) { $("#f-nota").value = ("Billplz ID Bil: " + o.bil + (/dibayar/i.test(o.bayar) ? " (DIBAYAR)" : "") + "\n" + $("#f-nota").value).trim(); if (o.jumlah) { $("#f-harga").value = o.jumlah; priceTouched = true; } }
+  if (o.bil) $("#f-nota").value = ("Billplz ID Bil: " + o.bil + (/dibayar/i.test(o.bayar) ? " (DIBAYAR)" : "") + "\n" + $("#f-nota").value).trim();
   $("#pasteBox").open = false;
+  showMatch();
 });
 
 $("#form").addEventListener("submit", async e => {
@@ -380,51 +450,80 @@ $("#form").addEventListener("submit", async e => {
   const v = id => $(id).value.trim();
   const miss = [["#f-nama", "nama"], ["#f-tel", "telefon"], ["#f-negeri", "negeri"], ["#f-tarikh", "tarikh beli"]].filter(([id]) => !v(id));
   if (miss.length) { $("#formErr").textContent = "Sila isi " + miss.map(m => m[1]).join(", ") + "."; $("#formErr").hidden = false; $(miss[0][0]).focus(); return; }
-  if (!editing && v("#f-voucher") && (!vState || vState.st !== "ok")) { $("#formErr").textContent = "Kod voucher tak sah atau dah digunakan. Padam kod tu atau semak semula sebelum simpan."; $("#formErr").hidden = false; $("#f-voucher").focus(); return; }
-  const now = new Date().toISOString(), tarikh = v("#f-tarikh");
+  const now = new Date().toISOString();
   const body = { nama: v("#f-nama"), tel: v("#f-tel"), negeri: v("#f-negeri"), bandar: v("#f-bandar"), alamat: v("#f-alamat"), botol: qty,
-    harga: $("#f-harga").value === "" ? null : +$("#f-harga").value, bayaran: v("#f-bayar"), tarikhBeli: tarikh, nota: v("#f-nota"), updatedAt: now };
+    harga: $("#f-harga").value === "" ? null : +$("#f-harga").value, bayaran: v("#f-bayar"), tarikhBeli: v("#f-tarikh"), nota: v("#f-nota"), updatedAt: now };
   $("#saveBtn").disabled = true;
   try {
-    if (editing) {
-      await db.collection(COL).doc(editing).update(body);
-    } else {
-      const used = vState && vState.st === "ok" ? vState.r : null;
-      await db.collection(COL).doc().set({ ...body, kodVoucher: newCode(), voucherDigunakan: null, voucherDipakai: used ? used.kodVoucher : null, createdAt: now });
-      if (used) await db.collection(COL).doc(used.id).update({ voucherDigunakan: tarikh, voucherDigunakanOleh: `${body.nama} (${body.tel})`, updatedAt: now });
+    if (editing) await db.collection(COL).doc(editing).update(body);
+    else {
+      await db.collection(COL).doc().set({ ...body, jenis: "order", createdAt: now });
+      const lead = leadFor(body.tel);
+      if (lead) await db.collection(COL).doc(lead.id).update({ status: "dah_beli", dahBeliPada: body.tarikhBeli, updatedAt: now });
     }
-    closeSheet();
+    closeSheets();
   } catch (err) { $("#formErr").textContent = errMsg(err); $("#formErr").hidden = false; }
   finally { $("#saveBtn").disabled = false; }
 });
 
-/* ===== semak voucher ===== */
-function showVoucher() {
-  const raw = $("#vq").value.trim(), box = $("#vres");
-  if (!raw) { box.hidden = true; return; }
-  const i = voucherInfo(raw, null);
-  box.className = "vres " + i.st; box.hidden = false;
-  box.innerHTML = `<div><b>${i.st === "ok" ? "✓" : "✕"} ${esc(i.msg)}</b></div>` + (i.r ? `<div>Pemilik kod: <b>${esc(i.r.nama)}</b> · ${esc(i.r.tel)} · ${esc([i.r.bandar, i.r.negeri].filter(Boolean).join(", "))}<br>Order asal: ${fmt(i.r.tarikhBeli)} · ${esc(i.r.botol)} botol. Pastikan nama &amp; alamat pembeli sama dengan pemilik kod.</div>` : "") +
-    (i.st === "ok" && writable ? `<div><button class="btn" type="button" id="vmark">Tandakan dah digunakan</button></div>` : "");
+/* ===== borang prospek ===== */
+let lSumber = "";
+document.querySelectorAll("#lSumber button").forEach(b => b.addEventListener("click", () => {
+  lSumber = lSumber === b.dataset.v ? "" : b.dataset.v;
+  document.querySelectorAll("#lSumber button").forEach(x => x.setAttribute("aria-pressed", x.dataset.v === lSumber));
+}));
+function leadCheck() {
+  const box = $("#lMatch"), t = normTel($("#l-tel").value);
+  if (t.length < 10) { box.hidden = true; return null; }
+  const m = matchCustomer({ tel: t });
+  const dup = rows.find(r => isLead(r) && r.id !== lEditing && normTel(r.tel) === t);
+  if (m) { box.className = "match rep"; box.hidden = false; box.textContent = `🔁 Nombor ni dah pernah beli (${m.list.length} order, terakhir ${fmt(m.last.tarikhBeli)}). Tak perlu simpan sebagai prospek.`; return "customer"; }
+  if (dup) { box.className = "match warn"; box.hidden = false; box.textContent = `⚠️ Nombor ni dah ada dalam prospek sejak ${fmt(dup.tarikh)}${dup.nama ? " (" + dup.nama + ")" : ""}.`; return "dup"; }
+  box.hidden = true; return null;
 }
-$("#vgo").addEventListener("click", showVoucher);
-$("#vq").addEventListener("keydown", e => { if (e.key === "Enter") showVoucher(); });
-$("#vres").addEventListener("click", async e => {
-  if (e.target.id !== "vmark" || !db) return;
-  const i = voucherInfo($("#vq").value, null); if (i.st !== "ok") return;
-  try { await db.collection(COL).doc(i.r.id).update({ voucherDigunakan: todayStr(), voucherDigunakanOleh: "ditanda manual", updatedAt: new Date().toISOString() }); }
-  catch (err) { setStatus(errMsg(err)); }
+$("#l-tel").addEventListener("input", leadCheck);
+function openLead(r) {
+  lEditing = r ? r.id : null;
+  $("#lTitle").textContent = r ? "Edit prospek" : "Tambah prospek";
+  $("#l-tel").value = r?.tel || ""; $("#l-nama").value = r?.nama || ""; $("#l-minat").value = r?.minat || "";
+  $("#l-tarikh").value = r?.tarikh || todayStr(); $("#l-nota").value = r?.nota || "";
+  lSumber = r?.sumber || ""; document.querySelectorAll("#lSumber button").forEach(x => x.setAttribute("aria-pressed", x.dataset.v === lSumber));
+  $("#lErr").hidden = true; leadCheck();
+  $("#lsheet").hidden = $("#scrim").hidden = false; document.body.style.overflow = "hidden";
+  setTimeout(() => $("#l-tel").focus(), 50);
+}
+$("#lform").addEventListener("submit", async e => {
+  e.preventDefault(); if (!db) return;
+  const tel = $("#l-tel").value.trim();
+  if (normTel(tel).length < 10) { $("#lErr").textContent = "Sila isi nombor telefon yang sah."; $("#lErr").hidden = false; $("#l-tel").focus(); return; }
+  const c = leadCheck();
+  if (c) { $("#lErr").textContent = c === "customer" ? "Nombor ni dah jadi pembeli. Tak disimpan sebagai prospek." : "Nombor ni dah ada dalam prospek. Edit rekod yang sedia ada."; $("#lErr").hidden = false; return; }
+  const now = new Date().toISOString();
+  const body = { jenis: "prospek", tel, nama: $("#l-nama").value.trim(), sumber: lSumber, minat: $("#l-minat").value, tarikh: $("#l-tarikh").value || todayStr(), nota: $("#l-nota").value.trim(), updatedAt: now };
+  $("#lSave").disabled = true;
+  try {
+    if (lEditing) await db.collection(COL).doc(lEditing).update(body);
+    else await db.collection(COL).doc().set({ ...body, status: "baru", createdAt: now });
+    closeSheets();
+  } catch (err) { $("#lErr").textContent = errMsg(err); $("#lErr").hidden = false; }
+  finally { $("#lSave").disabled = false; }
 });
 
 /* ===== tab, carian ===== */
-$("#tabs").addEventListener("click", e => { const t = e.target.closest(".tab"); if (!t) return; tab = t.dataset.tab; document.querySelectorAll(".tab").forEach(x => x.setAttribute("aria-selected", x === t)); render(); });
+function setTab(t) { tab = t; document.querySelectorAll(".tab").forEach(x => x.setAttribute("aria-selected", x.dataset.tab === t)); render(); }
+$("#tabs").addEventListener("click", e => { const t = e.target.closest(".tab"); if (t) setTab(t.dataset.tab); });
+$("#st-lead-btn").addEventListener("click", () => setTab("lead"));
 $("#q").addEventListener("input", render); $("#fstate").addEventListener("change", render);
 
 /* ===== eksport CSV ===== */
 $("#exportBtn").addEventListener("click", async () => {
-  const cols = ["nama","tel","negeri","bandar","alamat","botol","harga","bayaran","tarikhBeli","kodVoucher","voucherDigunakan","voucherDigunakanOleh","voucherDipakai","nota"];
+  const orders = rows.filter(r => !isLead(r)), { info } = groupOrders(orders);
+  const cols = ["jenis","orderKe","nama","tel","negeri","bandar","alamat","botol","harga","bayaran","tarikhBeli","sumber","minat","tarikhProspek","statusProspek","nota"];
   const q = s => `"${String(s ?? "").replace(/"/g, '""')}"`;
-  const csv = [cols.join(","), ...rows.map(r => cols.map(c => q(r[c])).join(","))].join("\n");
+  const line = r => isLead(r)
+    ? { jenis: "prospek", nama: r.nama, tel: r.tel, sumber: r.sumber, minat: r.minat, tarikhProspek: r.tarikh, statusProspek: r.status, nota: r.nota }
+    : { ...r, jenis: "order", orderKe: info.get(r.id)?.ke };
+  const csv = [cols.join(","), ...rows.map(r => { const o = line(r); return cols.map(c => q(o[c])).join(","); })].join("\n");
   try { await downloads.save({ filename: `jus-bidara-hitam-pelanggan-${todayStr()}.csv`, data: "﻿" + csv }); } catch (_) { setStatus("Muat turun dibatalkan."); }
 });
 
@@ -447,12 +546,12 @@ render();
   db = dbNs;
   const canEdit = user ? await user.canEdit() : null;
   if (canEdit === false) { writable = false; $("#locked").hidden = false; setStatus(""); render(); return; }
-  $("#addBtn").hidden = false; $("#vchk").hidden = false;
+  $("#addBtn").hidden = false;
   const timer = setTimeout(() => setStatus("Rekod belum dapat dicapai. Semak sambungan internet."), 10000);
   db.collection(COL).onSnapshot(snap => {
     rows = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-    if (!snap.metadata.fromCache) { clearTimeout(timer); setStatus(`${rows.length} rekod · dikemas kini ${new Date().toLocaleTimeString("ms-MY", { hour: "2-digit", minute: "2-digit" })}`); }
-    render(); if (!$("#vres").hidden) showVoucher();
+    if (!snap.metadata.fromCache) { clearTimeout(timer); setStatus(`${rows.filter(r => !isLead(r)).length} order · ${rows.filter(isLead).length} prospek · dikemas kini ${new Date().toLocaleTimeString("ms-MY", { hour: "2-digit", minute: "2-digit" })}`); }
+    render();
   }, err => { clearTimeout(timer); setStatus(err.code === "revoked" ? "" : "Rekod tak dapat dimuatkan."); });
 })();
 </script>
