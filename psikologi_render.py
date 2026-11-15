@@ -16,8 +16,19 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 WD, OUT = sys.argv[1], sys.argv[2]
+import os
+
+EP = os.environ.get("EP", "1")
+CFG = {
+    "1": dict(dur=61.7, icons="icons.png", hook_end=6.7, badge_t=4.1, badge_i=4, hook1="YANG RAMAI ORANG",
+              hook2="TAK SUKA NAK MENGAKU", hook_chip="KITA SEMUA PERNAH KENA", star_i=4, star_txt="INI DIA!",
+              cta1="MANA SATU", cta2="PALING KENA?", cta_chip="KOMEN NOMBOR DIA KAT BAWAH", ribbon=None),
+    "2": dict(dur=58.1, icons="icons2.png", hook_end=6.3, badge_t=4.56, badge_i=6, hook1="7 LAGI KEBENARAN",
+              hook2="YANG JARANG ORANG CAKAP", hook_chip="PALING DALAM", star_i=6, star_txt="PALING DALAM",
+              cta1="SHARE PADA", cta2="SESEORANG", cta_chip="TENGOK BAHAGIAN 1 JUGA", ribbon="BAHAGIAN 2"),
+}[EP]
 W, H, FPS = 1080, 1920, 30
-DUR = 61.7
+DUR = CFG["dur"]
 N = int(DUR * FPS)
 
 YELLOW = (255, 214, 0)
@@ -147,6 +158,12 @@ def header_sprite():
     t2 = "PSYCHOLOGY"
     f2 = F_BLACK(124)
     d.text(((966 - f2.getlength(t2)) / 2, 122), t2, font=f2, fill=RED, stroke_width=3, stroke_fill=(120, 0, 0))
+    if CFG["ribbon"]:
+        r = chip(CFG["ribbon"], F_BLACK(44), WHITE, RED).rotate(-6, expand=True, resample=Image.BICUBIC)
+        big = Image.new("RGBA", (im.width + 40, im.height + 70), (0, 0, 0, 0))
+        big.alpha_composite(im, (0, 0))
+        big.alpha_composite(r, (big.width - r.width, big.height - r.height))
+        im = big
     return im
 
 
@@ -210,7 +227,7 @@ POSE = {n: narrator(n) for n in ["kejut", "teruja", "senyum", "garu", "tunjuk", 
 # ---------------------------------------------------------------- icons (cut from the sprite sheet)
 def load_icons():
     from rembg import new_session, remove
-    sh = Image.open(f"{WD}/icons.png").convert("RGB")
+    sh = Image.open(f"{WD}/" + CFG["icons"]).convert("RGB")
     cw, ch = sh.width / 4, sh.height / 2
     sess = new_session("u2net")
     out = []
@@ -236,11 +253,25 @@ POINTS = [  # (start, number-call time, headline, sub, sub_time, pose)
     (52.05, 52.24, "MENGEJEK KEMISKINAN = HATI KOTOR", "Yang miskin sebenarnya hati dia", 55.2, "kejut"),
 ]
 CTA_T = 57.3
+if EP == "2":
+    POINTS = [
+        (6.3, 6.44, "PALING BANYAK KETAWA, PALING BANYAK LUKA", "Senyum tak semestinya bahagia", 11.79, "senyum"),
+        (14.2, 14.34, "CEPAT MARAH, CEPAT SEJUK", "Marah sekejap, hati baik", 18.43, "garu"),
+        (20.55, 20.70, "SELALU MINTA MAAF = TAKUT KEHILANGAN", "Takut hilang orang tersayang", 24.83, "risau"),
+        (27.63, 27.78, "SUKA TOLONG ORANG, SEGAN MINTA TOLONG", "Pandai memberi, segan meminta", 30.8, "senyum"),
+        (33.23, 33.38, "ASYIK CERITA DIRI = CARI PENGIKTIRAFAN", "Dia nak orang nampak dia", 36.72, "sinis"),
+        (39.07, 39.22, "SELALU TIDUR LAMBAT, KEPALA PENUH", "Fikiran tak pernah berhenti", 43.63, "fikir"),
+        (45.33, 45.48, "PALING TENANG, PALING BANYAK RIBUT", "Tenang sebab dah biasa diuji", 48.3, "tunjuk"),
+    ]
+    CTA_T = 50.6
 
 
 def headline_sprite(text):
-    f = F_BLACK(78)
-    lines = wrap(text, f, 900)
+    for size in (78, 70, 62):
+        f = F_BLACK(size)
+        lines = wrap(text, f, 960)
+        if len(lines) <= 2:
+            break
     sps = [text_sprite(l, f, YELLOW, stroke=4) for l in lines]
     w = max(s.width for s in sps)
     h = sum(s.height for s in sps) - 18 * (len(sps) - 1)
@@ -274,7 +305,7 @@ SMALL = [badge(i + 1, 40) for i in range(7)]
 
 def pose_at(t):
     if t < POINTS[0][0]:
-        return "kejut" if t < 4.1 else "teruja"
+        return "kejut" if t < CFG["badge_t"] else "teruja"
     if t >= CTA_T:
         return "tunjuk" if t > CTA_T + 2.2 else "teruja"
     for p in reversed(POINTS):
@@ -286,7 +317,7 @@ def pose_at(t):
 def pose_start(t):
     if t >= CTA_T:
         return CTA_T if t < CTA_T + 2.2 else CTA_T + 2.2
-    starts = [0.0, 4.1] + [p[0] for p in POINTS]
+    starts = [0.0, CFG["badge_t"]] + [p[0] for p in POINTS]
     return max(s for s in starts if s <= t)
 
 
@@ -334,41 +365,41 @@ def draw_point(c, t, i):
     us = ease_back((t - sub_t) / 0.4)
     if t > sub_t:
         place(c, SUB[i], W / 2 + dx, 1075, scale=0.5 + 0.5 * us, rot=-2)
-    if i == 4:  # the promised #5
+    if i == CFG["star_i"]:  # the promised number
         uf = clamp((t - nt) / 0.25) * (1 - clamp((t - nt - 0.9) / 0.4))
         if uf > 0:
-            place(c, chip("INI DIA!", F_BLACK(56), WHITE, RED), 830 + dx, 470, scale=0.6 + 0.4 * ease_back(uf), rot=8)
+            place(c, chip(CFG["star_txt"], F_BLACK(56), WHITE, RED), 830 + dx, 470, scale=0.6 + 0.4 * ease_back(uf), rot=8)
 
 
 def draw_hook(c, t):
     u = ease_back((t - 0.25) / 0.5)
-    ex = ease_out((t - 6.4) / 0.3)
+    ex = ease_out((t - CFG["hook_end"] + 0.3) / 0.3)
     place(c, HEADER, W / 2 - ex * 0, 220 + (1 - u) * -400, scale=1.0)
-    if t < 6.7:
+    if t < CFG["hook_end"]:
         f = F_BLACK(64)
-        t1 = text_sprite("YANG RAMAI ORANG", f, WHITE, stroke=3)
-        t2 = text_sprite("TAK SUKA NAK MENGAKU", f, WHITE, stroke=3)
+        t1 = text_sprite(CFG["hook1"], f, WHITE, stroke=3)
+        t2 = text_sprite(CFG["hook2"], f, WHITE, stroke=3)
         a = ease_out((t - 1.2) / 0.4) * (1 - ex)
         place(c, t1, W / 2, 520, alpha=a)
         place(c, t2, W / 2, 600, alpha=ease_out((t - 1.6) / 0.4) * (1 - ex))
-        if t > 4.1:
-            ub = ease_back((t - 4.1) / 0.45)
-            place(c, BADGE[4], W / 2, 820, scale=1.3 * ub * (1 - ex), rot=(1 - ub) * 60)
-            place(c, chip("KITA SEMUA PERNAH KENA", F_BLACK(50), WHITE, RED), W / 2, 1010,
-                  scale=max(0.01, ease_back((t - 4.5) / 0.4) * (1 - ex)), rot=-3)
+        if t > CFG["badge_t"]:
+            ub = ease_back((t - CFG["badge_t"]) / 0.45)
+            place(c, BADGE[CFG["badge_i"]], W / 2, 820, scale=1.3 * ub * (1 - ex), rot=(1 - ub) * 60)
+            place(c, chip(CFG["hook_chip"], F_BLACK(50), WHITE, RED), W / 2, 1010,
+                  scale=max(0.01, ease_back((t - CFG["badge_t"] - 0.4) / 0.4) * (1 - ex)), rot=-3)
 
 
 def draw_cta(c, t):
     u = ease_out((t - CTA_T) / 0.4)
     f = F_BLACK(84)
-    place(c, text_sprite("MANA SATU", f, WHITE, stroke=4), W / 2, 520, alpha=u)
-    place(c, text_sprite("PALING KENA?", f, YELLOW, stroke=4), W / 2, 615, alpha=ease_out((t - CTA_T - 0.25) / 0.4))
+    place(c, text_sprite(CFG["cta1"], f, WHITE, stroke=4), W / 2, 520, alpha=u)
+    place(c, text_sprite(CFG["cta2"], f, YELLOW, stroke=4), W / 2, 615, alpha=ease_out((t - CTA_T - 0.25) / 0.4))
     for i in range(7):
         ub = ease_back((t - CTA_T - 0.9 - i * 0.12) / 0.4)
         jump = 14 * max(0, math.sin((t - CTA_T) * 6 - i * 0.7)) if t > CTA_T + 2 else 0
         place(c, SMALL[i], W / 2 + (i - 3) * 118, 800 - jump, scale=1.35 * ub)
     if t > CTA_T + 1.9:
-        place(c, chip("KOMEN NOMBOR DIA KAT BAWAH", F_BLACK(44), INK, YELLOW), W / 2, 960,
+        place(c, chip(CFG["cta_chip"], F_BLACK(44), INK, YELLOW), W / 2, 960,
               scale=ease_back((t - CTA_T - 1.9) / 0.4), rot=-2)
         ar = 18 * math.sin((t - CTA_T) * 8)
         d = ImageDraw.Draw(c)

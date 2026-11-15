@@ -2,6 +2,7 @@
 
 Usage: python3 psikologi_audio.py out.wav assets/vo_psikologi.mp3
 """
+import os
 import subprocess
 import sys
 import wave
@@ -11,12 +12,17 @@ import numpy as np
 import kolaj_audio as ka
 
 SR = ka.SR
-DUR = 61.7
+EP = os.environ.get("EP", "1")
+if EP == "2":
+    DUR, CTA, STAR, HOOK_POPS = 58.1, 50.6, 45.53, [1.3, 1.7, 4.56, 4.96]
+    NUM_T = [6.44, 14.34, 20.70, 27.78, 33.38, 39.22, 45.48]
+    SUB_T = [11.79, 18.43, 24.83, 30.8, 36.72, 43.63, 48.3]
+else:
+    DUR, CTA, STAR, HOOK_POPS = 61.7, 57.3, 38.05, [1.2, 1.6, 4.1, 4.5]
+    NUM_T = [6.84, 15.48, 22.21, 30.30, 38.0, 45.0, 52.24]
+    SUB_T = [12.2, 20.19, 26.15, 35.07, 42.15, 49.03, 55.2]
+STARTS = [t - 0.15 for t in NUM_T] + [CTA]
 N = int(SR * DUR)
-NUM_T = [6.84, 15.48, 22.21, 30.30, 38.0, 45.0, 52.24]
-SUB_T = [12.2, 20.19, 26.15, 35.07, 42.15, 49.03, 55.2]
-STARTS = [6.7, 15.3, 22.0, 30.1, 37.85, 44.85, 52.05, 57.3]
-CTA = 57.3
 
 
 def main(path, vo_path):
@@ -28,7 +34,7 @@ def main(path, vo_path):
 
     cue(ka.sfx_riser(0.6), 0.0, 0.5)
     cue(ka.sfx_stamp(), 0.3, 0.7)
-    for p in [1.2, 1.6, 4.1, 4.5]:
+    for p in HOOK_POPS:
         cue(ka.sfx_pop(), p, 0.45)
     for s in STARTS:
         cue(ka.sfx_whoosh(0.5), s - 0.25, 0.55)
@@ -37,7 +43,7 @@ def main(path, vo_path):
         cue(ka.sfx_pop(), t + 0.15, 0.4)
     for t in SUB_T:
         cue(ka.sfx_pop(), t, 0.35)
-    cue(ka.sfx_ding(), 38.05, 0.5)  # the promised #5
+    cue(ka.sfx_ding(), STAR, 0.5)  # the promised number
     for k in range(7):
         cue(ka.sfx_pop(), CTA + 0.9 + k * 0.12, 0.3)
     cue(ka.sfx_ding(), CTA + 1.9, 0.6)
