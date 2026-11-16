@@ -193,18 +193,57 @@ def cutout(name, target_w=820, max_h=1040):
     return shadowed(spr, (12, 16), 12, 0.4)
 
 
-POSES = ["laptop", "scroll", "call", "kerja", "terang", "simpan"]
+POSES = ["laptop", "scroll", "call", "kerja", "terang", "simpan", "serabut", "bosan", "takut", "gembira", "malas"]
 CUT = {n: cutout(n) for n in POSES}
 TIMELINE = [(0.0, "laptop"), (4.2, "terang"), (6.6, "laptop"), (14.7, "scroll"), (22.9, "call"),
             (29.6, "kerja"), (36.8, "terang"), (40.2, "simpan")]
 
 
+# emotion beats: the pose follows the word being spoken
+EMO = [(2.4, 3.2, "malas"), (5.8, 6.6, "malas"), (10.3, 11.15, "serabut"), (11.2, 12.05, "bosan"),
+       (12.1, 12.9, "takut"), (16.4, 17.8, "gembira"), (21.5, 22.9, "gembira"), (37.5, 38.7, "serabut"),
+       (38.8, 40.2, "gembira")]
+
+
 def pose_at(t):
+    for a, b, n in EMO:
+        if a <= t < b:
+            return (a, n)
+    for a, b, n in EMO:  # coming back from an emotion beat re-triggers the entrance
+        if b <= t < b + 0.45:
+            base = [e for e in TIMELINE if e[0] <= t][-1]
+            return (b, base[1])
     cur = TIMELINE[0]
     for e in TIMELINE:
         if t >= e[0]:
             cur = e
     return cur
+
+
+def load_icon(n, size=300):
+    im = Image.open(f"{WD}/ic/{n}.png").convert("RGBA")
+    k = size / max(im.width, im.height)
+    return shadowed(im.resize((int(im.width * k), int(im.height * k)), Image.LANCZOS), (8, 10), 8, 0.35)
+
+
+ICON_CUES = [  # (word time, icon) — pops beside MAN's head while the word is said
+    (0.5, "kotak"), (2.4, "kalendar"), (6.7, "otak"), (9.9, "kotak"), (13.8, "siren"), (15.1, "otak"),
+    (17.9, "fon"), (19.0, "video"), (19.6, "makan"), (20.4, "hadiah"), (21.5, "trofi"), (24.2, "jam_pasir"),
+    (26.8, "kotak"), (31.3, "kotak"), (33.2, "jam_randik"), (35.1, "otak"), (36.0, "betul"), (39.4, "kalendar"),
+]
+ICONS = {n: load_icon(n) for _, n in ICON_CUES}
+
+
+def draw_icons(c, t):
+    for k, (t0, n) in enumerate(ICON_CUES):
+        hold = min(1.5, (ICON_CUES[k + 1][0] - t0) if k + 1 < len(ICON_CUES) else 1.5)
+        if t0 - 0.05 <= t < t0 + hold:
+            u = ease_back((t - t0 + 0.05) / 0.3)
+            out = clamp((t - (t0 + hold - 0.2)) / 0.2)
+            side = -1 if k % 2 == 0 else 1
+            x = W / 2 + 40 + side * 340
+            y = 1180 + 10 * math.sin(t * 5 + k)
+            paste(c, ICONS[n], x, y, scale=max(0.01, u * (1 - out)), rot=side * -8 + 4 * math.sin(t * 3 + k))
 
 
 def draw_man(c, t):
@@ -555,6 +594,7 @@ def frame(fi):
     c = BG.copy()
     draw_section(c, t)
     draw_man(c, t)
+    draw_icons(c, t)
     draw_captions(c, t)
     # section wipe: a strip of paper sweeps across on each chapter change
     for v in list(S.values())[1:]:

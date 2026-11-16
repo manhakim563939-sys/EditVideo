@@ -30,6 +30,8 @@ def main(path, vo_path):
     for k in range(25):  # timer
         ka.add(sfx, ka.sfx_tick(), 33.0 + k * 0.1, 0.3)
     ka.add(sfx, ka.sfx_ding(), 38.8, 0.5)
+    for p in [0.5, 2.4, 6.7, 9.9, 13.8, 15.1, 17.9, 19.0, 19.6, 20.4, 21.5, 24.2, 26.8, 31.3, 33.2, 35.1, 36.0, 39.4]:
+        ka.add(sfx, ka.sfx_pop(), p - 0.02, 0.3)  # icon pops
     raw = subprocess.run(["ffmpeg", "-v", "error", "-i", vo_path, "-f", "s16le", "-ac", "1", "-ar", str(SR), "-"],
                          check=True, capture_output=True).stdout
     vo = np.frombuffer(raw, np.int16).astype(np.float64) / 32768
