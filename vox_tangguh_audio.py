@@ -16,7 +16,18 @@ N = int(SR * DUR)
 
 
 def main(path, vo_path):
-    music = ka.make_music(DUR, drop_at=36.9)[:N]
+    import json
+    old = json.load(open("assets/vo_tangguh_words.json"))
+    new = json.load(open("assets/vo_tangguh_v3_words.json"))
+    o_t = [0.0] + [w[1] for w in old] + [DUR]
+    n_t = [0.0] + [w[1] for w in new] + [new[-1][2] + 0.9]
+    global N
+    out_dur = n_t[-1]
+    N = int(SR * out_dur)
+    warp = lambda t: float(np.interp(t, o_t, n_t))
+    music = ka.make_music(out_dur, drop_at=warp(36.9))[:N]
+    orig_add = ka.add
+    ka.add = lambda buf, sig, at, gain=1.0: orig_add(buf, sig, warp(at), gain)
     sfx = np.zeros(N)
     for s in [6.7, 14.8, 23.0, 29.7, 36.9]:
         ka.add(sfx, ka.sfx_whoosh(0.5), s - 0.3, 0.55)

@@ -20,8 +20,17 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 WD, OUT = sys.argv[1], sys.argv[2]
 W, H, FPS = 1080, 1920, 30
 DUR = 43.0
-N = int(DUR * FPS)
 WORDS = json.load(open("assets/vo_tangguh_words.json"))
+# The visuals are timed to the first VO; the Eleven v3 re-read (same words) is mapped onto them word by word.
+V3 = json.load(open("assets/vo_tangguh_v3_words.json"))
+NEW_T = [0.0] + [w[1] for w in V3] + [V3[-1][2] + 0.9]
+OLD_T = [0.0] + [w[1] for w in WORDS] + [DUR]
+OUT_DUR = NEW_T[-1]
+N = int(OUT_DUR * FPS)
+
+
+def to_design(t_out):
+    return float(np.interp(t_out, NEW_T, OLD_T))
 
 CREAM = (242, 235, 221)
 INK = (24, 22, 20)
@@ -590,7 +599,7 @@ def draw_section(c, t):
 
 
 def frame(fi):
-    t = fi / FPS
+    t = to_design(fi / FPS)
     c = BG.copy()
     draw_section(c, t)
     draw_man(c, t)
