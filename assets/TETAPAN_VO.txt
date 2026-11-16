@@ -1,0 +1,7 @@
+Tetapan VO tetap (jangan ubah) — ElevenLabs
+- Suara: Firdaus (voice_id 9IHERNTfj1C1gH8dsxzI)
+- Model: eleven_v3
+- seed: 11
+- voice_settings: stability 0.5, similarity_boost 0.8
+- Endpoint: /v1/text-to-speech/{voice_id}/with-timestamps?output_format=mp3_44100_128
+- Skrip: kurangkan koma supaya bacaan licin

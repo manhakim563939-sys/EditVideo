@@ -21,11 +21,15 @@ WD, OUT = sys.argv[1], sys.argv[2]
 W, H, FPS = 1080, 1920, 30
 WORDS = json.load(open("assets/vo_penat_words.json"))
 DUR = WORDS[-1][2] + 0.9
-N = int(DUR * FPS)
+# final VO = seed-locked re-read (closest to the earlier voice); visuals mapped onto it word by word
+V2 = json.load(open("assets/vo_penat_v2_words.json"))
+NEW_T = [0.0] + [w[1] for w in V2] + [V2[-1][2] + 0.9]
+OLD_T = [0.0] + [w[1] for w in WORDS] + [DUR]
+N = int(NEW_T[-1] * FPS)
 
 
 def to_design(t_out):
-    return t_out
+    return float(np.interp(t_out, NEW_T, OLD_T))
 
 
 CREAM = (242, 235, 221)
