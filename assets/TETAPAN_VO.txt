@@ -1,8 +1,11 @@
 TETAPAN VO TETAP — JANGAN UBAH (pilihan Man, 16 Nov 2026)
-- Man jana VO sendiri dalam ElevenLabs web, kemudian hantar MP3. MP3 itu digunakan terus, tanpa ubah/potong/jana semula.
-- Suara: Firdaus (voice_id 9IHERNTfj1C1gH8dsxzI, professional voice clone)
-- Model: Eleven v4
-- Stability 50, Similarity 75 (nama fail ElevenLabs: Firdaus_pvc_s50_sim75_v4)
-- Masa perkataan untuk sarikata/ikon: DTW (librosa) antara MP3 Man dan draf VO dengan skrip sama
-  (API key tiada kebenaran forced_alignment).
-- Tugas Claude: sediakan skrip (kurang koma), Man jana VO, Claude edit video ikut MP3 itu.
+Rujukan: assets/vo_penat_man.mp3 (Man jana sendiri: Firdaus_pvc_s50_sim75_v4)
+
+Claude jana VO terus melalui API dengan tetapan INI SAHAJA:
+- voice_id: 9IHERNTfj1C1gH8dsxzI (Firdaus)
+- model_id: eleven_v4
+- voice_settings: {"stability": 0.5, "similarity_boost": 0.75}
+- endpoint: POST /v1/text-to-speech/9IHERNTfj1C1gH8dsxzI/with-timestamps?output_format=mp3_44100_128
+  (alignment aksara -> masa setiap perkataan untuk sarikata/ikon)
+- Skrip: kurangkan koma supaya bacaan licin.
+- MP3 yang dijana digunakan terus — jangan potong/ubah.
