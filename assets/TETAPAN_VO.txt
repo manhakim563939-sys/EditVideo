@@ -1,7 +1,8 @@
-Tetapan VO tetap (jangan ubah) — ElevenLabs
-- Suara: Firdaus (voice_id 9IHERNTfj1C1gH8dsxzI)
-- Model: eleven_v3
-- seed: 11
-- voice_settings: stability 0.5, similarity_boost 0.8
-- Endpoint: /v1/text-to-speech/{voice_id}/with-timestamps?output_format=mp3_44100_128
-- Skrip: kurangkan koma supaya bacaan licin
+TETAPAN VO TETAP — JANGAN UBAH (pilihan Man, 16 Nov 2026)
+- Man jana VO sendiri dalam ElevenLabs web, kemudian hantar MP3. MP3 itu digunakan terus, tanpa ubah/potong/jana semula.
+- Suara: Firdaus (voice_id 9IHERNTfj1C1gH8dsxzI, professional voice clone)
+- Model: Eleven v4
+- Stability 50, Similarity 75 (nama fail ElevenLabs: Firdaus_pvc_s50_sim75_v4)
+- Masa perkataan untuk sarikata/ikon: DTW (librosa) antara MP3 Man dan draf VO dengan skrip sama
+  (API key tiada kebenaran forced_alignment).
+- Tugas Claude: sediakan skrip (kurang koma), Man jana VO, Claude edit video ikut MP3 itu.

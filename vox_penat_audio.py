@@ -18,7 +18,7 @@ N = int(SR * DUR)
 def main(path, vo_path):
     import json
     old = json.load(open("assets/vo_penat_words.json"))
-    new = json.load(open("assets/vo_penat_v2_words.json"))
+    new = json.load(open("assets/vo_penat_man_words.json"))
     o_t = [0.0] + [w[1] for w in old] + [DUR]
     n_t = [0.0] + [w[1] for w in new] + [new[-1][2] + 0.9]
     global N
