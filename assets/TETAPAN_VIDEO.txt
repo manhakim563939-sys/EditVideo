@@ -1,0 +1,16 @@
+TETAPAN VIDEO TETAP — JANGAN UBAH (arahan Man, 18 Nov 2026)
+
+Gambar pencerita (Man) untuk SETIAP video baharu:
+- Jana gambar BAHARU di Higgsfield untuk setiap video — outfit baharu dan ekspresi muka baharu
+  (jangan guna semula outfit/ekspresi video lepas).
+- Supaya muka tepat: EDIT gambar sebenar Man (rujukan muka asli), jangan jana dari kosong.
+  Rujukan muka sebenar (media id Higgsfield): depan 8b50dd1d-fefd-43ab-ac3a-9a39679c521e,
+  senyum 2a95edfb-2baa-48a3-88cf-3dda53a27c07, sisi b5559e6e-2ce5-489f-a95e-d42fc43bbd8d,
+  ABM 697304ec-1cf0-4e26-9375-93f752644914 (fail asal: Drive Man + gambar yang Man hantar).
+  Ciri muka: muka bulat, rambut hitam disikat ke belakang, cermin mata segi empat jernih
+  kemerahan (pantulan hijau), misai nipis, janggut kecil di dagu, badan agak berisi.
+- Saiz pencerita dalam video: 30% lebih kecil berbanding versi sebelum 18 Nov
+  (cutout target_w 574, max_h 728).
+- Satu gambar setiap bab, peralihan cross-fade lembut (jangan kerap tukar).
+- Gaya: Vox explainer, pencerita hitam putih, ikon muncul ikut perkataan VO.
+- VO: lihat assets/TETAPAN_VO.txt.
