@@ -175,7 +175,7 @@ def bw(rgb):
     return np.repeat(np.clip(g * 255, 0, 255)[..., None], 3, axis=2)
 
 
-def cutout(name, target_w=820, max_h=1040):
+def cutout(name, target_w=574, max_h=728):  # 30% smaller than earlier episodes (Man, 18 Nov)
     im = np.asarray(Image.open(f"{WD}/pose/{name}.jpg").convert("RGB")).astype(np.float32)
     m = np.asarray(Image.open(f"{WD}/pose/{name}_mask.png").convert("L")).astype(np.float32) / 255
     m = np.clip((m - 0.3) / 0.4, 0, 1)
@@ -198,9 +198,9 @@ def cutout(name, target_w=820, max_h=1040):
     return shadowed(spr, (12, 16), 12, 0.4)
 
 
-POSES = ["d_garu", "d_serius", "d_kejut", "d_sisi", "d_tunjuk", "d_senyum"]
+POSES = ["n_kecewa", "n_ragu", "n_risau", "n_kusut", "n_tekad", "n_harap"]
 CUT = {n: cutout(n) for n in POSES}
-TIMELINE = [(0.0, "d_garu"), (8.1, "d_serius"), (22.4, "d_kejut"), (32.1, "d_sisi"), (43.7, "d_tunjuk"), (63.3, "d_senyum")]
+TIMELINE = [(0.0, "n_kecewa"), (8.1, "n_ragu"), (22.4, "n_risau"), (32.1, "n_kusut"), (43.7, "n_tekad"), (63.3, "n_harap")]
 
 
 # emotion beats: the pose follows the word being spoken
@@ -245,7 +245,7 @@ def draw_icons(c, t):
             u = ease_back((t - t0 + 0.05) / 0.3)
             out = clamp((t - (t0 + hold - 0.2)) / 0.2)
             side = -1 if k % 2 == 0 else 1
-            x = W / 2 + 40 + side * 340
+            x = W / 2 + 40 + side * 300
             y = 1180 + 10 * math.sin(t * 5 + k)
             paste(c, ICONS[n], x, y, scale=max(0.01, u * (1 - out)), rot=side * -8 + 4 * math.sin(t * 3 + k))
 
@@ -257,9 +257,9 @@ def draw_man(c, t):
     breathe = 5 * math.sin(t * 1.1)
     if idx and u < 1:
         prev = CUT[TIMELINE[idx - 1][1]]
-        paste(c, prev, W / 2 + 40, H - prev.height / 2 + 190 + breathe, alpha=1 - u)
+        paste(c, prev, W / 2 + 40, 1740 - prev.height / 2 + breathe, alpha=1 - u)
     spr = CUT[name]
-    paste(c, spr, W / 2 + 40, H - spr.height / 2 + 190 + 40 * (1 - u) + breathe, alpha=u)
+    paste(c, spr, W / 2 + 40, 1740 - spr.height / 2 + 40 * (1 - u) + breathe, alpha=u)
 
 
 # ---------------------------------------------------------------- diagrams
