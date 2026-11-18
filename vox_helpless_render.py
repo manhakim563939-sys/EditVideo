@@ -175,7 +175,7 @@ def bw(rgb):
     return np.repeat(np.clip(g * 255, 0, 255)[..., None], 3, axis=2)
 
 
-def cutout(name, target_w=574, max_h=728):  # 30% smaller than earlier episodes (Man, 18 Nov)
+def cutout(name, target_w=459, max_h=582):  # 30% then another 20% smaller (Man, 18 Nov)
     im = np.asarray(Image.open(f"{WD}/pose/{name}.jpg").convert("RGB")).astype(np.float32)
     m = np.asarray(Image.open(f"{WD}/pose/{name}_mask.png").convert("L")).astype(np.float32) / 255
     m = np.clip((m - 0.3) / 0.4, 0, 1)
@@ -198,9 +198,9 @@ def cutout(name, target_w=574, max_h=728):  # 30% smaller than earlier episodes 
     return shadowed(spr, (12, 16), 12, 0.4)
 
 
-POSES = ["n_kecewa", "n_ragu", "n_risau", "n_kusut", "n_tekad", "n_harap"]
+POSES = ["m_menyesal", "m_curiga", "m_terkejut", "m_sedih", "m_yakin", "m_gembira"]
 CUT = {n: cutout(n) for n in POSES}
-TIMELINE = [(0.0, "n_kecewa"), (8.1, "n_ragu"), (22.4, "n_risau"), (32.1, "n_kusut"), (43.7, "n_tekad"), (63.3, "n_harap")]
+TIMELINE = [(0.0, "m_menyesal"), (8.1, "m_curiga"), (22.4, "m_terkejut"), (32.1, "m_sedih"), (43.7, "m_yakin"), (63.3, "m_gembira")]
 
 
 # emotion beats: the pose follows the word being spoken
@@ -245,8 +245,8 @@ def draw_icons(c, t):
             u = ease_back((t - t0 + 0.05) / 0.3)
             out = clamp((t - (t0 + hold - 0.2)) / 0.2)
             side = -1 if k % 2 == 0 else 1
-            x = W / 2 + 40 + side * 300
-            y = 1180 + 10 * math.sin(t * 5 + k)
+            x = W / 2 + 40 + side * 260
+            y = 1280 + 10 * math.sin(t * 5 + k)
             paste(c, ICONS[n], x, y, scale=max(0.01, u * (1 - out)), rot=side * -8 + 4 * math.sin(t * 3 + k))
 
 
