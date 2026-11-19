@@ -19,14 +19,17 @@ export default async (req) => {
     try { const r = await billplz("/bills/" + encodeURIComponent(p.id)); if (r.ok) bill = r.data || {}; } catch (_) {}
     const rm = (Number(p.paid_amount || bill.paid_amount || 0) / 100).toFixed(2).replace(/\.00$/, "");
     const text = [
-      `💰 <b>Bayaran baru RM${escHtml(rm)}</b>${settings().sandbox ? " (UJIAN SANDBOX)" : ""}`,
-      escHtml((bill.description || "").replace(/^Jus Bidara Hitam:\s*/, "")),
+      `💰 <b>Bayaran online DIBAYAR RM${escHtml(rm)}</b>${settings().sandbox ? " (UJIAN SANDBOX)" : ""}`,
+      `ID Bil: <code>${escHtml(p.id)}</code>`,
       "",
-      `👤 ${escHtml(p.name || bill.name)}`,
-      `📞 ${escHtml(bill.reference_1 || p.mobile)}`,
-      `🏠 ${escHtml(bill.reference_2 || "-")}`,
+      `Pakej: ${escHtml((bill.description || "").replace(/^Jus Bidara Hitam:\s*/, "").replace(/\s*\((Website|Repeat)\)$/, ""))}`,
+      `Jumlah: RM${escHtml(rm)}`,
+      `Bayaran: Online (Billplz) - DIBAYAR`,
       "",
-      `🧾 ID Bil: <code>${escHtml(p.id)}</code>`,
+      `Nama: ${escHtml(p.name || bill.name)}`,
+      `Telefon: ${escHtml(bill.reference_1 || p.mobile)}`,
+      `Alamat: ${escHtml(bill.reference_2 || "-")}`,
+      "",
       `🕒 ${escHtml(p.paid_at || "")}`,
       p.url ? `🔗 ${escHtml(p.url)}` : "",
     ].filter((l, i, a) => l !== "" || (a[i - 1] !== "" && i < a.length - 1)).join("\n");

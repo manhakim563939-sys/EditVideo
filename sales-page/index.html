@@ -683,15 +683,16 @@ src="https://www.facebook.com/tr?id=2090608328226528&ev=PageView&noscript=1"
 
         <label>Cara bayaran</label>
         <div class="opts">
-          <label class="opt"><input type="radio" name="bayar" value="COD (Bayar Bila Barang Sampai)" checked> COD, bayar bila barang sampai</label>
-          <label class="opt"><input type="radio" name="bayar" value="ONLINE"> Bayar online sekarang <small>FPX · DuitNow QR · Kad</small></label>
+          <label class="opt"><input type="radio" name="bayar" value="COD" checked> COD, bayar bila barang sampai</label>
+          <label class="opt"><input type="radio" name="bayar" value="DUITNOW"> Bayar sekarang guna DuitNow QR <small>MAE · TNG · Boost · semua bank</small></label>
+          <label class="opt"><input type="radio" name="bayar" value="ONLINE"> Bayar online sekarang <small>FPX · Kad</small></label>
         </div>
 
         <div class="summary" id="summary"></div>
 
-        <button type="submit" class="btn wa" id="submitBtn">Hantar pesanan via WhatsApp<small>Kami akan sahkan pesanan anda</small></button>
+        <button type="submit" class="btn wa" id="submitBtn">Sahkan pesanan<small>COD · bayar bila barang sampai</small></button>
         <div class="err" id="err"></div>
-        <p class="wa-fallback" id="waFallback" hidden>WhatsApp tak terbuka? <a id="waLink" href="https://wa.me/60179637611" target="_blank" rel="noopener">Tekan sini</a> atau mesej terus <b>017-963 7611</b>.</p>
+        <p class="wa-fallback" id="waFallback" hidden><a id="waLink" href="https://wa.me/60179637611" target="_blank" rel="noopener">Hantar pesanan melalui WhatsApp</a> atau mesej terus <b>017-963 7611</b>.</p>
         <p class="note">🔒 Maklumat anda hanya digunakan untuk penghantaran.</p>
       </form>
     </div>
@@ -828,11 +829,14 @@ function posText(id){
   return rm ? "RM" + rm : "PERCUMA (Semenanjung)";
 }
 function totalText(id){ return "RM" + (PAKEJ[id].harga + posRM(id)); }
-const BTN_WA = 'Hantar pesanan via WhatsApp<small>Kami akan sahkan pesanan anda</small>';
-const BTN_PAY = 'Bayar online sekarang<small>Selamat melalui Billplz · FPX, DuitNow QR, kad</small>';
-const isOnline = () => ((form.querySelector('input[name="bayar"]:checked')||{}).value === "ONLINE");
+const BTN = {
+  COD: 'Sahkan pesanan<small>COD · bayar bila barang sampai</small>',
+  DUITNOW: 'Teruskan ke DuitNow QR<small>Imbas QR & muat naik resit</small>',
+  ONLINE: 'Bayar online sekarang<small>Selamat melalui Billplz · FPX, kad</small>'
+};
+const bayarDipilih = () => ((form.querySelector('input[name="bayar"]:checked')||{}).value || "COD");
 function renderSummary(){
-  const sb = document.getElementById("submitBtn"); if (sb && !sb.disabled) sb.innerHTML = isOnline() ? BTN_PAY : BTN_WA;
+  const sb = document.getElementById("submitBtn"); if (sb && !sb.disabled) sb.innerHTML = BTN[bayarDipilih()] || BTN.COD;
   const id = selectedPkg(), p = PAKEJ[id];
   summary.innerHTML =
     `<div><span>${p.nama}</span><span>RM${p.harga}</span></div>` +
@@ -875,9 +879,8 @@ form.addEventListener("submit", e => {
   }
   err.style.display = "none";
   const id = selectedPkg(), p = PAKEJ[id];
-  const bayar = (form.querySelector('input[name="bayar"]:checked')||{}).value || "COD";
+  const bayar = bayarDipilih();
   if (bayar === "ONLINE") {
-    track("InitiateCheckout", { content_name: p.nama, currency: "MYR", value: PAKEJ[id].harga + posRM(id), num_items: Number(id) });
     window.JBH_bayarOnline({ pkg: Number(id), negeri, nama, tel, alamat, poskod, sumber: "main" }, document.getElementById("submitBtn"))
       .catch(e => { err.textContent = e.message; err.style.display = "block"; });
     return;
@@ -889,18 +892,19 @@ form.addEventListener("submit", e => {
 *Harga:* RM${p.harga}
 *Penghantaran:* ${posText(id)}
 *Jumlah:* ${totalText(id)}
-*Bayaran:* ${bayar}
+*Bayaran:* ${bayar === "DUITNOW" ? "DuitNow QR" : "COD"}
 
 *Nama:* ${nama}
 *Telefon:* ${tel}
 *Alamat:* ${alamat}, ${poskod} ${negeri}`;
   const url = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(msg);
-  if (window.JBH_notifyCOD) window.JBH_notifyCOD({ pkg: Number(id), negeri, nama, tel, alamat, poskod, sumber: "main" });
-  track("InitiateCheckout", { content_name: p.nama, currency: "MYR", value: PAKEJ[id].harga + posRM(id), num_items: Number(id) });
-  track("Contact", { content_name: p.nama, currency: "MYR", value: PAKEJ[id].harga + posRM(id) });
   waLink.href = url;
-  waFallback.hidden = false;
-  waLink.click();
+  // Order terus ke server (tanpa WhatsApp). Kalau gagal, WhatsApp jadi jalan sandaran supaya order tak hilang.
+  window.JBH_hantarOrder({ pkg: Number(id), negeri, nama, tel, alamat, poskod, sumber: "main", bayar }, document.getElementById("submitBtn"))
+    .catch(e => {
+      err.textContent = e.message + " Tekan pautan di bawah untuk hantar pesanan melalui WhatsApp.";
+      err.style.display = "block"; waFallback.hidden = false;
+    });
 });
 </script>
 <script src="/js/bayar-online.js"></script>

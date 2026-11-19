@@ -148,7 +148,7 @@ h1{margin:2px 0 0;font:400 1.7rem/1.02 var(--fd);letter-spacing:.5px;text-transf
   <p class="sub" id="sheetSub">Isi maklumat pembeli yang dah sahkan order.</p>
   <form class="form" id="form" novalidate>
     <details class="paste" id="pasteBox">
-      <summary>Tampal mesej order dari website (auto isi)</summary>
+      <summary>Tampal mesej order (Telegram / WhatsApp) untuk auto isi</summary>
       <textarea id="pasteTxt" aria-label="Mesej order WhatsApp" placeholder="Assalamualaikum, saya nak tempah *Jus Bidara Hitam*.&#10;*Pakej:* Pakej Bebas - 3 Botol&#10;*Jumlah:* RM69&#10;*Bayaran:* COD&#10;*Nama:* ...&#10;*Telefon:* ...&#10;*Alamat:* ..., 12345 Selangor"></textarea>
       <button class="btn pri" type="button" id="pasteBtn" style="margin-top:8px">Isi borang dari mesej</button>
       <span class="err" id="pasteErr" hidden></span>
@@ -171,7 +171,7 @@ h1{margin:2px 0 0;font:400 1.7rem/1.02 var(--fd);letter-spacing:.5px;text-transf
     </div>
     <div class="two">
       <label for="f-harga">Jumlah bayaran (RM)<input id="f-harga" type="number" inputmode="decimal" min="0" step="0.01"></label>
-      <label for="f-bayar">Bayaran<select id="f-bayar"><option>COD</option><option>Online (Billplz)</option><option>Online Transfer</option></select></label>
+      <label for="f-bayar">Bayaran<select id="f-bayar"><option>COD</option><option>DuitNow QR</option><option>Online (Billplz)</option><option>Online Transfer</option></select></label>
     </div>
     <label for="f-tarikh">Tarikh beli<input id="f-tarikh" type="date" required></label>
     <label for="f-nota">Nota (pilihan)<textarea id="f-nota" rows="2" placeholder="cth. dah 10 tahun minum, isteri yang order"></textarea></label>
@@ -430,7 +430,7 @@ function parseOrder(t) {
   const segs = alamat.replace(/,?\s*\d{5}\s+[^,]*$/, "").split(",").map(s => s.trim()).filter(Boolean);
   const bandar = segs.length > 1 ? segs[segs.length - 1] : "";
   const q = +(pakej.match(/(\d)\s*botol/i) || [])[1] || 1;
-  return { nama, tel, alamat, negeri: st, bandar, qty: q, jumlah: jum, bayar, bil: g("ID Bil") };
+  return { nama, tel, alamat, negeri: st, bandar, qty: q, jumlah: jum, bayar, bil: g("ID Bil"), oid: g("(?:ID Order|No\\. pesanan)") };
 }
 $("#pasteBtn").addEventListener("click", () => {
   const o = parseOrder($("#pasteTxt").value);
@@ -439,7 +439,8 @@ $("#pasteBtn").addEventListener("click", () => {
   $("#f-nama").value = o.nama; $("#f-tel").value = o.tel; $("#f-negeri").value = o.negeri; $("#f-bandar").value = o.bandar; $("#f-alamat").value = o.alamat;
   priceTouched = false; setQty(o.qty);
   if (o.jumlah) { $("#f-harga").value = o.jumlah; priceTouched = true; }
-  if (/billplz/i.test(o.bayar)) $("#f-bayar").value = "Online (Billplz)"; else if (/transfer/i.test(o.bayar)) $("#f-bayar").value = "Online Transfer"; else if (/cod/i.test(o.bayar)) $("#f-bayar").value = "COD";
+  if (/duitnow/i.test(o.bayar)) $("#f-bayar").value = "DuitNow QR"; else if (/billplz/i.test(o.bayar)) $("#f-bayar").value = "Online (Billplz)"; else if (/transfer/i.test(o.bayar)) $("#f-bayar").value = "Online Transfer"; else if (/cod/i.test(o.bayar)) $("#f-bayar").value = "COD";
+  if (o.oid) $("#f-nota").value = ("ID Order: " + o.oid.replace(/[`<>]/g, "") + "\n" + $("#f-nota").value).trim();
   if (o.bil) $("#f-nota").value = ("Billplz ID Bil: " + o.bil + (/dibayar/i.test(o.bayar) ? " (DIBAYAR)" : "") + "\n" + $("#f-nota").value).trim();
   $("#pasteBox").open = false;
   showMatch();
