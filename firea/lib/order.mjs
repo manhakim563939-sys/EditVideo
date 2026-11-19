@@ -17,3 +17,26 @@ export function normMobile(t) {
   else if (d && !d.startsWith("6")) d = "60" + d;
   return d;
 }
+
+// Nombor order + token bertandatangan supaya resit yang dimuat naik boleh dipadankan dengan order sebenar.
+import { createHmac, randomBytes, timingSafeEqual } from "node:crypto";
+const key = () => process.env.ORDER_SECRET || process.env.TELEGRAM_BOT_TOKEN || "firea";
+const CHARS = "ACDEFGHJKMNPQRTUVWXY34679";
+
+export function newOrderId(now = new Date()) {
+  const my = new Date(now.getTime() + 8 * 3600e3); // waktu Malaysia
+  const d = my.toISOString().slice(2, 10).replace(/-/g, "");
+  const r = [...randomBytes(4)].map(b => CHARS[b % CHARS.length]).join("");
+  return `FIR-${d}-${r}`;
+}
+export function signOrder(o) {
+  const payload = Buffer.from(JSON.stringify(o)).toString("base64url");
+  return payload + "." + createHmac("sha256", key()).update(payload).digest("base64url");
+}
+export function readOrder(token) {
+  const [payload, sig] = String(token || "").split(".");
+  if (!payload || !sig) return null;
+  const want = Buffer.from(createHmac("sha256", key()).update(payload).digest("base64url")), got = Buffer.from(sig);
+  if (want.length !== got.length || !timingSafeEqual(want, got)) return null;
+  try { return JSON.parse(Buffer.from(payload, "base64url").toString()); } catch (_) { return null; }
+}

@@ -698,8 +698,8 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
       <h3>Pakej &amp; bayaran</h3>
       <div class="field"><label for="f-pkg">Pakej</label><select id="f-pkg" name="pkg"></select></div>
       <div class="pay" role="radiogroup" aria-label="Cara bayaran">
-        <label><input type="radio" name="pay" id="pay-online" value="Online Transfer" checked> Online transfer</label>
-        <label><input type="radio" name="pay" id="pay-cod" value="COD"> COD</label>
+        <label><input type="radio" name="pay" id="pay-online" value="DUITNOW" checked> DuitNow QR (scan &amp; bayar terus)</label>
+        <label><input type="radio" name="pay" id="pay-cod" value="COD"> COD (bayar bila sampai)</label>
       </div>
       <div class="summary" aria-live="polite">
         <div><span id="s-item">Pakej</span><span id="s-sub">RM0</span></div>
@@ -708,9 +708,9 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
         <div class="total"><span>Jumlah</span><span id="s-total">RM0</span></div>
       </div>
       <p class="err" id="err" hidden></p>
-      <button class="btn alt" type="submit">Hantar Order Saya →</button>
+      <button class="btn alt" type="submit" id="submitBtn">Hantar Order Saya →</button>
       <div id="done" hidden>
-        <b>Order anda dah siap. Hantar mesej ini ke WhatsApp kami untuk sahkan:</b>
+        <b>Talian kami sibuk sekejap. Hantar mesej ini ke WhatsApp kami untuk sahkan order:</b>
         <pre id="msg"></pre>
         <div class="rowb">
           <a class="btn" id="walink" href="#" target="_blank" rel="noopener">Buka WhatsApp</a>
@@ -718,7 +718,7 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
         </div>
         <p class="micro" id="wanum"></p>
       </div>
-      <p class="micro center">Untuk online transfer, butiran akaun bank akan diberi melalui WhatsApp. Maklumat anda hanya digunakan untuk penghantaran.</p>
+      <p class="micro center">DuitNow QR: lepas tekan hantar, kod QR &amp; jumlah tepat akan dipaparkan. Scan guna app bank / e-wallet, kemudian muat naik resit. Maklumat anda hanya digunakan untuk penghantaran.</p>
     </form>
   </div>
 </section>
@@ -729,7 +729,7 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
     <p class="eyebrow">Lepas tekan hantar</p>
     <h2>Apa Berlaku <span class="hl">Selepas Order?</span></h2>
     <div class="after">
-      <div class="s"><small>Langkah 1</small><p><b>Order disahkan</b><br>Team Firea WhatsApp anda untuk sahkan alamat dan bayaran.</p></div>
+      <div class="s"><small>Langkah 1</small><p><b>Order disahkan</b><br>DuitNow: scan QR &amp; muat naik resit terus di website. COD: team kami hubungi anda untuk sahkan.</p></div>
       <div class="s"><small>Langkah 2</small><p><b>Dipos dengan J&amp;T</b><br>Semenanjung 2–3 hari. Sabah &amp; Sarawak 5–6 hari.</p></div>
       <div class="s"><small>Langkah 3</small><p><b>Sampai &amp; mula pakai</b><br>Roll 3–4 kali pada ketiak yang kering. Ada soalan? WhatsApp kami.</p></div>
     </div>
@@ -890,30 +890,44 @@ render();
 $("#orderForm").addEventListener("focusin", () => {
   const { p } = calc(); track("InitiateCheckout", { value: p.price, currency: "MYR", content_name: p.kind, num_items: p.qty }, "ic");
 });
-/* hantar order ke group Telegram (fungsi Netlify /api/order-notify); senyap jika gagal */
-const notifySent = new Set();
-function notifyOrder(qty, payment, source) {
+/* hantar order ke server (Telegram + nombor order) -> halaman /pesanan/ (QR DuitNow / COD).
+   Jika server gagal, papar mesej WhatsApp sebagai sandaran. */
+async function sendOrder(qty, bayar, source) {
   const v = id => (document.getElementById(id)?.value || "").trim();
-  const body = { qty, negeri: v("f-state"), nama: v("f-name"), tel: v("f-phone"), alamat: v("f-addr"), poskod: v("f-post"), bandar: v("f-city"), bayaran: payment, sumber: source, website: v("f-website") };
-  const key = JSON.stringify(body); if (notifySent.has(key)) return; notifySent.add(key);
-  try { fetch("/api/order-notify", { method: "POST", headers: { "Content-Type": "application/json" }, body: key, keepalive: true }).catch(() => {}); } catch (_) {}
+  const body = { qty, negeri: v("f-state"), nama: v("f-name"), tel: v("f-phone"), alamat: v("f-addr"), poskod: v("f-post"), bandar: v("f-city"), bayar, sumber: source, website: v("f-website") };
+  const r = await fetch("/api/order-notify", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+  const d = await r.json().catch(() => ({}));
+  if (!r.ok || !d.orderId) { const e = new Error(d.error || "Gagal"); e.user = r.status === 400 || r.status === 429; throw e; }
+  try { localStorage.setItem("firea-order-" + d.orderId, JSON.stringify({ ...body, ...d, at: Date.now() })); localStorage.setItem("firea-last-order", d.orderId); } catch (_) {}
+  return d;
 }
-$("#orderForm").addEventListener("submit", e => {
+$("#orderForm").addEventListener("submit", async e => {
   e.preventDefault();
-  const f = e.target, err = $("#err");
+  const f = e.target, err = $("#err"), btn = $("#submitBtn");
   const need = [["f-name", "nama"], ["f-phone", "nombor telefon"], ["f-addr", "alamat"], ["f-post", "poskod"], ["f-city", "bandar"], ["f-state", "negeri"]];
   const missing = need.filter(([id]) => !document.getElementById(id).value.trim());
   if (missing.length) { err.textContent = "Sila isi " + missing.map(m => m[1]).join(", ") + "."; err.hidden = false; document.getElementById(missing[0][0]).focus(); return; }
   if (!/^\d{5}$/.test($("#f-post").value.trim())) { err.textContent = "Poskod mesti 5 digit, cth. 43000."; err.hidden = false; $("#f-post").focus(); return; }
   err.hidden = true;
   const { p, ship, total } = calc();
+  const ev = { value: total, currency: "MYR", content_name: p.kind, num_items: p.qty };
+  const label = btn.innerHTML; btn.disabled = true; btn.innerHTML = "Menghantar pesanan…";
+  try {
+    const d = await sendOrder(p.qty, f.pay.value, "sales");
+    if (!d.pendua) { track("Lead", { ...ev, value: d.jumlah }); if (d.bayar === "COD") track("Purchase", { ...ev, value: d.jumlah }); }
+    location.href = "/pesanan/?id=" + encodeURIComponent(d.orderId);
+    return;
+  } catch (x) {
+    btn.disabled = false; btn.innerHTML = label;
+    if (x.user) { err.textContent = x.message; err.hidden = false; return; }
+  }
   const v = id => document.getElementById(id).value.trim();
   const msg = [
     "*ORDER FIREA CELESTE MUSK*",
     `Pakej: ${p.kind} (${p.qty} botol) ${rm(p.price)}`,
     `Postage: ${ship ? rm(ship) : "PERCUMA"}`,
     `Jumlah: *${rm(total)}*`,
-    `Bayaran: ${f.pay.value}`,
+    `Bayaran: ${f.pay.value === "DUITNOW" ? "DuitNow QR" : "COD"}`,
     "",
     `Nama: ${v("f-name")}`,
     `Tel: ${v("f-phone")}`,
@@ -923,8 +937,7 @@ $("#orderForm").addEventListener("submit", e => {
   $("#walink").href = waUrl(msg);
   $("#wanum").textContent = "Kalau WhatsApp tak terbuka, salin mesej dan hantar ke 014-352 0164.";
   $("#done").hidden = false;
-  notifyOrder(p.qty, f.pay.value, "sales");
-  track("Lead", { value: total, currency: "MYR", content_name: p.kind, num_items: p.qty }, "lead:" + msg);
+  track("Lead", ev, "lead:" + msg);
   $("#done").scrollIntoView({ behavior: "smooth", block: "center" });
 });
 $("#copy").addEventListener("click", () => {

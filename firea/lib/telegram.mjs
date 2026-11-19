@@ -25,3 +25,19 @@ export async function notify(html) {
   for (const chat_id of chats) out.push(await tg("sendMessage", { chat_id, text: html, parse_mode: "HTML", disable_web_page_preview: true }));
   return { ok: out.every(r => r.ok), results: out };
 }
+
+export async function notifyPhoto(blob, filename, captionHtml) {
+  if (!tgToken() || !tgChat()) return { ok: false, skipped: true };
+  const chats = tgChat().split(",").map(s => s.trim()).filter(Boolean);
+  const out = [];
+  for (const chat_id of chats) {
+    const fd = new FormData();
+    fd.append("chat_id", chat_id);
+    fd.append("caption", captionHtml.slice(0, 1000));
+    fd.append("parse_mode", "HTML");
+    fd.append("photo", blob, filename);
+    const res = await fetch(`https://api.telegram.org/bot${tgToken()}/sendPhoto`, { method: "POST", body: fd });
+    out.push(await res.json().catch(() => ({ ok: false })));
+  }
+  return { ok: out.every(r => r.ok), results: out };
+}

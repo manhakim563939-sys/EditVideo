@@ -2,6 +2,7 @@
 
 firea.html -> index.html        (fireadeodorant.com)
 shop.html  -> shop/index.html   (fireadeodorant.com/shop/)
+pesanan.html -> pesanan/index.html (halaman selepas order: DuitNow QR + resit / COD)
 Gambar, suara dan video kekal sebagai fail berasingan (img/, audio/, media/) supaya page ringan.
 Jalankan: python3 build.py         ->  ../output/fireadeodorant-website.zip (upload manual / Netlify Drop)
           python3 build.py --site  ->  site/ (dipakai Netlify bila deploy dari GitHub, lihat netlify.toml)
@@ -30,7 +31,7 @@ src="https://www.facebook.com/tr?id={PIXEL_ID}&ev=PageView&noscript=1"
 ''' if PIXEL_ID else ""
 OUT_ZIP = here.parent / "output" / "fireadeodorant-website.zip"
 
-def head(title, desc, url, og_title, og_desc, og_type="website", color="#5a1531"):
+def head(title, desc, url, og_title, og_desc, og_type="website", color="#5a1531", robots=""):
     return f'''<!doctype html>
 <html lang="ms">
 <head>
@@ -45,7 +46,7 @@ def head(title, desc, url, og_title, og_desc, og_type="website", color="#5a1531"
 <meta property="og:description" content="{og_desc}">
 <meta property="og:image" content="https://fireadeodorant.com/img/produk-pink.jpg">
 <meta name="theme-color" content="{color}">
-{PIXEL}</head>
+{robots}{PIXEL}</head>
 <body>
 '''
 
@@ -69,29 +70,34 @@ if __name__ == "__main__":
                 url="https://fireadeodorant.com/shop/", og_title="Firea Celeste Musk Deodorant Roll-on 50ml | RM35 Free Pos",
                 og_desc="0% alkohol, cepat kering, tak melekit. COD tersedia. Free pos semua pakej (Semenanjung).",
                 og_type="product", color="#7d1f45")
+    pesanan = page("pesanan.html", "../", desc="Pesanan Firea Celeste Musk.", url="https://fireadeodorant.com/pesanan/",
+                   og_title="Pesanan Firea", og_desc="Pesanan Firea Celeste Musk.", robots='<meta name="robots" content="noindex">\n')
+    pages = {"index.html": index, "shop/index.html": shop, "pesanan/index.html": pesanan}
     (here / "index.html").write_text(index)
     (here / "shop").mkdir(exist_ok=True)
     (here / "shop" / "index.html").write_text(shop)
+    (here / "pesanan").mkdir(exist_ok=True)
+    (here / "pesanan" / "index.html").write_text(pesanan)
 
-    files = sorted(set(assets(index)) | set(assets(shop)) | {"img/produk-pink.jpg"})
+    files = sorted(set(assets(index)) | set(assets(shop)) | set(assets(pesanan)) | {"img/produk-pink.jpg"})
     missing = [f for f in files if not (here / f).exists()]
     if missing:
         raise SystemExit("Fail tiada: " + ", ".join(missing))
     if "--site" in sys.argv:
         site = here / "site"
         shutil.rmtree(site, ignore_errors=True)
-        (site / "shop").mkdir(parents=True)
-        (site / "index.html").write_text(index)
-        (site / "shop" / "index.html").write_text(shop)
+        for name, html in pages.items():
+            (site / name).parent.mkdir(parents=True, exist_ok=True)
+            (site / name).write_text(html)
         for f in files:
             (site / f).parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(here / f, site / f)
-        print(f"site/: index.html, shop/index.html, {len(files)} fail aset")
+        print(f"site/: {', '.join(pages)}, {len(files)} fail aset")
         sys.exit(0)
     OUT_ZIP.parent.mkdir(exist_ok=True)
     with zipfile.ZipFile(OUT_ZIP, "w", zipfile.ZIP_DEFLATED) as z:
-        z.write(here / "index.html", "fireadeodorant/index.html")
-        z.write(here / "shop" / "index.html", "fireadeodorant/shop/index.html")
+        for name in pages:
+            z.write(here / name, f"fireadeodorant/{name}")
         for f in files:
             z.write(here / f, f"fireadeodorant/{f}", compress_type=zipfile.ZIP_STORED if f.endswith((".mp4", ".mp3", ".jpg")) else zipfile.ZIP_DEFLATED)
     print(f"index.html {len(index)/1e3:.0f} KB, shop/index.html {len(shop)/1e3:.0f} KB, {len(files)} fail aset")

@@ -234,7 +234,7 @@ details p{color:var(--muted);font-size:.88rem;margin-top:6px}
     </div>
     <div class="row">
       <span class="k">Bayaran</span>
-      <span class="v">COD atau online transfer<small>Caj COD sama seperti postage</small></span><span></span>
+      <span class="v">COD atau DuitNow QR<small>Caj COD sama seperti postage</small></span><span></span>
     </div>
     <div class="row">
       <span class="k">Jaminan</span>
@@ -377,8 +377,8 @@ details p{color:var(--muted);font-size:.88rem;margin-top:6px}
     </label>
     <div class="opt-t" style="margin:4px 0 0">Bayaran</div>
     <div class="pay" role="radiogroup" aria-label="Cara bayaran">
-      <label><input type="radio" name="pay" id="pay-cod" value="COD" checked> COD</label>
-      <label><input type="radio" name="pay" id="pay-online" value="Online Transfer"> Online transfer</label>
+      <label><input type="radio" name="pay" id="pay-online" value="DUITNOW" checked> DuitNow QR</label>
+      <label><input type="radio" name="pay" id="pay-cod" value="COD"> COD</label>
     </div>
     <div class="sum" aria-live="polite">
       <div><span id="s-item">Pakej</span><span id="s-sub"></span></div>
@@ -387,12 +387,12 @@ details p{color:var(--muted);font-size:.88rem;margin-top:6px}
       <div class="t"><span>Jumlah</span><span id="s-total"></span></div>
     </div>
     <p class="err" id="err" hidden></p>
-    <button class="buy go" type="submit">Hantar Order</button>
+    <button class="buy go" type="submit" id="submitBtn">Hantar Order</button>
     <div id="done" hidden>
-      <b>Order siap. Hantar mesej ini ke WhatsApp kami untuk sahkan:</b>
+      <b>Talian kami sibuk sekejap. Hantar mesej ini ke WhatsApp kami untuk sahkan order:</b>
       <pre id="msg"></pre>
       <div class="r"><a class="wa" id="walink" href="#" target="_blank" rel="noopener">Buka WhatsApp</a><button class="btn-o" type="button" id="copy">Salin</button></div>
-      <small style="color:var(--muted)">Kalau WhatsApp tak terbuka, hantar ke 014-352 0164. Untuk online transfer, butiran akaun diberi melalui WhatsApp.</small>
+      <small style="color:var(--muted)">Kalau WhatsApp tak terbuka, hantar ke 014-352 0164.</small>
     </div>
   </form>
 </div>
@@ -516,29 +516,42 @@ $("#closeSheet").addEventListener("click", closeSheet); scrim.addEventListener("
 document.addEventListener("keydown", e => { if (e.key === "Escape" && !sheet.hidden) closeSheet(); });
 
 // hantar order
-/* hantar order ke group Telegram (fungsi Netlify /api/order-notify); senyap jika gagal */
-const notifySent = new Set();
-function notifyOrder(qty, payment, source) {
+/* hantar order ke server (Telegram + nombor order) -> /pesanan/ (QR DuitNow / COD). Sandaran: WhatsApp. */
+async function sendOrder(qty, bayar, source) {
   const v = id => (document.getElementById(id)?.value || "").trim();
-  const body = { qty, negeri: v("f-state"), nama: v("f-name"), tel: v("f-phone"), alamat: v("f-addr"), poskod: v("f-post"), bandar: v("f-city"), bayaran: payment, sumber: source, website: v("f-website") };
-  const key = JSON.stringify(body); if (notifySent.has(key)) return; notifySent.add(key);
-  try { fetch("/api/order-notify", { method: "POST", headers: { "Content-Type": "application/json" }, body: key, keepalive: true }).catch(() => {}); } catch (_) {}
+  const body = { qty, negeri: v("f-state"), nama: v("f-name"), tel: v("f-phone"), alamat: v("f-addr"), poskod: v("f-post"), bandar: v("f-city"), bayar, sumber: source, website: v("f-website") };
+  const r = await fetch("/api/order-notify", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+  const d = await r.json().catch(() => ({}));
+  if (!r.ok || !d.orderId) { const e = new Error(d.error || "Gagal"); e.user = r.status === 400 || r.status === 429; throw e; }
+  try { localStorage.setItem("firea-order-" + d.orderId, JSON.stringify({ ...body, ...d, at: Date.now() })); localStorage.setItem("firea-last-order", d.orderId); } catch (_) {}
+  return d;
 }
-$("#orderForm").addEventListener("submit", e => {
+$("#orderForm").addEventListener("submit", async e => {
   e.preventDefault();
-  const v = id => document.getElementById(id).value.trim(), err = $("#err");
+  const v = id => document.getElementById(id).value.trim(), err = $("#err"), btn = $("#submitBtn");
   const need = [["f-name", "nama"], ["f-phone", "nombor telefon"], ["f-addr", "alamat"], ["f-post", "poskod"], ["f-city", "bandar"], ["f-state", "negeri"]];
   const miss = need.filter(([id]) => !v(id));
   if (miss.length) { err.textContent = "Sila isi " + miss.map(m => m[1]).join(", ") + "."; err.hidden = false; document.getElementById(miss[0][0]).focus(); return; }
   if (!/^\d{5}$/.test(v("f-post"))) { err.textContent = "Poskod mesti 5 digit, cth. 43000."; err.hidden = false; $("#f-post").focus(); return; }
   err.hidden = true;
   const { p, ship, total } = calc();
+  const pay = document.querySelector('input[name="pay"]:checked').value;
+  const ev = { value: total, currency: "MYR", content_name: p.name, num_items: p.qty };
+  const label = btn.innerHTML; btn.disabled = true; btn.innerHTML = "Menghantar…";
+  try {
+    const d = await sendOrder(p.qty, pay, "shop");
+    if (!d.pendua) { track("Lead", { ...ev, value: d.jumlah }); if (d.bayar === "COD") track("Purchase", { ...ev, value: d.jumlah }); }
+    location.href = "/pesanan/?id=" + encodeURIComponent(d.orderId);
+    return;
+  } catch (x) {
+    btn.disabled = false; btn.innerHTML = label;
+    if (x.user) { err.textContent = x.message; err.hidden = false; return; }
+  }
   const msg = ["*ORDER FIREA CELESTE MUSK*", `Pakej: ${p.name} ${rm(p.price)}`, `Postage: ${ship ? rm(ship) : "PERCUMA"}`, `Jumlah: *${rm(total)}*`,
-    `Bayaran: ${document.querySelector('input[name="pay"]:checked').value}`, "", `Nama: ${v("f-name")}`, `Tel: ${v("f-phone")}`,
+    `Bayaran: ${pay === "DUITNOW" ? "DuitNow QR" : "COD"}`, "", `Nama: ${v("f-name")}`, `Tel: ${v("f-phone")}`,
     `Alamat: ${v("f-addr")}, ${v("f-post")} ${v("f-city")}, ${v("f-state")}`].join("\n");
   $("#msg").textContent = msg; $("#walink").href = wa(msg); $("#done").hidden = false;
-  notifyOrder(p.qty, document.querySelector('input[name="pay"]:checked').value, "shop");
-  track("Lead", { value: total, currency: "MYR", content_name: p.name, num_items: p.qty }, "lead:" + msg);
+  track("Lead", ev, "lead:" + msg);
   $("#done").scrollIntoView({ behavior: "smooth", block: "center" });
 });
 $("#copy").addEventListener("click", () => {
