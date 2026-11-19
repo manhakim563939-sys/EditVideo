@@ -25,7 +25,7 @@ export default async (req) => {
     `Jumlah perlu dibayar: <b>RM${escHtml(o.jumlah)}</b>`,
     `Nama: ${escHtml(o.nama)} · ${escHtml(o.tel)}`,
     "",
-    "✅ <i>Semak duit RM" + escHtml(o.jumlah) + " dah masuk akaun FIREA LABS sebelum pos.</i>",
+    "✅ <i>Semak duit RM" + escHtml(o.jumlah) + " dah masuk akaun LUNAS RESOURCES sebelum pos.</i>",
   ].join("\n");
   try {
     const r = await notifyPhoto(file, `resit-${o.id}.jpg`, caption);
