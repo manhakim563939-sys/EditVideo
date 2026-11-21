@@ -283,6 +283,27 @@ html,body{overflow-x:clip}
 .book-act .btn{border:0;cursor:pointer;font:inherit;font-weight:800}
 .fmsg{font-size:14px;font-weight:700;color:#B4432C}
 @media (max-width:620px){.book{grid-template-columns:1fr;padding:20px}}
+
+/* jenis jahitan */
+.gayas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.gaya{background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.gaya-img{position:relative;aspect-ratio:4/5;overflow:hidden}
+.gaya-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.gaya:hover .gaya-img img{transform:scale(1.05)}
+.gaya-img span{position:absolute;left:12px;top:12px;background:rgba(10,30,24,.85);color:#fff;font-size:13px;font-weight:800;padding:6px 12px;border-radius:999px}
+.gaya .body{padding:20px;display:grid;gap:10px;flex:1;align-content:start}
+.gaya h3{font-family:var(--f-disp);font-weight:400;font-size:26px;line-height:1.15}
+.gaya p{color:var(--muted);font-size:15.5px}
+.gaya h4{font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-top:4px}
+.gaya ul{margin:0;padding-left:18px;display:grid;gap:4px;font-size:15px}
+.bajet{display:flex;align-items:center;gap:10px;border-top:1px solid var(--rule);padding-top:12px;margin-top:4px;font-size:14.5px}
+.bajet>span:first-child{font-weight:700;color:var(--muted)}
+.bajet .dots{display:inline-flex;gap:4px}
+.bajet .dots i{width:12px;height:12px;border-radius:50%;border:2px solid var(--gold)}
+.bajet .dots i.on{background:var(--gold)}
+.gaya .btn{margin-top:auto;justify-self:start}
+.gaya-note{margin-top:18px;color:var(--muted);font-size:14.5px;max-width:760px}
+@media (max-width:900px){.gayas{grid-template-columns:minmax(0,1fr);max-width:560px}.gaya-img{aspect-ratio:4/3}}
 </style>
 
 <header class="top" id="top">
@@ -290,7 +311,7 @@ html,body{overflow-x:clip}
   <div class="wrap">
     <a class="brand" href="#utama"><img src="img/logo.png" alt="Logo Aimi Curtain"><div><b>AIMI CURTAIN</b><small>Aimi Home Decor · Kulim</small></div></a>
     <nav class="links" aria-label="Menu">
-      <a href="#servis">Servis</a><a href="#proses">Proses</a><a href="#hasil">Hasil kerja</a><a href="#sebelum-selepas">Sebelum/Selepas</a><a href="#testimoni">Testimoni</a><a href="#tempah">Tempah</a><a href="#lokasi">Lokasi</a>
+      <a href="#servis">Servis</a><a href="#jahitan">Jahitan</a><a href="#proses">Proses</a><a href="#hasil">Hasil kerja</a><a href="#sebelum-selepas">Sebelum/Selepas</a><a href="#testimoni">Testimoni</a><a href="#tempah">Tempah</a><a href="#lokasi">Lokasi</a>
     </nav>
     <a class="btn btn-wa" href="https://wa.me/60133416415?text=Salam%20Aimi%20Curtain%2C%20saya%20nak%20tanya%20pasal%20langsir." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg><span>WhatsApp</span></a>
   </div>
@@ -334,6 +355,49 @@ html,body{overflow-x:clip}
         <article class="card"><img src="img/g-zebra.jpg" alt="Bidai zebra di dapur" loading="lazy"><div class="body"><h3>Blind / bidai</h3><p>Bidai zebra dan bidai kayu untuk dapur, bilik dan pejabat. Mudah dibersih dan dilaras.</p></div></article>
         <article class="card"><div class="noimg">Wallpaper Korea</div><div class="body"><h3>Wallpaper Korea</h3><p>Ceriakan dinding sekali dengan langsir. WhatsApp kami untuk lihat corak dan sebut harga.</p></div></article>
       </div>
+    </div>
+  </section>
+
+
+  <section id="jahitan">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">Jenis jahitan</span><h2>Pilih gaya lipatan langsir anda</h2><p class="lede">Gaya jahitan mengubah rupa langsir dan juga bajetnya. Tiga gaya paling diminta sekarang:</p></div>
+      <div class="gayas">
+        <article class="gaya">
+          <div class="gaya-img"><img src="img/gaya/singapore.jpg" alt="Langsir jahitan Singapore plate yang dipasang oleh Aimi Curtain" loading="lazy"><span>Klasik &amp; kemas</span></div>
+          <div class="body">
+            <h3>Singapore plate</h3>
+            <p>Kain dijahit berlipat dalam kumpulan kecil di bahagian atas, kemudian digantung dengan cangkuk pada rel. Hasilnya lipatan tegak yang tersusun dan nampak formal.</p>
+            <h4>Sesuai untuk</h4>
+            <ul><li>Ruang tamu dan bilik dengan tema klasik</li><li>Rumah yang mahu nampak kemas dan tradisional</li><li>Tingkap sudut (L) seperti dalam gambar</li></ul>
+            <div class="bajet"><span>Bajet</span><span class="dots" aria-hidden="true"><i class="on"></i><i class="on"></i><i class=""></i></span><b>Sederhana</b></div>
+            <a class="btn btn-ghost" href="https://wa.me/60133416415?text=Salam%20Aimi%20Curtain%2C%20saya%20berminat%20dengan%20langsir%20jahitan%20Singapore%20plate.%20Boleh%20terangkan%20dan%20beri%20sebut%20harga%3F" target="_blank" rel="noopener">Tanya pasal Singapore plate</a>
+          </div>
+        </article>
+        <article class="gaya">
+          <div class="gaya-img"><img src="img/gaya/sfold.jpg" alt="Langsir jahitan S fold / Ripple fold yang dipasang oleh Aimi Curtain" loading="lazy"><span>Moden &amp; mewah</span></div>
+          <div class="body">
+            <h3>S fold / Ripple fold</h3>
+            <p>Langsir membentuk alunan huruf S yang sama besar dari hujung ke hujung, menggunakan rel khas. Bila dibuka atau ditutup, alunannya kekal seragam. Gaya ini popular untuk rumah moden dan ala hotel.</p>
+            <h4>Sesuai untuk</h4>
+            <ul><li>Ruang tamu besar dan siling tinggi</li><li>Rumah moden, minimalis atau ala hotel</li><li>Pelanggan yang mahukan rupa paling mewah</li></ul>
+            <div class="bajet"><span>Bajet</span><span class="dots" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i></span><b>Lebih tinggi</b></div>
+            <a class="btn btn-ghost" href="https://wa.me/60133416415?text=Salam%20Aimi%20Curtain%2C%20saya%20berminat%20dengan%20langsir%20jahitan%20S%20fold.%20Boleh%20terangkan%20dan%20beri%20sebut%20harga%3F" target="_blank" rel="noopener">Tanya pasal S fold</a>
+          </div>
+        </article>
+        <article class="gaya">
+          <div class="gaya-img"><img src="img/gaya/eyelet.jpg" alt="Langsir jahitan Eyelet yang dipasang oleh Aimi Curtain" loading="lazy"><span>Ringkas &amp; mudah jaga</span></div>
+          <div class="body">
+            <h3>Eyelet</h3>
+            <p>Cincin logam dipasang pada bahagian atas kain, lalu kain disarung terus pada rod. Senang dibuka, ditutup dan ditanggalkan untuk dicuci. Lipatannya lebar dan santai.</p>
+            <h4>Sesuai untuk</h4>
+            <ul><li>Bilik tidur dan bilik anak</li><li>Rumah sewa atau pelanggan yang selalu cuci langsir</li><li>Pelanggan yang mahukan pilihan paling jimat</li></ul>
+            <div class="bajet"><span>Bajet</span><span class="dots" aria-hidden="true"><i class="on"></i><i class=""></i><i class=""></i></span><b>Paling jimat</b></div>
+            <a class="btn btn-ghost" href="https://wa.me/60133416415?text=Salam%20Aimi%20Curtain%2C%20saya%20berminat%20dengan%20langsir%20jahitan%20Eyelet.%20Boleh%20terangkan%20dan%20beri%20sebut%20harga%3F" target="_blank" rel="noopener">Tanya pasal Eyelet</a>
+          </div>
+        </article>
+      </div>
+      <p class="gaya-note">Bajet dibanding antara ketiga-tiga gaya sahaja. Harga sebenar bergantung pada jenis kain, saiz tingkap dan rel. Team Aimi akan cadangkan gaya yang sesuai semasa datang ukur percuma.</p>
     </div>
   </section>
 
@@ -587,7 +651,7 @@ document.getElementById("copy").addEventListener("click", async (e) => {
   if (reduce || !("IntersectionObserver" in window)) return;
 
   const groups = [
-    [".head", ""], [".card", "zoom"], [".steps li", ""], [".slider", "curtain"], [".ba-stage", "zoom"], [".ba-side", "right"], [".book", ""], [".count", "zoom"], [".measure", "zoom"],
+    [".head", ""], [".card", "zoom"], [".gaya", "zoom"], [".steps li", ""], [".slider", "curtain"], [".ba-stage", "zoom"], [".ba-side", "right"], [".book", ""], [".count", "zoom"], [".measure", "zoom"],
     ["blockquote", "alt"], [".vids figure", "zoom"], [".pay", "zoom"], ["details", ""], [".visit img", "curtain"], [".info", "right"], ["footer.site .wrap > div", ""]
   ];
   const els = [];
