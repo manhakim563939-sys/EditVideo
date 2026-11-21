@@ -169,7 +169,8 @@ footer.site b{font-family:var(--f-disp);font-weight:400;font-size:20px;letter-sp
 .top{transition:box-shadow .3s}
 .top.scrolled{box-shadow:0 10px 30px rgba(0,0,0,.25)}
 .hero figure{overflow:hidden;border-radius:var(--r)}
-.hero figure img{transform:translateY(var(--py,0px)) scale(1.06);will-change:transform}
+.hero figure img{transform:translateY(var(--py,0px)) scale(1.12);will-change:transform}
+@media (max-width:860px){.hero figure img{transform:none}}
 .hero figure::before,.hero figure::after{content:"";position:absolute;top:0;bottom:0;width:7%;z-index:1;background:repeating-linear-gradient(90deg,rgba(15,61,48,.85) 0 6px,rgba(24,92,72,.85) 6px 11px);pointer-events:none}
 .hero figure::before{left:0;border-radius:var(--r) 0 0 var(--r)}
 .hero figure::after{right:0;border-radius:0 var(--r) var(--r) 0}
@@ -642,17 +643,19 @@ document.getElementById("copy").addEventListener("click", async (e) => {
       const y = scrollY, h = document.documentElement.scrollHeight - innerHeight;
       prog.style.setProperty("--p", h > 0 ? (y / h).toFixed(4) : 0);
       top.classList.toggle("scrolled", y > 10);
-      if (!reduce && heroImg) heroImg.style.setProperty("--py", Math.min(y * 0.18, 120) + "px");
+      if (!reduce && heroImg) heroImg.style.setProperty("--py", Math.min(y * 0.06, 28) + "px");
       if (steps) { const r = steps.getBoundingClientRect(); const v = Math.min(1, Math.max(0, (innerHeight * 0.85 - r.top) / (r.height + innerHeight * 0.3))); steps.style.setProperty("--sp", reduce ? 1 : v.toFixed(3)); }
       ticking = false;
     });
   }
   addEventListener("scroll", onScroll, { passive: true }); onScroll();
+  // safety net: never leave a section hidden if the observer misses it
+  addEventListener("scroll", () => { document.querySelectorAll(".pre").forEach((el) => { const r = el.getBoundingClientRect(); if ((r.top < innerHeight * 0.9 || innerHeight + scrollY >= document.documentElement.scrollHeight - 8) && r.bottom > 0) { el.classList.remove("pre"); el.classList.add("in"); } }); const c = document.querySelector("[data-count]"); if (c && c.textContent === "0" && c.getBoundingClientRect().top < innerHeight * 0.5) c.textContent = c.dataset.count; }, { passive: true });
   if (reduce || !("IntersectionObserver" in window)) return;
 
   const groups = [
-    [".head", ""], [".card", "zoom"], [".gaya", "zoom"], [".steps li", ""], [".slider", "curtain"], [".ba-stage", "zoom"], [".ba-side", "right"], [".book", ""], [".count", "zoom"], [".measure", "zoom"],
-    ["blockquote", "alt"], [".vids figure", "zoom"], [".pay", "zoom"], ["details", ""], [".visit img", "curtain"], [".info", "right"], ["footer.site .wrap > div", ""]
+    [".head", ""], [".card", "zoom"], [".gaya", "zoom"], [".steps li", ""], [".slider", "zoom"], [".ba-stage", "zoom"], [".ba-side", "right"], [".book", ""], [".count", "zoom"], [".measure", "zoom"],
+    ["blockquote", "alt"], [".vids figure", "zoom"], [".pay", "zoom"], ["details", ""], [".visit img", "zoom"], [".info", "right"], ["footer.site .wrap > div", ""]
   ];
   const els = [];
   groups.forEach(([sel, kind]) => {
