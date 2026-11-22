@@ -38,12 +38,26 @@
         track("InitiateCheckout", ev, "ic-" + data.orderId);
         if (data.bayar === "COD") track("Purchase", ev, "p-" + data.orderId); // DuitNow: Purchase selepas resit dihantar
       }
-      location.href = "/pesanan/?id=" + encodeURIComponent(data.orderId);
+      location.href = "/pesanan/?id=" + encodeURIComponent(data.orderId) + "#" + data.token;
     } catch (e) {
       if (btn) { btn.disabled = false; btn.innerHTML = label; }
       throw e;
     }
   };
+
+  /* Pesanan DuitNow belum selesai (pelanggan keluar ke app bank): tunjuk butang sambung */
+  try {
+    const last = localStorage.getItem("jbh-last-order");
+    const lo = last && JSON.parse(localStorage.getItem("jbh-order-" + last) || "null");
+    const fresh = lo && Date.now() - (lo.at || 0) < 3 * 24 * 3600e3;
+    if (fresh && lo.bayar === "DUITNOW" && !localStorage.getItem("jbh-paid-" + last) && !localStorage.getItem("jbh-receipt-" + last)) {
+      const bar = document.createElement("a");
+      bar.href = "/pesanan/?id=" + encodeURIComponent(last) + "#" + lo.token;
+      bar.textContent = "⏳ Pesanan " + last + " (RM" + lo.jumlah + ") belum selesai. Dah bayar? Tekan sini";
+      bar.style.cssText = "position:fixed;left:0;right:0;top:0;z-index:9999;display:block;background:#d6245c;color:#fff;font:700 14px Poppins,system-ui,sans-serif;text-align:center;padding:12px 16px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25)";
+      document.body.appendChild(bar);
+    }
+  } catch (_) {}
 
   /* Sorok pilihan Billplz sehingga kunci disediakan di Netlify */
   const opts = [...document.querySelectorAll('input[name="bayar"][value="ONLINE"]')].map(i => i.closest("label"));

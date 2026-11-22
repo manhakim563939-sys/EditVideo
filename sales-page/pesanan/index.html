@@ -80,20 +80,29 @@ h2{font-family:Anton,Impact,sans-serif;font-weight:400;font-size:24px;text-trans
   <div class="card" id="duitCard" hidden>
     <h2>Bayar dengan DuitNow QR</h2>
     <ol class="steps">
-      <li>Simpan gambar QR di bawah (tekan lama → Simpan), atau imbas dari telefon lain.</li>
-      <li>Buka app bank / e-wallet (MAE, TNG, Boost, GrabPay dan lain-lain) → <b>DuitNow QR / Scan</b> → pilih gambar QR.</li>
-      <li>Masukkan jumlah <b>tepat</b> dan tulis no. pesanan dalam ruangan rujukan.</li>
-      <li>Muat naik resit di bawah. Pesanan dipos selepas bayaran disahkan.</li>
+      <li>Tekan <b>Simpan gambar QR</b> di bawah (atau tekan lama pada QR → Simpan).</li>
+      <li>Buka app bank / e-wallet (MAE, TNG, Boost, CIMB, semua bank) → <b>DuitNow QR / Scan</b> → pilih gambar QR dari galeri.</li>
+      <li>Masukkan jumlah <b>tepat</b>, bayar, kemudian <b>kembali ke halaman ini</b> dan tekan <b>"Saya dah bayar"</b>.</li>
     </ol>
     <div class="amt"><small>Jumlah perlu dibayar</small><b id="amt">RM0</b></div>
     <img class="qr" src="/img/duitnow-lunas.jpg" alt="DuitNow QR LUNAS RESOURCES" width="600" height="600">
+    <a class="btn ghost" id="saveQr" href="/img/duitnow-lunas.jpg" download="DuitNow-QR-Jus-Bidara-Hitam.jpg">⬇ Simpan gambar QR</a>
     <p class="ref">Penerima: <b>LUNAS RESOURCES</b> (Maybank) · Rujukan: <b id="ref"></b></p>
 
+    <div class="up" id="paidBox">
+      <b>Dah bayar?</b>
+      <label for="payer" style="display:block;font-size:13px;color:var(--muted);margin-top:8px">Nama pemilik akaun bank yang bayar (jika lain dari nama pesanan, pilihan)</label>
+      <input id="payer" type="text" autocomplete="off" style="width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font:inherit;margin-top:4px">
+      <button class="btn duit" type="button" id="paid">✅ Saya dah bayar</button>
+      <p class="msg" id="paidMsg" hidden></p>
+    </div>
+
     <div class="up" id="upBox">
-      <b>Muat naik resit bayaran</b>
+      <b>Ada resit? Muat naik (pilihan)</b>
+      <small style="display:block;color:var(--muted);font-size:12.5px">Kalau bank tak benarkan screenshot, tak apa. Kami semak terus dalam akaun.</small>
       <input type="file" id="file" accept="image/*">
       <img id="prev" alt="" hidden>
-      <button class="btn duit" type="button" id="send" disabled>Hantar resit</button>
+      <button class="btn ghost" type="button" id="send" disabled>Hantar resit</button>
       <p class="msg" id="upMsg" hidden></p>
     </div>
   </div>
@@ -109,6 +118,15 @@ const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": 
 const id = new URLSearchParams(location.search).get("id") || (() => { try { return localStorage.getItem("jbh-last-order"); } catch (_) { return ""; } })() || "";
 let o = null;
 try { o = JSON.parse(localStorage.getItem("jbh-order-" + id) || "null"); } catch (_) {}
+// Sandaran: maklumat pesanan dalam pautan (#token) kalau storan telefon hilang, cth. pelayar Facebook ditutup
+const hashTok = location.hash.slice(1);
+if (!o && hashTok) {
+  try {
+    const t = JSON.parse(atob(hashTok.split(".")[0].replace(/-/g, "+").replace(/_/g, "/")));
+    if (t && t.id === id) o = { ...t, token: hashTok, pakej: "-", pkg: 0 };
+  } catch (_) {}
+}
+if (o && o.token && !location.hash) history.replaceState(null, "", location.pathname + location.search + "#" + o.token);
 
 if (id) { $("oidWrap").hidden = false; $("oid").textContent = id; $("ref").textContent = id; }
 if (o) {
@@ -124,9 +142,9 @@ if (o) {
 if (o && o.bayar === "DUITNOW") {
   $("ic").textContent = "QR";
   $("title").className = "duit"; $("title").textContent = "Satu langkah lagi";
-  $("lead").textContent = "Pesanan anda dah direkod. Sila bayar guna DuitNow QR dan muat naik resit supaya kami boleh pos dengan segera.";
+  $("lead").textContent = "Pesanan anda dah direkod. Sila bayar guna DuitNow QR, kemudian kembali ke sini dan tekan \"Saya dah bayar\".";
   $("duitCard").hidden = false; $("amt").textContent = "RM" + o.jumlah;
-  try { if (localStorage.getItem("jbh-receipt-" + id)) receiptDone(); } catch (_) {}
+  try { if (localStorage.getItem("jbh-paid-" + id)) paidDone(); if (localStorage.getItem("jbh-receipt-" + id)) receiptDone(); } catch (_) {}
 }
 
 /* resit: kecilkan gambar dalam telefon (maks 1600px) supaya cepat dihantar */
@@ -151,20 +169,43 @@ $("send").addEventListener("click", async () => {
     const r = await fetch("/api/order-receipt", { method: "POST", body: fd });
     const d = await r.json().catch(() => ({}));
     if (!r.ok) throw new Error(d.error || "Tak dapat hantar resit.");
-    try {
-      if (!localStorage.getItem("jbh-receipt-" + id)) {
-        localStorage.setItem("jbh-receipt-" + id, "1");
-        if (window.fbq) fbq("track", "Purchase", { currency: "MYR", value: Number(o.jumlah) || 0, content_name: o.pakej, num_items: Number(o.pkg), content_type: "product" }, { eventID: "p-" + id });
-      }
-    } catch (_) {}
-    receiptDone();
+    try { localStorage.setItem("jbh-receipt-" + id, "1"); } catch (_) {}
+    firePurchase(); receiptDone();
   } catch (e) {
     $("upMsg").className = "msg bad"; $("upMsg").textContent = e.message + " Anda juga boleh hantar resit melalui WhatsApp."; $("upMsg").hidden = false;
     $("send").disabled = false; $("send").textContent = "Hantar resit";
   }
 });
+function firePurchase() {
+  try {
+    if (localStorage.getItem("jbh-purchase-" + id)) return;
+    localStorage.setItem("jbh-purchase-" + id, "1");
+  } catch (_) {}
+  if (window.fbq) fbq("track", "Purchase", { currency: "MYR", value: Number(o.jumlah) || 0, content_name: o.pakej, num_items: Number(o.pkg) || undefined, content_type: "product" }, { eventID: "p-" + id });
+}
+$("paid").addEventListener("click", async () => {
+  if (!o) return;
+  $("paid").disabled = true; $("paid").textContent = "Menghantar…";
+  try {
+    const r = await fetch("/api/order-paid", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ token: o.token, pembayar: $("payer").value }) });
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(d.error || "Tak dapat hantar sekarang.");
+    try { localStorage.setItem("jbh-paid-" + id, "1"); } catch (_) {}
+    firePurchase(); paidDone();
+  } catch (e) {
+    $("paidMsg").className = "msg bad"; $("paidMsg").textContent = e.message + " Sila WhatsApp kami dengan no. pesanan."; $("paidMsg").hidden = false;
+    $("paid").disabled = false; $("paid").textContent = "✅ Saya dah bayar";
+  }
+});
+function paidDone() {
+  $("paidBox").innerHTML = '<p class="msg ok">✅ Terima kasih! Kami akan semak bayaran dalam akaun dan pos pesanan anda secepat mungkin. Tak perlu hantar resit.</p>';
+  $("ic").className = "ic"; $("ic").textContent = "✓"; $("title").className = ""; $("title").textContent = "Terima kasih!";
+  $("lead").textContent = "Bayaran anda sedang disemak. Pesanan akan dipos selepas disahkan.";
+}
 function receiptDone() {
-  $("upBox").innerHTML = '<p class="msg ok">✅ Resit diterima. Kami akan semak bayaran dan pos pesanan anda secepat mungkin.</p>';
+  $("upBox").innerHTML = '<p class="msg ok">✅ Resit diterima. Terima kasih!</p>';
+  if (!$("paidBox").querySelector("#paid")) return;
+  $("paidBox").hidden = true;
   $("ic").className = "ic"; $("ic").textContent = "✓"; $("title").className = ""; $("title").textContent = "Resit diterima!";
   $("lead").textContent = "Terima kasih. Pesanan akan dipos selepas bayaran disahkan.";
 }
