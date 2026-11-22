@@ -51,7 +51,7 @@ export default async (req) => {
     "",
     `💬 <a href="https://wa.me/${mobile}">WhatsApp pelanggan</a> · dari ${sumber}`,
     bayar === "DUITNOW"
-      ? "⏳ <i>Tunggu resit (akan masuk di sini). Semak duit masuk akaun FIREA LABS sebelum pos.</i>"
+      ? "⏳ <i>Tunggu pelanggan tekan \"Saya dah bayar\" atau hantar resit (akan masuk di sini). Semak duit masuk akaun FIREA LABS sebelum pos.</i>"
       : "📞 <i>COD: telefon / WhatsApp pelanggan untuk sahkan sebelum pos.</i>",
   ].join("\n");
   try {
