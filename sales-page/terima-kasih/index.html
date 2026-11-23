@@ -53,7 +53,7 @@ h1{font-family:Anton,Impact,sans-serif;font-weight:400;font-size:34px;line-heigh
     <h1 id="title">Menyemak bayaran</h1>
     <p id="text">Sebentar, kami sedang sahkan status bayaran anda.</p>
     <div class="det" id="det" hidden></div>
-    <a class="btn" id="waBtn" href="https://wa.me/60179637611" target="_blank" rel="noopener" hidden>Hantar butiran order ke WhatsApp</a>
+    <a class="btn alt" id="waBtn" href="https://wa.me/60179637611" target="_blank" rel="noopener" hidden>Ada soalan? WhatsApp kami</a>
     <a class="btn alt" id="retry" href="/" hidden>Cuba lagi</a>
     <p class="small" id="small">Ada masalah? WhatsApp kami: <b>017-963 7611</b></p>
   </div>
@@ -99,7 +99,7 @@ function waMsg(id, amount) {
     return;
   }
   if (r.paid) {
-    show("ok", "Bayaran berjaya!", "Terima kasih. Tekan butang di bawah untuk hantar butiran order kepada kami supaya kami boleh pos dengan segera.");
+    show("ok", "Bayaran berjaya!", "Terima kasih! Pesanan anda dah diterima dan akan dipos secepat mungkin. Tak perlu buat apa-apa lagi.");
     const amt = r.amount ?? (order && order.jumlah);
     $("det").hidden = false;
     $("det").innerHTML = `<div><span>ID Bil</span><b>${r.id}</b></div>` + (amt != null ? `<div><span>Jumlah dibayar</span><b>RM${amt}</b></div>` : "") + (order ? `<div><span>Pakej</span><b>${PAKEJ[order.pkg] || "-"}</b></div><div><span>Nama</span><b>${(order.nama || "").replace(/[<>&]/g, "")}</b></div>` : "");
