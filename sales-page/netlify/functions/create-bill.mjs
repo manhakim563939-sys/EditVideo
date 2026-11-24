@@ -11,7 +11,7 @@ export default async (req) => {
   try { b = await req.json(); } catch (_) { return json({ error: "Data tak sah." }, 400); }
   const s = k => String(b?.[k] ?? "").trim();
   const nama = s("nama").slice(0, 120), tel = s("tel"), alamat = s("alamat"), poskod = s("poskod"), negeri = s("negeri"), email = s("email");
-  const q = quote(Number(b?.pkg), negeri);
+  const q = quote(Number(b?.pkg), negeri, s("kod"));
   const mobile = normMobile(tel);
   const bad = [];
   if (!q) bad.push("pakej");
@@ -31,7 +31,7 @@ export default async (req) => {
     ...(email ? { email } : {}),
     name: nama,
     amount: q.jumlah * 100,
-    description: `Jus Bidara Hitam: ${q.nama} (${sumber})`.slice(0, 200),
+    description: `Jus Bidara Hitam: ${q.nama} (${sumber}${q.diskaun ? `, voucher ${q.voucher} -RM${q.diskaun}` : ""})`.slice(0, 200),
     callback_url: origin + "/api/billplz-callback",
     redirect_url: origin + "/terima-kasih/",
     reference_1_label: "Telefon",

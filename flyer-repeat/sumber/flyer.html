@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<title>Flyer Repeat Order Jus Bidara Hitam</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Kaushan+Script&family=Poppins:wght@500;600;700;800;900&display=block" rel="stylesheet">
+<style>
+  /* Flyer A6 (105 x 148 mm) hitam putih untuk dimasukkan dalam setiap parcel */
+  :root { --ink:#111; --paper:#fff; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#888; font-family:Poppins, sans-serif; }
+  .card { width:1240px; height:1748px; background:var(--paper); color:var(--ink); position:relative; overflow:hidden; padding:48px; }
+  .frame { position:absolute; inset:36px; border:7px solid var(--ink); border-radius:46px; }
+  .frame::after { content:""; position:absolute; inset:10px; border:2.5px solid var(--ink); border-radius:36px; }
+  .in { position:relative; height:100%; padding:26px 50px 26px; display:flex; flex-direction:column; }
+
+  .top { display:flex; align-items:center; gap:22px; }
+  .top img { width:124px; height:124px; flex:0 0 auto; }
+  .ty { font-family:"Kaushan Script", cursive; font-size:126px; line-height:.95; transform:rotate(-4deg); transform-origin:left; white-space:nowrap; }
+  .ty span { font-size:104px; }
+  .lead { text-align:center; font-weight:800; font-size:42px; margin-top:6px; }
+  .small { text-align:center; font-size:26px; max-width:980px; margin:8px auto 0; font-weight:500; line-height:1.35; }
+  .div { display:flex; align-items:center; gap:16px; justify-content:center; margin:18px 0 16px; }
+  .div i { display:block; width:240px; height:4px; background:var(--ink); border-radius:2px; }
+  .div b { font-size:32px; line-height:1; }
+
+  .pill { align-self:center; background:var(--ink); color:#fff; border-radius:999px; padding:8px 50px 14px; display:flex; align-items:baseline; gap:16px; transform:rotate(-1.5deg); white-space:nowrap; }
+  .pill .a { font-family:Anton, sans-serif; font-size:76px; letter-spacing:1px; }
+  .pill .s { font-family:"Kaushan Script", cursive; font-size:88px; line-height:.9; }
+  .h2 { text-align:center; font-weight:900; font-size:46px; margin-top:18px; display:flex; align-items:center; justify-content:center; gap:20px; }
+  .h2::before, .h2::after { content:""; width:52px; height:5px; background:var(--ink); border-radius:3px; }
+  .sub { text-align:center; font-weight:600; font-size:30px; margin-top:4px; }
+  .sub .tag { background:var(--ink); color:#fff; font-weight:900; padding:2px 14px 4px; border-radius:10px; }
+
+  .mid { display:grid; grid-template-columns:1fr 1fr 1fr 1.7fr; margin-top:28px; align-items:center; }
+  .ic { text-align:center; padding:0 8px; border-right:3px dotted var(--ink); }
+  .ic:nth-child(3) { border-right:0; }
+  .ic .c { width:112px; height:112px; border-radius:50%; background:var(--ink); margin:0 auto 12px; display:flex; align-items:center; justify-content:center; }
+  .ic svg { width:62px; height:62px; }
+  .ic p { font-size:23px; font-weight:600; line-height:1.25; }
+  .deal { margin-left:12px; text-align:center; }
+  .deal .t1 { font-family:Anton, sans-serif; font-size:42px; line-height:1; }
+  .deal .t2 { font-weight:800; font-size:22px; margin-top:2px; }
+  .deal .box { background:var(--ink); color:#fff; margin-top:10px; padding:12px 14px 14px; transform:rotate(-1deg); clip-path:polygon(2% 5%, 98% 0, 100% 94%, 1% 100%); }
+  .deal .box b { display:block; font-family:Anton, sans-serif; font-size:56px; line-height:1; white-space:nowrap; }
+  .deal .box span { font-weight:800; font-size:20px; white-space:nowrap; }
+
+  .tiers { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:34px; }
+  .tier { border:4px solid var(--ink); border-radius:22px; text-align:center; padding:12px 8px 14px; position:relative; }
+  .tier.best { background:var(--ink); color:#fff; }
+  .tier .q { font-weight:800; font-size:28px; }
+  .tier .off { font-family:Anton, sans-serif; font-size:72px; line-height:1.05; }
+  .tier .off small { font-size:34px; }
+  .tier .now { font-size:22px; font-weight:600; }
+  .tier .now b { font-weight:900; }
+  .tier .rib { position:absolute; top:-20px; left:50%; transform:translateX(-50%); background:#fff; color:var(--ink); border:3px solid var(--ink); border-radius:999px; font-weight:900; font-size:17px; padding:2px 14px; white-space:nowrap; }
+
+  .code { margin:24px auto 0; display:flex; align-items:center; gap:22px; border:5px dashed var(--ink); border-radius:20px; padding:12px 30px; }
+  .code .l { font-weight:800; font-size:26px; line-height:1.15; text-align:right; }
+  .code .k { font-family:Anton, sans-serif; font-size:84px; letter-spacing:6px; line-height:1; }
+  .code .sc { font-size:48px; }
+  .codenote { text-align:center; font-size:22px; font-weight:600; margin-top:8px; }
+
+  .bottom { display:grid; grid-template-columns:1fr 1.08fr; gap:28px; margin-top:34px; flex:1; min-height:0; }
+  .script { font-family:"Kaushan Script", cursive; font-size:44px; line-height:1.05; transform:rotate(-3deg); }
+  .uline { width:300px; height:4px; background:var(--ink); border-radius:2px; margin:8px 0 12px 30px; transform:rotate(-3deg); }
+  .left p { font-size:24px; font-weight:500; line-height:1.4; margin-bottom:12px; }
+  .how { border:3px solid var(--ink); border-radius:18px; padding:10px 16px; }
+  .how h4 { font-weight:900; font-size:23px; text-transform:uppercase; letter-spacing:1px; }
+  .how p { font-size:22px; margin:2px 0 0; line-height:1.35; }
+  .thanks { font-family:"Kaushan Script", cursive; font-size:40px; line-height:1.05; text-align:center; margin-top:14px; transform:rotate(-2deg); }
+
+  .scan { align-self:start; border:5px solid var(--ink); border-radius:30px; padding:0 0 12px; }
+  .scan .hd { background:var(--ink); color:#fff; border-radius:24px 24px 0 0; padding:12px 18px; text-align:center; }
+  .scan .hd b { font-weight:900; font-size:31px; line-height:1.1; display:block; }
+  .scan .body { display:flex; gap:14px; padding:14px 16px 0; align-items:center; }
+  .scan .qr { width:250px; height:250px; flex:0 0 auto; border:3px solid var(--ink); border-radius:14px; padding:6px; }
+  .scan .qr img { width:100%; height:100%; display:block; image-rendering:pixelated; }
+  .scan ul { list-style:none; display:flex; flex-direction:column; gap:10px; min-width:0; }
+  .scan li { display:flex; align-items:center; gap:10px; font-size:22px; font-weight:600; line-height:1.15; }
+  .scan li::before { content:"✓"; flex:0 0 auto; width:36px; height:36px; border-radius:50%; background:var(--ink); color:#fff; font-weight:900; font-size:22px; display:flex; align-items:center; justify-content:center; }
+  .scan .web { text-align:center; font-weight:800; font-size:28px; margin-top:10px; }
+  .scan .wa { text-align:center; font-weight:600; font-size:21px; }
+  .fine { position:absolute; left:0; right:0; bottom:34px; text-align:center; font-size:16px; font-weight:500; }
+</style>
+</head>
+<body>
+<div class="card" id="kad">
+  <div class="frame"></div>
+  <div class="in">
+    <div class="top">
+      <img src="logo-bw.png" alt="Mbah Lanang">
+      <div class="ty">Terima Kasih <span>♥</span></div>
+    </div>
+    <div class="lead">kerana memilih untuk jaga kesihatan diri!</div>
+    <div class="small">Langkah pertama paling susah, dan anda dah berjaya mulakannya. Teruskan amalan ini, badan anda layak dapat yang terbaik.</div>
+    <div class="div"><i></i><b>♥</b><i></i></div>
+
+    <div class="pill"><span class="a">HADIAH</span><span class="s">untuk</span><span class="a">DIRI ANDA</span></div>
+    <div class="h2">Jangan Berhenti Separuh Jalan..</div>
+    <div class="sub">Order kali kedua di <span class="tag">WEBSITE</span> kami &amp; terus jimat!</div>
+
+    <div class="tiers">
+      <div class="tier"><div class="q">1 Botol</div><div class="off"><small>JIMAT</small> RM5</div><div class="now">Kini <b>RM25</b> + pos</div></div>
+      <div class="tier"><div class="q">2 Botol</div><div class="off"><small>JIMAT</small> RM10</div><div class="now">Kini <b>RM48</b> · pos percuma*</div></div>
+      <div class="tier best"><div class="rib">PALING BERBALOI</div><div class="q">3 Botol</div><div class="off"><small>JIMAT</small> RM15</div><div class="now">Kini <b>RM54</b> · pos percuma*</div></div>
+    </div>
+
+    <div class="code"><span class="sc">✂</span><div class="l">KOD<br>VOUCHER</div><div class="k">JAGASIHAT</div></div>
+    <div class="codenote">Masukkan kod ni masa order, atau scan QR di bawah (kod terus masuk)</div>
+
+    <div class="bottom">
+      <div class="left">
+        <div class="script">Satu pesanan kecil daripada kami...</div>
+        <div class="uline"></div>
+        <p>Kesihatan ialah <b>pelaburan terbaik</b> untuk diri sendiri dan keluarga. Amalan yang konsisten lebih bermakna daripada amalan sekali-sekala.</p>
+        <div class="how">
+          <h4>Cara amalkan</h4>
+          <p>4 penutup + segelas air, pagi &amp; malam selepas makan.</p>
+        </div>
+        <div class="thanks">Teruskan jaga diri, anda layak sihat ♥</div>
+      </div>
+      <div class="scan">
+        <div class="hd"><b>SCAN UNTUK ORDER<br>KALI KEDUA</b></div>
+        <div class="body">
+          <div class="qr"><img src="qr-repeat-voucher.png" alt="QR order kali kedua"></div>
+          <ul>
+            <li>Voucher terus masuk</li>
+            <li>Pilih COD / online</li>
+            <li>Siap dalam 1 minit</li>
+            <li>Terus dipos</li>
+          </ul>
+        </div>
+        <div class="web">jusbidarahitam.com/repeat</div>
+        <div class="wa">Ada soalan? WhatsApp 017-963 7611</div>
+      </div>
+    </div>
+    <div class="fine">*Pos percuma Semenanjung. Sabah, Sarawak &amp; Labuan: pos RM18. Voucher untuk pembelian di website sahaja.</div>
+  </div>
+</div>
+</body>
+</html>

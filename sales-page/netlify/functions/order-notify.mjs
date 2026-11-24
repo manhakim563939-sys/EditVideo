@@ -26,7 +26,7 @@ export default async (req) => {
   const s = k => String(b?.[k] ?? "").trim().slice(0, 300);
   const nama = s("nama").slice(0, 120), tel = s("tel"), alamat = s("alamat"), poskod = s("poskod"), negeri = s("negeri");
   const bayar = s("bayar").toUpperCase() === "DUITNOW" ? "DUITNOW" : "COD";
-  const q = quote(Number(b?.pkg), negeri);
+  const q = quote(Number(b?.pkg), negeri, s("kod"));
   const mobile = normMobile(tel);
   if (!q || !nama || !/^60\d{8,11}$/.test(mobile) || !alamat || !/^\d{5}$/.test(poskod) || !STATES.includes(negeri))
     return json({ error: "Maklumat order tak lengkap. Semak nama, telefon, alamat, poskod dan negeri." }, 400);
@@ -44,6 +44,7 @@ export default async (req) => {
     `ID Order: <code>${id}</code>`,
     "",
     `Pakej: ${escHtml(q.nama)}`,
+    q.diskaun ? `Voucher: ${q.voucher} (-RM${q.diskaun})` : "",
     `Penghantaran: ${q.posRM ? "RM" + q.posRM : "PERCUMA"}`,
     `Jumlah: RM${q.jumlah}`,
     `Bayaran: ${label}`,
@@ -55,7 +56,7 @@ export default async (req) => {
     bayar === "DUITNOW"
       ? "⏳ <i>Tunggu pelanggan tekan \"Saya dah bayar\" atau hantar resit (akan masuk di sini). Semak duit masuk akaun LUNAS RESOURCES sebelum pos.</i>"
       : "📞 <i>COD: telefon / WhatsApp pelanggan untuk sahkan sebelum pos.</i>",
-  ].join("\n");
+  ].filter((l, i) => l !== "" || i !== 4).join("\n");
   try {
     const r = await notify(text);
     if (!r.ok && !r.skipped) console.error("Telegram gagal", JSON.stringify(r).slice(0, 300));

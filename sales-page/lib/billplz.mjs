@@ -11,11 +11,17 @@ export const POS_EAST = 18;
 export const STATES = ["Johor", "Kedah", "Kelantan", "Melaka", "Negeri Sembilan", "Pahang", "Perak", "Perlis", "Pulau Pinang",
   "Selangor", "Terengganu", "W.P. Kuala Lumpur", "W.P. Putrajaya", "Sabah", "Sarawak", "W.P. Labuan"];
 
-export function quote(pkg, negeri) {
+// Voucher pembelian kedua (dicetak pada flyer dalam parcel). Diskaun ikut pakej.
+export const VOUCHER = "JAGASIHAT";
+export const DISKAUN = { 1: 5, 2: 10, 3: 15 };
+export const kodSah = kod => String(kod || "").trim().toUpperCase().replace(/\s+/g, "") === VOUCHER;
+
+export function quote(pkg, negeri, kod) {
   const p = PAKEJ[pkg];
   if (!p) return null;
   const pos = EAST.includes(negeri) ? POS_EAST : p.pos;
-  return { ...p, posRM: pos, jumlah: p.harga + pos };
+  const diskaun = kodSah(kod) ? DISKAUN[pkg] || 0 : 0;
+  return { ...p, posRM: pos, diskaun, voucher: diskaun ? VOUCHER : "", jumlah: p.harga - diskaun + pos };
 }
 
 export function settings() {

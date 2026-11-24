@@ -90,6 +90,7 @@ h2{font-family:Anton,Impact,sans-serif;font-weight:400;font-size:26px;text-trans
 .btn svg{width:24px;height:24px}
 .fallback{margin-top:12px;text-align:center;font-size:14px}
 .fallback a{color:var(--wa);font-weight:800}
+.kodmsg{font-size:13px;font-weight:700;margin:-4px 0 8px}
 .note{font-size:13px;color:var(--muted);text-align:center;margin-top:10px}
 
 .how{display:flex;gap:14px;align-items:center;background:var(--ink);color:#efe6d2;border-radius:16px;padding:14px 16px;margin-top:22px}
@@ -157,11 +158,14 @@ footer a{color:var(--muted)}
             <label><input type="radio" name="bayar" value="ONLINE"> Bayar online<br><small style="font-weight:600;color:var(--muted)">FPX · Kad</small></label>
           </div>
         </div>
+        <label for="kod">Kod voucher (pilihan)<input id="kod" name="kod" autocomplete="off" autocapitalize="characters" placeholder="cth. kod pada flyer dalam parcel" style="text-transform:uppercase"></label>
+        <p class="kodmsg" id="kodMsg" hidden></p>
         <label for="nota">Nota (pilihan)<input id="nota" name="nota" placeholder="cth. hantar lepas pukul 5 petang"></label>
       </div>
 
       <div class="sum" aria-live="polite">
         <div><span id="sPkg">3 Botol</span><span id="sHarga">RM69</span></div>
+        <div id="rowDisk" hidden><span>Voucher <span id="sKod"></span></span><span id="sDisk" style="color:#1f7a3a;font-weight:800">-RM0</span></div>
         <div><span>Penghantaran</span><span id="sPos">PERCUMA</span></div>
         <div class="tot"><span>Jumlah</span><b id="sTot">RM69</b></div>
       </div>
@@ -198,7 +202,10 @@ const form = document.getElementById("order"), $ = id => document.getElementById
 function track(ev, data) { try { if (window.fbq) fbq("track", ev, data || {}); } catch (_) {} }
 const pkg = () => (form.querySelector('input[name="pkg"]:checked') || {}).value || "3";
 const pos = id => EAST.includes($("negeri").value) ? POS_EAST : PAKEJ[id].pos;
-const total = id => PAKEJ[id].harga + pos(id);
+const VOUCHER = "JAGASIHAT", DISKAUN = { 1: 5, 2: 10, 3: 15 };
+const kodSah = () => $("kod").value.trim().toUpperCase().replace(/\s+/g, "") === VOUCHER;
+const disk = id => kodSah() ? DISKAUN[id] : 0;
+const total = id => PAKEJ[id].harga - disk(id) + pos(id);
 function posText(id) { const p = pos(id); return EAST.includes($("negeri").value) ? "RM" + p + " (Sabah/Sarawak/Labuan)" : p ? "RM" + p : "PERCUMA (Semenanjung)"; }
 
 const BTN = { COD: "Sahkan pesanan COD", DUITNOW: "Teruskan ke DuitNow QR", ONLINE: "Bayar online sekarang" };
@@ -209,8 +216,14 @@ function render() {
   $("sPkg").textContent = PAKEJ[id].nama; $("sHarga").textContent = "RM" + PAKEJ[id].harga;
   $("sPos").textContent = posText(id).replace(/ \(.*\)$/, "");
   $("sTot").textContent = $("barTot").textContent = "RM" + total(id);
+  const d = disk(id), k = $("kod").value.trim(), m = $("kodMsg");
+  $("rowDisk").hidden = !d; $("sDisk").textContent = "-RM" + d; $("sKod").textContent = d ? "(" + VOUCHER + ")" : "";
+  m.hidden = !k; m.style.color = d ? "#1f7a3a" : "#b3261e";
+  m.textContent = d ? "✓ Voucher diterima! Jimat RM" + d + " untuk pakej ini." : "Kod tak sah. Semak semula kod pada flyer.";
 }
 form.addEventListener("change", render);
+$("kod").addEventListener("input", render);
+try { const kq = new URLSearchParams(location.search).get("kod"); if (kq) $("kod").value = kq.toUpperCase(); } catch (_) {}
 
 /* isi semula maklumat order lepas (disimpan dalam telefon pelanggan sahaja) */
 try {
@@ -244,7 +257,7 @@ form.addEventListener("submit", e => {
 `Assalamualaikum, saya nak *REPEAT ORDER* Jus Bidara Hitam.
 
 *Pakej:* ${p.nama}
-*Harga:* RM${p.harga}
+*Harga:* RM${p.harga}${disk(id) ? `\n*Voucher:* ${VOUCHER} (-RM${disk(id)})` : ""}
 *Penghantaran:* ${posText(id)}
 *Jumlah:* RM${total(id)}
 *Bayaran:* ${bayar === "DUITNOW" ? "DuitNow QR" : "COD"}
@@ -254,12 +267,12 @@ form.addEventListener("submit", e => {
 *Alamat:* ${v("alamat")}, ${v("poskod")} ${v("negeri")}` + (v("nota") ? `\n*Nota:* ${v("nota")}` : "");
   try { localStorage.setItem(KEY, JSON.stringify({ nama: v("nama"), tel: v("tel"), alamat: v("alamat"), poskod: v("poskod"), negeri: v("negeri") })); } catch (_) {}
   if (bayar === "ONLINE") {
-    window.JBH_bayarOnline({ pkg: Number(id), negeri: v("negeri"), nama: v("nama"), tel: v("tel"), alamat: v("alamat"), poskod: v("poskod"), sumber: "repeat" }, $("submitBtn"))
+    window.JBH_bayarOnline({ pkg: Number(id), negeri: v("negeri"), nama: v("nama"), tel: v("tel"), alamat: v("alamat"), poskod: v("poskod"), sumber: "repeat", kod: kodSah() ? VOUCHER : "" }, $("submitBtn"))
       .catch(e => { $("err").textContent = e.message; $("err").style.display = "block"; });
     return;
   }
   $("waLink").href = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(msg);
-  window.JBH_hantarOrder({ pkg: Number(id), negeri: v("negeri"), nama: v("nama"), tel: v("tel"), alamat: v("alamat"), poskod: v("poskod"), sumber: "repeat", bayar }, $("submitBtn"))
+  window.JBH_hantarOrder({ pkg: Number(id), negeri: v("negeri"), nama: v("nama"), tel: v("tel"), alamat: v("alamat"), poskod: v("poskod"), sumber: "repeat", bayar, kod: kodSah() ? VOUCHER : "" }, $("submitBtn"))
     .catch(e => {
       $("err").textContent = e.message + " Tekan pautan di bawah untuk hantar pesanan melalui WhatsApp.";
       $("err").style.display = "block"; $("fallback").hidden = false;

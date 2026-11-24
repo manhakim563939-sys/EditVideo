@@ -18,11 +18,14 @@ export default async (req) => {
     let bill = {};
     try { const r = await billplz("/bills/" + encodeURIComponent(p.id)); if (r.ok) bill = r.data || {}; } catch (_) {}
     const rm = (Number(p.paid_amount || bill.paid_amount || 0) / 100).toFixed(2).replace(/\.00$/, "");
+    const desc = bill.description || "";
+    const vc = desc.match(/voucher (\S+) -RM(\d+)/);
     const text = [
       `💰 <b>Bayaran online DIBAYAR RM${escHtml(rm)}</b>${settings().sandbox ? " (UJIAN SANDBOX)" : ""}`,
       `ID Bil: <code>${escHtml(p.id)}</code>`,
       "",
-      `Pakej: ${escHtml((bill.description || "").replace(/^Jus Bidara Hitam:\s*/, "").replace(/\s*\((Website|Repeat)\)$/, ""))}`,
+      `Pakej: ${escHtml(desc.replace(/^Jus Bidara Hitam:\s*/, "").replace(/\s*\((Website|Repeat)[^)]*\)$/, ""))}`,
+      vc ? `Voucher: ${escHtml(vc[1])} (-RM${vc[2]})` : null,
       `Jumlah: RM${escHtml(rm)}`,
       `Bayaran: Online (Billplz) - DIBAYAR`,
       "",
@@ -32,7 +35,7 @@ export default async (req) => {
       "",
       `🕒 ${escHtml(p.paid_at || "")}`,
       p.url ? `🔗 ${escHtml(p.url)}` : "",
-    ].filter((l, i, a) => l !== "" || (a[i - 1] !== "" && i < a.length - 1)).join("\n");
+    ].filter(l => l !== null).filter((l, i, a) => l !== "" || (a[i - 1] !== "" && i < a.length - 1)).join("\n");
     try {
       const r = await notify(text);
       if (!r.ok && !r.skipped) console.error("Telegram gagal", JSON.stringify(r).slice(0, 300));
