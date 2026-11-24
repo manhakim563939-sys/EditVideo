@@ -218,6 +218,7 @@ thead th:nth-child(3){background:var(--petal);color:var(--petal-ink)}
 .pay{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .pay label{border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;gap:8px;align-items:center;cursor:pointer;font-size:.92rem}
 .pay input{width:auto}
+.pay .pay-fpx{grid-column:1/-1}
 .summary{background:var(--blush);border-radius:14px;padding:16px;display:grid;gap:6px;font-variant-numeric:tabular-nums}
 .summary div{display:flex;justify-content:space-between;gap:10px}
 .summary .total{font-weight:800;font-size:1.15rem;border-top:1px solid var(--line);padding-top:8px;margin-top:4px}
@@ -698,6 +699,7 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
       <h3>Pakej &amp; bayaran</h3>
       <div class="field"><label for="f-pkg">Pakej</label><select id="f-pkg" name="pkg"></select></div>
       <div class="pay" role="radiogroup" aria-label="Cara bayaran">
+        <label class="pay-fpx" hidden><input type="radio" name="pay" id="pay-fpx" value="ONLINE"> FPX online banking / kad (bayar terus, paling cepat)</label>
         <label><input type="radio" name="pay" id="pay-online" value="DUITNOW" checked> DuitNow QR (scan &amp; bayar terus)</label>
         <label><input type="radio" name="pay" id="pay-cod" value="COD"> COD (bayar bila sampai)</label>
       </div>
@@ -895,9 +897,10 @@ $("#orderForm").addEventListener("focusin", () => {
 async function sendOrder(qty, bayar, source) {
   const v = id => (document.getElementById(id)?.value || "").trim();
   const body = { qty, negeri: v("f-state"), nama: v("f-name"), tel: v("f-phone"), alamat: v("f-addr"), poskod: v("f-post"), bandar: v("f-city"), bayar, sumber: source, website: v("f-website") };
-  const r = await fetch("/api/order-notify", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+  const online = bayar === "ONLINE";
+  const r = await fetch(online ? "/api/create-bill" : "/api/order-notify", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
   const d = await r.json().catch(() => ({}));
-  if (!r.ok || !d.orderId) { const e = new Error(d.error || "Gagal"); e.user = r.status === 400 || r.status === 429; throw e; }
+  if (!r.ok || !d.orderId) { const e = new Error(d.error || (online ? "Bayaran online tak dapat dibuka. Sila pilih DuitNow QR atau COD." : "Gagal")); e.user = online || r.status === 400 || r.status === 429; throw e; }
   try { localStorage.setItem("firea-order-" + d.orderId, JSON.stringify({ ...body, ...d, at: Date.now() })); localStorage.setItem("firea-last-order", d.orderId); } catch (_) {}
   return d;
 }
@@ -914,6 +917,7 @@ $("#orderForm").addEventListener("submit", async e => {
   const label = btn.innerHTML; btn.disabled = true; btn.innerHTML = "Menghantar pesanan…";
   try {
     const d = await sendOrder(p.qty, f.pay.value, "sales");
+    if (d.url) { location.href = d.url; return; } // Billplz: Lead + Purchase dihantar bila bayaran disahkan
     if (!d.pendua) { track("Lead", { ...ev, value: d.jumlah }); if (d.bayar === "COD") track("Purchase", { ...ev, value: d.jumlah }); }
     location.href = "/pesanan/?id=" + encodeURIComponent(d.orderId) + "#" + d.token;
     return;
@@ -939,6 +943,11 @@ $("#orderForm").addEventListener("submit", async e => {
   $("#done").hidden = false;
   track("Lead", ev, "lead:" + msg);
   $("#done").scrollIntoView({ behavior: "smooth", block: "center" });
+});
+/* Bayaran online Billplz: tunjuk pilihan hanya bila kunci dah dimasukkan dalam Netlify */
+fetch("/api/pay-status", { cache: "no-store" }).then(r => r.ok ? r.json() : {}).catch(() => ({})).then(s => {
+  const l = document.querySelector(".pay-fpx");
+  if (s && s.online && l) { l.hidden = false; document.getElementById("pay-fpx").checked = true; }
 });
 /* Pesanan DuitNow belum selesai (pelanggan keluar ke app bank): tunjuk butang sambung */
 try {

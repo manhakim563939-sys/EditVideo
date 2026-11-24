@@ -195,6 +195,7 @@ details p{color:var(--muted);font-size:.88rem;margin-top:6px}
 .pay{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .pay label{flex-direction:row;display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:8px;padding:10px;font-weight:600}
 .pay input{width:auto}
+.pay .pay-fpx{grid-column:1/-1}
 .sum{background:var(--bg);border-radius:10px;padding:12px;display:grid;gap:4px;font-size:.88rem;font-variant-numeric:tabular-nums;margin-top:12px}
 .sum div{display:flex;justify-content:space-between}
 .sum .t{font-weight:800;font-size:1.05rem;border-top:1px solid var(--line);padding-top:6px;margin-top:4px}
@@ -266,7 +267,7 @@ details p{color:var(--muted);font-size:.88rem;margin-top:6px}
     </div>
     <div class="row">
       <span class="k">Bayaran</span>
-      <span class="v">COD atau DuitNow QR<small>Caj COD sama seperti postage</small></span><span></span>
+      <span class="v">COD, DuitNow QR atau FPX<small>Caj COD sama seperti postage</small></span><span></span>
     </div>
     <div class="row">
       <span class="k">Jaminan</span>
@@ -409,6 +410,7 @@ details p{color:var(--muted);font-size:.88rem;margin-top:6px}
     </label>
     <div class="opt-t" style="margin:4px 0 0">Bayaran</div>
     <div class="pay" role="radiogroup" aria-label="Cara bayaran">
+      <label class="pay-fpx" hidden><input type="radio" name="pay" id="pay-fpx" value="ONLINE"> FPX / Kad</label>
       <label><input type="radio" name="pay" id="pay-online" value="DUITNOW" checked> DuitNow QR</label>
       <label><input type="radio" name="pay" id="pay-cod" value="COD"> COD</label>
     </div>
@@ -552,9 +554,10 @@ document.addEventListener("keydown", e => { if (e.key === "Escape" && !sheet.hid
 async function sendOrder(qty, bayar, source) {
   const v = id => (document.getElementById(id)?.value || "").trim();
   const body = { qty, negeri: v("f-state"), nama: v("f-name"), tel: v("f-phone"), alamat: v("f-addr"), poskod: v("f-post"), bandar: v("f-city"), bayar, sumber: source, website: v("f-website") };
-  const r = await fetch("/api/order-notify", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+  const online = bayar === "ONLINE";
+  const r = await fetch(online ? "/api/create-bill" : "/api/order-notify", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
   const d = await r.json().catch(() => ({}));
-  if (!r.ok || !d.orderId) { const e = new Error(d.error || "Gagal"); e.user = r.status === 400 || r.status === 429; throw e; }
+  if (!r.ok || !d.orderId) { const e = new Error(d.error || (online ? "Bayaran online tak dapat dibuka. Sila pilih DuitNow QR atau COD." : "Gagal")); e.user = online || r.status === 400 || r.status === 429; throw e; }
   try { localStorage.setItem("firea-order-" + d.orderId, JSON.stringify({ ...body, ...d, at: Date.now() })); localStorage.setItem("firea-last-order", d.orderId); } catch (_) {}
   return d;
 }
@@ -572,6 +575,7 @@ $("#orderForm").addEventListener("submit", async e => {
   const label = btn.innerHTML; btn.disabled = true; btn.innerHTML = "Menghantar…";
   try {
     const d = await sendOrder(p.qty, pay, "shop");
+    if (d.url) { location.href = d.url; return; } // Billplz: Lead + Purchase dihantar bila bayaran disahkan
     if (!d.pendua) { track("Lead", { ...ev, value: d.jumlah }); if (d.bayar === "COD") track("Purchase", { ...ev, value: d.jumlah }); }
     location.href = "/pesanan/?id=" + encodeURIComponent(d.orderId) + "#" + d.token;
     return;
@@ -585,6 +589,11 @@ $("#orderForm").addEventListener("submit", async e => {
   $("#msg").textContent = msg; $("#walink").href = wa(msg); $("#done").hidden = false;
   track("Lead", ev, "lead:" + msg);
   $("#done").scrollIntoView({ behavior: "smooth", block: "center" });
+});
+/* Bayaran online Billplz: tunjuk pilihan hanya bila kunci dah dimasukkan dalam Netlify */
+fetch("/api/pay-status", { cache: "no-store" }).then(r => r.ok ? r.json() : {}).catch(() => ({})).then(s => {
+  const l = document.querySelector(".pay-fpx");
+  if (s && s.online && l) { l.hidden = false; document.getElementById("pay-fpx").checked = true; }
 });
 /* Pesanan DuitNow belum selesai (pelanggan keluar ke app bank): tunjuk butang sambung */
 try {

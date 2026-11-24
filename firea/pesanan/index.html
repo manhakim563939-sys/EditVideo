@@ -104,6 +104,13 @@ h2{font-family:var(--f-display);font-weight:800;font-size:21px;margin-bottom:8px
     <div class="det" id="det" hidden></div>
   </div>
 
+  <div class="card" id="fpxCard" hidden>
+    <h2 id="fpxH">Bayaran online</h2>
+    <p id="fpxP" class="lead" style="text-align:left;margin-top:0"></p>
+    <a class="btn" id="fpxRetry" href="#" hidden>Cuba bayar lagi</a>
+    <a class="btn ghost" href="/#order" id="fpxOther" hidden>Tukar ke DuitNow QR / COD</a>
+  </div>
+
   <div class="card" id="duitCard" hidden>
     <h2>Bayar dengan DuitNow QR</h2>
     <ol class="steps">
@@ -157,17 +164,48 @@ if (!o && hashTok) {
 }
 if (o && o.token && !location.hash) history.replaceState(null, "", location.pathname + location.search + "#" + o.token);
 const isDuit = o && o.bayar === "DUITNOW";
+const qs = new URLSearchParams(location.search);
+const isOnline = (o && o.bayar === "ONLINE") || qs.has("billplz[id]");
+const payLabel = isDuit ? "DuitNow QR" : isOnline ? "FPX / Kad (online)" : "COD (bayar bila barang sampai)";
 
 if (id) { $("oidWrap").hidden = false; $("oid").textContent = id; $("ref").textContent = id; }
 if (o) {
   $("det").hidden = false;
   $("det").innerHTML = [
     o.qty && ["Pakej", `Firea Celeste Musk × ${o.qty} botol`], o.qty && ["Postage", o.pos ? "RM" + o.pos : "PERCUMA"],
-    ["Bayaran", isDuit ? "DuitNow QR" : "COD (bayar bila barang sampai)"],
+    ["Bayaran", payLabel],
     ["Nama", o.nama], ["Telefon", o.tel], o.alamat && ["Alamat", `${o.alamat}, ${o.poskod} ${o.bandar}, ${o.negeri}`],
   ].filter(Boolean).map(([k, v]) => `<div><span>${k}</span><b>${esc(v)}</b></div>`).join("") + `<div class="tot"><span>Jumlah</span><b>RM${esc(o.jumlah)}</b></div>`;
-  const wa = `Assalamualaikum, saya dah buat pesanan Firea di website.\n\n*No. pesanan:* ${id}\n${o.qty ? `*Pakej:* ${o.qty} botol\n` : ""}*Jumlah:* RM${o.jumlah}\n*Bayaran:* ${isDuit ? "DuitNow QR" : "COD"}\n*Nama:* ${o.nama}`;
+  const wa = `Assalamualaikum, saya dah buat pesanan Firea di website.\n\n*No. pesanan:* ${id}\n${o.qty ? `*Pakej:* ${o.qty} botol\n` : ""}*Jumlah:* RM${o.jumlah}\n*Bayaran:* ${payLabel}\n*Nama:* ${o.nama}`;
   $("waBtn").href = "https://wa.me/60143520164?text=" + encodeURIComponent(wa);
+}
+if (isOnline) onlineStatus();
+async function onlineStatus() {
+  const show = (title, text, retry) => {
+    $("title").className = "duit"; $("title").textContent = title; $("lead").textContent = text;
+    $("ic").className = "ic duit"; $("ic").textContent = "RM";
+    $("fpxCard").hidden = false; $("fpxH").textContent = "Bayaran belum selesai";
+    $("fpxP").textContent = "Tiada caj dibuat jika bayaran tak berjaya. Anda boleh cuba lagi, atau pilih cara bayaran lain.";
+    if (retry) { $("fpxRetry").href = retry; $("fpxRetry").hidden = false; }
+    $("fpxOther").hidden = false;
+  };
+  $("title").textContent = "Menyemak bayaran…"; $("lead").textContent = "Sekejap ya.";
+  let v = null;
+  if (qs.has("billplz[id]")) {
+    try { v = await (await fetch("/api/billplz-verify?" + [...qs].filter(([k]) => k.startsWith("billplz[")).map(([k, x]) => encodeURIComponent(k) + "=" + encodeURIComponent(x)).join("&"), { cache: "no-store" })).json(); } catch (_) {}
+  }
+  if (v && v.valid && v.paid) {
+    $("ic").className = "ic"; $("ic").innerHTML = TICK; $("title").className = ""; $("title").textContent = "Bayaran berjaya!";
+    $("lead").textContent = "Terima kasih! Bayaran anda dah diterima. Team Firea akan pos pesanan anda secepat mungkin.";
+    if (!o && v.amount) { $("det").hidden = false; $("det").innerHTML = `<div><span>Bayaran</span><b>${payLabel}</b></div><div class="tot"><span>Jumlah</span><b>RM${esc(v.amount)}</b></div>`; }
+    if (!store.get("firea-purchase-" + id)) {
+      store.set("firea-purchase-" + id, "1");
+      const ev = { currency: "MYR", value: Number(v.amount || (o && o.jumlah)) || 0, num_items: Number(o && o.qty) || undefined, content_type: "product" };
+      try { if (window.fbq) { fbq("track", "Lead", ev, { eventID: "l-" + id }); fbq("track", "Purchase", ev, { eventID: "p-" + id }); } } catch (_) {}
+    }
+    return;
+  }
+  show("Bayaran belum selesai", "Pesanan anda belum dibayar.", (v && v.url) || (o && o.url));
 }
 if (isDuit) {
   $("ic").className = "ic duit"; $("ic").textContent = "QR";
