@@ -201,7 +201,7 @@ const form = document.getElementById("order"), $ = id => document.getElementById
 function track(ev, data) { try { if (window.fbq) fbq("track", ev, data || {}); } catch (_) {} }
 const pkg = () => (form.querySelector('input[name="pkg"]:checked') || {}).value || "3";
 const pos = id => EAST.includes($("negeri").value) ? POS_EAST : PAKEJ[id].pos;
-const VOUCHER = "JAGASIHAT", DISKAUN = { 1: 5, 2: 10, 3: 15 };
+const VOUCHER = "BIDARAHITAM", DISKAUN = { 1: 5, 2: 10, 3: 10 };
 const kodSah = () => $("kod").value.trim().toUpperCase().replace(/\s+/g, "") === VOUCHER;
 const disk = id => kodSah() ? DISKAUN[id] : 0;
 const total = id => PAKEJ[id].harga - disk(id) + pos(id);

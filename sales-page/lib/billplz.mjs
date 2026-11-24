@@ -12,8 +12,8 @@ export const STATES = ["Johor", "Kedah", "Kelantan", "Melaka", "Negeri Sembilan"
   "Selangor", "Terengganu", "W.P. Kuala Lumpur", "W.P. Putrajaya", "Sabah", "Sarawak", "W.P. Labuan"];
 
 // Voucher pembelian kedua (dicetak pada flyer dalam parcel). Diskaun ikut pakej.
-export const VOUCHER = "JAGASIHAT";
-export const DISKAUN = { 1: 5, 2: 10, 3: 15 };
+export const VOUCHER = "BIDARAHITAM";
+export const DISKAUN = { 1: 5, 2: 10, 3: 10 };
 export const kodSah = kod => String(kod || "").trim().toUpperCase().replace(/\s+/g, "") === VOUCHER;
 
 export function quote(pkg, negeri, kod) {
