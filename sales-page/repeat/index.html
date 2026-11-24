@@ -160,7 +160,6 @@ footer a{color:var(--muted)}
         </div>
         <label for="kod">Kod voucher (pilihan)<input id="kod" name="kod" autocomplete="off" autocapitalize="characters" placeholder="cth. kod pada flyer dalam parcel" style="text-transform:uppercase"></label>
         <p class="kodmsg" id="kodMsg" hidden></p>
-        <label for="nota">Nota (pilihan)<input id="nota" name="nota" placeholder="cth. hantar lepas pukul 5 petang"></label>
       </div>
 
       <div class="sum" aria-live="polite">
@@ -264,7 +263,7 @@ form.addEventListener("submit", e => {
 
 *Nama:* ${v("nama")}
 *Telefon:* ${v("tel")}
-*Alamat:* ${v("alamat")}, ${v("poskod")} ${v("negeri")}` + (v("nota") ? `\n*Nota:* ${v("nota")}` : "");
+*Alamat:* ${v("alamat")}, ${v("poskod")} ${v("negeri")}`;
   try { localStorage.setItem(KEY, JSON.stringify({ nama: v("nama"), tel: v("tel"), alamat: v("alamat"), poskod: v("poskod"), negeri: v("negeri") })); } catch (_) {}
   if (bayar === "ONLINE") {
     window.JBH_bayarOnline({ pkg: Number(id), negeri: v("negeri"), nama: v("nama"), tel: v("tel"), alamat: v("alamat"), poskod: v("poskod"), sumber: "repeat", kod: kodSah() ? VOUCHER : "" }, $("submitBtn"))
