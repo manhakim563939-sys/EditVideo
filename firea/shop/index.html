@@ -192,7 +192,7 @@ details p{color:var(--muted);font-size:.88rem;margin-top:6px}
 .form label{font-size:.8rem;font-weight:700;display:grid;gap:4px}
 .form input,.form select,.form textarea{font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.pay{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pay{display:grid;grid-template-columns:1fr;gap:8px}
 .pay label{flex-direction:row;display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:8px;padding:10px;font-weight:600}
 .pay input{width:auto}
 .pay .pay-fpx{grid-column:1/-1}
@@ -267,7 +267,7 @@ details p{color:var(--muted);font-size:.88rem;margin-top:6px}
     </div>
     <div class="row">
       <span class="k">Bayaran</span>
-      <span class="v">COD, DuitNow QR atau FPX<small>Caj COD sama seperti postage</small></span><span></span>
+      <span class="v">COD atau FPX online banking<small>Caj COD sama seperti postage</small></span><span></span>
     </div>
     <div class="row">
       <span class="k">Jaminan</span>
@@ -410,9 +410,8 @@ details p{color:var(--muted);font-size:.88rem;margin-top:6px}
     </label>
     <div class="opt-t" style="margin:4px 0 0">Bayaran</div>
     <div class="pay" role="radiogroup" aria-label="Cara bayaran">
-      <label class="pay-fpx" hidden><input type="radio" name="pay" id="pay-fpx" value="ONLINE"> FPX / Kad</label>
-      <label><input type="radio" name="pay" id="pay-online" value="DUITNOW" checked> DuitNow QR</label>
-      <label><input type="radio" name="pay" id="pay-cod" value="COD"> COD</label>
+      <label class="pay-fpx" hidden><input type="radio" name="pay" id="pay-fpx" value="ONLINE"> FPX online banking / kad</label>
+      <label><input type="radio" name="pay" id="pay-cod" value="COD" checked> COD (bayar bila sampai)</label>
     </div>
     <div class="sum" aria-live="polite">
       <div><span id="s-item">Pakej</span><span id="s-sub"></span></div>
@@ -550,14 +549,14 @@ $("#closeSheet").addEventListener("click", closeSheet); scrim.addEventListener("
 document.addEventListener("keydown", e => { if (e.key === "Escape" && !sheet.hidden) closeSheet(); });
 
 // hantar order
-/* hantar order ke server (Telegram + nombor order) -> /pesanan/ (QR DuitNow / COD). Sandaran: WhatsApp. */
+/* hantar order ke server (Telegram + nombor order) -> /pesanan/ (FPX / COD). Sandaran: WhatsApp. */
 async function sendOrder(qty, bayar, source) {
   const v = id => (document.getElementById(id)?.value || "").trim();
   const body = { qty, negeri: v("f-state"), nama: v("f-name"), tel: v("f-phone"), alamat: v("f-addr"), poskod: v("f-post"), bandar: v("f-city"), bayar, sumber: source, website: v("f-website") };
   const online = bayar === "ONLINE";
   const r = await fetch(online ? "/api/create-bill" : "/api/order-notify", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
   const d = await r.json().catch(() => ({}));
-  if (!r.ok || !d.orderId) { const e = new Error(d.error || (online ? "Bayaran online tak dapat dibuka. Sila pilih DuitNow QR atau COD." : "Gagal")); e.user = online || r.status === 400 || r.status === 429; throw e; }
+  if (!r.ok || !d.orderId) { const e = new Error(d.error || (online ? "Bayaran online tak dapat dibuka. Sila pilih COD." : "Gagal")); e.user = online || r.status === 400 || r.status === 429; throw e; }
   try { localStorage.setItem("firea-order-" + d.orderId, JSON.stringify({ ...body, ...d, at: Date.now() })); localStorage.setItem("firea-last-order", d.orderId); } catch (_) {}
   return d;
 }
@@ -584,7 +583,7 @@ $("#orderForm").addEventListener("submit", async e => {
     if (x.user) { err.textContent = x.message; err.hidden = false; return; }
   }
   const msg = ["*ORDER FIREA CELESTE MUSK*", `Pakej: ${p.name} ${rm(p.price)}`, `Postage: ${ship ? rm(ship) : "PERCUMA"}`, `Jumlah: *${rm(total)}*`,
-    `Bayaran: ${pay === "DUITNOW" ? "DuitNow QR" : "COD"}`, "", `Nama: ${v("f-name")}`, `Tel: ${v("f-phone")}`,
+    `Bayaran: ${pay === "ONLINE" ? "FPX / Kad" : "COD"}`, "", `Nama: ${v("f-name")}`, `Tel: ${v("f-phone")}`,
     `Alamat: ${v("f-addr")}, ${v("f-post")} ${v("f-city")}, ${v("f-state")}`].join("\n");
   $("#msg").textContent = msg; $("#walink").href = wa(msg); $("#done").hidden = false;
   track("Lead", ev, "lead:" + msg);

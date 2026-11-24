@@ -8,7 +8,7 @@ import { settings, ready, billplz, describe } from "../../lib/billplz.mjs";
 const recent = new Map();
 export default async (req) => {
   if (req.method !== "POST") return json({ error: "Kaedah tak dibenarkan." }, 405);
-  if (!ready()) return json({ error: "Bayaran online belum dibuka. Sila pilih DuitNow QR atau COD." }, 503);
+  if (!ready()) return json({ error: "Bayaran online belum dibuka. Sila pilih COD." }, 503);
   const host = new URL(req.url).host, origin = req.headers.get("origin") || "";
   if (origin && !origin.endsWith("//" + host)) return json({ error: "Tak dibenarkan." }, 403);
 
@@ -44,7 +44,7 @@ export default async (req) => {
   } });
   if (!r.ok || !r.data?.url) {
     console.error("Billplz create bill gagal", r.status, JSON.stringify(r.data).slice(0, 500));
-    return json({ error: "Tak dapat buka bayaran online sekarang. Sila pilih DuitNow QR atau COD." }, 502);
+    return json({ error: "Tak dapat buka bayaran online sekarang. Sila cuba lagi atau pilih COD." }, 502);
   }
   return json({ ok: true, orderId: id, url: r.data.url, billId: r.data.id, jumlah: q.jumlah, qty: q.qty, harga: q.price, pos: q.pos,
     bayar: "ONLINE", token: signOrder({ id, jumlah: q.jumlah, nama, tel, bayar: "ONLINE" }) });

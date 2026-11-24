@@ -183,7 +183,7 @@ thead th:nth-child(3){background:var(--petal);color:var(--petal-ink)}
 .field label i{color:var(--bad);font-style:normal}
 .order input,.order select,.order textarea{font:inherit;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--blush);color:var(--ink);width:100%}
 .row2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:14px}
-.pay{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pay{display:grid;grid-template-columns:1fr;gap:10px}
 .pay label{border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;gap:8px;align-items:center;cursor:pointer;font-size:.92rem}
 .pay input{width:auto}
 .pay .pay-fpx{grid-column:1/-1}
@@ -668,8 +668,7 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
       <div class="field"><label for="f-pkg">Pakej</label><select id="f-pkg" name="pkg"></select></div>
       <div class="pay" role="radiogroup" aria-label="Cara bayaran">
         <label class="pay-fpx" hidden><input type="radio" name="pay" id="pay-fpx" value="ONLINE"> FPX online banking / kad (bayar terus, paling cepat)</label>
-        <label><input type="radio" name="pay" id="pay-online" value="DUITNOW" checked> DuitNow QR (scan &amp; bayar terus)</label>
-        <label><input type="radio" name="pay" id="pay-cod" value="COD"> COD (bayar bila sampai)</label>
+        <label><input type="radio" name="pay" id="pay-cod" value="COD" checked> COD (bayar bila barang sampai)</label>
       </div>
       <div class="summary" aria-live="polite">
         <div><span id="s-item">Pakej</span><span id="s-sub">RM0</span></div>
@@ -688,7 +687,7 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
         </div>
         <p class="micro" id="wanum"></p>
       </div>
-      <p class="micro center">DuitNow QR: lepas tekan hantar, kod QR &amp; jumlah tepat akan dipaparkan. Scan guna app bank / e-wallet, kemudian muat naik resit. Maklumat anda hanya digunakan untuk penghantaran.</p>
+      <p class="micro center">FPX: bayar terus guna online banking atau kad melalui Billplz yang selamat. COD: bayar bila barang sampai. Maklumat anda hanya digunakan untuk penghantaran.</p>
     </form>
   </div>
 </section>
@@ -699,7 +698,7 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
     <p class="eyebrow">Lepas tekan hantar</p>
     <h2>Apa Berlaku <span class="hl">Selepas Order?</span></h2>
     <div class="after">
-      <div class="s"><small>Langkah 1</small><p><b>Order disahkan</b><br>DuitNow: scan QR &amp; muat naik resit terus di website. COD: team kami hubungi anda untuk sahkan.</p></div>
+      <div class="s"><small>Langkah 1</small><p><b>Order disahkan</b><br>FPX: bayaran disahkan serta-merta. COD: team kami hubungi anda untuk sahkan.</p></div>
       <div class="s"><small>Langkah 2</small><p><b>Dipos dengan J&amp;T</b><br>Semenanjung 2–3 hari. Sabah &amp; Sarawak 5–6 hari.</p></div>
       <div class="s"><small>Langkah 3</small><p><b>Sampai &amp; mula pakai</b><br>Roll 3–4 kali pada ketiak yang kering. Ada soalan? WhatsApp kami.</p></div>
     </div>
@@ -860,7 +859,7 @@ render();
 $("#orderForm").addEventListener("focusin", () => {
   const { p } = calc(); track("InitiateCheckout", { value: p.price, currency: "MYR", content_name: p.kind, num_items: p.qty }, "ic");
 });
-/* hantar order ke server (Telegram + nombor order) -> halaman /pesanan/ (QR DuitNow / COD).
+/* hantar order ke server (Telegram + nombor order) -> halaman /pesanan/ (FPX / COD).
    Jika server gagal, papar mesej WhatsApp sebagai sandaran. */
 async function sendOrder(qty, bayar, source) {
   const v = id => (document.getElementById(id)?.value || "").trim();
@@ -868,7 +867,7 @@ async function sendOrder(qty, bayar, source) {
   const online = bayar === "ONLINE";
   const r = await fetch(online ? "/api/create-bill" : "/api/order-notify", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
   const d = await r.json().catch(() => ({}));
-  if (!r.ok || !d.orderId) { const e = new Error(d.error || (online ? "Bayaran online tak dapat dibuka. Sila pilih DuitNow QR atau COD." : "Gagal")); e.user = online || r.status === 400 || r.status === 429; throw e; }
+  if (!r.ok || !d.orderId) { const e = new Error(d.error || (online ? "Bayaran online tak dapat dibuka. Sila pilih COD." : "Gagal")); e.user = online || r.status === 400 || r.status === 429; throw e; }
   try { localStorage.setItem("firea-order-" + d.orderId, JSON.stringify({ ...body, ...d, at: Date.now() })); localStorage.setItem("firea-last-order", d.orderId); } catch (_) {}
   return d;
 }
@@ -899,7 +898,7 @@ $("#orderForm").addEventListener("submit", async e => {
     `Pakej: ${p.kind} (${p.qty} botol) ${rm(p.price)}`,
     `Postage: ${ship ? rm(ship) : "PERCUMA"}`,
     `Jumlah: *${rm(total)}*`,
-    `Bayaran: ${f.pay.value === "DUITNOW" ? "DuitNow QR" : "COD"}`,
+    `Bayaran: ${f.pay.value === "ONLINE" ? "FPX / Kad" : "COD"}`,
     "",
     `Nama: ${v("f-name")}`,
     `Tel: ${v("f-phone")}`,
