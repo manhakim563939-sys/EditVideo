@@ -62,6 +62,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .name{font-weight:800;font-size:1.05rem;min-width:0;overflow-wrap:anywhere}
 .badge{flex:0 0 auto;font-size:.75rem;font-weight:800;border-radius:999px;padding:3px 10px;white-space:nowrap}
 .b-late{background:var(--latebg);color:var(--late)} .b-today{background:var(--todaybg);color:var(--today)} .b-soon{background:var(--soonbg);color:var(--soon)} .b-done{background:var(--okbg);color:var(--ok)} .b-mute{background:var(--bg);color:var(--muted)}
+.rep{display:inline-flex;align-items:center;gap:4px;font-size:.75rem;font-weight:800;border-radius:999px;padding:2px 9px;background:var(--rose,#c2185b);color:#fff;margin-left:6px;white-space:nowrap}
+.match{background:var(--okbg);color:var(--ok);border-radius:10px;padding:8px 12px;font-size:.88rem;font-weight:700}
 .meta{display:flex;flex-wrap:wrap;gap:4px 14px;color:var(--muted);font-size:.86rem;margin-top:4px}
 .meta b{color:var(--ink);font-weight:700}
 .note{margin-top:6px;font-size:.85rem;background:var(--bg);border-radius:8px;padding:6px 10px;overflow-wrap:anywhere}
@@ -119,6 +121,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
     <button class="tab" role="tab" data-tab="due" aria-selected="true">Perlu follow-up<span class="n" id="n-due"></span></button>
     <button class="tab" role="tab" data-tab="soon" aria-selected="false">7 hari akan datang<span class="n" id="n-soon"></span></button>
     <button class="tab" role="tab" data-tab="all" aria-selected="false">Semua<span class="n" id="n-all"></span></button>
+    <button class="tab" role="tab" data-tab="repeat" aria-selected="false">Repeat order<span class="n" id="n-repeat"></span></button>
     <button class="tab" role="tab" data-tab="done" aria-selected="false">Selesai<span class="n" id="n-done"></span></button>
   </div>
   <div class="tools">
@@ -163,9 +166,10 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
     </div>
     <div class="two">
       <label for="f-harga">Jumlah bayaran (RM)<input id="f-harga" type="number" inputmode="decimal" min="0" step="0.01"></label>
-      <label for="f-bayar">Bayaran<select id="f-bayar"><option>COD</option><option>Online Transfer</option></select></label>
+      <label for="f-bayar">Bayaran<select id="f-bayar"><option>COD</option><option>FPX / Kad</option><option>Online Transfer</option></select></label>
     </div>
     <label for="f-tarikh">Tarikh beli<input id="f-tarikh" type="date" required></label>
+    <div class="match" id="matchBox" hidden></div>
     <div class="fu" id="fuPreview"></div>
     <label for="f-nota">Nota (pilihan)<textarea id="f-nota" rows="2" placeholder="cth. kulit sensitif, suka pakej 3 botol"></textarea></label>
     <p class="err" id="formErr" hidden></p>
@@ -190,6 +194,35 @@ const fmt = s => { if (!s) return "-"; const [y, m, d] = s.split("-"); return `$
 const initials = n => String(n || "?").trim().split(/\s+/).filter(w => !/^(bin|binti|bt|bte|b\.?)$/i.test(w)).slice(0, 2).map(w => w[0]).join("").toUpperCase() || "?";
 const fuDays = q => FU_DAYS[q] ?? Math.max(20, q * 40 - 10);
 const normTel = t => { let d = String(t || "").replace(/\D/g, ""); if (d.startsWith("0")) d = "6" + d; else if (d && !d.startsWith("6")) d = "60" + d; return d; };
+
+/* ===== kenal pelanggan sama: nombor telefon sama, ATAU nama + alamat sama ===== */
+const normName = n => String(n || "").toLowerCase().replace(/\b(bin|binti|bt|bte|b)\b\.?/g, " ").replace(/[^a-z]/g, "");
+const normAddr = a => String(a || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+const telKey = t => { const n = normTel(t); return n.length >= 10 ? "t:" + n : ""; };
+const naKey = (n, a) => { const nn = normName(n), aa = normAddr(a); return nn && aa.length >= 8 ? "a:" + nn + "|" + aa : ""; };
+let groups = new Map(); // id rekod -> { ke, jumlah, list }
+function buildGroups() {
+  const parent = rows.map((_, i) => i), find = i => parent[i] === i ? i : (parent[i] = find(parent[i]));
+  const seen = {};
+  rows.forEach((r, i) => [telKey(r.tel), naKey(r.nama, r.alamat)].filter(Boolean).forEach(k => {
+    if (k in seen) parent[find(i)] = find(seen[k]); else seen[k] = i;
+  }));
+  const byRoot = {};
+  rows.forEach((r, i) => (byRoot[find(i)] = byRoot[find(i)] || []).push(r));
+  groups = new Map();
+  Object.values(byRoot).forEach(list => {
+    list.sort((a, b) => (a.tarikhBeli || "").localeCompare(b.tarikhBeli || "") || (a.createdAt || "").localeCompare(b.createdAt || ""));
+    list.forEach((r, k) => groups.set(r.id, { ke: k + 1, jumlah: list.length, list }));
+  });
+  return Object.keys(byRoot).length;
+}
+function findMatch(tel, nama, alamat, exceptId) {
+  const t = telKey(tel), a = naKey(nama, alamat);
+  const hits = rows.filter(r => r.id !== exceptId && ((t && telKey(r.tel) === t) || (a && naKey(r.nama, r.alamat) === a)));
+  if (!hits.length) return null;
+  const g = groups.get(hits[0].id), list = g ? g.list.filter(r => r.id !== exceptId) : hits;
+  return { list, last: list[list.length - 1], byTel: !!t && hits.some(r => telKey(r.tel) === t) };
+}
 
 for (const s of STATES) { $("#f-negeri").insertAdjacentHTML("beforeend", `<option>${s}</option>`); $("#fstate").insertAdjacentHTML("beforeend", `<option>${s}</option>`); }
 $("#f-negeri").insertAdjacentHTML("afterbegin", `<option value="">Pilih negeri</option>`); $("#f-negeri").value = "";
@@ -221,12 +254,14 @@ function render() {
   const soon = waiting.filter(x => x.i.diff > 0 && x.i.diff <= 7).sort((a, b) => a.i.diff - b.i.diff);
   const done = all.filter(x => x.r.status !== "menunggu").sort((a, b) => (b.r.updatedAt || "").localeCompare(a.r.updatedAt || ""));
   const every = [...all].sort((a, b) => (b.r.tarikhBeli || "").localeCompare(a.r.tarikhBeli || ""));
+  buildGroups();
+  const repeat = every.filter(x => (groups.get(x.r.id) || {}).jumlah > 1);
   $("#st-late").textContent = waiting.filter(x => x.i.diff < 0).length;
   $("#st-today").textContent = waiting.filter(x => x.i.diff === 0).length;
-  $("#st-cust").textContent = new Set(rows.map(r => r.tel || r.nama)).size;
+  $("#st-cust").textContent = buildGroups();
   $("#st-btl").textContent = rows.reduce((s, r) => s + (+r.botol || 0), 0);
-  $("#n-due").textContent = due.length; $("#n-soon").textContent = soon.length; $("#n-all").textContent = all.length; $("#n-done").textContent = done.length;
-  const pick = { due, soon, all: every, done }[tab];
+  $("#n-due").textContent = due.length; $("#n-soon").textContent = soon.length; $("#n-all").textContent = all.length; $("#n-done").textContent = done.length; $("#n-repeat").textContent = new Set(repeat.map(x => groups.get(x.r.id).list[0].id)).size;
+  const pick = { due, soon, all: every, repeat, done }[tab];
   const shown = pick.filter(({ r }) => (!fs || r.negeri === fs) && (!q || [r.nama, r.tel, r.bandar, r.negeri, r.nota].join(" ").toLowerCase().includes(q)));
   const list = $("#list");
   if (!rows.length) {
@@ -234,19 +269,20 @@ function render() {
     return;
   }
   if (!shown.length) {
-    const msg = { due: "Tiada pelanggan perlu di-follow-up hari ini. 🎉", soon: "Tiada follow-up dalam 7 hari akan datang.", all: "Tiada padanan.", done: "Belum ada follow-up yang selesai." }[tab];
+    const msg = { due: "Tiada pelanggan perlu di-follow-up hari ini. 🎉", soon: "Tiada follow-up dalam 7 hari akan datang.", all: "Tiada padanan.", repeat: "Belum ada pelanggan yang beli lebih sekali.", done: "Belum ada follow-up yang selesai." }[tab];
     list.innerHTML = `<div class="empty">${q || fs ? "Tiada padanan untuk carian ini." : msg}</div>`;
     return;
   }
   list.innerHTML = shown.map(({ r, i }) => `
     <article class="cust ${i.cls}" data-id="${esc(r.id)}">
-      <div class="row1"><div class="who"><span class="av">${esc(initials(r.nama))}</span><div class="name">${esc(r.nama)}</div></div>${i.badge}</div>
+      <div class="row1"><div class="who"><span class="av">${esc(initials(r.nama))}</span><div class="name">${esc(r.nama)}${repTag(r)}</div></div>${i.badge}</div>
       <div class="meta">
         <span>📍 <b>${esc([r.bandar, r.negeri].filter(Boolean).join(", ") || "-")}</b></span>
         <span>🧴 <b>${esc(r.botol)} botol</b>${r.harga ? " · RM" + esc(r.harga) : ""}</span>
         <span>🛒 Beli <b>${fmt(r.tarikhBeli)}</b></span>
         <span>🔔 Follow-up <b>${fmt(r.followUpDate)}</b></span>
         <span>📞 <b>${esc(r.tel)}</b></span>
+        ${histLine(r)}
       </div>
       ${r.nota ? `<div class="note">${esc(r.nota)}</div>` : ""}
       ${writable ? `<div class="acts">
@@ -259,6 +295,13 @@ function render() {
         <button class="btn danger" type="button" data-act="del">Padam</button>
       </div><div class="confirm" data-confirm hidden>Padam rekod ${esc(r.nama)}? <button class="btn danger" type="button" data-act="del-yes">Ya, padam</button><button class="btn" type="button" data-act="del-no">Batal</button></div>` : ""}
     </article>`).join("");
+}
+
+function repTag(r) { const g = groups.get(r.id); return g && g.jumlah > 1 ? `<span class="rep">🔁 Order ke-${g.ke}</span>` : ""; }
+function histLine(r) {
+  const g = groups.get(r.id); if (!g || g.jumlah < 2) return "";
+  const btl = g.list.reduce((s, x) => s + (+x.botol || 0), 0), rm = g.list.reduce((s, x) => s + (+x.harga || 0), 0);
+  return `<span>🏆 <b>${g.jumlah} kali beli</b> · ${btl} botol${rm ? " · RM" + rm : ""}</span>`;
 }
 
 /* ===== tindakan pada kad ===== */
@@ -308,9 +351,20 @@ function openSheet(r, mode) {
   if (mode === "edit" && r.harga !== undefined) $("#f-harga").value = r.harga;
   $("#sheet").dataset.rebuyOf = mode === "rebuy" ? r.id : "";
   $("#formErr").hidden = true;
+  checkMatch();
   $("#sheet").hidden = $("#scrim").hidden = false; document.body.style.overflow = "hidden";
   setTimeout(() => $("#f-nama").focus(), 50);
 }
+function checkMatch() {
+  const box = $("#matchBox"); $("#sheet").dataset.matchOf = "";
+  const m = findMatch($("#f-tel").value, $("#f-nama").value, $("#f-alamat").value, editing);
+  if (!m || editing) { box.hidden = true; return; }
+  const ke = m.list.length + 1, waiting = [...m.list].reverse().find(r => r.status === "menunggu");
+  $("#sheet").dataset.matchOf = waiting && !$("#sheet").dataset.rebuyOf ? waiting.id : "";
+  box.textContent = `🔁 Pelanggan lama${m.byTel ? "" : " (nama & alamat sama)"}: ini pembelian ke-${ke}. Terakhir beli ${fmt(m.last.tarikhBeli)}, ${m.last.botol} botol.` + ($("#sheet").dataset.matchOf ? " Follow-up lama akan ditutup automatik." : "");
+  box.hidden = false;
+}
+["#f-tel", "#f-nama", "#f-alamat"].forEach(id => $(id).addEventListener("input", checkMatch));
 function closeSheet() { $("#sheet").hidden = $("#scrim").hidden = true; document.body.style.overflow = ""; }
 $("#addBtn").addEventListener("click", () => openSheet(null, "new"));
 $("#closeSheet").addEventListener("click", closeSheet); $("#scrim").addEventListener("click", closeSheet);
@@ -329,8 +383,9 @@ $("#pasteBtn").addEventListener("click", () => {
   $("#f-alamat").value = alamat;
   const q = +(pakej.match(/(\d)\s*botol/i) || [])[1] || 1; setQty(q, false);
   if (jum) $("#f-harga").value = jum;
-  if (/transfer/i.test(bayar)) $("#f-bayar").value = "Online Transfer"; else if (/cod/i.test(bayar)) $("#f-bayar").value = "COD";
+  if (/fpx|kad|billplz|online/i.test(bayar) && !/transfer/i.test(bayar)) $("#f-bayar").value = "FPX / Kad"; else if (/transfer|duitnow/i.test(bayar)) $("#f-bayar").value = "Online Transfer"; else if (/cod/i.test(bayar)) $("#f-bayar").value = "COD";
   $("#pasteBox").open = false;
+  checkMatch();
 });
 
 $("#form").addEventListener("submit", async e => {
@@ -348,7 +403,7 @@ $("#form").addEventListener("submit", async e => {
       await db.collection(COL).doc(editing).update(body);
     } else {
       await db.collection(COL).doc().set({ ...body, status: "menunggu", followedAt: null, createdAt: now });
-      const prev = $("#sheet").dataset.rebuyOf;
+      const prev = $("#sheet").dataset.rebuyOf || $("#sheet").dataset.matchOf;
       if (prev) await db.collection(COL).doc(prev).update({ status: "beli_semula", followedAt: todayStr(), updatedAt: now });
     }
     closeSheet();
