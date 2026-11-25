@@ -6,7 +6,7 @@ export const isEast = negeri => /Sabah|Sarawak|Labuan/.test(negeri);
 
 // Voucher pembelian kedua (dicetak pada flyer dalam parcel, untuk order di website). Diskaun ikut pakej.
 export const VOUCHER = "FIREAMUSK";
-export const DISKAUN = { 1: 6, 2: 5, 3: 10 };
+export const DISKAUN = { 1: 6, 2: 6, 3: 10 };
 export const kodSah = kod => String(kod || "").trim().toUpperCase().replace(/\s+/g, "") === VOUCHER;
 
 export function quote(qty, negeri, kod) {

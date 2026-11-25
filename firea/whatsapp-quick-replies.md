@@ -134,7 +134,7 @@ Hai kak [nama] 😊 Terima kasih sebab dah pilih Firea.
 
 Khas untuk akak yang dah pernah beli, ada voucher untuk order kali kedua di website kami:
 • 1 botol RM29 (jimat RM6)
-• 2 botol RM50 (jimat RM5)
+• 2 botol RM49 (jimat RM6)
 • 3 botol RM59 (jimat RM10)
 
 Tekan link ni, kod FIREAMUSK terus masuk:
