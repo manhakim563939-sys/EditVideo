@@ -790,7 +790,7 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
 <script>
 /* ===== EDIT DI SINI: harga, nombor WhatsApp, postage ===== */
 const CONFIG = {
-  whatsapp: "60143520164",           // 014-352 0164
+  whatsapp: "601123146141",           // 011-2314 6141
   shipping: { semenanjung: 8, sabahSarawak: 15 },
   freeShipFrom: 1,                   // free postage Semenanjung untuk semua pakej (harga termasuk pos)
   unitPrice: 35,
@@ -906,7 +906,7 @@ $("#orderForm").addEventListener("submit", async e => {
   ].join("\n");
   $("#msg").textContent = msg;
   $("#walink").href = waUrl(msg);
-  $("#wanum").textContent = "Kalau WhatsApp tak terbuka, salin mesej dan hantar ke 014-352 0164.";
+  $("#wanum").textContent = "Kalau WhatsApp tak terbuka, salin mesej dan hantar ke 011-2314 6141.";
   $("#done").hidden = false;
   track("Lead", ev, "lead:" + msg);
   $("#done").scrollIntoView({ behavior: "smooth", block: "center" });

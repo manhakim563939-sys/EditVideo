@@ -109,8 +109,8 @@ h2{font-family:var(--f-display);font-weight:800;font-size:21px;margin-bottom:8px
   </div>
 
   <div class="card">
-    <a class="btn ghost" id="waBtn" href="https://wa.me/60143520164" target="_blank" rel="noopener">Ada soalan? WhatsApp kami</a>
-    <p class="small">014-352 0164 · <a href="/">fireadeodorant.com</a></p>
+    <a class="btn ghost" id="waBtn" href="https://wa.me/601123146141" target="_blank" rel="noopener">Ada soalan? WhatsApp kami</a>
+    <p class="small">011-2314 6141 · <a href="/">fireadeodorant.com</a></p>
   </div>
 </main>
 <script>
@@ -144,7 +144,7 @@ if (o) {
     ["Nama", o.nama], ["Telefon", o.tel], o.alamat && ["Alamat", `${o.alamat}, ${o.poskod} ${o.bandar}, ${o.negeri}`],
   ].filter(Boolean).map(([k, v]) => `<div><span>${k}</span><b>${esc(v)}</b></div>`).join("") + `<div class="tot"><span>Jumlah</span><b>RM${esc(o.jumlah)}</b></div>`;
   const wa = `Assalamualaikum, saya dah buat pesanan Firea di website.\n\n*No. pesanan:* ${id}\n${o.qty ? `*Pakej:* ${o.qty} botol\n` : ""}*Jumlah:* RM${o.jumlah}\n*Bayaran:* ${payLabel}\n*Nama:* ${o.nama}`;
-  $("waBtn").href = "https://wa.me/60143520164?text=" + encodeURIComponent(wa);
+  $("waBtn").href = "https://wa.me/601123146141?text=" + encodeURIComponent(wa);
 }
 if (isOnline) onlineStatus();
 async function onlineStatus() {

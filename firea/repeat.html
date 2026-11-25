@@ -62,7 +62,7 @@ label.f input,label.f select,label.f textarea{display:block;width:100%;margin-to
 </style>
 <div class="top">
   <a href="/"><img src="../img/logo-firea-white.png" alt="Firea" width="160" height="38"></a>
-  <h1>Order kali kedua, jimat sampai RM10</h1>
+  <h1>Order kali kedua, jimat sampai RM15</h1>
   <p>Terima kasih kerana terus bersama Firea. Isi sekali, siap dalam 1 minit.</p>
 </div>
 <main class="wrap">
@@ -109,15 +109,15 @@ label.f input,label.f select,label.f textarea{display:block;width:100%;margin-to
     </div>
     <p class="err" id="err" hidden></p>
     <button class="btn" type="submit" id="submitBtn">Hantar Order</button>
-    <a class="btn ghost" id="waFallback" href="https://wa.me/60143520164" target="_blank" rel="noopener" hidden>Hantar order melalui WhatsApp</a>
+    <a class="btn ghost" id="waFallback" href="https://wa.me/601123146141" target="_blank" rel="noopener" hidden>Hantar order melalui WhatsApp</a>
     <p class="small">Voucher untuk order di website sahaja. Free pos Semenanjung; Sabah, Sarawak &amp; Labuan +RM15.</p>
   </form>
-  <p class="small">Ada soalan? WhatsApp <a href="https://wa.me/60143520164">014-352 0164</a> · <a href="/">fireadeodorant.com</a></p>
+  <p class="small">Ada soalan? WhatsApp <a href="https://wa.me/601123146141">011-2314 6141</a> · <a href="/">fireadeodorant.com</a></p>
 </main>
 <script>
 /* Harga & voucher mesti sama dengan lib/order.mjs (server kira semula harga sebenar) */
 const PKGS = [{ qty: 1, price: 35, name: "1 Botol", note: "40 hingga 45 hari" }, { qty: 2, price: 55, name: "2 Botol", note: "Lebih kurang 3 bulan" }, { qty: 3, price: 69, name: "3 Botol", note: "Lebih kurang 4 bulan", tag: "Paling berbaloi" }];
-const VOUCHER = "FIREAMUSK", DISKAUN = { 1: 5, 2: 10, 3: 10 }, EAST = 15;
+const VOUCHER = "FIREAMUSK", DISKAUN = { 1: 6, 2: 15, 3: 15 }, EAST = 15;
 const $ = id => document.getElementById(id);
 const store = { get(k) { try { return localStorage.getItem(k); } catch (_) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (_) {} } };
 const track = (ev, data) => { try { if (window.fbq) fbq("track", ev, data || {}); } catch (_) {} };
@@ -184,7 +184,7 @@ $("orderForm").addEventListener("submit", async e => {
     err.textContent = x.message; err.hidden = false;
     const p = PKGS.find(y => y.qty === q);
     const msg = ["*REPEAT ORDER FIREA*", `Pakej: Firea (${q} botol) RM${p.price}`, ...(kodSah() ? [`Voucher: ${VOUCHER} (-RM${DISKAUN[q]})`] : []), `Postage: ${pos() ? "RM" + pos() : "PERCUMA"}`, `Jumlah: *RM${p.price - disk(q) + pos()}*`, "Bayaran: COD", "", `Nama: ${v("f-name")}`, `Tel: ${v("f-phone")}`, `Alamat: ${v("f-addr")}, ${v("f-post")} ${v("f-city")}, ${v("f-state")}`].join("\n");
-    $("waFallback").href = "https://wa.me/60143520164?text=" + encodeURIComponent(msg); $("waFallback").hidden = false;
+    $("waFallback").href = "https://wa.me/601123146141?text=" + encodeURIComponent(msg); $("waFallback").hidden = false;
   }
 });
 </script>

@@ -73,7 +73,7 @@ if __name__ == "__main__":
     pesanan = page("pesanan.html", "../", desc="Pesanan Firea Celeste Musk.", url="https://fireadeodorant.com/pesanan/",
                    og_title="Pesanan Firea", og_desc="Pesanan Firea Celeste Musk.", robots='<meta name="robots" content="noindex">\n')
     repeat = page("repeat.html", "../", desc="Order semula Firea Celeste Musk dengan kod voucher pada flyer.", url="https://fireadeodorant.com/repeat/",
-                  og_title="Order Semula Firea", og_desc="Order kali kedua di website, jimat sampai RM10.", robots='<meta name="robots" content="noindex">\n')
+                  og_title="Order Semula Firea", og_desc="Order kali kedua di website, jimat sampai RM15.", robots='<meta name="robots" content="noindex">\n')
     pages = {"index.html": index, "shop/index.html": shop, "pesanan/index.html": pesanan, "repeat/index.html": repeat}
     (here / "index.html").write_text(index)
     (here / "shop").mkdir(exist_ok=True)
