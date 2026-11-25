@@ -126,3 +126,18 @@ Hai kak [nama] 😊 Dah beberapa hari akak guna Firea. Macam mana setakat ni, se
 Kalau sudi, kongsikan sedikit pengalaman akak (gambar atau video pendek pun boleh). Feedback akak sangat membantu kami 🌸
 
 Ada apa-apa tak selesa pun beritahu saya ya, kami ada jaminan 7 hari.
+
+### /voucher
+_Hantar bersama poster voucher (pelanggan yang dah pernah beli)_
+
+Hai kak [nama] 😊 Terima kasih sebab dah pilih Firea.
+
+Khas untuk akak yang dah pernah beli, ada voucher untuk order kali kedua di website kami:
+• 1 botol RM29 (jimat RM6)
+• 2 botol RM50 (jimat RM5)
+• 3 botol RM59 (jimat RM10)
+
+Tekan link ni, kod FIREAMUSK terus masuk:
+👉 https://fireadeodorant.com/repeat/?kod=FIREAMUSK
+
+Free pos Semenanjung. Boleh bayar FPX atau COD 🌸

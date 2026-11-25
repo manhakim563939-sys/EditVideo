@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<title>Poster Voucher Firea (WhatsApp)</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@500;600;700;800;900&family=Kalam:wght@400;700&display=block" rel="stylesheet">
+<style>
+  /* Poster berwarna 1080 x 1350 (4:5) untuk dihantar kepada pelanggan melalui WhatsApp */
+  :root { --berry:#5a1531; --berry2:#7d1f45; --rose:#c2185b; --petal:#ffc9da; --blush:#fdf2f5; --ink:#3a1424; --muted:#7a5867; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#ccc; font-family:Figtree, sans-serif; }
+  .card { width:1080px; height:1350px; position:relative; overflow:hidden; background:var(--blush); color:var(--ink); }
+  .disp { font-family:"Bricolage Grotesque", sans-serif; font-weight:800; }
+  .hand { font-family:Kalam, cursive; font-weight:700; }
+
+  .hero { position:relative; height:470px; background:radial-gradient(circle at 80% 30%, #a3305f 0%, var(--berry2) 38%, var(--berry) 100%); color:#fdeef3; padding:54px 64px 0; }
+  .hero::after { content:""; position:absolute; left:-10%; right:-10%; bottom:-120px; height:200px; background:var(--blush); border-radius:50%; }
+  .hero .logo { height:74px; width:auto; display:block; }
+  .hero .ty { font-size:108px; line-height:1; margin-top:22px; transform:rotate(-3deg); transform-origin:left; color:#fff; }
+  .hero .lead { font-size:32px; font-weight:700; margin-top:16px; max-width:600px; line-height:1.25; }
+  .hero .lead span { color:var(--petal); }
+  .bottle { position:absolute; right:84px; top:46px; height:470px; width:auto; z-index:2; filter:drop-shadow(0 26px 30px rgba(40,5,20,.45)); transform:rotate(8deg); }
+  .glow { position:absolute; right:40px; top:110px; width:330px; height:330px; border-radius:50%; background:radial-gradient(circle, rgba(255,201,218,.55), rgba(255,201,218,0) 70%); z-index:1; }
+
+  .body { position:relative; z-index:3; padding:0 64px; margin-top:-36px; }
+  .pill { display:inline-flex; align-items:baseline; gap:14px; background:var(--rose); color:#fff; border-radius:999px; padding:8px 40px 12px; transform:rotate(-1.5deg); box-shadow:0 12px 24px -10px rgba(194,24,91,.6); }
+  .pill .a { font-size:58px; line-height:1; }
+  .pill .s { font-size:56px; line-height:.9; color:var(--petal); }
+  .sub { font-size:33px; font-weight:700; margin-top:22px; }
+  .sub b { color:var(--rose); }
+
+  .tiers { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:40px; }
+  .tier { background:#fff; border:3px solid var(--petal); border-radius:26px; text-align:center; padding:22px 10px 20px; position:relative; box-shadow:0 14px 28px -18px rgba(90,21,49,.45); }
+  .tier.best { background:linear-gradient(160deg, var(--rose), var(--berry2)); border-color:var(--rose); color:#fff; }
+  .tier .q { font-weight:800; font-size:30px; }
+  .tier .was { font-size:26px; font-weight:600; color:var(--muted); text-decoration:line-through; margin-top:4px; }
+  .tier.best .was { color:var(--petal); }
+  .tier .now { font-size:84px; line-height:1; margin-top:2px; color:var(--rose); }
+  .tier .now small { font-size:38px; }
+  .tier.best .now { color:#fff; }
+  .tier .save { display:inline-block; margin-top:10px; background:var(--blush); color:var(--rose); font-weight:900; font-size:22px; padding:4px 16px; border-radius:999px; }
+  .tier.best .save { background:#fff; }
+  .tier .rib { position:absolute; top:-20px; left:50%; transform:translateX(-50%); background:#fff; color:var(--rose); border:3px solid var(--rose); border-radius:999px; font-weight:900; font-size:18px; padding:2px 16px; white-space:nowrap; }
+
+  .code { margin-top:44px; display:flex; align-items:center; justify-content:center; gap:24px; background:#fff; border:5px dashed var(--rose); border-radius:24px; padding:16px 30px; }
+  .code .l { font-weight:800; font-size:25px; line-height:1.15; text-align:right; color:var(--muted); }
+  .code .k { font-size:84px; letter-spacing:5px; line-height:1; color:var(--berry); }
+
+  .cta { margin-top:34px; background:var(--berry); color:#fff; border-radius:26px; padding:20px 30px; display:flex; align-items:center; gap:22px; }
+  .cta .ic { width:84px; height:84px; border-radius:50%; background:var(--rose); flex:none; display:flex; align-items:center; justify-content:center; }
+  .cta .ic svg { width:46px; height:46px; }
+  .cta .t1 { font-size:30px; font-weight:800; line-height:1.15; }
+  .cta .t2 { font-size:38px; line-height:1.1; color:var(--petal); margin-top:4px; }
+  .fine { position:absolute; left:64px; right:64px; bottom:40px; text-align:center; font-size:19px; line-height:1.4; font-weight:600; color:var(--muted); }
+</style>
+</head>
+<body>
+<div class="card" id="kad">
+  <div class="hero">
+    <img class="logo" src="../../img/logo-firea-white.png" alt="Firea">
+    <div class="ty hand">Terima Kasih!</div>
+    <div class="lead">Sebab pilih Firea untuk rasa <span>yakin setiap hari</span>. Ini hadiah kecil daripada kami.</div>
+    <div class="glow"></div>
+    <img class="bottle" src="../../img/botol-cutout.png" alt="Firea Celeste Musk">
+  </div>
+  <div class="body">
+    <div class="pill"><span class="a disp">HADIAH</span><span class="s hand">untuk</span><span class="a disp">ANDA</span></div>
+    <div class="sub">Order kali kedua di <b>website</b> &amp; terus jimat:</div>
+
+    <div class="tiers">
+      <div class="tier"><div class="q">1 Botol</div><div class="was">RM35</div><div class="now disp"><small>RM</small>29</div><div class="save">Jimat RM6</div></div>
+      <div class="tier"><div class="q">2 Botol</div><div class="was">RM55</div><div class="now disp"><small>RM</small>50</div><div class="save">Jimat RM5</div></div>
+      <div class="tier best"><div class="rib">PALING BERBALOI</div><div class="q">3 Botol</div><div class="was">RM69</div><div class="now disp"><small>RM</small>59</div><div class="save">Jimat RM10</div></div>
+    </div>
+
+    <div class="code"><div class="l">KOD<br>VOUCHER</div><div class="k disp">FIREAMUSK</div></div>
+
+    <div class="cta">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1 1"/><path d="M14 10a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1-1"/></svg></div>
+      <div><div class="t1">Tekan link dalam mesej ini, kod terus masuk</div><div class="t2 disp">fireadeodorant.com/repeat</div></div>
+    </div>
+  </div>
+  <div class="fine">Free pos Semenanjung · Sabah, Sarawak &amp; Labuan +RM15 · FPX atau COD<br>Voucher untuk order di website sahaja</div>
+</div>
+</body>
+</html>
