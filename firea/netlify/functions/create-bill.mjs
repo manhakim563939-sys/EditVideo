@@ -2,7 +2,7 @@
 // Bayaran online (FPX / kad) melalui Billplz. Harga dikira di server, order diberi nombor,
 // pelanggan dihantar ke halaman bayaran Billplz dan kembali ke /pesanan/?id=...
 import { json } from "../../lib/telegram.mjs";
-import { quote, normMobile, newOrderId, signOrder, STATES } from "../../lib/order.mjs";
+import { quote, normMobile, newOrderId, signOrder, STATES, sumberKey } from "../../lib/order.mjs";
 import { settings, ready, billplz, describe } from "../../lib/billplz.mjs";
 
 const recent = new Map();
@@ -22,7 +22,7 @@ export default async (req) => {
   if (b?.website) return json({ error: "Tak dibenarkan." }, 400);
   const s = (k, n = 300) => String(b?.[k] ?? "").trim().slice(0, n);
   const nama = s("nama", 120), tel = s("tel", 30), alamat = s("alamat"), poskod = s("poskod", 5), bandar = s("bandar", 80), negeri = s("negeri", 40);
-  const q = quote(Number(b?.qty), negeri);
+  const q = quote(Number(b?.qty), negeri, s("kod", 30));
   const mobile = normMobile(tel);
   if (!q || !STATES.includes(negeri) || !nama || !/^60\d{8,11}$/.test(mobile) || !alamat || !/^\d{5}$/.test(poskod))
     return json({ error: "Maklumat order tak lengkap. Semak nama, telefon, alamat, poskod dan negeri." }, 400);
@@ -34,7 +34,7 @@ export default async (req) => {
     mobile,
     name: nama,
     amount: q.jumlah * 100,
-    description: describe(q.qty, id, s("sumber", 20) === "shop" ? "shop" : "website"),
+    description: describe(q.qty, id, sumberKey(s("sumber", 20)), q),
     callback_url: base + "/api/billplz-callback",
     redirect_url: base + "/pesanan/?id=" + encodeURIComponent(id),
     reference_1_label: "Telefon",
@@ -46,7 +46,7 @@ export default async (req) => {
     console.error("Billplz create bill gagal", r.status, JSON.stringify(r.data).slice(0, 500));
     return json({ error: "Tak dapat buka bayaran online sekarang. Sila cuba lagi atau pilih COD." }, 502);
   }
-  return json({ ok: true, orderId: id, url: r.data.url, billId: r.data.id, jumlah: q.jumlah, qty: q.qty, harga: q.price, pos: q.pos,
+  return json({ ok: true, orderId: id, url: r.data.url, billId: r.data.id, jumlah: q.jumlah, diskaun: q.diskaun, voucher: q.voucher, qty: q.qty, harga: q.price, pos: q.pos,
     bayar: "ONLINE", token: signOrder({ id, jumlah: q.jumlah, nama, tel, bayar: "ONLINE" }) });
 };
 

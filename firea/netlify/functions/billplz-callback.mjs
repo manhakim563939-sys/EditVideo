@@ -2,6 +2,7 @@
 // Sahkan X Signature, kemudian hantar order yang DIBAYAR ke group Telegram.
 import { notify, escHtml } from "../../lib/telegram.mjs";
 import { settings, verify, billplz, parseDesc } from "../../lib/billplz.mjs";
+import { sumberLabel } from "../../lib/order.mjs";
 
 const sent = new Set(); // Billplz boleh panggil lebih sekali untuk bil yang sama
 export default async (req) => {
@@ -27,6 +28,7 @@ export default async (req) => {
     d.id ? `ID Order: <code>${escHtml(d.id)}</code>` : `ID Bil: <code>${escHtml(p.id)}</code>`,
     "",
     d.qty ? `Pakej: Firea (${d.qty} botol)` : `Pakej: ${escHtml(bill.description || "-")}`,
+    ...(d.diskaun ? [`Voucher: ${escHtml(d.voucher)} (-RM${d.diskaun})`] : []),
     `Jumlah: *RM${escHtml(rm)}*`,
     `Bayaran: FPX / Kad (Billplz) - SUDAH DIBAYAR`,
     "",
@@ -34,7 +36,7 @@ export default async (req) => {
     `Tel: ${escHtml(tel)}`,
     `Alamat: ${escHtml(bill.reference_2 || "-")}`,
     "",
-    wa ? `💬 <a href="https://wa.me/${wa}">WhatsApp pelanggan</a> · dari fireadeodorant.com${d.sumber === "shop" ? "/shop" : ""}` : "",
+    wa ? `💬 <a href="https://wa.me/${wa}">WhatsApp pelanggan</a> · dari ${sumberLabel(d.sumber)}` : "",
     `✅ <i>Duit dah disahkan oleh Billplz. Boleh terus pos.</i>`,
   ].filter((l, i, a) => l !== "" || a[i - 1] !== "").join("\n");
   try {

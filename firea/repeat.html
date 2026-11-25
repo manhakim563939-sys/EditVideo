@@ -1,0 +1,190 @@
+<title>Order Semula Firea</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;700&display=swap">
+<style>
+:root{
+  --blush:#fdf2f5; --paper:#fffafb; --ink:#3a1424; --muted:#7a5867; --line:#f0d5df;
+  --berry:#5a1531; --berry-2:#7d1f45; --rose:#c2185b; --petal:#ffc9da; --good:#1f8a4c; --bad:#cf2f2f;
+  --shadow:0 14px 30px -16px rgba(90,21,49,.4);
+  --f-display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --f-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --blush:#1c1116; --paper:#26171e; --ink:#f8e9ef; --muted:#c9a7b6; --line:#43283a;
+  --berry:#2e0a1a; --berry-2:#4d1430; --rose:#e2477f; --good:#4cc47e; --bad:#ff6b6b; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --blush:#1c1116; --paper:#26171e; --ink:#f8e9ef; --muted:#c9a7b6; --line:#43283a;
+  --berry:#2e0a1a; --berry-2:#4d1430; --rose:#e2477f; --good:#4cc47e; --bad:#ff6b6b; color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+body{font-family:var(--f-body);background:var(--blush);color:var(--ink);font-size:16px;line-height:1.5}
+button,input,select,textarea{font:inherit;color:inherit}
+.top{background:linear-gradient(160deg,var(--berry-2),var(--berry));color:#fdeef3;padding:24px 16px 46px;text-align:center}
+.top img{height:38px;width:auto;margin:0 auto 14px;display:block}
+.top h1{font-family:var(--f-display);font-weight:800;font-size:30px;line-height:1.1}
+.top p{color:#e7bccb;margin-top:8px;font-size:15px}
+.wrap{max-width:540px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left,0px)) 40px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:20px 18px;margin-top:-26px;position:relative;box-shadow:var(--shadow)}
+.card + .card{margin-top:14px}
+h2{font-family:var(--f-display);font-weight:800;font-size:20px;margin-bottom:12px}
+.pkgs{display:grid;gap:10px}
+.pkg{display:flex;align-items:center;gap:12px;border:2px solid var(--line);border-radius:14px;padding:12px 14px;cursor:pointer;position:relative}
+.pkg:has(input:checked){border-color:var(--rose);background:var(--blush)}
+.pkg input{accent-color:var(--rose);width:20px;height:20px;flex:none}
+.pkg .nm{flex:1;font-weight:700}
+.pkg .nm small{display:block;font-weight:500;color:var(--muted);font-size:13px}
+.pkg .pr{text-align:right;font-weight:800;font-family:var(--f-display);font-size:20px;color:var(--rose)}
+.pkg .pr s{display:block;font-family:var(--f-body);font-weight:500;font-size:13px;color:var(--muted)}
+.pkg .tag{position:absolute;top:-10px;right:12px;background:var(--rose);color:#fff;font-size:11.5px;font-weight:700;padding:2px 10px;border-radius:999px}
+label.f{display:block;font-weight:700;font-size:14px;margin-top:12px}
+label.f input,label.f select,label.f textarea{display:block;width:100%;margin-top:4px;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--paper);font-weight:500}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kod{border:2px dashed var(--rose);border-radius:14px;padding:12px 14px}
+.kod input{text-transform:uppercase;letter-spacing:1px;font-weight:800}
+.kodmsg{font-size:13.5px;font-weight:700;margin-top:6px}
+.kodmsg.ok{color:var(--good)} .kodmsg.bad{color:var(--bad)}
+.pay{display:grid;gap:8px;margin-top:6px}
+.pay label{display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;cursor:pointer;font-weight:600}
+.pay input{accent-color:var(--rose);width:18px;height:18px}
+.sum{background:var(--blush);border-radius:12px;padding:12px 14px;margin-top:14px;display:grid;gap:4px;font-size:15px}
+.sum div{display:flex;justify-content:space-between;gap:10px}
+.sum .disk{color:var(--good);font-weight:700}
+.sum .tot{border-top:1px solid var(--line);padding-top:6px;margin-top:2px;font-weight:800}
+.sum .tot b{font-family:var(--f-display);font-size:24px;color:var(--rose)}
+.btn{display:flex;align-items:center;justify-content:center;width:100%;border:0;cursor:pointer;background:var(--rose);color:#fff;font:700 17px var(--f-body);padding:15px;border-radius:14px;margin-top:14px;text-decoration:none}
+.btn:disabled{opacity:.6;cursor:wait}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--line);font-size:15px}
+.err{color:var(--bad);font-weight:700;font-size:14px;margin-top:10px}
+.small{font-size:13px;color:var(--muted);text-align:center;margin-top:10px}
+.small a{color:inherit}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+</style>
+<div class="top">
+  <a href="/"><img src="../img/logo-firea-white.png" alt="Firea" width="160" height="38"></a>
+  <h1>Order kali kedua, jimat sampai RM10</h1>
+  <p>Terima kasih kerana terus bersama Firea. Isi sekali, siap dalam 1 minit.</p>
+</div>
+<main class="wrap">
+  <form class="card" id="orderForm" novalidate>
+    <h2>1. Pilih pakej</h2>
+    <div class="pkgs" id="pkgs"></div>
+
+    <h2 style="margin-top:20px">2. Kod voucher</h2>
+    <div class="kod">
+      <label class="f" for="f-kod" style="margin-top:0">Kod pada flyer dalam parcel
+        <input id="f-kod" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="cth. FIREAMUSK">
+      </label>
+      <p class="kodmsg" id="kodMsg" hidden></p>
+    </div>
+
+    <h2 style="margin-top:20px">3. Maklumat penghantaran</h2>
+    <p class="small" id="prefill" hidden style="text-align:left;margin:0 0 4px">Maklumat order lepas dah diisi. Semak sebelum hantar.</p>
+    <label class="f" for="f-name">Nama penuh<input id="f-name" autocomplete="name" required></label>
+    <label class="f" for="f-phone">No. telefon (WhatsApp)<input id="f-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="cth. 012-345 6789" required></label>
+    <label class="f" for="f-addr">Alamat<textarea id="f-addr" rows="2" autocomplete="street-address" placeholder="No. rumah, jalan, taman" required></textarea></label>
+    <div class="row2">
+      <label class="f" for="f-post">Poskod<input id="f-post" inputmode="numeric" maxlength="5" autocomplete="postal-code" required></label>
+      <label class="f" for="f-city">Bandar<input id="f-city" autocomplete="address-level2" required></label>
+    </div>
+    <label class="f" for="f-state">Negeri
+      <select id="f-state" required>
+        <option value="">Pilih negeri</option>
+        <option>Johor</option><option>Kedah</option><option>Kelantan</option><option>Melaka</option><option>Negeri Sembilan</option><option>Pahang</option><option>Perak</option><option>Perlis</option><option>Pulau Pinang</option><option>Selangor</option><option>Terengganu</option><option>WP Kuala Lumpur</option><option>WP Putrajaya</option><option>Sabah</option><option>Sarawak</option><option>WP Labuan</option>
+      </select>
+    </label>
+    <input class="hp" id="f-website" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+    <h2 style="margin-top:20px">4. Cara bayar</h2>
+    <div class="pay" role="radiogroup" aria-label="Cara bayaran">
+      <label class="pay-fpx" hidden><input type="radio" name="pay" id="pay-fpx" value="ONLINE"> FPX online banking / kad</label>
+      <label><input type="radio" name="pay" id="pay-cod" value="COD" checked> COD (bayar bila barang sampai)</label>
+    </div>
+
+    <div class="sum" aria-live="polite">
+      <div><span id="s-item">Pakej</span><span id="s-price"></span></div>
+      <div class="disk" id="s-disk-row" hidden><span id="s-disk-l">Voucher</span><span id="s-disk"></span></div>
+      <div><span>Postage J&amp;T</span><span id="s-pos"></span></div>
+      <div class="tot"><span>Jumlah</span><b id="s-total"></b></div>
+    </div>
+    <p class="err" id="err" hidden></p>
+    <button class="btn" type="submit" id="submitBtn">Hantar Order</button>
+    <a class="btn ghost" id="waFallback" href="https://wa.me/60143520164" target="_blank" rel="noopener" hidden>Hantar order melalui WhatsApp</a>
+    <p class="small">Voucher untuk order di website sahaja. Free pos Semenanjung; Sabah, Sarawak &amp; Labuan +RM15.</p>
+  </form>
+  <p class="small">Ada soalan? WhatsApp <a href="https://wa.me/60143520164">014-352 0164</a> · <a href="/">fireadeodorant.com</a></p>
+</main>
+<script>
+/* Harga & voucher mesti sama dengan lib/order.mjs (server kira semula harga sebenar) */
+const PKGS = [{ qty: 1, price: 35, name: "1 Botol", note: "40 hingga 45 hari" }, { qty: 2, price: 55, name: "2 Botol", note: "Lebih kurang 3 bulan" }, { qty: 3, price: 69, name: "3 Botol", note: "Lebih kurang 4 bulan", tag: "Paling berbaloi" }];
+const VOUCHER = "FIREAMUSK", DISKAUN = { 1: 5, 2: 10, 3: 10 }, EAST = 15;
+const $ = id => document.getElementById(id);
+const store = { get(k) { try { return localStorage.getItem(k); } catch (_) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (_) {} } };
+const track = (ev, data) => { try { if (window.fbq) fbq("track", ev, data || {}); } catch (_) {} };
+const kodSah = () => $("f-kod").value.trim().toUpperCase().replace(/\s+/g, "") === VOUCHER;
+const qty = () => Number((document.querySelector('input[name="pkg"]:checked') || {}).value || 3);
+const pos = () => /Sabah|Sarawak|Labuan/.test($("f-state").value) ? EAST : 0;
+const disk = q => kodSah() ? DISKAUN[q] : 0;
+
+$("pkgs").innerHTML = PKGS.map(p => `<label class="pkg">${p.tag ? `<span class="tag">${p.tag}</span>` : ""}<input type="radio" name="pkg" value="${p.qty}"${p.qty === 3 ? " checked" : ""}><span class="nm">${p.name}<small>${p.note}</small></span><span class="pr" id="pr${p.qty}"></span></label>`).join("");
+
+function render() {
+  const ok = kodSah(), k = $("f-kod").value.trim(), q = qty(), p = PKGS.find(x => x.qty === q);
+  PKGS.forEach(x => { $("pr" + x.qty).innerHTML = ok ? `<s>RM${x.price}</s>RM${x.price - DISKAUN[x.qty]}` : `RM${x.price}`; });
+  const m = $("kodMsg"); m.hidden = !k;
+  m.className = "kodmsg " + (ok ? "ok" : "bad");
+  m.textContent = ok ? `Voucher diterima! Jimat RM${DISKAUN[q]} untuk pakej ini.` : "Kod tak sah. Semak semula kod pada flyer.";
+  $("s-item").textContent = `Firea Celeste Musk × ${q} botol`; $("s-price").textContent = "RM" + p.price;
+  $("s-disk-row").hidden = !ok; $("s-disk-l").textContent = `Voucher ${VOUCHER}`; $("s-disk").textContent = "-RM" + disk(q);
+  $("s-pos").textContent = pos() ? "RM" + pos() : "PERCUMA";
+  $("s-total").textContent = "RM" + (p.price - disk(q) + pos());
+}
+$("orderForm").addEventListener("change", render);
+$("f-kod").addEventListener("input", render);
+
+/* kod dari QR flyer (?kod=) dan maklumat order lepas (disimpan dalam telefon pelanggan sahaja) */
+try { const kq = new URLSearchParams(location.search).get("kod"); if (kq) $("f-kod").value = kq.toUpperCase(); } catch (_) {}
+try {
+  const last = store.get("firea-last-order"), lo = last && JSON.parse(store.get("firea-order-" + last) || "null");
+  if (lo && lo.nama) {
+    [["f-name", lo.nama], ["f-phone", lo.tel], ["f-addr", lo.alamat], ["f-post", lo.poskod], ["f-city", lo.bandar], ["f-state", lo.negeri]].forEach(([id, v]) => { if (v) $(id).value = v; });
+    $("prefill").hidden = false;
+  }
+} catch (_) {}
+render();
+
+fetch("/api/pay-status", { cache: "no-store" }).then(r => r.ok ? r.json() : {}).catch(() => ({})).then(s => {
+  if (s && s.online) { document.querySelector(".pay-fpx").hidden = false; $("pay-fpx").checked = true; }
+});
+let ic = false;
+$("orderForm").addEventListener("focusin", () => { if (ic) return; ic = true; track("InitiateCheckout", { currency: "MYR", value: PKGS.find(x => x.qty === qty()).price, num_items: qty() }); });
+
+$("orderForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const v = id => $(id).value.trim(), err = $("err"), btn = $("submitBtn");
+  const need = [["f-name", "nama"], ["f-phone", "nombor telefon"], ["f-addr", "alamat"], ["f-post", "poskod"], ["f-city", "bandar"], ["f-state", "negeri"]];
+  const miss = need.filter(([id]) => !v(id));
+  if (miss.length) { err.textContent = "Sila isi " + miss.map(m => m[1]).join(", ") + "."; err.hidden = false; $(miss[0][0]).focus(); return; }
+  if (!/^\d{5}$/.test(v("f-post"))) { err.textContent = "Poskod mesti 5 digit, cth. 43000."; err.hidden = false; $("f-post").focus(); return; }
+  if (v("f-kod") && !kodSah()) { err.textContent = "Kod voucher tak sah. Betulkan atau kosongkan ruangan kod."; err.hidden = false; $("f-kod").focus(); return; }
+  err.hidden = true;
+  const q = qty(), bayar = document.querySelector('input[name="pay"]:checked').value, online = bayar === "ONLINE";
+  const body = { qty: q, negeri: v("f-state"), nama: v("f-name"), tel: v("f-phone"), alamat: v("f-addr"), poskod: v("f-post"), bandar: v("f-city"), bayar, sumber: "repeat", kod: kodSah() ? VOUCHER : "", website: v("f-website") };
+  const label = btn.innerHTML; btn.disabled = true; btn.innerHTML = "Menghantar…";
+  try {
+    const r = await fetch(online ? "/api/create-bill" : "/api/order-notify", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok || !d.orderId) throw new Error(d.error || (online ? "Bayaran online tak dapat dibuka. Sila cuba lagi atau pilih COD." : "Tak dapat hantar pesanan sekarang."));
+    store.set("firea-order-" + d.orderId, JSON.stringify({ ...body, ...d, at: Date.now() })); store.set("firea-last-order", d.orderId);
+    if (d.url) { location.href = d.url; return; }
+    if (!d.pendua) { const ev = { currency: "MYR", value: d.jumlah, num_items: q }; track("Lead", ev); track("Purchase", ev); }
+    location.href = "/pesanan/?id=" + encodeURIComponent(d.orderId) + "#" + d.token;
+  } catch (x) {
+    btn.disabled = false; btn.innerHTML = label;
+    err.textContent = x.message; err.hidden = false;
+    const p = PKGS.find(y => y.qty === q);
+    const msg = ["*REPEAT ORDER FIREA*", `Pakej: Firea (${q} botol) RM${p.price}`, ...(kodSah() ? [`Voucher: ${VOUCHER} (-RM${DISKAUN[q]})`] : []), `Postage: ${pos() ? "RM" + pos() : "PERCUMA"}`, `Jumlah: *RM${p.price - disk(q) + pos()}*`, "Bayaran: COD", "", `Nama: ${v("f-name")}`, `Tel: ${v("f-phone")}`, `Alamat: ${v("f-addr")}, ${v("f-post")} ${v("f-city")}, ${v("f-state")}`].join("\n");
+    $("waFallback").href = "https://wa.me/60143520164?text=" + encodeURIComponent(msg); $("waFallback").hidden = false;
+  }
+});
+</script>

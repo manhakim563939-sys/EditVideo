@@ -172,7 +172,7 @@ if (id) { $("oidWrap").hidden = false; $("oid").textContent = id; $("ref").textC
 if (o) {
   $("det").hidden = false;
   $("det").innerHTML = [
-    o.qty && ["Pakej", `Firea Celeste Musk × ${o.qty} botol`], o.qty && ["Postage", o.pos ? "RM" + o.pos : "PERCUMA"],
+    o.qty && ["Pakej", `Firea Celeste Musk × ${o.qty} botol`], o.qty && ["Postage", o.pos ? "RM" + o.pos : "PERCUMA"], o.diskaun && ["Voucher", `${o.voucher} (-RM${o.diskaun})`],
     ["Bayaran", payLabel],
     ["Nama", o.nama], ["Telefon", o.tel], o.alamat && ["Alamat", `${o.alamat}, ${o.poskod} ${o.bandar}, ${o.negeri}`],
   ].filter(Boolean).map(([k, v]) => `<div><span>${k}</span><b>${esc(v)}</b></div>`).join("") + `<div class="tot"><span>Jumlah</span><b>RM${esc(o.jumlah)}</b></div>`;

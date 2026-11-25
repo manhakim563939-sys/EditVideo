@@ -49,8 +49,10 @@ export async function billplz(path, { method = "GET", body } = {}) {
 }
 
 // Penerangan bil menyimpan bilangan botol dan ID order supaya callback boleh bina notifikasi.
-export const describe = (qty, id, sumber) => `Firea Celeste Musk (${qty} botol) · ${id} · ${sumber}`;
+export const describe = (qty, id, sumber, q = {}) =>
+  `Firea Celeste Musk (${qty} botol) · ${id} · ${sumber}` + (q.diskaun ? ` · voucher ${q.voucher} -RM${q.diskaun}` : "");
 export function parseDesc(d) {
-  const m = String(d || "").match(/\((\d) botol\) · (FIR-[A-Z0-9-]+)(?: · (.+))?/);
-  return m ? { qty: Number(m[1]), id: m[2], sumber: m[3] || "" } : { qty: 0, id: "", sumber: "" };
+  const m = String(d || "").match(/\((\d) botol\) · (FIR-[A-Z0-9-]+)(?: · ([a-z]+))?/);
+  const v = String(d || "").match(/voucher (\S+) -RM(\d+)/);
+  return { qty: m ? Number(m[1]) : 0, id: m ? m[2] : "", sumber: m && m[3] || "", voucher: v ? v[1] : "", diskaun: v ? Number(v[2]) : 0 };
 }

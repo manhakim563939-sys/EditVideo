@@ -72,14 +72,17 @@ if __name__ == "__main__":
                 og_type="product", color="#7d1f45")
     pesanan = page("pesanan.html", "../", desc="Pesanan Firea Celeste Musk.", url="https://fireadeodorant.com/pesanan/",
                    og_title="Pesanan Firea", og_desc="Pesanan Firea Celeste Musk.", robots='<meta name="robots" content="noindex">\n')
-    pages = {"index.html": index, "shop/index.html": shop, "pesanan/index.html": pesanan}
+    repeat = page("repeat.html", "../", desc="Order semula Firea Celeste Musk dengan kod voucher pada flyer.", url="https://fireadeodorant.com/repeat/",
+                  og_title="Order Semula Firea", og_desc="Order kali kedua di website, jimat sampai RM10.", robots='<meta name="robots" content="noindex">\n')
+    pages = {"index.html": index, "shop/index.html": shop, "pesanan/index.html": pesanan, "repeat/index.html": repeat}
     (here / "index.html").write_text(index)
     (here / "shop").mkdir(exist_ok=True)
     (here / "shop" / "index.html").write_text(shop)
-    (here / "pesanan").mkdir(exist_ok=True)
-    (here / "pesanan" / "index.html").write_text(pesanan)
+    for name in ("pesanan/index.html", "repeat/index.html"):
+        (here / name).parent.mkdir(exist_ok=True)
+        (here / name).write_text(pages[name])
 
-    files = sorted(set(assets(index)) | set(assets(shop)) | set(assets(pesanan)) | {"img/produk-pink.jpg"})
+    files = sorted(set(assets(index)) | set(assets(shop)) | set(assets(pesanan)) | set(assets(repeat)) | {"img/produk-pink.jpg"})
     missing = [f for f in files if not (here / f).exists()]
     if missing:
         raise SystemExit("Fail tiada: " + ", ".join(missing))
