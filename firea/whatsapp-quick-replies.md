@@ -94,3 +94,35 @@ Pakej 3 botol RM69 FREE POS (Semenanjung), cukup lebih kurang 4 bulan 🌸
 - Kalau pelanggan kata **tak berminat**, berhenti terus dan balas dengan sopan.
 - Hantar mesej pukul **12–2 tengah hari** atau **8–10 malam**.
 - Guna label WhatsApp Business: `FU Hari 1–5`, `FU Bulanan`, `Tidak aktif`, `Dah beli`.
+
+## Order & selepas beli (staff)
+
+### /sahcod
+_Order COD, sebelum pos. Tukar [kurungan]._
+
+Assalamualaikum kak [nama] 😊 Terima kasih order Firea Celeste Musk di website kami.
+
+Saya sahkan order akak:
+• [bilangan] botol, jumlah RM[jumlah] (COD, bayar bila barang sampai)
+• Alamat: [alamat penuh]
+
+Betul ya kak? Balas "YA" dan kami pos hari ini 🌸
+
+### /tracking
+_Hari pos. Tukar [kurungan]._
+
+Hai kak [nama] 😊 Order Firea akak dah dipos hari ini melalui J&T.
+
+No. tracking: [nombor]
+Semak di sini: https://www.jtexpress.my/tracking
+
+Biasanya sampai dalam 2 hingga 4 hari bekerja (Sabah/Sarawak 4 hingga 7 hari). Untuk COD, sediakan RM[jumlah] ya kak 🌸
+
+### /feedback
+_3 hingga 5 hari selepas barang sampai_
+
+Hai kak [nama] 😊 Dah beberapa hari akak guna Firea. Macam mana setakat ni, selesa tak sepanjang hari?
+
+Kalau sudi, kongsikan sedikit pengalaman akak (gambar atau video pendek pun boleh). Feedback akak sangat membantu kami 🌸
+
+Ada apa-apa tak selesa pun beritahu saya ya, kami ada jaminan 7 hari.
