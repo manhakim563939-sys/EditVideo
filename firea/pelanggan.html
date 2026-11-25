@@ -132,7 +132,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 
   <div class="list" id="list"></div>
   <div class="locked" id="locked" hidden>Rekod pelanggan hanya boleh dilihat oleh pemilik dan Editor page ini.</div>
-  <p class="rule">Tarikh follow-up dikira dari tarikh beli: 1 botol = hari ke-30, 2 botol = hari ke-70, 3 botol = hari ke-110 (lebih kurang 10 hari sebelum stok habis).</p>
+  <p class="rule">Tarikh follow-up dikira dari tarikh beli: 1 botol = hari ke-25, 2 botol = hari ke-50, 3 botol = hari ke-110.</p>
 </div>
 
 <button class="fab" id="addBtn" type="button" hidden>+ Tambah pembelian</button>
@@ -179,7 +179,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 
 <script>
 /* ===== tetapan ===== */
-const FU_DAYS = { 1: 30, 2: 70, 3: 110 };        // hari follow-up ikut bilangan botol
+const FU_DAYS = { 1: 25, 2: 50, 3: 110 };        // hari follow-up ikut bilangan botol
 const PRICE = { 1: 35, 2: 55, 3: 69 };
 const STATES = ["Johor","Kedah","Kelantan","Melaka","Negeri Sembilan","Pahang","Perak","Perlis","Pulau Pinang","Sabah","Sarawak","Selangor","Terengganu","WP Kuala Lumpur","WP Labuan","WP Putrajaya"];
 const COL = "customers";
@@ -193,6 +193,8 @@ const addDays = (s, n) => { const t = new Date((dayNum(s) + n) * 864e5); return 
 const fmt = s => { if (!s) return "-"; const [y, m, d] = s.split("-"); return `${+d} ${["Jan","Feb","Mac","Apr","Mei","Jun","Jul","Ogo","Sep","Okt","Nov","Dis"][+m - 1]} ${y}`; };
 const initials = n => String(n || "?").trim().split(/\s+/).filter(w => !/^(bin|binti|bt|bte|b\.?)$/i.test(w)).slice(0, 2).map(w => w[0]).join("").toUpperCase() || "?";
 const fuDays = q => FU_DAYS[q] ?? Math.max(20, q * 40 - 10);
+// Tarikh follow-up sentiasa dikira semula dari tarikh beli, supaya perubahan FU_DAYS terpakai pada rekod lama juga.
+const fuDate = r => r.tarikhBeli ? addDays(r.tarikhBeli, fuDays(+r.botol || 1)) : r.followUpDate;
 const normTel = t => { let d = String(t || "").replace(/\D/g, ""); if (d.startsWith("0")) d = "6" + d; else if (d && !d.startsWith("6")) d = "60" + d; return d; };
 
 /* ===== kenal pelanggan sama: nombor telefon sama, ATAU nama + alamat sama ===== */
@@ -231,7 +233,7 @@ let db = null, rows = [], tab = "due", editing = null, writable = true, download
 
 /* ===== klasifikasi ===== */
 function info(r) {
-  const diff = dayNum(r.followUpDate) - dayNum(todayStr());
+  const diff = dayNum(fuDate(r)) - dayNum(todayStr());
   if (r.status !== "menunggu") {
     const lbl = { dihubungi: "Dah follow-up", beli_semula: "Dah beli semula", tak_berminat: "Tak berminat" }[r.status] || r.status;
     return { cls: "done", badge: `<span class="badge ${r.status === "tak_berminat" ? "b-mute" : "b-done"}">${lbl}</span>`, diff };
@@ -280,7 +282,7 @@ function render() {
         <span>📍 <b>${esc([r.bandar, r.negeri].filter(Boolean).join(", ") || "-")}</b></span>
         <span>🧴 <b>${esc(r.botol)} botol</b>${r.harga ? " · RM" + esc(r.harga) : ""}</span>
         <span>🛒 Beli <b>${fmt(r.tarikhBeli)}</b></span>
-        <span>🔔 Follow-up <b>${fmt(r.followUpDate)}</b></span>
+        <span>🔔 Follow-up <b>${fmt(fuDate(r))}</b></span>
         <span>📞 <b>${esc(r.tel)}</b></span>
         ${histLine(r)}
       </div>
@@ -419,7 +421,7 @@ $("#q").addEventListener("input", render); $("#fstate").addEventListener("change
 $("#exportBtn").addEventListener("click", async () => {
   const cols = ["nama","tel","negeri","bandar","alamat","botol","harga","bayaran","tarikhBeli","followUpDate","status","followedAt","nota"];
   const q = s => `"${String(s ?? "").replace(/"/g, '""')}"`;
-  const csv = [cols.join(","), ...rows.map(r => cols.map(c => q(r[c])).join(","))].join("\n");
+  const csv = [cols.join(","), ...rows.map(r => cols.map(c => q(c === "followUpDate" ? fuDate(r) : r[c])).join(","))].join("\n");
   try { await downloads.save({ filename: `firea-pelanggan-${todayStr()}.csv`, data: "﻿" + csv }); } catch (_) { setStatus("Muat turun dibatalkan."); }
 });
 
