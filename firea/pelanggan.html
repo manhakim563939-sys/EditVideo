@@ -64,6 +64,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .b-late{background:var(--latebg);color:var(--late)} .b-today{background:var(--todaybg);color:var(--today)} .b-soon{background:var(--soonbg);color:var(--soon)} .b-done{background:var(--okbg);color:var(--ok)} .b-mute{background:var(--bg);color:var(--muted)}
 .rep{display:inline-flex;align-items:center;gap:4px;font-size:.75rem;font-weight:800;border-radius:999px;padding:2px 9px;background:var(--rose,#c2185b);color:#fff;margin-left:6px;white-space:nowrap}
 .match{background:var(--okbg);color:var(--ok);border-radius:10px;padding:8px 12px;font-size:.88rem;font-weight:700}
+.btn.fb{background:#fff4d6;color:#8a5a00;border-color:#f3d38a}
 .meta{display:flex;flex-wrap:wrap;gap:4px 14px;color:var(--muted);font-size:.86rem;margin-top:4px}
 .meta b{color:var(--ink);font-weight:700}
 .note{margin-top:6px;font-size:.85rem;background:var(--bg);border-radius:8px;padding:6px 10px;overflow-wrap:anywhere}
@@ -121,6 +122,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
     <button class="tab" role="tab" data-tab="due" aria-selected="true">Perlu follow-up<span class="n" id="n-due"></span></button>
     <button class="tab" role="tab" data-tab="soon" aria-selected="false">7 hari akan datang<span class="n" id="n-soon"></span></button>
     <button class="tab" role="tab" data-tab="all" aria-selected="false">Semua<span class="n" id="n-all"></span></button>
+    <button class="tab" role="tab" data-tab="feedback" aria-selected="false">Minta feedback<span class="n" id="n-feedback"></span></button>
     <button class="tab" role="tab" data-tab="repeat" aria-selected="false">Repeat order<span class="n" id="n-repeat"></span></button>
     <button class="tab" role="tab" data-tab="done" aria-selected="false">Selesai<span class="n" id="n-done"></span></button>
   </div>
@@ -132,7 +134,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 
   <div class="list" id="list"></div>
   <div class="locked" id="locked" hidden>Rekod pelanggan hanya boleh dilihat oleh pemilik dan Editor page ini.</div>
-  <p class="rule">Tarikh follow-up dikira dari tarikh beli: 1 botol = hari ke-25, 2 botol = hari ke-50, 3 botol = hari ke-110.</p>
+  <p class="rule">Tarikh follow-up dikira dari tarikh beli: 1 botol = hari ke-25, 2 botol = hari ke-50, 3 botol = hari ke-110. Minta feedback: hari ke-10 selepas beli (lebih kurang 7 hari selepas barang sampai).</p>
 </div>
 
 <button class="fab" id="addBtn" type="button" hidden>+ Tambah pembelian</button>
@@ -179,7 +181,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 
 <script>
 /* ===== tetapan ===== */
-const FU_DAYS = { 1: 25, 2: 50, 3: 110 };        // hari follow-up ikut bilangan botol
+const FU_DAYS = { 1: 25, 2: 50, 3: 110 };
+const FB_DAYS = 10, FB_WINDOW = 30;               // minta feedback hari ke-10 selepas beli (pos 2-3 hari + 7 hari guna); tak tunjuk lagi selepas hari ke-30        // hari follow-up ikut bilangan botol
 const PRICE = { 1: 35, 2: 55, 3: 69 };
 const STATES = ["Johor","Kedah","Kelantan","Melaka","Negeri Sembilan","Pahang","Perak","Perlis","Pulau Pinang","Sabah","Sarawak","Selangor","Terengganu","WP Kuala Lumpur","WP Labuan","WP Putrajaya"];
 const COL = "customers";
@@ -262,7 +265,9 @@ function render() {
   $("#st-cust").textContent = buildGroups();
   $("#st-btl").textContent = rows.reduce((s, r) => s + (+r.botol || 0), 0);
   $("#n-due").textContent = due.length; $("#n-soon").textContent = soon.length; $("#n-all").textContent = all.length; $("#n-done").textContent = done.length; $("#n-repeat").textContent = new Set(repeat.map(x => groups.get(x.r.id).list[0].id)).size;
-  const pick = { due, soon, all: every, repeat, done }[tab];
+  const fb = all.filter(x => fbDue(x.r)).sort((a, b) => (a.r.tarikhBeli || "").localeCompare(b.r.tarikhBeli || ""));
+  $("#n-feedback").textContent = fb.length;
+  const pick = { due, soon, all: every, feedback: fb, repeat, done }[tab];
   const shown = pick.filter(({ r }) => (!fs || r.negeri === fs) && (!q || [r.nama, r.tel, r.bandar, r.negeri, r.nota].join(" ").toLowerCase().includes(q)));
   const list = $("#list");
   if (!rows.length) {
@@ -270,7 +275,7 @@ function render() {
     return;
   }
   if (!shown.length) {
-    const msg = { due: "Tiada pelanggan perlu di-follow-up hari ini. 🎉", soon: "Tiada follow-up dalam 7 hari akan datang.", all: "Tiada padanan.", repeat: "Belum ada pelanggan yang beli lebih sekali.", done: "Belum ada follow-up yang selesai." }[tab];
+    const msg = { feedback: "Tiada pelanggan perlu diminta feedback sekarang.", due: "Tiada pelanggan perlu di-follow-up hari ini. 🎉", soon: "Tiada follow-up dalam 7 hari akan datang.", all: "Tiada padanan.", repeat: "Belum ada pelanggan yang beli lebih sekali.", done: "Belum ada follow-up yang selesai." }[tab];
     list.innerHTML = `<div class="empty">${q || fs ? "Tiada padanan untuk carian ini." : msg}</div>`;
     return;
   }
@@ -284,9 +289,11 @@ function render() {
         <span>🔔 Follow-up <b>${fmt(fuDate(r))}</b></span>
         <span>📞 <b>${esc(r.tel)}</b></span>
         ${histLine(r)}
+        ${r.feedbackAt ? `<span>💬 Feedback diminta <b>${fmt(r.feedbackAt)}</b></span>` : ""}
       </div>
       ${r.nota ? `<div class="note">${esc(r.nota)}</div>` : ""}
       ${writable ? `<div class="acts">
+        ${fbDue(r) ? `<a class="btn fb" href="https://wa.me/${normTel(r.tel)}?text=${encodeURIComponent(fbMsg(r))}" target="_blank" rel="noopener" data-act="fb">💬 Minta feedback</a>` : ""}
         ${r.status === "menunggu" ? `<a class="btn wa" href="https://wa.me/${normTel(r.tel)}?text=${encodeURIComponent(waMsg(r))}" target="_blank" rel="noopener" data-act="wa">WhatsApp</a>
         <button class="btn" type="button" data-act="done">✓ Dah follow-up</button>
         <button class="btn pri" type="button" data-act="rebuy">Beli semula</button>
@@ -298,6 +305,14 @@ function render() {
     </article>`).join("");
 }
 
+function fbDue(r) {
+  if (r.feedbackAt || !r.tarikhBeli) return false;
+  const d = dayNum(todayStr()) - dayNum(r.tarikhBeli);
+  return d >= FB_DAYS && d <= FB_WINDOW;
+}
+function fbMsg(r) {
+  return `Assalam akak, Janna dari Firea 😊 Dah seminggu lebih akak guna deodorant Firea kan, macam mana setakat ni? Selesa tak sepanjang hari?\n\nKalau sudi, kongsikan sedikit pengalaman akak (gambar atau video pendek pun boleh). Feedback akak sangat membantu kami 🌸\n\nAda apa-apa tak selesa pun beritahu Janna ya.`;
+}
 function repTag(r) { const g = groups.get(r.id); return g && g.jumlah > 1 ? `<span class="rep">🔁 Order ke-${g.ke}</span>` : ""; }
 function histLine(r) {
   const g = groups.get(r.id); if (!g || g.jumlah < 2) return "";
@@ -312,6 +327,7 @@ $("#list").addEventListener("click", async e => {
   const ref = db.collection(COL).doc(id), now = new Date().toISOString();
   const act = b.dataset.act;
   try {
+    if (act === "fb") { await ref.update({ feedbackAt: todayStr(), updatedAt: now }); return; }
     if (act === "wa") { if (r.status === "menunggu") { /* biar pengguna tanda sendiri selepas hantar */ } return; }
     if (act === "done") await ref.update({ status: "dihubungi", followedAt: todayStr(), updatedAt: now });
     if (act === "no") await ref.update({ status: "tak_berminat", followedAt: todayStr(), updatedAt: now });
@@ -418,7 +434,7 @@ $("#q").addEventListener("input", render); $("#fstate").addEventListener("change
 
 /* ===== eksport CSV ===== */
 $("#exportBtn").addEventListener("click", async () => {
-  const cols = ["nama","tel","negeri","bandar","alamat","botol","harga","bayaran","tarikhBeli","followUpDate","status","followedAt","nota"];
+  const cols = ["nama","tel","negeri","bandar","alamat","botol","harga","bayaran","tarikhBeli","followUpDate","status","followedAt","feedbackAt","nota"];
   const q = s => `"${String(s ?? "").replace(/"/g, '""')}"`;
   const csv = [cols.join(","), ...rows.map(r => cols.map(c => q(c === "followUpDate" ? fuDate(r) : r[c])).join(","))].join("\n");
   try { await downloads.save({ filename: `firea-pelanggan-${todayStr()}.csv`, data: "﻿" + csv }); } catch (_) { setStatus("Muat turun dibatalkan."); }
