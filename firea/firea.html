@@ -458,7 +458,7 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
           <li class="ok">Selesa dari pagi sampai malam</li>
           <li class="ok">Cepat kering, tak melekit</li>
           <li class="ok">Tak tinggal kesan pada baju putih atau hitam</li>
-          <li class="ok">Bawah 60 sen sehari</li>
+          <li class="ok">Bawah 80 sen sehari</li>
         </ul>
         <a class="btn alt" href="#pakej" style="justify-content:center">Saya Nak Cara Ni</a>
       </div>
@@ -468,7 +468,7 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
       <table>
         <thead><tr><th></th><th>Cuba sendiri</th><th>Firea</th></tr></thead>
         <tbody>
-          <tr><td>Kos</td><td>Beli banyak brand</td><td>Bawah 60 sen sehari</td></tr>
+          <tr><td>Kos</td><td>Beli banyak brand</td><td>Bawah 80 sen sehari</td></tr>
           <tr><td>Tahan</td><td>Beberapa jam</td><td>Pagi sampai malam</td></tr>
           <tr><td>Rasa di kulit</td><td>Pedih / lekit</td><td>Cepat kering, tak melekit</td></tr>
           <tr><td>Kesan pada baju</td><td>Putih / kuning</td><td>Tiada kesan</td></tr>
@@ -517,7 +517,7 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
       <h2>Firea Celeste Musk. <span class="hl">Yakin Dalam Setiap Sentuhan.</span></h2>
       <p style="color:var(--on-berry-muted)">Deodoran roll-on antiperspirant dengan perlindungan bau dan basah. Wangian musk yang lembut, cepat kering dan tak melekit. Sesuai untuk kegunaan harian.</p>
       <div class="specs">
-        <div class="spec"><b>50ml</b><span>roll-on, tahan 40–45 hari</span></div>
+        <div class="spec"><b>50ml</b><span>roll-on, tahan 30–35 hari</span></div>
         <div class="spec"><b>Celeste Musk</b><span>wangian lembut</span></div>
         <div class="spec"><b>0% Alkohol</b><span>tak pedih pada kulit</span></div>
         <div class="spec"><b>0% Paraben</b><span>lembut pada kulit</span></div>
@@ -634,7 +634,7 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
 <!-- ============ PAKEJ ============ -->
 <section class="dark" id="pakej" style="margin-top:clamp(48px,8vw,88px)">
   <div class="wrap center">
-    <p class="eyebrow">Sebotol tahan 40–45 hari</p>
+    <p class="eyebrow">Sebotol tahan 30–35 hari</p>
     <h2>Mula Ikut Bajet. <span class="hl">Ambil Lebih, Jimat Lebih.</span></h2>
     <p class="lead" style="margin-top:12px">Pilih pakej, kemudian isi borang di bawah.</p>
     <div class="price-grid" id="pkgs"></div>
@@ -744,7 +744,7 @@ footer{text-align:center;font-size:.8rem;color:var(--muted);padding-block:30px 1
     <div class="faq">
       <details><summary>Macam mana cara pakai Firea?</summary><p>Pastikan ketiak bersih dan kering. Roll 3–4 kali pada setiap ketiak, tunggu sekejap sampai kering, kemudian pakai baju.</p></details>
       <details><summary>Betul ke tahan sampai malam?</summary><p>Ya. Ada pelanggan yang pakai dari pagi dan hanya mandi semula pukul 11 malam, dan badan tetap selesa tanpa bau walaupun penuh aktiviti. Keputusan berbeza mengikut individu.</p></details>
-      <details><summary>Sebotol boleh guna berapa lama?</summary><p>Anggaran 40 hingga 45 hari untuk pemakaian harian. Dengan pakej 3 botol, itu bawah 60 sen sehari.</p></details>
+      <details><summary>Sebotol boleh guna berapa lama?</summary><p>Anggaran 30 hingga 35 hari untuk pemakaian harian. Dengan pakej 3 botol, itu bawah 80 sen sehari.</p></details>
       <details><summary>Kulit saya sensitif. Sesuai tak?</summary><p>Firea 0% alkohol dan 0% paraben, dan mengandungi bisabolol yang menenangkan kulit. Kalau kulit anda sangat sensitif, cuba sedikit dahulu pada kawasan kecil.</p></details>
       <details><summary>Boleh pakai lepas cukur?</summary><p>Boleh. Firea tanpa alkohol, jadi tak pedih seperti kebanyakan deodoran biasa. Elakkan sapu pada kulit yang luka.</p></details>
       <details><summary>Ada kesan pada baju?</summary><p>Tiada. Firea tak meninggalkan kesan walaupun pada baju putih atau hitam.</p></details>
@@ -824,7 +824,7 @@ CONFIG.packages.forEach(p => {
   b.innerHTML = (p.featured ? '<span class="pop">Paling Jimat</span>' : "") +
     `<span class="kind">${p.kind}</span><span class="qty">${p.qty} Botol</span>` +
     (save > 0 ? `<span class="old">${rm(full)}</span>` : "") +
-    `<span class="now-p">${rm(p.price)}</span><span class="per">${rm(Math.round(p.price / p.qty * 100) / 100)} sebotol · ${p.qty * 40}–${p.qty * 45} hari</span>` +
+    `<span class="now-p">${rm(p.price)}</span><span class="per">${rm(Math.round(p.price / p.qty * 100) / 100)} sebotol · ${p.qty * 30}–${p.qty * 35} hari</span>` +
     (save > 0 ? `<span class="save">Jimat ${rm(save)}</span>` : "") +
     (p.qty >= CONFIG.freeShipFrom ? '<span class="ship">✓ Free postage Semenanjung</span>' : '<span class="per">+ postage</span>');
   b.addEventListener("click", () => {

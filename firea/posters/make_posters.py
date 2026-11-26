@@ -153,7 +153,7 @@ def poster_3botol():
     f = F("Figtree800", 44); text(d, (rx, 590), "RM105", f, (220, 170, 190), "lm")
     sw = f.getlength("RM105"); d.line((rx, 592, rx + sw, 592), fill=(220, 170, 190), width=5)
     pill(d, rx + sw + 120, 592, "Jimat RM36", F("Figtree800", 32), ROSE, WHITE, 20, 10)
-    for i, s in enumerate(["RM23 sebotol", "Cukup 4 bulan", "(sebotol 40–45 hari)"]):
+    for i, s in enumerate(["RM23 sebotol", "Cukup 3 bulan", "(sebotol 30–35 hari)"]):
         text(d, (rx, 680 + i * 50), s, F("Figtree700", 34 if i < 2 else 28), WHITE if i < 2 else (230, 190, 205), "lm")
     # jalur free pos
     d.rounded_rectangle((60, 930, 1020, 1060), 30, fill=PETAL)
@@ -395,7 +395,7 @@ def poster_1botol_freepos():
     d.rounded_rectangle((60, 1050, 1020, 1175), 32, fill=PAPER, outline=(240, 213, 223), width=3)
     text(d, (W / 2, 1092), "Harga dah termasuk pos. Tiada caj tersembunyi.", F("Figtree800", 34), BERRY, "mm")
     text(d, (W / 2, 1138), "Sampai depan rumah dalam 2–3 hari (J&T)", F("Figtree700", 28), MUTED, "mm")
-    text(d, (W / 2, 1232), "0% Alkohol  ·  0% Paraben  ·  Cepat Kering  ·  Tahan 40–45 hari", F("Figtree800", 28), BERRY2, "mm")
+    text(d, (W / 2, 1232), "0% Alkohol  ·  0% Paraben  ·  Cepat Kering  ·  Tahan 30–35 hari", F("Figtree800", 28), BERRY2, "mm")
     footer(base, "Bernotifikasi KKM NOT260705867K  ·  Sabah & Sarawak tambah RM15")
     save(base, "10-1-botol-free-pos")
 

@@ -84,7 +84,7 @@ Hai kak, harap akak sihat 😊 Saya cuma nak tanya, akak dah jumpa deodoran yang
 
 ### `/ulang` (sekitar hari ke-35 selepas barang sampai)
 Hai kak 😊 Firea akak mungkin dah hampir habis. Nak saya sediakan stok baru supaya tak terputus?
-Pakej 3 botol RM69 FREE POS (Semenanjung), cukup lebih kurang 4 bulan 🌸
+Pakej 3 botol RM69 FREE POS (Semenanjung), cukup lebih kurang 3 bulan 🌸
 
 ---
 

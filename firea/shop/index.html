@@ -324,7 +324,7 @@ details p{color:var(--muted);font-size:.88rem;margin-top:6px}
       <tr><td>Wangian</td><td>Celeste Musk</td></tr>
       <tr><td>Formula</td><td>0% alkohol, 0% paraben</td></tr>
       <tr><td>Bahan utama</td><td>Vitamin E (Tocopheryl Acetate), Ekstrak Kulit Limau (Citrus Unshiu Peel Extract), Bisabolol</td></tr>
-      <tr><td>Tempoh sebotol</td><td>Anggaran 40–45 hari</td></tr>
+      <tr><td>Tempoh sebotol</td><td>Anggaran 30–35 hari</td></tr>
       <tr><td>Notifikasi KKM</td><td>NOT260705867K</td></tr>
       <tr><td>Dihantar dari</td><td>Malaysia</td></tr>
     </table>
@@ -508,7 +508,7 @@ function calc() {
 P.forEach(p => {
   const full = p.qty * CONFIG.unitPrice, save = full - p.price;
   const b = document.createElement("button"); b.type = "button"; b.className = "opt"; b.dataset.id = p.id;
-  b.innerHTML = `<span><b>${p.name}${p.tag ? `<span class="tagx">${p.tag}</span>` : ""}</b><small>${rm(Math.round(p.price / p.qty * 100) / 100)} sebotol · ${p.qty * 40}–${p.qty * 45} hari${save > 0 ? " · jimat " + rm(save) : ""}</small></span><span class="p">${rm(p.price)}</span>`;
+  b.innerHTML = `<span><b>${p.name}${p.tag ? `<span class="tagx">${p.tag}</span>` : ""}</b><small>${rm(Math.round(p.price / p.qty * 100) / 100)} sebotol · ${p.qty * 30}–${p.qty * 35} hari${save > 0 ? " · jimat " + rm(save) : ""}</small></span><span class="p">${rm(p.price)}</span>`;
   b.addEventListener("click", () => { sel = p.id; render(); });
   $("#opts").appendChild(b);
 });

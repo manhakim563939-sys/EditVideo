@@ -116,7 +116,7 @@ label.f input,label.f select,label.f textarea{display:block;width:100%;margin-to
 </main>
 <script>
 /* Harga & voucher mesti sama dengan lib/order.mjs (server kira semula harga sebenar) */
-const PKGS = [{ qty: 1, price: 35, name: "1 Botol", note: "40 hingga 45 hari" }, { qty: 2, price: 55, name: "2 Botol", note: "Lebih kurang 3 bulan" }, { qty: 3, price: 69, name: "3 Botol", note: "Lebih kurang 4 bulan", tag: "Paling berbaloi" }];
+const PKGS = [{ qty: 1, price: 35, name: "1 Botol", note: "30 hingga 35 hari" }, { qty: 2, price: 55, name: "2 Botol", note: "Lebih kurang 2 bulan" }, { qty: 3, price: 69, name: "3 Botol", note: "Lebih kurang 3 bulan", tag: "Paling berbaloi" }];
 const VOUCHER = "FIREAMUSK", DISKAUN = { 1: 6, 2: 6, 3: 10 }, EAST = 15;
 const $ = id => document.getElementById(id);
 const store = { get(k) { try { return localStorage.getItem(k); } catch (_) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (_) {} } };
