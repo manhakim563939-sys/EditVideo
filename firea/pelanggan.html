@@ -259,12 +259,13 @@ function render() {
   const done = all.filter(x => x.r.status !== "menunggu").sort((a, b) => (b.r.updatedAt || "").localeCompare(a.r.updatedAt || ""));
   const every = [...all].sort((a, b) => (b.r.tarikhBeli || "").localeCompare(a.r.tarikhBeli || ""));
   buildGroups();
-  const repeat = every.filter(x => (groups.get(x.r.id) || {}).jumlah > 1);
+  // Repeat order: satu kad setiap pelanggan (pembelian terbaru sahaja), sejarah pembelian ditunjuk dalam kad
+  const repeat = every.filter(x => { const g = groups.get(x.r.id); return g && g.jumlah > 1 && g.ke === g.jumlah; });
   $("#st-late").textContent = waiting.filter(x => x.i.diff < 0).length;
   $("#st-today").textContent = waiting.filter(x => x.i.diff === 0).length;
   $("#st-cust").textContent = buildGroups();
   $("#st-btl").textContent = rows.reduce((s, r) => s + (+r.botol || 0), 0);
-  $("#n-due").textContent = due.length; $("#n-soon").textContent = soon.length; $("#n-all").textContent = all.length; $("#n-done").textContent = done.length; $("#n-repeat").textContent = new Set(repeat.map(x => groups.get(x.r.id).list[0].id)).size;
+  $("#n-due").textContent = due.length; $("#n-soon").textContent = soon.length; $("#n-all").textContent = all.length; $("#n-done").textContent = done.length; $("#n-repeat").textContent = repeat.length;
   const fb = all.filter(x => fbDue(x.r)).sort((a, b) => (a.r.tarikhBeli || "").localeCompare(b.r.tarikhBeli || ""));
   $("#n-feedback").textContent = fb.length;
   const pick = { due, soon, all: every, feedback: fb, repeat, done }[tab];
@@ -317,7 +318,8 @@ function repTag(r) { const g = groups.get(r.id); return g && g.jumlah > 1 ? `<sp
 function histLine(r) {
   const g = groups.get(r.id); if (!g || g.jumlah < 2) return "";
   const btl = g.list.reduce((s, x) => s + (+x.botol || 0), 0), rm = g.list.reduce((s, x) => s + (+x.harga || 0), 0);
-  return `<span>🏆 <b>${g.jumlah} kali beli</b> · ${btl} botol${rm ? " · RM" + rm : ""}</span>`;
+  const sej = g.list.map(x => `${fmt(x.tarikhBeli).replace(/ \d{4}$/, "")} (${+x.botol || 0} btl)`).join(" → ");
+  return `<span>🏆 <b>${g.jumlah} kali beli</b> · ${btl} botol${rm ? " · RM" + rm : ""}</span>${tab === "repeat" ? `<span style="flex-basis:100%">🗓️ ${esc(sej)}</span>` : ""}`;
 }
 
 /* ===== tindakan pada kad ===== */
