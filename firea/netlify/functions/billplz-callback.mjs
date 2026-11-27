@@ -41,8 +41,8 @@ export default async (req) => {
   ].filter((l, i, a) => l !== "" || a[i - 1] !== "").join("\n");
   try {
     const r = await notify(text);
-    if (!r.ok && !r.skipped) console.error("Telegram gagal", JSON.stringify(r).slice(0, 300));
-  } catch (e) { console.error("Telegram ralat", e.message); }
+    if (!r.ok && !r.skipped) console.error("Telegram gagal", JSON.stringify(r).slice(0, 300), "\nORDER TAK SAMPAI TELEGRAM:\n" + text);
+  } catch (e) { console.error("Telegram ralat", e.message, "\nORDER TAK SAMPAI TELEGRAM:\n" + text); }
   return new Response("OK");
 };
 

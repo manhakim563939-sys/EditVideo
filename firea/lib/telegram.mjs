@@ -18,26 +18,39 @@ export async function tg(method, payload) {
   return res.json().catch(() => ({ ok: false }));
 }
 
+// Bila group Telegram dinaik taraf jadi supergroup, ID group bertukar (-100...). Telegram beri ID baru dalam
+// migrate_to_chat_id; kita cuba semula ke ID itu supaya order tak hilang (kemas kini TELEGRAM_CHAT_ID bila sempat).
+const moved = r => r && !r.ok && r.parameters && r.parameters.migrate_to_chat_id;
+const chatList = () => tgChat().split(",").map(s => s.trim()).filter(Boolean);
+
 export async function notify(html) {
   if (!tgToken() || !tgChat()) return { ok: false, skipped: true };
-  const chats = tgChat().split(",").map(s => s.trim()).filter(Boolean);
   const out = [];
-  for (const chat_id of chats) out.push(await tg("sendMessage", { chat_id, text: html, parse_mode: "HTML", disable_web_page_preview: true }));
+  for (const chat_id of chatList()) {
+    const send = id => tg("sendMessage", { chat_id: id, text: html, parse_mode: "HTML", disable_web_page_preview: true });
+    let r = await send(chat_id);
+    if (moved(r)) { console.warn(`TELEGRAM_CHAT_ID ${chat_id} dah bertukar ke ${r.parameters.migrate_to_chat_id}. Kemas kini dalam Netlify.`); r = await send(r.parameters.migrate_to_chat_id); }
+    out.push(r);
+  }
   return { ok: out.every(r => r.ok), results: out };
 }
 
 export async function notifyPhoto(blob, filename, captionHtml) {
   if (!tgToken() || !tgChat()) return { ok: false, skipped: true };
-  const chats = tgChat().split(",").map(s => s.trim()).filter(Boolean);
   const out = [];
-  for (const chat_id of chats) {
-    const fd = new FormData();
-    fd.append("chat_id", chat_id);
-    fd.append("caption", captionHtml.slice(0, 1000));
-    fd.append("parse_mode", "HTML");
-    fd.append("photo", blob, filename);
-    const res = await fetch(`https://api.telegram.org/bot${tgToken()}/sendPhoto`, { method: "POST", body: fd });
-    out.push(await res.json().catch(() => ({ ok: false })));
+  for (const chat_id of chatList()) {
+    const send = async id => {
+      const fd = new FormData();
+      fd.append("chat_id", id);
+      fd.append("caption", captionHtml.slice(0, 1000));
+      fd.append("parse_mode", "HTML");
+      fd.append("photo", blob, filename);
+      const res = await fetch(`https://api.telegram.org/bot${tgToken()}/sendPhoto`, { method: "POST", body: fd });
+      return res.json().catch(() => ({ ok: false }));
+    };
+    let r = await send(chat_id);
+    if (moved(r)) r = await send(r.parameters.migrate_to_chat_id);
+    out.push(r);
   }
   return { ok: out.every(r => r.ok), results: out };
 }

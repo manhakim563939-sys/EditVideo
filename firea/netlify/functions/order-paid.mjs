@@ -26,7 +26,7 @@ export default async (req) => {
     "",
     `✅ <i>Buka app Maybank FIREA LABS, cari duit masuk RM${escHtml(o.jumlah)} sekitar ${masa}, baru pos. Resit mungkin tak dihantar.</i>`,
   ].filter((l, i, a) => l !== "" || a[i - 1] !== "").join("\n");
-  try { await notify(text); } catch (e) { console.error("Telegram ralat", e.message); }
+  try { const r = await notify(text); if (!r.ok && !r.skipped) console.error("Telegram gagal", "\n" + text); } catch (e) { console.error("Telegram ralat", e.message, "\n" + text); }
   return json({ ok: true });
 };
 

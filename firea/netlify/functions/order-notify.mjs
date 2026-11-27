@@ -57,8 +57,8 @@ export default async (req) => {
   ].join("\n");
   try {
     const r = await notify(text);
-    if (!r.ok && !r.skipped) console.error("Telegram gagal", JSON.stringify(r).slice(0, 300));
-  } catch (e) { console.error("Telegram ralat", e.message); }
+    if (!r.ok && !r.skipped) console.error("Telegram gagal", JSON.stringify(r).slice(0, 300), "\nORDER TAK SAMPAI TELEGRAM:\n" + text);
+  } catch (e) { console.error("Telegram ralat", e.message, "\nORDER TAK SAMPAI TELEGRAM:\n" + text); }
 
   const res = { orderId: id, jumlah: q.jumlah, diskaun: q.diskaun, voucher: q.voucher, qty: q.qty, harga: q.price, pos: q.pos, bayar,
     token: signOrder({ id, jumlah: q.jumlah, nama, tel, bayar }) };
